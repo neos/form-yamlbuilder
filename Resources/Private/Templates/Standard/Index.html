@@ -1,0 +1,62 @@
+<html>
+	<head>
+		<script src="{f:uri.resource(path:'Library/jquery-1.6.1.min.js')}"></script>
+		<script src="http://ajax.googleapis.com/ajax/libs/jqueryui/1.8.16/jquery-ui.min.js"></script>
+		<script src="{f:uri.resource(path:'Library/ember-0.9.3.js')}"></script>
+
+		<style>
+		html,body {margin:0;padding:0;}
+
+		#app {
+			height:100%;
+			display: -webkit-box;
+				-webkit-box-orient: vertical;
+			-webkit-box-align:stretch;
+		}
+
+		#header {
+			height:50px;
+			background-color:#cdcdcd;
+		}
+
+		#footer {
+			height:30px;
+			background-color:#cdcdcd;
+		}
+
+		#content {
+			-webkit-box-flex:1;
+			display: -webkit-box;
+				-webkit-box-orient: horizontal;
+			-webkit-box-align:stretch;
+		}
+
+		#sidebar { width:120px; background-color:#676767;}
+
+		#main {
+			-webkit-box-flex:1;
+			background-color:green;
+		}
+		</style>
+		<script type="text/x-handlebars" data-template-name="item">
+			{{content.label}}
+		</script>
+	</head>
+	<body>
+		<div id="app">
+			<div id="header">Form Builder</div>
+			<div id="content">
+				<div id="sidebar">
+					<script type="text/x-handlebars"><![CDATA[
+						{{view TYPO3.FormBuilder.FormElementsView}}
+					]]></script>
+				</div>
+				<div id="main"><div>a</div><div>b</div></div>
+			</div>
+			<div id="footer">
+				&copy; 2010 Awesome Productions Ltd.
+			</div>
+		</div>
+		<script src="{f:uri.resource(path:'JavaScript/app.js')}"></script>
+	</body>
+</html>
