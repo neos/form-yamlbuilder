@@ -22,6 +22,15 @@ class StandardController extends \TYPO3\FLOW3\MVC\Controller\ActionController {
 	 */
 	public function indexAction() {
 	}
-}
 
+	/**
+	 * @param array $formDefinition
+	 */
+	public function renderformpageAction($formDefinition) {
+		$formFactory = new \TYPO3\FormBuilder\FormBuilderFactory();
+		$formDefinition = $formFactory->build($formDefinition, 'Default');
+		$form = $formDefinition->bind($this->request);
+		return $form->render();
+	}
+}
 ?>

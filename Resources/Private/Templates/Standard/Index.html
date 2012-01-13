@@ -1,5 +1,6 @@
 <html>
 	<head>
+		<f:base />
 		<script src="{f:uri.resource(path:'Library/jquery-1.6.1.min.js')}"></script>
 		<script src="http://ajax.googleapis.com/ajax/libs/jqueryui/1.8.16/jquery-ui.min.js"></script>
 		<script src="{f:uri.resource(path:'Library/ember-0.9.3.js')}"></script>
@@ -38,20 +39,38 @@
 			background-color:green;
 		}
 		</style>
+
+		<script type="text/javascript">
+			<![CDATA[FORMBUILDER_CONFIGURATION = {
+				'endpoints': {]]>
+					'formPageRenderer': '{f:uri.action(action:"renderformpage")}'
+				}
+			}
+
+		</script>
+
 		<script type="text/x-handlebars" data-template-name="item">
 			{{content.label}}
 		</script>
 	</head>
 	<body>
 		<div id="app">
-			<div id="header">Form Builder</div>
+			<div id="header">
+				<script type="text/x-handlebars">
+					Form Builder -- <b>{{TYPO3.FormBuilder.Model.FormDefinition.identifier}}</b>
+				</script>
+			</div>
 			<div id="content">
 				<div id="sidebar">
 					<script type="text/x-handlebars"><![CDATA[
-						{{view TYPO3.FormBuilder.FormElementsView}}
+						{{view TYPO3.FormBuilder.View.AvailableFormElementsView}}
 					]]></script>
 				</div>
-				<div id="main"><div>a</div><div>b</div></div>
+				<div id="main">
+					<script type="text/x-handlebars"><![CDATA[
+						{{view TYPO3.FormBuilder.View.FormPageView}}
+					]]></script>
+				</div>
 			</div>
 			<div id="footer">
 				&copy; 2010 Awesome Productions Ltd.
