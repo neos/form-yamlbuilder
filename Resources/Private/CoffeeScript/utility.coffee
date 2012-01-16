@@ -4,7 +4,7 @@ convertToSimpleObject = (input) ->
 	simpleObject = {}
 
 	for own key, value of input
-		if (key.match(/^__/))
+		if (key.match(/^__/) || key == 'parentRenderable')
 			continue
 
 		if (!value)

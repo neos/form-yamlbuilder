@@ -19,14 +19,34 @@ window.setTimeout((->
 
 	# Helper function which wraps a JSON object into an Ember Object
 	o = (obj) -> Ember.Object.create(obj)
+	r = (obj) -> TYPO3.FormBuilder.Model.Renderable.create(obj)
 
-	TYPO3.FormBuilder.Model.FormDefinition.setProperties {
+
+	TYPO3.FormBuilder.Model.Form.set('formDefinition', TYPO3.FormBuilder.Model.Renderable.create {
 		identifier: 'myForm'
-		pages: [
-			o {
+		renderables: [
+			{
 				type: 'TYPO3.Form:Page',
 				identifier: 'myPage'
+				renderables: [
+					{
+						identifier: 'foobarbaz'
+						type: 'TYPO3.Form:Textfield',
+						label: 'My Label'
+					}
+				]
 			}
-		]
-	}
+			{
+				type: 'TYPO3.Form:Page',
+				identifier: 'myPage2',
+			}
+		],
+
+	})
+
+	#TYPO3.FormBuilder.Model.FormDefinition.get('renderables').removeAt(0);
+	window.setTimeout(->
+		#TYPO3.FormBuilder.Model.Form.setPath('formDefinition.renderables.0.renderables.0.label', 'My other label');
+		console.log(TYPO3.FormBuilder.Utility.convertToSimpleObject(TYPO3.FormBuilder.Model.Form.get('formDefinition')));
+	,2000);
 ), 2000);

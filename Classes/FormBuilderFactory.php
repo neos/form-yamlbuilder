@@ -20,20 +20,40 @@ class FormBuilderFactory extends \TYPO3\Form\Factory\AbstractFormFactory {
 		$formDefaults = $this->getPresetConfiguration($presetName);
 
 		$form = new FormDefinition($configuration['identifier'], $formDefaults);
-		foreach ($configuration['pages'] as $pageConfiguration) {
-			$this->addPage($pageConfiguration, $form);
+		foreach ($configuration['renderables'] as $pageConfiguration) {
+			$this->addNestedRenderable($pageConfiguration, $form);
 		}
 		return $form;
 	}
 
-	protected function addPage($pageConfiguration, \TYPO3\Form\Core\Model\FormDefinition $form) {
-		$page = $form->createPage($pageConfiguration['identifier']);
+	protected function addNestedRenderable($nestedRenderableConfiguration, \TYPO3\Form\Core\Model\Renderable\CompositeRenderableInterface $parentRenderable) {
+		if (!isset($nestedRenderableConfiguration['identifier'])) {
+			throw new \Exception('Identifier not set');
+		}
+		if ($parentRenderable instanceof FormDefinition) {
+			$renderable = $parentRenderable->createPage($nestedRenderableConfiguration['identifier'], $nestedRenderableConfiguration['type']);
+		} else {
+			$renderable = $parentRenderable->createElement($nestedRenderableConfiguration['identifier'], $nestedRenderableConfiguration['type']);
+		}
 
-		// TODO: implement a "setOptions" method or so!
+		if (isset($nestedRenderableConfiguration['renderables']) && is_array($nestedRenderableConfiguration['renderables'])) {
+			$childRenderables = $nestedRenderableConfiguration['renderables'];
+		} else {
+			$childRenderables = array();
+		}
 
-		// TODO: nested form elements
 
-		return $page;
+		unset($nestedRenderableConfiguration['type']);
+		unset($nestedRenderableConfiguration['identifier']);
+		unset($nestedRenderableConfiguration['renderables']);
+
+		$renderable->setOptions($nestedRenderableConfiguration);
+
+		foreach ($childRenderables as $elementConfiguration) {
+			$this->addNestedRenderable($elementConfiguration, $renderable);
+		}
+
+		return $renderable;
 	}
 }
 ?>

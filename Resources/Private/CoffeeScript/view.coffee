@@ -17,7 +17,7 @@ TYPO3.FormBuilder.View.AvailableFormElementsView = Ember.CollectionView.extend {
 }
 
 TYPO3.FormBuilder.View.FormPageView = Ember.View.extend {
-	formPagesBinding: 'TYPO3.FormBuilder.Model.FormDefinition.pages',
+	formPagesBinding: 'TYPO3.FormBuilder.Model.Form.formDefinition.renderables',
 	currentPageIndex: 0
 
 	page: Ember.computed(->
@@ -25,8 +25,10 @@ TYPO3.FormBuilder.View.FormPageView = Ember.View.extend {
 	).property('formPages', 'currentPageIndex').cacheable()
 
 	renderPageIfPageObjectChanges: (->
-
-		formDefinition = TYPO3.FormBuilder.Utility.convertToSimpleObject(TYPO3.FormBuilder.Model.FormDefinition)
+		if (!TYPO3.FormBuilder.Model.Form.get('formDefinition')?.get('identifier'))
+			return
+		formDefinition = TYPO3.FormBuilder.Utility.convertToSimpleObject(TYPO3.FormBuilder.Model.Form.get('formDefinition'))
+		console.log("POST: ", formDefinition)
 		$.post(
 			TYPO3.FormBuilder.Configuration.endpoints.formPageRenderer,
 			{ formDefinition },
@@ -34,7 +36,7 @@ TYPO3.FormBuilder.View.FormPageView = Ember.View.extend {
 				this.$().html(data);
 				@postProcessRenderedPage();
 		)
-	).observes('page'),
+	).observes('page', 'page.__nestedPropertyChange'),
 
 	postProcessRenderedPage: ->
 		this.$().find('fieldset').addClass('typo3-form-sortable').sortable {
