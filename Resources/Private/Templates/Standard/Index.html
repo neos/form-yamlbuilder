@@ -4,6 +4,8 @@
 		<script src="{f:uri.resource(path:'Library/jquery-1.6.1.min.js')}"></script>
 		<script src="http://ajax.googleapis.com/ajax/libs/jqueryui/1.8.16/jquery-ui.min.js"></script>
 		<script src="{f:uri.resource(path:'Library/ember-0.9.3.js')}"></script>
+		<script src="{f:uri.resource(path:'Library/dynatree-1.2.0/src/jquery.dynatree.js')}"></script>
+		<link rel="stylesheet" href="{f:uri.resource(path:'Library/dynatree-1.2.0/src/skin/ui.dynatree.css')}" />
 
 		<style>
 		html,body {margin:0;padding:0;}
@@ -32,7 +34,7 @@
 			-webkit-box-align:stretch;
 		}
 
-		#sidebar { width:120px; background-color:#676767;}
+		#sidebar { width:300px; background-color:#676767;}
 
 		#main {
 			-webkit-box-flex:1;
@@ -44,13 +46,25 @@
 			<![CDATA[FORMBUILDER_CONFIGURATION = {
 				'endpoints': {]]>
 					'formPageRenderer': '{f:uri.action(action:"renderformpage")}'
+				},
+				<![CDATA[
+				'formElementTypes': {
+					'TYPO3.Form:Page': {
+						__isCompositeRenderable: true
+					}
 				}
 			}
-
+			]]>
 		</script>
 
 		<script type="text/x-handlebars" data-template-name="item">
 			{{content.label}}
+		</script>
+
+		<script type="text/x-handlebars" data-template-name="formElementStructure">
+			<h1>Form Element</h1>
+			Identifier: {{view Ember.TextField valueBinding="currentlySelectedRenderable.identifier"}} <br />
+			Label: {{view Ember.TextField valueBinding="currentlySelectedRenderable.label"}}
 		</script>
 	</head>
 	<body>
@@ -62,8 +76,14 @@
 			</div>
 			<div id="content">
 				<div id="sidebar">
-					<script type="text/x-handlebars"><![CDATA[
+					<!--<script type="text/x-handlebars"><![CDATA[
 						{{view TYPO3.FormBuilder.View.AvailableFormElementsView}}
+					]]></script>-->
+
+					<script type="text/x-handlebars"><![CDATA[
+						{{view TYPO3.FormBuilder.View.FormStructure}}
+
+						{{view TYPO3.FormBuilder.View.FormElementStructure}}
 					]]></script>
 				</div>
 				<div id="main">

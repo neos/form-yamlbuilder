@@ -47,6 +47,7 @@ class FormBuilderFactory extends \TYPO3\Form\Factory\AbstractFormFactory {
 		unset($nestedRenderableConfiguration['identifier']);
 		unset($nestedRenderableConfiguration['renderables']);
 
+		$nestedRenderableConfiguration = $this->convertJsonToAssociativeArray($nestedRenderableConfiguration);
 		$renderable->setOptions($nestedRenderableConfiguration);
 
 		foreach ($childRenderables as $elementConfiguration) {
@@ -54,6 +55,22 @@ class FormBuilderFactory extends \TYPO3\Form\Factory\AbstractFormFactory {
 		}
 
 		return $renderable;
+	}
+
+	protected function convertJsonToAssociativeArray($input) {
+		$output = array();
+		foreach ($input as $key => $value) {
+			if (is_integer($key) && is_array($value) && isset($value['_key']) && isset($value['_value'])) {
+				$key = $value['_key'];
+				$value = $value['_value'];
+			}
+			if (is_array($value)) {
+				$output[$key] = $this->convertJsonToAssociativeArray($value);
+			} else {
+				$output[$key] = $value;
+			}
+		}
+		return $output;
 	}
 }
 ?>

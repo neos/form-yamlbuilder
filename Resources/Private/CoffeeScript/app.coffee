@@ -27,18 +27,42 @@ window.setTimeout((->
 		renderables: [
 			{
 				type: 'TYPO3.Form:Page',
-				identifier: 'myPage'
+				identifier: 'myPage',
+				label: 'My Page 1'
 				renderables: [
 					{
 						identifier: 'foobarbaz'
 						type: 'TYPO3.Form:Textfield',
 						label: 'My Label'
 					}
+					{
+						identifier: 'foobarbaz2'
+						type: 'TYPO3.Form:Textfield',
+						label: 'My Label'
+					}
+					{
+						identifier: 'gender'
+						type: 'TYPO3.Form:Radiobuttons',
+						label: 'Gender'
+						properties: {
+							options: [
+								{
+									_key: 'm'
+									_value: 'Male'
+								}
+								{
+									_key: 'f'
+									_value: 'Female'
+								}
+							]
+						}
+					}
 				]
 			}
 			{
 				type: 'TYPO3.Form:Page',
 				identifier: 'myPage2',
+				label: ''
 			}
 		],
 

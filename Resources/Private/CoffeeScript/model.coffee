@@ -3,6 +3,7 @@ TYPO3.FormBuilder.Model = {};
 TYPO3.FormBuilder.Model.AvailableFormElements = Ember.ArrayController.create()
 
 
+
 TYPO3.FormBuilder.Model.Renderable = Ember.Object.extend {
 
 	parentRenderable: null,
@@ -19,16 +20,28 @@ TYPO3.FormBuilder.Model.Renderable = Ember.Object.extend {
 
 	somePropertyChanged: (theInstance, propertyName) ->
 		@set('__nestedPropertyChange', @get('__nestedPropertyChange') + 1);
+
 		if (@parentRenderable)
 			@parentRenderable.somePropertyChanged(@parentRenderable, "renderables.#{ @parentRenderable.get('renderables').indexOf(this) }.#{ propertyName }")
 
 	arrayWillChange: (subArray, startIndex, removeCount, addCount) ->
 		for i in [startIndex...startIndex+removeCount]
 			subArray.objectAt(i).set('parentRenderable', null);
+
 	arrayDidChange: (subArray, startIndex, removeCount, addCount) ->
-		console.log('arrayDidChange', arguments);
 		for i in [startIndex...startIndex+addCount]
 			subArray.objectAt(i).set('parentRenderable', this);
+
+		@set('__nestedPropertyChange', @get('__nestedPropertyChange') + 1);
+		if (@parentRenderable)
+			@parentRenderable.somePropertyChanged(@parentRenderable, "renderables")
+
+	_path: (->
+		if @parentRenderable
+			"#{@parentRenderable.get('_path')}.renderables.#{@parentRenderable.get('renderables').indexOf(this)}"
+		else
+			''
+	).property()
 }
 
 TYPO3.FormBuilder.Model.Renderable.reopenClass {
@@ -49,8 +62,18 @@ TYPO3.FormBuilder.Model.Renderable.reopenClass {
 		return renderable
 }
 
+TYPO3.FormBuilder.Model.FormElementType = Ember.Object.extend {
+	_isCompositeRenderable: false
+}
+TYPO3.FormBuilder.Model.FormElementTypes = Ember.Object.create {
+	init: ->
+		for typeName, typeConfiguration of TYPO3.FormBuilder.Configuration.formElementTypes
+			@set(typeName, TYPO3.FormBuilder.Model.FormElementType.create(typeConfiguration))
+}
+
 TYPO3.FormBuilder.Model.Form = Ember.Object.create {
-	formDefinition: null
+	formDefinition: null,
+	currentlySelectedRenderable: null
 }
 
 
