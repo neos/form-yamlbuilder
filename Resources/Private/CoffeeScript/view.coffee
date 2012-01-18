@@ -234,6 +234,13 @@ TYPO3.FormBuilder.View.Editor.PropertyGrid = Ember.View.extend {
 	templateName: 'PropertyGrid'
 	propertySchema: null,
 
+	columns: null,
+	options: {
+		enableCellNavigation: false,
+		enableColumnReorder: false,
+		autoHeight: true
+	},
+
 	value: ((key, newValue) ->
 		if newValue
 			@propertySchema.setValue(newValue)
@@ -241,11 +248,9 @@ TYPO3.FormBuilder.View.Editor.PropertyGrid = Ember.View.extend {
 			@propertySchema.getValue()
 	).property('propertySchema').cacheable()
 
-	didInsertElement: ->
-		console.log("ASDF")
-		v = @get('value')
-		console.log("Did show property grid43", v)
-		v.push({_key:'none', _value:'Dont know'})
-		@set('value', v);
+	grid: null
 
+	didInsertElement: ->
+		console.log("VAL: ", @get('value'))
+		@grid = new Slick.Grid(@$(), @get('value'), @get('columns'), @get('options'));
 }

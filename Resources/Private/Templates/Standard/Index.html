@@ -7,13 +7,18 @@
 		<script src="{f:uri.resource(path:'Library/dynatree-1.2.0/src/jquery.dynatree.js')}"></script>
 		<link rel="stylesheet" href="{f:uri.resource(path:'Library/dynatree-1.2.0/src/skin/ui.dynatree.css')}" />
 
+		<script src="{f:uri.resource(path:'Library/SlickGrid-1.4.3/lib/jquery.event.drag-2.0.min.js')}"></script>
+		<script src="{f:uri.resource(path:'Library/SlickGrid-1.4.3/slick.grid.js')}"></script>
+		<link rel="stylesheet" href="http://ajax.googleapis.com/ajax/libs/jqueryui/1.8/themes/smoothness/jquery-ui.css" />
+		<link rel="stylesheet" href="{f:uri.resource(path:'Library/SlickGrid-1.4.3/slick.grid.css')}" />
+
 		<style>
 		html,body {margin:0;padding:0;}
 
 		#app {
 			height:100%;
 			display: -webkit-box;
-				-webkit-box-orient: vertical;
+			-webkit-box-orient: vertical;
 			-webkit-box-align:stretch;
 		}
 
@@ -59,7 +64,10 @@
 								sorting: 10,
 								viewName: 'TYPO3.FormBuilder.View.Editor.PropertyGrid',
 								viewOptions: {
-									
+									columns: [
+										{id:"ident", name:"Identifier", field:"_key"},
+										{id:"value", name:"Value", field:"_value"},
+									]
 								}
 							}
 						}
