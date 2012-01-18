@@ -50,7 +50,6 @@ TYPO3.FormBuilder.Model.Renderable.reopenClass {
 		delete obj.renderables
 
 		renderable = Ember.Object.create.call(TYPO3.FormBuilder.Model.Renderable, obj)
-		#renderable = TYPO3.FormBuilder.Model.Renderable.create(obj)
 
 		for k,v of obj
 			renderable.addObserver(k, renderable, 'somePropertyChanged')

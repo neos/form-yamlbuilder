@@ -123,7 +123,6 @@ TYPO3.FormBuilder.View.FormPageView = Ember.View.extend {
 		if (!TYPO3.FormBuilder.Model.Form.get('formDefinition')?.get('identifier'))
 			return
 		formDefinition = TYPO3.FormBuilder.Utility.convertToSimpleObject(TYPO3.FormBuilder.Model.Form.get('formDefinition'))
-		console.log("POST: ", formDefinition)
 		$.post(
 			TYPO3.FormBuilder.Configuration.endpoints.formPageRenderer,
 			{ formDefinition },
@@ -137,4 +136,116 @@ TYPO3.FormBuilder.View.FormPageView = Ember.View.extend {
 		this.$().find('fieldset').addClass('typo3-form-sortable').sortable {
 			revert: 'true'
 		};
+}
+
+
+TYPO3.FormBuilder.View.PropertyPanelPart = Ember.CollectionView.extend {
+	# the current renderable
+	renderable: null,
+	# the current property key
+	propertyKey: null,
+
+	propertySchemaKey: null
+
+	foo: (->
+		console.log("RD ch", @get('renderable'))
+	).observes('renderable')
+	# is an array of schema entries, ordered by "order"
+	currentlyActiveSchema: (->
+		formElementTypeName = @getPath('renderable.type')
+		console.log(formElementTypeName)
+		return [] if !formElementTypeName
+
+		formElementType = TYPO3.FormBuilder.Model.FormElementTypes.get(formElementTypeName)
+		console.log(formElementType)
+		return [] if !formElementType
+
+		unprocessedSchema = formElementType.get(@get('propertySchemaKey'))
+
+		unprocessedSchema = $.extend({}, unprocessedSchema);
+		schema = for k, v of unprocessedSchema
+			v['key'] = k
+			v.getValue = =>
+				@renderable.get(@propertyKey)[k]
+			v.setValue = (newValue) =>
+				@renderable.get(@propertyKey)[k] = newValue
+				@renderable.somePropertyChanged(@renderable, "#{@propertyKey}.#{k}")
+			v
+
+		schema.sort((a,b)-> a.sorting - b.sorting)
+		console.log(schema)
+		return schema
+	).property('renderable', 'propertySchemaKey', 'propertyKey').cacheable()
+
+	contentBinding: 'currentlyActiveSchema',
+
+	click: -> console.log('click')
+
+	itemViewClass: Ember.View.extend {
+		templateName: 'property-panel-part-item'
+	}
+}
+
+TYPO3.FormBuilder.View.PropertyPanelPartEditor = SC.ContainerView.extend {
+	propertySchema: null,
+
+	render: ->
+		return if !@propertySchema
+
+		subViewClass = Ember.getPath(@propertySchema.viewName)
+
+		if !subViewClass
+			throw "Editor class '#{@propertySchema.viewName}' not found"
+
+		subViewOptions = $.extend({
+			propertySchemaBinding: 'parentView.propertySchema'
+		}, @propertySchema.viewOptions)
+
+		subView = subViewClass.create(subViewOptions)
+
+
+		@appendChild(subView)
+		@_super()
+
+#		var editorConfigurationDefinition = typeDefinition;
+#		if (this.propertyDefinition.userInterface && this.propertyDefinition.userInterface) {
+#			editorConfigurationDefinition = $.extend({}, editorConfigurationDefinition, this.propertyDefinition.userInterface);
+#		}
+#
+#		var editorClass = SC.getPath(editorConfigurationDefinition['class']);
+#		if (!editorClass) {
+#			throw 'Editor class "' + typeDefinition['class'] + '" not found';
+#		}
+#
+#		var classOptions = $.extend({
+#			valueBinding: 'T3.Content.Controller.Inspector.blockProperties.' + this.propertyDefinition.key
+#
+#		}, this.propertyDefinition.options || {});
+#		classOptions = $.extend(classOptions, typeDefinition.options || {});
+#
+#		var editor = editorClass.create(classOptions);
+#		this.appendChild(editor);
+#		this._super();
+}
+
+
+TYPO3.FormBuilder.View.Editor = {}
+TYPO3.FormBuilder.View.Editor.PropertyGrid = Ember.View.extend {
+	templateName: 'PropertyGrid'
+	propertySchema: null,
+
+	value: ((key, newValue) ->
+		if newValue
+			@propertySchema.setValue(newValue)
+		else
+			@propertySchema.getValue()
+	).property('propertySchema').cacheable()
+
+	didInsertElement: ->
+		console.log("ASDF")
+		v = @get('value')
+		console.log("Did show property grid43", v)
+		v.push({_key:'none', _value:'Dont know'})
+		@set('value', v);
+
 }

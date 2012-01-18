@@ -309,7 +309,6 @@
         return;
       }
       formDefinition = TYPO3.FormBuilder.Utility.convertToSimpleObject(TYPO3.FormBuilder.Model.Form.get('formDefinition'));
-      console.log("POST: ", formDefinition);
       return $.post(TYPO3.FormBuilder.Configuration.endpoints.formPageRenderer, {
         formDefinition: formDefinition
       }, function(data) {
@@ -321,6 +320,99 @@
       return this.$().find('fieldset').addClass('typo3-form-sortable').sortable({
         revert: 'true'
       });
+    }
+  });
+
+  TYPO3.FormBuilder.View.PropertyPanelPart = Ember.CollectionView.extend({
+    renderable: null,
+    propertyKey: null,
+    propertySchemaKey: null,
+    foo: (function() {
+      return console.log("RD ch", this.get('renderable'));
+    }).observes('renderable'),
+    currentlyActiveSchema: (function() {
+      var formElementType, formElementTypeName, k, schema, unprocessedSchema, v;
+      formElementTypeName = this.getPath('renderable.type');
+      console.log(formElementTypeName);
+      if (!formElementTypeName) return [];
+      formElementType = TYPO3.FormBuilder.Model.FormElementTypes.get(formElementTypeName);
+      console.log(formElementType);
+      if (!formElementType) return [];
+      unprocessedSchema = formElementType.get(this.get('propertySchemaKey'));
+      unprocessedSchema = $.extend({}, unprocessedSchema);
+      schema = (function() {
+        var _results,
+          _this = this;
+        _results = [];
+        for (k in unprocessedSchema) {
+          v = unprocessedSchema[k];
+          v['key'] = k;
+          v.getValue = function() {
+            return _this.renderable.get(_this.propertyKey)[k];
+          };
+          v.setValue = function(newValue) {
+            _this.renderable.get(_this.propertyKey)[k] = newValue;
+            return _this.renderable.somePropertyChanged(_this.renderable, "" + _this.propertyKey + "." + k);
+          };
+          _results.push(v);
+        }
+        return _results;
+      }).call(this);
+      schema.sort(function(a, b) {
+        return a.sorting - b.sorting;
+      });
+      console.log(schema);
+      return schema;
+    }).property('renderable', 'propertySchemaKey', 'propertyKey').cacheable(),
+    contentBinding: 'currentlyActiveSchema',
+    click: function() {
+      return console.log('click');
+    },
+    itemViewClass: Ember.View.extend({
+      templateName: 'property-panel-part-item'
+    })
+  });
+
+  TYPO3.FormBuilder.View.PropertyPanelPartEditor = SC.ContainerView.extend({
+    propertySchema: null,
+    render: function() {
+      var subView, subViewClass, subViewOptions;
+      if (!this.propertySchema) return;
+      subViewClass = Ember.getPath(this.propertySchema.viewName);
+      if (!subViewClass) {
+        throw "Editor class '" + this.propertySchema.viewName + "' not found";
+      }
+      subViewOptions = $.extend({
+        propertySchemaBinding: 'parentView.propertySchema'
+      }, this.propertySchema.viewOptions);
+      subView = subViewClass.create(subViewOptions);
+      this.appendChild(subView);
+      return this._super();
+    }
+  });
+
+  TYPO3.FormBuilder.View.Editor = {};
+
+  TYPO3.FormBuilder.View.Editor.PropertyGrid = Ember.View.extend({
+    templateName: 'PropertyGrid',
+    propertySchema: null,
+    value: (function(key, newValue) {
+      if (newValue) {
+        return this.propertySchema.setValue(newValue);
+      } else {
+        return this.propertySchema.getValue();
+      }
+    }).property('propertySchema').cacheable(),
+    didInsertElement: function() {
+      var v;
+      console.log("ASDF");
+      v = this.get('value');
+      console.log("Did show property grid43", v);
+      v.push({
+        _key: 'none',
+        _value: 'Dont know'
+      });
+      return this.set('value', v);
     }
   });
 
