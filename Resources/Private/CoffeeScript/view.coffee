@@ -104,8 +104,7 @@ TYPO3.FormBuilder.View.FormElementInspector = Ember.View.extend {
 	formElementBinding: 'TYPO3.FormBuilder.Model.Form.currentlySelectedRenderable'
 	formElementType: ( ->
 		formElementTypeName = @getPath('formElement.type')
-
-		return null if !formElementTypeName
+		return null unless formElementTypeName
 
 		return TYPO3.FormBuilder.Model.FormElementTypes.get(formElementTypeName)
 	).property('formElement', 'formElement.type').cacheable()
@@ -175,41 +174,65 @@ TYPO3.FormBuilder.View.Editor.PropertyGrid = TYPO3.FormBuilder.View.Editor.Abstr
 		editable: true,
 		enableAddRow: true,
 		enableCellNavigation: true,
-		asyncEditorLoading: false
+		asyncEditorLoading: false,
+		forceFitColumns: true
 	},
 
 	grid: null
 
+	#
+	# Initialize Grid
+	#
 	didInsertElement: ->
 		@grid = new Slick.Grid(@$(), @value, @columns, @options);
-		@grid.setSelectionModel(new Slick.CellSelectionModel());
+		@grid.setSelectionModel(new Slick.RowSelectionModel());
+
+		# Save changes to cells
 		@grid.onCellChange.subscribe (e, args) =>
 			@value.replace(args.row, 1, args.item)
 			@changed()
 
+		# add new rows
 		@grid.onAddNewRow.subscribe (e, args) =>
 			@grid.invalidateRow(@value.length);
 
+			# ... initialize all columns to empty string values
 			newItem = {}
 			newItem[columnDefinition.field] = '' for columnDefinition in @columns
 			$.extend(newItem, args.item)
-			console.log("add new row", newItem);
 			@value.push(newItem)
-			console.log(@value)
 
 			@grid.updateRowCount()
 			@grid.render();
 			@changed()
 
-#			@value.push(newItem)
-#			@changed()
-#			@grid.updateRowCount();
-#			@grid.render();
-#		@grid.onCellChange.subscribe (e, args) =>
-#			item = args.item
-#			@grid.invalidateRow(
-#
-#			@changed()
+		# move rows via drag/drop
+		moveRowsPlugin = new Slick.RowMoveManager()
+		@grid.registerPlugin(moveRowsPlugin);
+
+		moveRowsPlugin.onBeforeMoveRows.subscribe (e, data) ->
+			for i in [0...data.rows.length]
+				# no point in moving before or after itself
+				if data.rows[i] == data.insertBefore || data.rows[i] == data.insertBefore - 1
+					e.stopPropagation();
+					return false;
+			return true
+
+		moveRowsPlugin.onMoveRows.subscribe (e, args) =>
+			# args.insertBefore contains index before which the element should be inserted
+			# args.rows contains the indices of the moved rows (we only support one moved row at a time)
+			movedRowIndex = args.rows[0]
+			arrayRowToBeMoved = @value.objectAt(movedRowIndex)
+			@value.removeAt(movedRowIndex, 1)
+
+			if movedRowIndex < args.insertBefore
+				# we removed the element before, thus we need decrement the pointer where the new code should be inserted
+				args.insertBefore--
+			@value.insertAt(args.insertBefore, arrayRowToBeMoved)
+			@changed()
+
+			@grid.invalidateAllRows();
+			@grid.render()
 }
 
 

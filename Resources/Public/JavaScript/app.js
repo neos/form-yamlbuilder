@@ -362,18 +362,20 @@
       editable: true,
       enableAddRow: true,
       enableCellNavigation: true,
-      asyncEditorLoading: false
+      asyncEditorLoading: false,
+      forceFitColumns: true
     },
     grid: null,
     didInsertElement: function() {
-      var _this = this;
+      var moveRowsPlugin,
+        _this = this;
       this.grid = new Slick.Grid(this.$(), this.value, this.columns, this.options);
-      this.grid.setSelectionModel(new Slick.CellSelectionModel());
+      this.grid.setSelectionModel(new Slick.RowSelectionModel());
       this.grid.onCellChange.subscribe(function(e, args) {
         _this.value.replace(args.row, 1, args.item);
         return _this.changed();
       });
-      return this.grid.onAddNewRow.subscribe(function(e, args) {
+      this.grid.onAddNewRow.subscribe(function(e, args) {
         var columnDefinition, newItem, _i, _len, _ref;
         _this.grid.invalidateRow(_this.value.length);
         newItem = {};
@@ -383,12 +385,33 @@
           newItem[columnDefinition.field] = '';
         }
         $.extend(newItem, args.item);
-        console.log("add new row", newItem);
         _this.value.push(newItem);
-        console.log(_this.value);
         _this.grid.updateRowCount();
         _this.grid.render();
         return _this.changed();
+      });
+      moveRowsPlugin = new Slick.RowMoveManager();
+      this.grid.registerPlugin(moveRowsPlugin);
+      moveRowsPlugin.onBeforeMoveRows.subscribe(function(e, data) {
+        var i, _ref;
+        for (i = 0, _ref = data.rows.length; 0 <= _ref ? i < _ref : i > _ref; 0 <= _ref ? i++ : i--) {
+          if (data.rows[i] === data.insertBefore || data.rows[i] === data.insertBefore - 1) {
+            e.stopPropagation();
+            return false;
+          }
+        }
+        return true;
+      });
+      return moveRowsPlugin.onMoveRows.subscribe(function(e, args) {
+        var arrayRowToBeMoved, movedRowIndex;
+        movedRowIndex = args.rows[0];
+        arrayRowToBeMoved = _this.value.objectAt(movedRowIndex);
+        _this.value.removeAt(movedRowIndex, 1);
+        if (movedRowIndex < args.insertBefore) args.insertBefore--;
+        _this.value.insertAt(args.insertBefore, arrayRowToBeMoved);
+        _this.changed();
+        _this.grid.invalidateAllRows();
+        return _this.grid.render();
       });
     }
   });

@@ -12,6 +12,8 @@
 		<script src="{f:uri.resource(path:'Library/SlickGrid/plugins/slick.cellrangedecorator.js')}"></script>
 		<script src="{f:uri.resource(path:'Library/SlickGrid/plugins/slick.cellrangeselector.js')}"></script>
 		<script src="{f:uri.resource(path:'Library/SlickGrid/plugins/slick.cellselectionmodel.js')}"></script>
+		<script src="{f:uri.resource(path:'Library/SlickGrid/plugins/slick.rowselectionmodel.js')}"></script>
+		<script src="{f:uri.resource(path:'Library/SlickGrid/plugins/slick.rowmovemanager.js')}"></script>
 		<script src="{f:uri.resource(path:'Library/SlickGrid/slick.editors.js')}"></script>
 		<script src="{f:uri.resource(path:'Library/SlickGrid/slick.grid.js')}"></script>
 		<link rel="stylesheet" href="http://ajax.googleapis.com/ajax/libs/jqueryui/1.8/themes/smoothness/jquery-ui.css" />
@@ -50,6 +52,11 @@
 			-webkit-box-flex:1;
 			background-color:green;
 		}
+
+		.slick-row .cell-reorder {
+			cursor: move;
+			background: url("{f:uri.resource(path:'Library/SlickGrid/images/drag-handle.png')}") no-repeat center center;
+		}
 		</style>
 
 		<script type="text/javascript">
@@ -70,8 +77,18 @@
 								viewName: 'TYPO3.FormBuilder.View.Editor.PropertyGrid',
 								viewOptions: {
 									columns: [
-										{id:"ident", name:"Identifier", field:"_key", editor:TextCellEditor},
-										{id:"value", name:"Value", field:"_value", editor:TextCellEditor},
+										{
+											id: "#",
+											name: "",
+											width: 40,
+											behavior: "selectAndMove",
+											selectable: false,
+											resizable: false,
+											cssClass: "cell-reorder dnd",
+											focusable: false
+										},
+										{id:"ident", name:"Value", field:"_key", editor:TextCellEditor},
+										{id:"value", name:"Label", field:"_value", editor:TextCellEditor},
 									]
 								}
 							}
