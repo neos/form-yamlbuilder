@@ -67,10 +67,4 @@ window.setTimeout((->
 		],
 
 	})
-
-	#TYPO3.FormBuilder.Model.FormDefinition.get('renderables').removeAt(0);
-	window.setTimeout(->
-		#TYPO3.FormBuilder.Model.Form.setPath('formDefinition.renderables.0.renderables.0.label', 'My other label');
-		console.log(TYPO3.FormBuilder.Utility.convertToSimpleObject(TYPO3.FormBuilder.Model.Form.get('formDefinition')));
-	,2000);
 ), 2000);

@@ -7,10 +7,15 @@
 		<script src="{f:uri.resource(path:'Library/dynatree-1.2.0/src/jquery.dynatree.js')}"></script>
 		<link rel="stylesheet" href="{f:uri.resource(path:'Library/dynatree-1.2.0/src/skin/ui.dynatree.css')}" />
 
-		<script src="{f:uri.resource(path:'Library/SlickGrid-1.4.3/lib/jquery.event.drag-2.0.min.js')}"></script>
-		<script src="{f:uri.resource(path:'Library/SlickGrid-1.4.3/slick.grid.js')}"></script>
+		<script src="{f:uri.resource(path:'Library/SlickGrid/lib/jquery.event.drag-2.0.min.js')}"></script>
+		<script src="{f:uri.resource(path:'Library/SlickGrid/slick.core.js')}"></script>
+		<script src="{f:uri.resource(path:'Library/SlickGrid/plugins/slick.cellrangedecorator.js')}"></script>
+		<script src="{f:uri.resource(path:'Library/SlickGrid/plugins/slick.cellrangeselector.js')}"></script>
+		<script src="{f:uri.resource(path:'Library/SlickGrid/plugins/slick.cellselectionmodel.js')}"></script>
+		<script src="{f:uri.resource(path:'Library/SlickGrid/slick.editors.js')}"></script>
+		<script src="{f:uri.resource(path:'Library/SlickGrid/slick.grid.js')}"></script>
 		<link rel="stylesheet" href="http://ajax.googleapis.com/ajax/libs/jqueryui/1.8/themes/smoothness/jquery-ui.css" />
-		<link rel="stylesheet" href="{f:uri.resource(path:'Library/SlickGrid-1.4.3/slick.grid.css')}" />
+		<link rel="stylesheet" href="{f:uri.resource(path:'Library/SlickGrid/slick.grid.css')}" />
 
 		<style>
 		html,body {margin:0;padding:0;}
@@ -65,8 +70,8 @@
 								viewName: 'TYPO3.FormBuilder.View.Editor.PropertyGrid',
 								viewOptions: {
 									columns: [
-										{id:"ident", name:"Identifier", field:"_key"},
-										{id:"value", name:"Value", field:"_value"},
+										{id:"ident", name:"Identifier", field:"_key", editor:TextCellEditor},
+										{id:"value", name:"Value", field:"_value", editor:TextCellEditor},
 									]
 								}
 							}
@@ -81,21 +86,12 @@
 			{{content.label}}
 		</script>
 
-		<script type="text/x-handlebars" data-template-name="formElementStructure">
+		<script type="text/x-handlebars" data-template-name="formElementInspector">
 			<h1>Form Element</h1>
-			Identifier: {{view Ember.TextField valueBinding="currentlySelectedRenderable.identifier"}} <br />
-			Label: {{view Ember.TextField valueBinding="currentlySelectedRenderable.label"}}
+			Identifier: {{view Ember.TextField valueBinding="formElement.identifier"}} <br />
+			Label: {{view Ember.TextField valueBinding="formElement.label"}}
 
-			{{view TYPO3.FormBuilder.View.PropertyPanelPart renderableBinding="currentlySelectedRenderable" propertyKey="properties" propertySchemaKey="propertySchema"}}
-		</script>
-
-		<script type="text/x-handlebars" data-template-name="property-panel-part-item">
-			<h2>{{content.label}}</h2>
-			{{view TYPO3.FormBuilder.View.PropertyPanelPartEditor propertySchemaBinding="content"}}
-		</script>
-		<script type="text/x-handlebars" data-template-name="PropertyGrid">
-			<!-- TODO: this will become obsolete later -->
-			Prop Grid
+			{{view TYPO3.FormBuilder.View.FormElementInspectorPart formElementBinding="formElement" propertyPath="properties" schemaBinding="formElementType.propertySchema"}}
 		</script>
 	</head>
 	<body>
@@ -114,7 +110,7 @@
 					<script type="text/x-handlebars"><![CDATA[
 						{{view TYPO3.FormBuilder.View.FormStructure}}
 
-						{{view TYPO3.FormBuilder.View.FormElementStructure}}
+						{{view TYPO3.FormBuilder.View.FormElementInspector}}
 					]]></script>
 				</div>
 				<div id="main">

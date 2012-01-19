@@ -2,7 +2,6 @@ TYPO3.FormBuilder.View = {}
 
 TYPO3.FormBuilder.View.AvailableFormElementsView = Ember.CollectionView.extend {
 	contentBinding: 'TYPO3.FormBuilder.Model.AvailableFormElements.content'
-	click: -> console.log('click')
 
 	itemViewClass: Ember.View.extend {
 		templateName: 'item'
@@ -75,9 +74,7 @@ TYPO3.FormBuilder.View.FormStructure = Ember.View.extend {
 		return unless @$().dynatree('getTree').visit
 
 		expandedNodePaths = []
-		@$().dynatree('getTree').visit (node) ->
-			if (node.isExpanded())
-				expandedNodePaths.push(node.data.key)
+		@$().dynatree('getTree').visit (node) -> expandedNodePaths.push(node.data.key) if node.isExpanded()
 
 		activeNodePath = @$().dynatree('getActiveNode')?.data.key
 
@@ -86,14 +83,12 @@ TYPO3.FormBuilder.View.FormStructure = Ember.View.extend {
 
 		for expandedNodePath in expandedNodePaths
 			@$().dynatree('getTree').getNodeByKey(expandedNodePath).expand(true)
-
-
 		@$().dynatree('getTree').getNodeByKey(activeNodePath)?.activate(true)
 	).observes('formDefinition.__nestedPropertyChange')
 
 	updateTreeStateFromModel: (dynaTreeParentNode, currentListOfSubRenderables) ->
-		if (!currentListOfSubRenderables)
-			return
+		return if !currentListOfSubRenderables
+
 		for subRenderable in currentListOfSubRenderables
 			newNode = dynaTreeParentNode.addChild {
 				key: subRenderable.get('_path')
@@ -103,10 +98,122 @@ TYPO3.FormBuilder.View.FormStructure = Ember.View.extend {
 			@updateTreeStateFromModel(newNode, subRenderable.getPath('renderables'))
 }
 
-TYPO3.FormBuilder.View.FormElementStructure = Ember.View.extend {
-	currentlySelectedRenderableBinding: 'TYPO3.FormBuilder.Model.Form.currentlySelectedRenderable'
-	templateName: 'formElementStructure'
+TYPO3.FormBuilder.View.FormElementInspector = Ember.View.extend {
+	templateName: 'formElementInspector'
+
+	formElementBinding: 'TYPO3.FormBuilder.Model.Form.currentlySelectedRenderable'
+	formElementType: ( ->
+		formElementTypeName = @getPath('formElement.type')
+
+		return null if !formElementTypeName
+
+		return TYPO3.FormBuilder.Model.FormElementTypes.get(formElementTypeName)
+	).property('formElement', 'formElement.type').cacheable()
 }
+
+TYPO3.FormBuilder.View.FormElementInspectorPart = Ember.ContainerView.extend {
+	formElement: null,
+
+	# the value which should be edited
+	propertyPath: null,
+
+	# the schema which describes how Value should be edited
+	schema: null
+
+	orderedSchema: ( ->
+		# copy the schema to work on a clone
+		schema = $.extend({}, @get('schema'))
+
+		orderedSchema = for k, v of schema
+			v['key'] = k
+			v
+
+		orderedSchema.sort((a,b)-> a.sorting - b.sorting)
+		return orderedSchema
+	).property('schema').cacheable()
+
+	render: ->
+		return unless @formElement
+		formElement = @formElement
+
+		for schemaElement in @get('orderedSchema')
+			console.log(schemaElement)
+			subViewClass = Ember.getPath(schemaElement.viewName)
+			throw "Editor class '#{schemaElement.viewName}' not found" if !subViewClass
+
+			pathToCurrentValue = @propertyPath + '.' + schemaElement.key
+
+			subViewOptions = $.extend({}, schemaElement.viewOptions, {
+				_pathToCurrentValue: pathToCurrentValue
+				value: formElement.getPath(pathToCurrentValue)
+				changed: ->
+					formElement.setPath(@_pathToCurrentValue, @value)
+					formElement.somePropertyChanged(formElement, @_pathToCurrentValue)
+			})
+
+			@appendChild(subViewClass.create(subViewOptions))
+
+		@_super()
+
+	onFormElementChange: (->
+		this.rerender()
+	).observes('formElement')
+}
+
+TYPO3.FormBuilder.View.Editor = {}
+TYPO3.FormBuilder.View.Editor.AbstractEditor = Ember.View.extend {
+	value: null,
+	changed: Ember.K
+}
+TYPO3.FormBuilder.View.Editor.PropertyGrid = TYPO3.FormBuilder.View.Editor.AbstractEditor.extend {
+
+	columns: null,
+	options: {
+		enableColumnReorder: false,
+		autoHeight: true
+
+		editable: true,
+		enableAddRow: true,
+		enableCellNavigation: true,
+		asyncEditorLoading: false
+	},
+
+	grid: null
+
+	didInsertElement: ->
+		@grid = new Slick.Grid(@$(), @value, @columns, @options);
+		@grid.setSelectionModel(new Slick.CellSelectionModel());
+		@grid.onCellChange.subscribe (e, args) =>
+			@value.replace(args.row, 1, args.item)
+			@changed()
+
+		@grid.onAddNewRow.subscribe (e, args) =>
+			@grid.invalidateRow(@value.length);
+
+			newItem = {}
+			newItem[columnDefinition.field] = '' for columnDefinition in @columns
+			$.extend(newItem, args.item)
+			console.log("add new row", newItem);
+			@value.push(newItem)
+			console.log(@value)
+
+			@grid.updateRowCount()
+			@grid.render();
+			@changed()
+
+#			@value.push(newItem)
+#			@changed()
+#			@grid.updateRowCount();
+#			@grid.render();
+#		@grid.onCellChange.subscribe (e, args) =>
+#			item = args.item
+#			@grid.invalidateRow(
+#
+#			@changed()
+}
+
+
+
 
 #
 # Render the current page of the form server-side
@@ -123,6 +230,7 @@ TYPO3.FormBuilder.View.FormPageView = Ember.View.extend {
 		if (!TYPO3.FormBuilder.Model.Form.get('formDefinition')?.get('identifier'))
 			return
 		formDefinition = TYPO3.FormBuilder.Utility.convertToSimpleObject(TYPO3.FormBuilder.Model.Form.get('formDefinition'))
+		console.log("POST DATA" )
 		$.post(
 			TYPO3.FormBuilder.Configuration.endpoints.formPageRenderer,
 			{ formDefinition },
@@ -136,121 +244,4 @@ TYPO3.FormBuilder.View.FormPageView = Ember.View.extend {
 		this.$().find('fieldset').addClass('typo3-form-sortable').sortable {
 			revert: 'true'
 		};
-}
-
-
-TYPO3.FormBuilder.View.PropertyPanelPart = Ember.CollectionView.extend {
-	# the current renderable
-	renderable: null,
-	# the current property key
-	propertyKey: null,
-
-	propertySchemaKey: null
-
-	foo: (->
-		console.log("RD ch", @get('renderable'))
-	).observes('renderable')
-	# is an array of schema entries, ordered by "order"
-	currentlyActiveSchema: (->
-		formElementTypeName = @getPath('renderable.type')
-		console.log(formElementTypeName)
-		return [] if !formElementTypeName
-
-		formElementType = TYPO3.FormBuilder.Model.FormElementTypes.get(formElementTypeName)
-		console.log(formElementType)
-		return [] if !formElementType
-
-		unprocessedSchema = formElementType.get(@get('propertySchemaKey'))
-
-		unprocessedSchema = $.extend({}, unprocessedSchema);
-		schema = for k, v of unprocessedSchema
-			v['key'] = k
-			v.getValue = =>
-				@renderable.get(@propertyKey)[k]
-			v.setValue = (newValue) =>
-				@renderable.get(@propertyKey)[k] = newValue
-				@renderable.somePropertyChanged(@renderable, "#{@propertyKey}.#{k}")
-			v
-
-		schema.sort((a,b)-> a.sorting - b.sorting)
-		console.log(schema)
-		return schema
-	).property('renderable', 'propertySchemaKey', 'propertyKey').cacheable()
-
-	contentBinding: 'currentlyActiveSchema',
-
-	click: -> console.log('click')
-
-	itemViewClass: Ember.View.extend {
-		templateName: 'property-panel-part-item'
-	}
-}
-
-TYPO3.FormBuilder.View.PropertyPanelPartEditor = SC.ContainerView.extend {
-	propertySchema: null,
-
-	render: ->
-		return if !@propertySchema
-
-		subViewClass = Ember.getPath(@propertySchema.viewName)
-
-		if !subViewClass
-			throw "Editor class '#{@propertySchema.viewName}' not found"
-
-		subViewOptions = $.extend({
-			propertySchemaBinding: 'parentView.propertySchema'
-		}, @propertySchema.viewOptions)
-
-		subView = subViewClass.create(subViewOptions)
-
-
-		@appendChild(subView)
-		@_super()
-
-#		var editorConfigurationDefinition = typeDefinition;
-#		if (this.propertyDefinition.userInterface && this.propertyDefinition.userInterface) {
-#			editorConfigurationDefinition = $.extend({}, editorConfigurationDefinition, this.propertyDefinition.userInterface);
-#		}
-#
-#		var editorClass = SC.getPath(editorConfigurationDefinition['class']);
-#		if (!editorClass) {
-#			throw 'Editor class "' + typeDefinition['class'] + '" not found';
-#		}
-#
-#		var classOptions = $.extend({
-#			valueBinding: 'T3.Content.Controller.Inspector.blockProperties.' + this.propertyDefinition.key
-#
-#		}, this.propertyDefinition.options || {});
-#		classOptions = $.extend(classOptions, typeDefinition.options || {});
-#
-#		var editor = editorClass.create(classOptions);
-#		this.appendChild(editor);
-#		this._super();
-}
-
-
-TYPO3.FormBuilder.View.Editor = {}
-TYPO3.FormBuilder.View.Editor.PropertyGrid = Ember.View.extend {
-	templateName: 'PropertyGrid'
-	propertySchema: null,
-
-	columns: null,
-	options: {
-		enableCellNavigation: false,
-		enableColumnReorder: false,
-		autoHeight: true
-	},
-
-	value: ((key, newValue) ->
-		if newValue
-			@propertySchema.setValue(newValue)
-		else
-			@propertySchema.getValue()
-	).property('propertySchema').cacheable()
-
-	grid: null
-
-	didInsertElement: ->
-		console.log("VAL: ", @get('value'))
-		@grid = new Slick.Grid(@$(), @get('value'), @get('columns'), @get('options'));
 }

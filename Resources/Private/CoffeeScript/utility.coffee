@@ -7,9 +7,7 @@ convertToSimpleObject = (input) ->
 		if (key.match(/^__/) || key == 'parentRenderable')
 			continue
 
-		if (!value)
-			#skip
-		else if (typeof value == 'function')
+		if (typeof value == 'function')
 			# skip
 		else if (typeof value == 'object')
 			simpleObject[key] = convertToSimpleObject value

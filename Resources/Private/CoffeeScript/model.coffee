@@ -74,16 +74,3 @@ TYPO3.FormBuilder.Model.Form = Ember.Object.create {
 	formDefinition: null,
 	currentlySelectedRenderable: null
 }
-
-
-#TYPO3.FormBuilder.Model.FormDefinition = TYPO3.FormBuilder.Model.Renderable.create {
-#	registerEventHandlersWhenPagesChange: (->
-#		console.log("pages change")
-#		@get('pages')?.addArrayObserver(this)
-#
-#	).observes('pages')
-#	arrayWillChange: (subArray, startIndex, removeCount, addCount) ->
-#		# NOP
-#	arrayDidChange: (subArray, startIndex, removeCount, addCount) ->
-#		console.log("Sub-array did change", arguments)
-#}
