@@ -1,0 +1,1 @@
+SlickGrid currently uses commit 5b6e673f57d4c705386c37afe22e1b273c0c8645
