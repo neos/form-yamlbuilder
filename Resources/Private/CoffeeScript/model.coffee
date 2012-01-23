@@ -1,7 +1,5 @@
 TYPO3.FormBuilder.Model = {};
 
-TYPO3.FormBuilder.Model.AvailableFormElements = Ember.ArrayController.create()
-
 
 
 TYPO3.FormBuilder.Model.Renderable = Ember.Object.extend {
@@ -65,10 +63,24 @@ TYPO3.FormBuilder.Model.FormElementType = Ember.Object.extend {
 	_isCompositeRenderable: false
 }
 TYPO3.FormBuilder.Model.FormElementTypes = Ember.Object.create {
+
+	allTypeNames:[]
+
 	init: ->
 		for typeName, typeConfiguration of TYPO3.FormBuilder.Configuration.formElementTypes
+			@allTypeNames.push(typeName)
 			@set(typeName, TYPO3.FormBuilder.Model.FormElementType.create(typeConfiguration))
 }
+
+TYPO3.FormBuilder.Model.FormElementGroups = Ember.Object.create {
+	allGroupNames: []
+	init: ->
+		for groupName, groupConfiguration of TYPO3.FormBuilder.Configuration.formElementGroups
+			@allGroupNames.push(groupName)
+			@set(groupName, Ember.Object.create(groupConfiguration))
+
+}
+
 
 TYPO3.FormBuilder.Model.Form = Ember.Object.create {
 	formDefinition: null,

@@ -1,18 +1,58 @@
 TYPO3.FormBuilder.View = {}
 
-TYPO3.FormBuilder.View.AvailableFormElementsView = Ember.CollectionView.extend {
-	contentBinding: 'TYPO3.FormBuilder.Model.AvailableFormElements.content'
+TYPO3.FormBuilder.View.AvailableFormElementsView = Ember.View.extend {
+	allFormElementTypesBinding: 'TYPO3.FormBuilder.Model.FormElementTypes.allTypeNames'
 
-	itemViewClass: Ember.View.extend {
-		templateName: 'item'
-		didInsertElement: ->
-			this.$().draggable {
-				connectToSortable: '.typo3-form-sortable'
-				helper: ->
-					$('<div>' + $(this).html() + '</div>')
-				revert: 'invalid'
-			}
-	}
+	formElementsGrouped: (->
+		console.log("ASDF")
+		formElementsByGroup = {}
+
+		for formElementTypeName in @get('allFormElementTypes')
+			formElementType = TYPO3.FormBuilder.Model.FormElementTypes.get(formElementTypeName)
+			if !formElementsByGroup[formElementType.group]
+				formElementsByGroup[formElementType.group] = []
+
+			formElementType.set('key', formElementTypeName)
+			formElementsByGroup[formElementType.group].push(formElementType)
+
+		formGroups = []
+		for formGroupName in TYPO3.FormBuilder.Model.FormElementGroups.get('allGroupNames')
+			formGroup = TYPO3.FormBuilder.Model.FormElementGroups.get(formGroupName)
+			formGroup.set('key', formGroupName)
+			formElementsByGroup[formGroupName].sort((a, b) -> a.sorting - b.sorting)
+			formGroup.set('elements', formElementsByGroup[formGroupName])
+			formGroups.push(formGroup)
+
+		formGroups.sort((a, b) -> a.sorting - b.sorting)
+
+		console.log(formGroups)
+		return formGroups
+	).property('allFormElementTypes').cacheable()
+
+	templateName: 'AvailableFormElements'
+}
+
+TYPO3.FormBuilder.View.AvailableFormElementsElement = Ember.View.extend {
+	tagName: 'li',
+	formElementType: null
+	currentlySelectedElementBinding: 'TYPO3.FormBuilder.Model.Form.currentlySelectedRenderable'
+
+	didInsertElement: ->
+		@$().html(@getPath('formElementType.label'))
+	click: ->
+		el = @get('currentlySelectedElement')
+		return unless el
+
+		parentRenderablesArray = el.getPath('parentRenderable.renderables')
+		indexInParent = parentRenderablesArray.indexOf(el)
+
+		newRenderable = TYPO3.FormBuilder.Model.Renderable.create({
+			type: @formElementType.get('key')
+			label: '',
+			identifier: 'ASDF'
+		})
+
+		parentRenderablesArray.replace(indexInParent+1, 0, [newRenderable])
 }
 
 #

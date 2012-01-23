@@ -75,6 +75,16 @@
 					'formPageRenderer': '{f:uri.action(action:"renderformpage")}'
 				},
 				<![CDATA[
+				'formElementGroups': {
+					'composite': {
+						sorting: 100,
+						label: 'Composite Elements'
+					},
+					'simple': {
+						sorting: 200,
+						label: 'Simple Elements'
+					}
+				},
 				'formElementTypes': {
 					'TYPO3.Form:Page': {
 						label: 'Page',
@@ -119,8 +129,15 @@
 			]]>
 		</script>
 
-		<script type="text/x-handlebars" data-template-name="item">
-			{{content.label}}
+		<script type="text/x-handlebars" data-template-name="AvailableFormElements">
+			{{#collection contentBinding="formElementsGrouped"}}
+				<h2>{{content.label}}</h2>
+				<ul>
+				{{#collection contentBinding="content.elements"}}
+					{{view TYPO3.FormBuilder.View.AvailableFormElementsElement formElementTypeBinding="content"}}
+				{{/collection}}
+				</ul>
+			{{/collection}}
 		</script>
 
 		<script type="text/x-handlebars" data-template-name="LabelEditor">
@@ -137,12 +154,12 @@
 			</div>
 			<div id="content">
 				<div id="sidebar">
-					<!--<script type="text/x-handlebars"><![CDATA[
-						{{view TYPO3.FormBuilder.View.AvailableFormElementsView}}
-					]]></script>-->
-
 					<script type="text/x-handlebars"><![CDATA[
 						{{view TYPO3.FormBuilder.View.FormStructure}}
+					]]></script>
+
+					<script type="text/x-handlebars"><![CDATA[
+						{{view TYPO3.FormBuilder.View.AvailableFormElementsView}}
 					]]></script>
 				</div>
 				<div id="main">

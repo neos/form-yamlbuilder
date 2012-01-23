@@ -13,22 +13,6 @@
   TYPO3.FormBuilder.Configuration = window.FORMBUILDER_CONFIGURATION;
 
   window.setTimeout((function() {
-    var o, r;
-    TYPO3.FormBuilder.Model.AvailableFormElements.set('content', [
-      {
-        type: 'TYPO3.Form:Textbox',
-        label: 'Text Box'
-      }, {
-        type: 'TYPO3.Form:Textfield',
-        label: 'Text Field'
-      }
-    ]);
-    o = function(obj) {
-      return Ember.Object.create(obj);
-    };
-    r = function(obj) {
-      return TYPO3.FormBuilder.Model.Renderable.create(obj);
-    };
     return TYPO3.FormBuilder.Model.Form.set('formDefinition', TYPO3.FormBuilder.Model.Renderable.create({
       identifier: 'myForm',
       renderables: [
@@ -92,8 +76,6 @@
   TYPO3.FormBuilder.Utility.convertToSimpleObject = convertToSimpleObject;
 
   TYPO3.FormBuilder.Model = {};
-
-  TYPO3.FormBuilder.Model.AvailableFormElements = Ember.ArrayController.create();
 
   TYPO3.FormBuilder.Model.Renderable = Ember.Object.extend({
     parentRenderable: null,
@@ -161,13 +143,30 @@
   });
 
   TYPO3.FormBuilder.Model.FormElementTypes = Ember.Object.create({
+    allTypeNames: [],
     init: function() {
       var typeConfiguration, typeName, _ref, _results;
       _ref = TYPO3.FormBuilder.Configuration.formElementTypes;
       _results = [];
       for (typeName in _ref) {
         typeConfiguration = _ref[typeName];
+        this.allTypeNames.push(typeName);
         _results.push(this.set(typeName, TYPO3.FormBuilder.Model.FormElementType.create(typeConfiguration)));
+      }
+      return _results;
+    }
+  });
+
+  TYPO3.FormBuilder.Model.FormElementGroups = Ember.Object.create({
+    allGroupNames: [],
+    init: function() {
+      var groupConfiguration, groupName, _ref, _results;
+      _ref = TYPO3.FormBuilder.Configuration.formElementGroups;
+      _results = [];
+      for (groupName in _ref) {
+        groupConfiguration = _ref[groupName];
+        this.allGroupNames.push(groupName);
+        _results.push(this.set(groupName, Ember.Object.create(groupConfiguration)));
       }
       return _results;
     }
@@ -180,20 +179,63 @@
 
   TYPO3.FormBuilder.View = {};
 
-  TYPO3.FormBuilder.View.AvailableFormElementsView = Ember.CollectionView.extend({
-    contentBinding: 'TYPO3.FormBuilder.Model.AvailableFormElements.content',
-    itemViewClass: Ember.View.extend({
-      templateName: 'item',
-      didInsertElement: function() {
-        return this.$().draggable({
-          connectToSortable: '.typo3-form-sortable',
-          helper: function() {
-            return $('<div>' + $(this).html() + '</div>');
-          },
-          revert: 'invalid'
-        });
+  TYPO3.FormBuilder.View.AvailableFormElementsView = Ember.View.extend({
+    allFormElementTypesBinding: 'TYPO3.FormBuilder.Model.FormElementTypes.allTypeNames',
+    formElementsGrouped: (function() {
+      var formElementType, formElementTypeName, formElementsByGroup, formGroup, formGroupName, formGroups, _i, _j, _len, _len2, _ref, _ref2;
+      console.log("ASDF");
+      formElementsByGroup = {};
+      _ref = this.get('allFormElementTypes');
+      for (_i = 0, _len = _ref.length; _i < _len; _i++) {
+        formElementTypeName = _ref[_i];
+        formElementType = TYPO3.FormBuilder.Model.FormElementTypes.get(formElementTypeName);
+        if (!formElementsByGroup[formElementType.group]) {
+          formElementsByGroup[formElementType.group] = [];
+        }
+        formElementType.set('key', formElementTypeName);
+        formElementsByGroup[formElementType.group].push(formElementType);
       }
-    })
+      formGroups = [];
+      _ref2 = TYPO3.FormBuilder.Model.FormElementGroups.get('allGroupNames');
+      for (_j = 0, _len2 = _ref2.length; _j < _len2; _j++) {
+        formGroupName = _ref2[_j];
+        formGroup = TYPO3.FormBuilder.Model.FormElementGroups.get(formGroupName);
+        formGroup.set('key', formGroupName);
+        formElementsByGroup[formGroupName].sort(function(a, b) {
+          return a.sorting - b.sorting;
+        });
+        formGroup.set('elements', formElementsByGroup[formGroupName]);
+        formGroups.push(formGroup);
+      }
+      formGroups.sort(function(a, b) {
+        return a.sorting - b.sorting;
+      });
+      console.log(formGroups);
+      return formGroups;
+    }).property('allFormElementTypes').cacheable(),
+    templateName: 'AvailableFormElements'
+  });
+
+  TYPO3.FormBuilder.View.AvailableFormElementsElement = Ember.View.extend({
+    tagName: 'li',
+    formElementType: null,
+    currentlySelectedElementBinding: 'TYPO3.FormBuilder.Model.Form.currentlySelectedRenderable',
+    didInsertElement: function() {
+      return this.$().html(this.getPath('formElementType.label'));
+    },
+    click: function() {
+      var el, indexInParent, newRenderable, parentRenderablesArray;
+      el = this.get('currentlySelectedElement');
+      if (!el) return;
+      parentRenderablesArray = el.getPath('parentRenderable.renderables');
+      indexInParent = parentRenderablesArray.indexOf(el);
+      newRenderable = TYPO3.FormBuilder.Model.Renderable.create({
+        type: this.formElementType.get('key'),
+        label: '',
+        identifier: 'ASDF'
+      });
+      return parentRenderablesArray.replace(indexInParent + 1, 0, [newRenderable]);
+    }
   });
 
   TYPO3.FormBuilder.View.FormStructure = Ember.View.extend({
