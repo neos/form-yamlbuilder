@@ -57,6 +57,16 @@
 			cursor: move;
 			background: url("{f:uri.resource(path:'Library/SlickGrid/images/drag-handle.png')}") no-repeat center center;
 		}
+
+		#elementOptions {
+			display:block;
+			position:fixed;
+			width: 300px;
+			height:100%;
+			right: 0;
+			top: 0;
+			background:white;
+		}
 		</style>
 
 		<script type="text/javascript">
@@ -126,13 +136,16 @@
 
 					<script type="text/x-handlebars"><![CDATA[
 						{{view TYPO3.FormBuilder.View.FormStructure}}
-
-						{{view TYPO3.FormBuilder.View.FormElementInspector}}
 					]]></script>
 				</div>
 				<div id="main">
 					<script type="text/x-handlebars"><![CDATA[
 						{{view TYPO3.FormBuilder.View.FormPageView}}
+					]]></script>
+				</div>
+				<div id="elementOptions">
+					<script type="text/x-handlebars"><![CDATA[
+						{{view TYPO3.FormBuilder.View.FormElementInspector}}
 					]]></script>
 				</div>
 			</div>
