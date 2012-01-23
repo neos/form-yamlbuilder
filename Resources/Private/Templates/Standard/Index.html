@@ -77,30 +77,40 @@
 				<![CDATA[
 				'formElementTypes': {
 					'TYPO3.Form:Page': {
+						label: 'Page',
+						group: 'composite',
+						sorting: 100,
 						__isCompositeRenderable: true
 					},
 					'TYPO3.Form:Radiobuttons': {
-						propertySchema: {
+						label: 'Radio Buttons',
+						group: 'simple',
+						sorting: 100,
+
+						formFieldEditors: {
+							'labelAndIdentifier': {
+								sorting: 100,
+								viewName: 'TYPO3.FormBuilder.View.Editor.LabelEditor'
+							},
+
 							'options': {
-								label: 'Options',
-								sorting: 10,
+								sorting: 200,
 								viewName: 'TYPO3.FormBuilder.View.Editor.PropertyGrid',
-								viewOptions: {
-									columns: [
-										{
-											id: "#",
-											name: "",
-											width: 40,
-											behavior: "selectAndMove",
-											selectable: false,
-											resizable: false,
-											cssClass: "cell-reorder dnd",
-											focusable: false
-										},
-										{id:"ident", name:"Value", field:"_key", editor:TextCellEditor},
-										{id:"value", name:"Label", field:"_value", editor:TextCellEditor},
-									]
-								}
+								propertyPath: 'properties.options',
+								columns: [
+									{
+										id: "#",
+										name: "",
+										width: 40,
+										behavior: "selectAndMove",
+										selectable: false,
+										resizable: false,
+										cssClass: "cell-reorder dnd",
+										focusable: false
+									},
+									{id:"ident", name:"Value", field:"_key", editor:TextCellEditor},
+									{id:"value", name:"Label", field:"_value", editor:TextCellEditor},
+								]
 							}
 						}
 					}
@@ -113,12 +123,9 @@
 			{{content.label}}
 		</script>
 
-		<script type="text/x-handlebars" data-template-name="formElementInspector">
-			<h1>Form Element</h1>
-			Identifier: {{view Ember.TextField valueBinding="formElement.identifier"}} <br />
-			Label: {{view Ember.TextField valueBinding="formElement.label"}}
-
-			{{view TYPO3.FormBuilder.View.FormElementInspectorPart formElementBinding="formElement" propertyPath="properties" schemaBinding="formElementType.propertySchema"}}
+		<script type="text/x-handlebars" data-template-name="LabelEditor">
+			Identifier: {{view Ember.TextField valueBinding="identifier"}}<br />
+			Label: {{view Ember.TextField valueBinding="label"}}<br />
 		</script>
 	</head>
 	<body>
@@ -144,8 +151,9 @@
 					]]></script>
 				</div>
 				<div id="elementOptions">
+					<h2>Form Element Options</h2>
 					<script type="text/x-handlebars"><![CDATA[
-						{{view TYPO3.FormBuilder.View.FormElementInspector}}
+						{{view TYPO3.FormBuilder.View.FormElementInspector formElementBinding="TYPO3.FormBuilder.Model.Form.currentlySelectedRenderable"}}
 					]]></script>
 				</div>
 			</div>

@@ -284,65 +284,50 @@
     }
   });
 
-  TYPO3.FormBuilder.View.FormElementInspector = Ember.View.extend({
-    templateName: 'formElementInspector',
-    formElementBinding: 'TYPO3.FormBuilder.Model.Form.currentlySelectedRenderable',
+  TYPO3.FormBuilder.View.FormElementInspector = Ember.ContainerView.extend({
+    formElement: null,
     formElementType: (function() {
       var formElementTypeName;
       formElementTypeName = this.getPath('formElement.type');
       if (!formElementTypeName) return null;
       return TYPO3.FormBuilder.Model.FormElementTypes.get(formElementTypeName);
-    }).property('formElement', 'formElement.type').cacheable()
-  });
-
-  TYPO3.FormBuilder.View.FormElementInspectorPart = Ember.ContainerView.extend({
-    formElement: null,
-    propertyPath: null,
-    schema: null,
-    orderedSchema: (function() {
-      var k, orderedSchema, schema, v;
-      schema = $.extend({}, this.get('schema'));
-      orderedSchema = (function() {
+    }).property('formElement').cacheable(),
+    orderedFormFieldEditors: (function() {
+      var formFieldEditors, k, orderedFormFieldEditors, v;
+      formFieldEditors = $.extend({}, this.getPath('formElementType.formFieldEditors'));
+      orderedFormFieldEditors = (function() {
         var _results;
         _results = [];
-        for (k in schema) {
-          v = schema[k];
+        for (k in formFieldEditors) {
+          v = formFieldEditors[k];
           v['key'] = k;
           _results.push(v);
         }
         return _results;
       })();
-      orderedSchema.sort(function(a, b) {
+      orderedFormFieldEditors.sort(function(a, b) {
         return a.sorting - b.sorting;
       });
-      return orderedSchema;
-    }).property('schema').cacheable(),
-    render: function() {
-      var formElement, pathToCurrentValue, schemaElement, subViewClass, subViewOptions, _i, _len, _ref;
-      if (!this.formElement) return;
-      formElement = this.formElement;
-      _ref = this.get('orderedSchema');
-      for (_i = 0, _len = _ref.length; _i < _len; _i++) {
-        schemaElement = _ref[_i];
-        console.log(schemaElement);
-        subViewClass = Ember.getPath(schemaElement.viewName);
-        if (!subViewClass) {
-          throw "Editor class '" + schemaElement.viewName + "' not found";
-        }
-        pathToCurrentValue = this.propertyPath + '.' + schemaElement.key;
-        subViewOptions = $.extend({}, schemaElement.viewOptions, {
-          _pathToCurrentValue: pathToCurrentValue,
-          value: formElement.getPath(pathToCurrentValue),
-          changed: function() {
-            formElement.setPath(this._pathToCurrentValue, this.value);
-            return formElement.somePropertyChanged(formElement, this._pathToCurrentValue);
-          }
-        });
-        this.appendChild(subViewClass.create(subViewOptions));
-      }
-      return this._super();
-    },
+      return orderedFormFieldEditors;
+    }).property('formElementType').cacheable(),
     onFormElementChange: (function() {
+      var formFieldEditor, subView, subViewClass, subViewOptions, _i, _len, _ref;
+      this.removeAllChildren();
+      if (!this.formElement) return;
+      _ref = this.get('orderedFormFieldEditors');
+      for (_i = 0, _len = _ref.length; _i < _len; _i++) {
+        formFieldEditor = _ref[_i];
+        subViewClass = Ember.getPath(formFieldEditor.viewName);
+        if (!subViewClass) {
+          throw "Editor class '" + formFieldEditor.viewName + "' not found";
+        }
+        subViewOptions = $.extend({}, formFieldEditor, {
+          formElement: this.formElement
+        });
+        console.log(subViewOptions);
+        subView = subViewClass.create(subViewOptions);
+        this.get('childViews').push(subView);
+      }
       return this.rerender();
     }).observes('formElement')
   });
@@ -350,11 +335,40 @@
   TYPO3.FormBuilder.View.Editor = {};
 
   TYPO3.FormBuilder.View.Editor.AbstractEditor = Ember.View.extend({
-    value: null,
-    changed: Ember.K
+    formElement: null
+  });
+
+  TYPO3.FormBuilder.View.Editor.LabelEditor = TYPO3.FormBuilder.View.Editor.AbstractEditor.extend({
+    templateName: 'LabelEditor',
+    label: (function(k, v) {
+      if (v) {
+        return this.setPath('formElement.label', v);
+      } else {
+        return this.getPath('formElement.label');
+      }
+    }).property('formElement').cacheable(),
+    identifier: (function(k, v) {
+      if (v) {
+        return this.setPath('formElement.identifier', v);
+      } else {
+        return this.getPath('formElement.identifier');
+      }
+    }).property('formElement').cacheable()
   });
 
   TYPO3.FormBuilder.View.Editor.PropertyGrid = TYPO3.FormBuilder.View.Editor.AbstractEditor.extend({
+    propertyPath: null,
+    value: (function(k, v) {
+      if (v) {
+        return this.formElement.setPath(this.get('propertyPath'), v);
+      } else {
+        return this.formElement.getPath(this.get('propertyPath'));
+      }
+    }).property('propertyPath', 'formElement').cacheable(),
+    valueChanged: function() {
+      var _base;
+      return typeof (_base = this.get('formElement')).somePropertyChanged === "function" ? _base.somePropertyChanged(this.formElement, this.get('propertyPath')) : void 0;
+    },
     columns: null,
     options: {
       enableColumnReorder: false,
@@ -369,15 +383,15 @@
     didInsertElement: function() {
       var moveRowsPlugin,
         _this = this;
-      this.grid = new Slick.Grid(this.$(), this.value, this.columns, this.options);
+      this.grid = new Slick.Grid(this.$(), this.get('value'), this.columns, this.options);
       this.grid.setSelectionModel(new Slick.RowSelectionModel());
       this.grid.onCellChange.subscribe(function(e, args) {
-        _this.value.replace(args.row, 1, args.item);
-        return _this.changed();
+        _this.get('value').replace(args.row, 1, args.item);
+        return _this.valueChanged();
       });
       this.grid.onAddNewRow.subscribe(function(e, args) {
         var columnDefinition, newItem, _i, _len, _ref;
-        _this.grid.invalidateRow(_this.value.length);
+        _this.grid.invalidateRow(_this.get('value').length);
         newItem = {};
         _ref = _this.columns;
         for (_i = 0, _len = _ref.length; _i < _len; _i++) {
@@ -385,10 +399,10 @@
           newItem[columnDefinition.field] = '';
         }
         $.extend(newItem, args.item);
-        _this.value.push(newItem);
+        _this.get('value').push(newItem);
         _this.grid.updateRowCount();
         _this.grid.render();
-        return _this.changed();
+        return _this.valueChanged();
       });
       moveRowsPlugin = new Slick.RowMoveManager();
       this.grid.registerPlugin(moveRowsPlugin);
@@ -405,11 +419,11 @@
       return moveRowsPlugin.onMoveRows.subscribe(function(e, args) {
         var arrayRowToBeMoved, movedRowIndex;
         movedRowIndex = args.rows[0];
-        arrayRowToBeMoved = _this.value.objectAt(movedRowIndex);
-        _this.value.removeAt(movedRowIndex, 1);
+        arrayRowToBeMoved = _this.get('value').objectAt(movedRowIndex);
+        _this.get('value').removeAt(movedRowIndex, 1);
         if (movedRowIndex < args.insertBefore) args.insertBefore--;
-        _this.value.insertAt(args.insertBefore, arrayRowToBeMoved);
-        _this.changed();
+        _this.get('value').insertAt(args.insertBefore, arrayRowToBeMoved);
+        _this.valueChanged();
         _this.grid.invalidateAllRows();
         return _this.grid.render();
       });

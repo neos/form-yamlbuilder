@@ -98,73 +98,81 @@ TYPO3.FormBuilder.View.FormStructure = Ember.View.extend {
 			@updateTreeStateFromModel(newNode, subRenderable.getPath('renderables'))
 }
 
-TYPO3.FormBuilder.View.FormElementInspector = Ember.View.extend {
-	templateName: 'formElementInspector'
+TYPO3.FormBuilder.View.FormElementInspector = Ember.ContainerView.extend {
 
-	formElementBinding: 'TYPO3.FormBuilder.Model.Form.currentlySelectedRenderable'
+	# the renderable which should be edited
+	formElement: null,
+
 	formElementType: ( ->
 		formElementTypeName = @getPath('formElement.type')
 		return null unless formElementTypeName
 
 		return TYPO3.FormBuilder.Model.FormElementTypes.get(formElementTypeName)
-	).property('formElement', 'formElement.type').cacheable()
-}
+	).property('formElement').cacheable()
 
-TYPO3.FormBuilder.View.FormElementInspectorPart = Ember.ContainerView.extend {
-	formElement: null,
-
-	# the value which should be edited
-	propertyPath: null,
-
-	# the schema which describes how Value should be edited
-	schema: null
-
-	orderedSchema: ( ->
+	orderedFormFieldEditors: ( ->
 		# copy the schema to work on a clone
-		schema = $.extend({}, @get('schema'))
+		formFieldEditors = $.extend({}, @getPath('formElementType.formFieldEditors'))
 
-		orderedSchema = for k, v of schema
+		orderedFormFieldEditors = for k, v of formFieldEditors
 			v['key'] = k
 			v
 
-		orderedSchema.sort((a,b)-> a.sorting - b.sorting)
-		return orderedSchema
-	).property('schema').cacheable()
+		orderedFormFieldEditors.sort((a,b)-> a.sorting - b.sorting)
+		return orderedFormFieldEditors
+	).property('formElementType').cacheable()
 
-	render: ->
-		return unless @formElement
-		formElement = @formElement
-
-		for schemaElement in @get('orderedSchema')
-			console.log(schemaElement)
-			subViewClass = Ember.getPath(schemaElement.viewName)
-			throw "Editor class '#{schemaElement.viewName}' not found" if !subViewClass
-
-			pathToCurrentValue = @propertyPath + '.' + schemaElement.key
-
-			subViewOptions = $.extend({}, schemaElement.viewOptions, {
-				_pathToCurrentValue: pathToCurrentValue
-				value: formElement.getPath(pathToCurrentValue)
-				changed: ->
-					formElement.setPath(@_pathToCurrentValue, @value)
-					formElement.somePropertyChanged(formElement, @_pathToCurrentValue)
-			})
-
-			@appendChild(subViewClass.create(subViewOptions))
-
-		@_super()
 
 	onFormElementChange: (->
-		this.rerender()
+		@removeAllChildren();
+		return unless @formElement
+		#formElement = @formElement
+
+		for formFieldEditor in @get('orderedFormFieldEditors')
+			subViewClass = Ember.getPath(formFieldEditor.viewName)
+			throw "Editor class '#{formFieldEditor.viewName}' not found" if !subViewClass
+
+			subViewOptions = $.extend({}, formFieldEditor, {
+				formElement: @formElement
+			})
+			console.log(subViewOptions);
+			subView = subViewClass.create(subViewOptions)
+			@get('childViews').push(subView)
+		@rerender()
 	).observes('formElement')
 }
 
 TYPO3.FormBuilder.View.Editor = {}
 TYPO3.FormBuilder.View.Editor.AbstractEditor = Ember.View.extend {
-	value: null,
-	changed: Ember.K
+	formElement: null,
+}
+TYPO3.FormBuilder.View.Editor.LabelEditor = TYPO3.FormBuilder.View.Editor.AbstractEditor.extend {
+	templateName: 'LabelEditor'
+	label: ( (k, v) ->
+		if v
+			@setPath('formElement.label', v)
+		else
+			@getPath('formElement.label')
+	).property('formElement').cacheable()
+	identifier: ( (k, v)->
+		if v
+			@setPath('formElement.identifier', v)
+		else
+			@getPath('formElement.identifier')
+	).property('formElement').cacheable()
 }
 TYPO3.FormBuilder.View.Editor.PropertyGrid = TYPO3.FormBuilder.View.Editor.AbstractEditor.extend {
+	propertyPath: null,
+
+	value: ( (k, v) ->
+		if v
+			@formElement.setPath(@get('propertyPath'), v)
+		else
+			@formElement.getPath(@get('propertyPath'))
+	).property('propertyPath', 'formElement').cacheable()
+
+	valueChanged: ->
+		@get('formElement').somePropertyChanged?(@formElement, @get('propertyPath'))
 
 	columns: null,
 	options: {
@@ -184,27 +192,27 @@ TYPO3.FormBuilder.View.Editor.PropertyGrid = TYPO3.FormBuilder.View.Editor.Abstr
 	# Initialize Grid
 	#
 	didInsertElement: ->
-		@grid = new Slick.Grid(@$(), @value, @columns, @options);
+		@grid = new Slick.Grid(@$(), @get('value'), @columns, @options);
 		@grid.setSelectionModel(new Slick.RowSelectionModel());
 
 		# Save changes to cells
 		@grid.onCellChange.subscribe (e, args) =>
-			@value.replace(args.row, 1, args.item)
-			@changed()
+			@get('value').replace(args.row, 1, args.item)
+			@valueChanged()
 
 		# add new rows
 		@grid.onAddNewRow.subscribe (e, args) =>
-			@grid.invalidateRow(@value.length);
+			@grid.invalidateRow(@get('value').length);
 
 			# ... initialize all columns to empty string values
 			newItem = {}
 			newItem[columnDefinition.field] = '' for columnDefinition in @columns
 			$.extend(newItem, args.item)
-			@value.push(newItem)
+			@get('value').push(newItem)
 
 			@grid.updateRowCount()
-			@grid.render();
-			@changed()
+			@grid.render()
+			@valueChanged()
 
 		# move rows via drag/drop
 		moveRowsPlugin = new Slick.RowMoveManager()
@@ -222,14 +230,14 @@ TYPO3.FormBuilder.View.Editor.PropertyGrid = TYPO3.FormBuilder.View.Editor.Abstr
 			# args.insertBefore contains index before which the element should be inserted
 			# args.rows contains the indices of the moved rows (we only support one moved row at a time)
 			movedRowIndex = args.rows[0]
-			arrayRowToBeMoved = @value.objectAt(movedRowIndex)
-			@value.removeAt(movedRowIndex, 1)
+			arrayRowToBeMoved = @get('value').objectAt(movedRowIndex)
+			@get('value').removeAt(movedRowIndex, 1)
 
 			if movedRowIndex < args.insertBefore
 				# we removed the element before, thus we need decrement the pointer where the new code should be inserted
 				args.insertBefore--
-			@value.insertAt(args.insertBefore, arrayRowToBeMoved)
-			@changed()
+			@get('value').insertAt(args.insertBefore, arrayRowToBeMoved)
+			@valueChanged()
 
 			@grid.invalidateAllRows();
 			@grid.render()
