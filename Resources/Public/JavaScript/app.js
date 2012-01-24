@@ -637,14 +637,27 @@
       this.$().find('[data-element]').parent().addClass('typo3-form-sortable').sortable({
         revert: 'true',
         update: function(e, o) {
-          var movedRenderable, nextElementPath, pathOfMovedElement, previousElementPath;
+          var movedRenderable, nextElement, nextElementPath, pathOfMovedElement, previousElement, previousElementPath, referenceElementIndex;
           pathOfMovedElement = $(o.item.context).attr('data-element');
           movedRenderable = _this.findRenderableForPath(pathOfMovedElement);
           movedRenderable.getPath('parentRenderable.renderables').removeObject(movedRenderable);
           nextElementPath = $(o.item.context).nextAll('[data-element]').first().attr('data-element');
-          previousElementPath = $(o.item.context).previousAll('[data-element]').first().attr('data-element');
-          if (!nextElementPath && !previousElementPath) {
+          if (nextElementPath) {
+            nextElement = _this.findRenderableForPath(nextElementPath);
+          }
+          previousElementPath = $(o.item.context).prevAll('[data-element]').first().attr('data-element');
+          if (previousElementPath) {
+            previousElement = _this.findRenderableForPath(previousElementPath);
+          }
+          if (!nextElement && !previousElement) {
             throw 'Next Element or Previous Element need to be set. Should not happen...';
+          }
+          if (nextElement) {
+            referenceElementIndex = nextElement.getPath('parentRenderable.renderables').indexOf(nextElement);
+            return nextElement.getPath('parentRenderable.renderables').insertAt(referenceElementIndex, movedRenderable);
+          } else if (previousElement) {
+            referenceElementIndex = previousElement.getPath('parentRenderable.renderables').indexOf(previousElement);
+            return previousElement.getPath('parentRenderable.renderables').insertAt(referenceElementIndex + 1, movedRenderable);
           }
         }
       });

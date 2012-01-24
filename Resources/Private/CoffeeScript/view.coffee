@@ -455,8 +455,17 @@ TYPO3.FormBuilder.View.FormPageView = Ember.View.extend {
 
 
 				nextElementPath = $(o.item.context).nextAll('[data-element]').first().attr('data-element')
-				previousElementPath = $(o.item.context).previousAll('[data-element]').first().attr('data-element')
-				throw 'Next Element or Previous Element need to be set. Should not happen...' if !nextElementPath && !previousElementPath
+				nextElement = @findRenderableForPath(nextElementPath) if nextElementPath
+				previousElementPath = $(o.item.context).prevAll('[data-element]').first().attr('data-element')
+				previousElement = @findRenderableForPath(previousElementPath) if previousElementPath
+				throw 'Next Element or Previous Element need to be set. Should not happen...' if !nextElement && !previousElement
+
+				if nextElement
+					referenceElementIndex = nextElement.getPath('parentRenderable.renderables').indexOf(nextElement)
+					nextElement.getPath('parentRenderable.renderables').insertAt(referenceElementIndex, movedRenderable)
+				else if previousElement
+					referenceElementIndex = previousElement.getPath('parentRenderable.renderables').indexOf(previousElement)
+					previousElement.getPath('parentRenderable.renderables').insertAt(referenceElementIndex+1, movedRenderable)
 		};
 		@onCurrentElementChanges()
 
