@@ -138,6 +138,11 @@ TYPO3.FormBuilder.View.FormStructure = Ember.View.extend {
 				formRenderable: subRenderable
 			}
 			@updateTreeStateFromModel(newNode, subRenderable.getPath('renderables'))
+
+	updateCurrentlySelectedNode: ( ->
+		activeNodePath = TYPO3.FormBuilder.Model.Form.getPath('currentlySelectedRenderable._path')
+		@$().dynatree('getTree').getNodeByKey?(activeNodePath)?.activate(true)
+	).observes('TYPO3.FormBuilder.Model.Form.currentlySelectedRenderable')
 }
 
 TYPO3.FormBuilder.View.FormElementInspector = Ember.ContainerView.extend {
@@ -427,7 +432,7 @@ TYPO3.FormBuilder.View.FormPageView = Ember.View.extend {
 
 		window.setTimeout( =>
 			formDefinition = TYPO3.FormBuilder.Utility.convertToSimpleObject(TYPO3.FormBuilder.Model.Form.get('formDefinition'))
-			console.log("POST DATA" )
+#			console.log("POST DATA" )
 			@currentAjaxRequest = $.post(
 				TYPO3.FormBuilder.Configuration.endpoints.formPageRenderer,
 				{ formDefinition },
@@ -441,7 +446,50 @@ TYPO3.FormBuilder.View.FormPageView = Ember.View.extend {
 	).observes('page', 'page.__nestedPropertyChange'),
 
 	postProcessRenderedPage: ->
-		this.$().find('fieldset').addClass('typo3-form-sortable').sortable {
+		this.$().find('[data-element]').parent().addClass('typo3-form-sortable').sortable {
 			revert: 'true'
+			update: (e, o) =>
+				pathOfMovedElement = $(o.item.context).attr('data-element')
+				movedRenderable = @findRenderableForPath(pathOfMovedElement)
+				movedRenderable.getPath('parentRenderable.renderables').removeObject(movedRenderable);
+
+
+				nextElementPath = $(o.item.context).nextAll('[data-element]').first().attr('data-element')
+				previousElementPath = $(o.item.context).previousAll('[data-element]').first().attr('data-element')
+				throw 'Next Element or Previous Element need to be set. Should not happen...' if !nextElementPath && !previousElementPath
 		};
+		@onCurrentElementChanges()
+
+	onCurrentElementChanges: (->
+		renderable = TYPO3.FormBuilder.Model.Form.get('currentlySelectedRenderable')
+		return unless renderable
+
+		@$().find('.formbuilder-form-element-selected').removeClass('formbuilder-form-element-selected');
+		identifierPath = renderable.identifier
+		while renderable = renderable.parentRenderable
+			identifierPath = renderable.identifier + '/' + identifierPath
+
+		@$().find('[data-element="' + identifierPath + '"]').addClass('formbuilder-form-element-selected')
+
+	).observes('TYPO3.FormBuilder.Model.Form.currentlySelectedRenderable')
+
+	findRenderableForPath: (path) ->
+		expandedPathToClickedElement = path.split('/')
+		expandedPathToClickedElement.shift() # first element is form identifier
+		expandedPathToClickedElement.shift() # second one is page identifier
+
+		currentRenderable = @get('page')
+		for pathPart in expandedPathToClickedElement
+			for renderable in currentRenderable.get('renderables')
+				if renderable.identifier == pathPart
+					currentRenderable = renderable
+					break
+		return currentRenderable
+
+
+	click: (e) ->
+		pathToClickedElement = ($(e.target).closest('[data-element]').attr('data-element'));
+
+		return unless pathToClickedElement
+		TYPO3.FormBuilder.Model.Form.set('currentlySelectedRenderable', @findRenderableForPath(pathToClickedElement));
 }

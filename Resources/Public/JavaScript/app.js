@@ -350,7 +350,12 @@
         _results.push(this.updateTreeStateFromModel(newNode, subRenderable.getPath('renderables')));
       }
       return _results;
-    }
+    },
+    updateCurrentlySelectedNode: (function() {
+      var activeNodePath, _base, _ref;
+      activeNodePath = TYPO3.FormBuilder.Model.Form.getPath('currentlySelectedRenderable._path');
+      return typeof (_base = this.$().dynatree('getTree')).getNodeByKey === "function" ? (_ref = _base.getNodeByKey(activeNodePath)) != null ? _ref.activate(true) : void 0 : void 0;
+    }).observes('TYPO3.FormBuilder.Model.Form.currentlySelectedRenderable')
   });
 
   TYPO3.FormBuilder.View.FormElementInspector = Ember.ContainerView.extend({
@@ -619,7 +624,6 @@
       return window.setTimeout(function() {
         var formDefinition;
         formDefinition = TYPO3.FormBuilder.Utility.convertToSimpleObject(TYPO3.FormBuilder.Model.Form.get('formDefinition'));
-        console.log("POST DATA");
         return _this.currentAjaxRequest = $.post(TYPO3.FormBuilder.Configuration.endpoints.formPageRenderer, {
           formDefinition: formDefinition
         }, function(data, textStatus, jqXHR) {
@@ -629,9 +633,58 @@
       }, 300);
     }).observes('page', 'page.__nestedPropertyChange'),
     postProcessRenderedPage: function() {
-      return this.$().find('fieldset').addClass('typo3-form-sortable').sortable({
-        revert: 'true'
+      var _this = this;
+      this.$().find('[data-element]').parent().addClass('typo3-form-sortable').sortable({
+        revert: 'true',
+        update: function(e, o) {
+          var movedRenderable, nextElementPath, pathOfMovedElement, previousElementPath;
+          pathOfMovedElement = $(o.item.context).attr('data-element');
+          movedRenderable = _this.findRenderableForPath(pathOfMovedElement);
+          movedRenderable.getPath('parentRenderable.renderables').removeObject(movedRenderable);
+          nextElementPath = $(o.item.context).nextAll('[data-element]').first().attr('data-element');
+          previousElementPath = $(o.item.context).previousAll('[data-element]').first().attr('data-element');
+          if (!nextElementPath && !previousElementPath) {
+            throw 'Next Element or Previous Element need to be set. Should not happen...';
+          }
+        }
       });
+      return this.onCurrentElementChanges();
+    },
+    onCurrentElementChanges: (function() {
+      var identifierPath, renderable;
+      renderable = TYPO3.FormBuilder.Model.Form.get('currentlySelectedRenderable');
+      if (!renderable) return;
+      this.$().find('.formbuilder-form-element-selected').removeClass('formbuilder-form-element-selected');
+      identifierPath = renderable.identifier;
+      while (renderable = renderable.parentRenderable) {
+        identifierPath = renderable.identifier + '/' + identifierPath;
+      }
+      return this.$().find('[data-element="' + identifierPath + '"]').addClass('formbuilder-form-element-selected');
+    }).observes('TYPO3.FormBuilder.Model.Form.currentlySelectedRenderable'),
+    findRenderableForPath: function(path) {
+      var currentRenderable, expandedPathToClickedElement, pathPart, renderable, _i, _j, _len, _len2, _ref;
+      expandedPathToClickedElement = path.split('/');
+      expandedPathToClickedElement.shift();
+      expandedPathToClickedElement.shift();
+      currentRenderable = this.get('page');
+      for (_i = 0, _len = expandedPathToClickedElement.length; _i < _len; _i++) {
+        pathPart = expandedPathToClickedElement[_i];
+        _ref = currentRenderable.get('renderables');
+        for (_j = 0, _len2 = _ref.length; _j < _len2; _j++) {
+          renderable = _ref[_j];
+          if (renderable.identifier === pathPart) {
+            currentRenderable = renderable;
+            break;
+          }
+        }
+      }
+      return currentRenderable;
+    },
+    click: function(e) {
+      var pathToClickedElement;
+      pathToClickedElement = $(e.target).closest('[data-element]').attr('data-element');
+      if (!pathToClickedElement) return;
+      return TYPO3.FormBuilder.Model.Form.set('currentlySelectedRenderable', this.findRenderableForPath(pathToClickedElement));
     }
   });
 
