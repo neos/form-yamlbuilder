@@ -58,6 +58,11 @@
 			cursor: move;
 			background: url("{f:uri.resource(path:'Library/SlickGrid/images/drag-handle.png')}") no-repeat center center;
 		}
+		.slick-row .editor-text {
+			width: 100%;
+			height: 100%;
+			font-size: 15px;
+		}
 
 		#elementOptions {
 			display:block;
@@ -86,8 +91,14 @@
 		</script>
 
 		<script type="text/x-handlebars" data-template-name="LabelEditor">
-			Identifier: {{view Ember.TextField valueBinding="identifier"}}<br />
-			Label: {{view Ember.TextField valueBinding="label"}}<br />
+			<div>Identifier: {{view Ember.TextField valueBinding="identifier"}}<br />
+			Label: {{view Ember.TextField valueBinding="label"}}</div>
+		</script>
+		<script type="text/x-handlebars" data-template-name="TextEditor">
+			<div>
+				{{label}}<br />
+				{{view Ember.TextField valueBinding="value"}}
+			</div>
 		</script>
 	</head>
 	<body>
@@ -113,7 +124,7 @@
 					]]></script>
 				</div>
 				<div id="elementOptions">
-					<h2>Form Element Options</h2>
+					<h2>Element Options</h2>
 					<script type="text/x-handlebars"><![CDATA[
 						{{view TYPO3.FormBuilder.View.FormElementInspector formElementBinding="TYPO3.FormBuilder.Model.Form.currentlySelectedRenderable"}}
 					]]></script>

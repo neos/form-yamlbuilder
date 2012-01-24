@@ -16,6 +16,22 @@ TYPO3.FormBuilder.Model.Renderable = Ember.Object.extend {
 		@renderables = []
 		@renderables.addArrayObserver(this)
 
+	setUnknownProperty: (k, v) ->
+		this[k] = v
+		@addObserver(k, this, 'somePropertyChanged')
+		@somePropertyChanged(this, k)
+
+	setPathRecursively: (path, v) ->
+		currentObject = this
+		while path.indexOf('.') > 0
+			firstPartOfPath = path.slice(0, path.indexOf('.'))
+			path = path.slice(firstPartOfPath.length + 1)
+			if !currentObject[firstPartOfPath]
+				currentObject[firstPartOfPath] = {}
+			currentObject = currentObject[firstPartOfPath]
+
+		currentObject[path] = v
+
 	somePropertyChanged: (theInstance, propertyName) ->
 		@set('__nestedPropertyChange', @get('__nestedPropertyChange') + 1);
 
@@ -67,6 +83,7 @@ TYPO3.FormBuilder.Model.FormElementTypes = Ember.Object.create {
 	allTypeNames:[]
 
 	init: ->
+		return unless TYPO3.FormBuilder.Configuration?.formElementTypes?
 		for typeName, typeConfiguration of TYPO3.FormBuilder.Configuration.formElementTypes
 			@allTypeNames.push(typeName)
 			@set(typeName, TYPO3.FormBuilder.Model.FormElementType.create(typeConfiguration))
@@ -75,6 +92,7 @@ TYPO3.FormBuilder.Model.FormElementTypes = Ember.Object.create {
 TYPO3.FormBuilder.Model.FormElementGroups = Ember.Object.create {
 	allGroupNames: []
 	init: ->
+		return unless TYPO3.FormBuilder.Configuration?.formElementGroups?
 		for groupName, groupConfiguration of TYPO3.FormBuilder.Configuration.formElementGroups
 			@allGroupNames.push(groupName)
 			@set(groupName, Ember.Object.create(groupConfiguration))

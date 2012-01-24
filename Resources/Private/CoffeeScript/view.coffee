@@ -51,10 +51,12 @@ TYPO3.FormBuilder.View.AvailableFormElementsElement = Ember.View.extend {
 		newRenderable = TYPO3.FormBuilder.Model.Renderable.create({
 			type: @formElementType.get('key')
 			label: '',
-			identifier: 'ASDF'
+			identifier: Ember.generateGuid(null, 'formElement')
 		})
 
 		parentRenderablesArray.replace(indexInParent+1, 0, [newRenderable])
+
+		@set('currentlySelectedElement', newRenderable)
 }
 
 #
@@ -189,27 +191,68 @@ TYPO3.FormBuilder.View.Editor = {}
 TYPO3.FormBuilder.View.Editor.AbstractEditor = Ember.View.extend {
 	formElement: null,
 }
+
+TYPO3.FormBuilder.View.Editor.AbstractPropertyEditor = TYPO3.FormBuilder.View.Editor.AbstractEditor.extend {
+	### PUBLIC API ###
+	# the property path at which the current value resides, relative to the current @formElement.
+	# Required.
+	propertyPath: null,
+
+	### API FOR SUBCLASSES ###
+
+	# if value is not set, it will be initialized with this default value.
+	# this can be overridden in subclasses.
+	defaultValue: '',
+
+	# accessor for the current value
+	value: ( (k, v) ->
+		if v != undefined
+			@formElement.setPath(@get('propertyPath'), v)
+		else
+			value = @formElement.getPath(@get('propertyPath'))
+			if !value
+				@formElement.setPathRecursively(@get('propertyPath'), @get('defaultValue'))
+				value = @formElement.getPath(@get('propertyPath'))
+			console.log("VAL", value)
+			value
+	).property('propertyPath', 'formElement').cacheable()
+
+	# callback function which needs to be executed when the value changes
+	valueChanged: ->
+		@get('formElement').somePropertyChanged?(@formElement, @get('propertyPath'))
+
+}
+
 TYPO3.FormBuilder.View.Editor.LabelEditor = TYPO3.FormBuilder.View.Editor.AbstractEditor.extend {
 	templateName: 'LabelEditor'
 	label: ( (k, v) ->
-		if v
+		if v != undefined
 			@setPath('formElement.label', v)
 		else
 			@getPath('formElement.label')
 	).property('formElement').cacheable()
 	identifier: ( (k, v)->
-		if v
+		if v != undefined
 			@setPath('formElement.identifier', v)
 		else
 			@getPath('formElement.identifier')
 	).property('formElement').cacheable()
 }
-TYPO3.FormBuilder.View.Editor.PropertyGrid = TYPO3.FormBuilder.View.Editor.AbstractEditor.extend {
+
+TYPO3.FormBuilder.View.Editor.TextEditor = TYPO3.FormBuilder.View.Editor.AbstractPropertyEditor.extend {
+	### PUBLIC API ###
+	label: null
+
+	onValueChange: (->
+		@valueChanged()
+	).observes('value')
+
+	### PRIVATE ###
+	templateName: 'TextEditor'
+}
+TYPO3.FormBuilder.View.Editor.PropertyGrid = TYPO3.FormBuilder.View.Editor.AbstractPropertyEditor.extend {
 
 	### PUBLIC API ###
-	# the property path at which the array with the form values resides, relative to the current @formElement.
-	# Required.
-	propertyPath: null,
 
 	# list of columns. Required.
 	columns: null,
@@ -221,22 +264,8 @@ TYPO3.FormBuilder.View.Editor.PropertyGrid = TYPO3.FormBuilder.View.Editor.Abstr
 	enableAddRow: false
 
 	### PRIVATE ###
-	# accessor for the current value array
-	value: ( (k, v) ->
-		if v
-			@formElement.setPath(@get('propertyPath'), v)
-		else
-			value = @formElement.getPath(@get('propertyPath'))
-			if !value
-				@formElement.setPath(@get('propertyPath'), [])
-				value = @formElement.getPath(@get('propertyPath'))
-			console.log("VAL", value)
-			value
-	).property('propertyPath', 'formElement').cacheable()
 
-	# callback function which needs to be executed when the value changes
-	valueChanged: ->
-		@get('formElement').somePropertyChanged?(@formElement, @get('propertyPath'))
+	defaultValue: (-> []).property().cacheable()
 
 	# slick grid options
 	options: (->
@@ -286,6 +315,10 @@ TYPO3.FormBuilder.View.Editor.PropertyGrid = TYPO3.FormBuilder.View.Editor.Abstr
 	#
 	didInsertElement: ->
 		@grid = new Slick.Grid(@$(), @get('value'), @get('columnDefinition'), @get('options'));
+
+		# make autoHeight really work
+		@$().find('.slick-viewport').css('overflow-x', 'hidden');
+		@$().find('.slick-viewport').css('overflow-y', 'hidden');
 		@grid.setSelectionModel(new Slick.RowSelectionModel());
 
 		# Save changes to cells
@@ -346,6 +379,8 @@ TYPO3.FormBuilder.View.FormPageView = Ember.View.extend {
 	formPagesBinding: 'TYPO3.FormBuilder.Model.Form.formDefinition.renderables',
 	currentPageIndex: 0
 
+	currentAjaxRequest: null,
+
 	page: Ember.computed(->
 		@get('formPages')?.get(@get('currentPageIndex'))
 	).property('formPages', 'currentPageIndex').cacheable()
@@ -353,15 +388,22 @@ TYPO3.FormBuilder.View.FormPageView = Ember.View.extend {
 	renderPageIfPageObjectChanges: (->
 		if (!TYPO3.FormBuilder.Model.Form.get('formDefinition')?.get('identifier'))
 			return
-		formDefinition = TYPO3.FormBuilder.Utility.convertToSimpleObject(TYPO3.FormBuilder.Model.Form.get('formDefinition'))
-		console.log("POST DATA" )
-		$.post(
-			TYPO3.FormBuilder.Configuration.endpoints.formPageRenderer,
-			{ formDefinition },
-			(data) =>
-				this.$().html(data);
-				@postProcessRenderedPage();
-		)
+		if @currentAjaxRequest
+			@currentAjaxRequest.abort()
+
+		window.setTimeout( =>
+			formDefinition = TYPO3.FormBuilder.Utility.convertToSimpleObject(TYPO3.FormBuilder.Model.Form.get('formDefinition'))
+			console.log("POST DATA" )
+			@currentAjaxRequest = $.post(
+				TYPO3.FormBuilder.Configuration.endpoints.formPageRenderer,
+				{ formDefinition },
+				(data, textStatus, jqXHR) =>
+					#return unless @currentAjaxRequest == jqXHR
+					this.$().html(data);
+					@postProcessRenderedPage();
+			)
+		, 300)
+
 	).observes('page', 'page.__nestedPropertyChange'),
 
 	postProcessRenderedPage: ->

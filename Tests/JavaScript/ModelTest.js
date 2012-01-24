@@ -1,6 +1,15 @@
 describe('Model', function() {
 	describe('Renderable', function() {
 		var Renderable = TYPO3.FormBuilder.Model.Renderable;
+
+		it('setPathRecursively should work', function() {
+			var r = Renderable.create({
+				'identifier': 'myIdentifier',
+				'foo': 'myFoo'
+			});
+			r.setPathRecursively('properties.foo', 'bar')
+			expect(r.getPath('properties.foo')).toEqual('bar');
+		});
 		describe('Renderable Hierarchy Maintenance', function() {
 			it('should set properties correctly', function() {
 				var r = Renderable.create({
@@ -73,6 +82,26 @@ describe('Model', function() {
 				expect(somePropertyChangedCalledWithArguments[0]).toEqual(r);
 				expect(somePropertyChangedCalledWithArguments[1]).toEqual('renderables.0.prop');
 			})
+
+			it('added or modified properties should trigger change event listeners properly', function() {
+				var somePropertyChangedCalledWithArguments = [];
+
+				var r = Renderable.create({
+					renderables: [{
+						'identifier': 'foo',
+						'prop': 'bar'
+					}],
+					somePropertyChanged: function() {
+						somePropertyChangedCalledWithArguments.push(arguments)
+					}
+				});
+				r.setPath('renderables.0.someNewProperty', 'myNewProperty');
+				r.setPath('renderables.0.someNewProperty', 'myNewProperty2');
+				expect(somePropertyChangedCalledWithArguments[0][0]).toEqual(r);
+				expect(somePropertyChangedCalledWithArguments[0][1]).toEqual('renderables.0.someNewProperty');
+				expect(somePropertyChangedCalledWithArguments[1][0]).toEqual(r);
+				expect(somePropertyChangedCalledWithArguments[1][1]).toEqual('renderables.0.someNewProperty');
+			});
 		})
 	});
 });

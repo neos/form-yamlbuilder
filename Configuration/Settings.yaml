@@ -84,7 +84,19 @@ TYPO3:
               group: simple
               sorting: 170
 
-
+          'TYPO3.Form:TextMixin':
+            formBuilder:
+              formFieldEditors:
+                placeholder:
+                  sorting: 150
+                  viewName: 'TYPO3.FormBuilder.View.Editor.TextEditor'
+                  label: 'Placeholder'
+                  propertyPath: 'properties.placeholder'
+                defaultValue:
+                  sorting: 160
+                  viewName: 'TYPO3.FormBuilder.View.Editor.TextEditor'
+                  label: 'Default Value'
+                  propertyPath: 'defaultValue'
 
 
           'TYPO3.Form:SelectionMixin':

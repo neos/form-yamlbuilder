@@ -85,6 +85,22 @@
       this.renderables = [];
       return this.renderables.addArrayObserver(this);
     },
+    setUnknownProperty: function(k, v) {
+      this[k] = v;
+      this.addObserver(k, this, 'somePropertyChanged');
+      return this.somePropertyChanged(this, k);
+    },
+    setPathRecursively: function(path, v) {
+      var currentObject, firstPartOfPath;
+      currentObject = this;
+      while (path.indexOf('.') > 0) {
+        firstPartOfPath = path.slice(0, path.indexOf('.'));
+        path = path.slice(firstPartOfPath.length + 1);
+        if (!currentObject[firstPartOfPath]) currentObject[firstPartOfPath] = {};
+        currentObject = currentObject[firstPartOfPath];
+      }
+      return currentObject[path] = v;
+    },
     somePropertyChanged: function(theInstance, propertyName) {
       this.set('__nestedPropertyChange', this.get('__nestedPropertyChange') + 1);
       if (this.parentRenderable) {
@@ -145,11 +161,14 @@
   TYPO3.FormBuilder.Model.FormElementTypes = Ember.Object.create({
     allTypeNames: [],
     init: function() {
-      var typeConfiguration, typeName, _ref, _results;
-      _ref = TYPO3.FormBuilder.Configuration.formElementTypes;
+      var typeConfiguration, typeName, _ref, _ref2, _results;
+      if (((_ref = TYPO3.FormBuilder.Configuration) != null ? _ref.formElementTypes : void 0) == null) {
+        return;
+      }
+      _ref2 = TYPO3.FormBuilder.Configuration.formElementTypes;
       _results = [];
-      for (typeName in _ref) {
-        typeConfiguration = _ref[typeName];
+      for (typeName in _ref2) {
+        typeConfiguration = _ref2[typeName];
         this.allTypeNames.push(typeName);
         _results.push(this.set(typeName, TYPO3.FormBuilder.Model.FormElementType.create(typeConfiguration)));
       }
@@ -160,11 +179,14 @@
   TYPO3.FormBuilder.Model.FormElementGroups = Ember.Object.create({
     allGroupNames: [],
     init: function() {
-      var groupConfiguration, groupName, _ref, _results;
-      _ref = TYPO3.FormBuilder.Configuration.formElementGroups;
+      var groupConfiguration, groupName, _ref, _ref2, _results;
+      if (((_ref = TYPO3.FormBuilder.Configuration) != null ? _ref.formElementGroups : void 0) == null) {
+        return;
+      }
+      _ref2 = TYPO3.FormBuilder.Configuration.formElementGroups;
       _results = [];
-      for (groupName in _ref) {
-        groupConfiguration = _ref[groupName];
+      for (groupName in _ref2) {
+        groupConfiguration = _ref2[groupName];
         this.allGroupNames.push(groupName);
         _results.push(this.set(groupName, Ember.Object.create(groupConfiguration)));
       }
@@ -238,9 +260,10 @@
       newRenderable = TYPO3.FormBuilder.Model.Renderable.create({
         type: this.formElementType.get('key'),
         label: '',
-        identifier: 'ASDF'
+        identifier: Ember.generateGuid(null, 'formElement')
       });
-      return parentRenderablesArray.replace(indexInParent + 1, 0, [newRenderable]);
+      parentRenderablesArray.replace(indexInParent + 1, 0, [newRenderable]);
+      return this.set('currentlySelectedElement', newRenderable);
     }
   });
 
@@ -387,41 +410,21 @@
     formElement: null
   });
 
-  TYPO3.FormBuilder.View.Editor.LabelEditor = TYPO3.FormBuilder.View.Editor.AbstractEditor.extend({
-    templateName: 'LabelEditor',
-    label: (function(k, v) {
-      if (v) {
-        return this.setPath('formElement.label', v);
-      } else {
-        return this.getPath('formElement.label');
-      }
-    }).property('formElement').cacheable(),
-    identifier: (function(k, v) {
-      if (v) {
-        return this.setPath('formElement.identifier', v);
-      } else {
-        return this.getPath('formElement.identifier');
-      }
-    }).property('formElement').cacheable()
-  });
-
-  TYPO3.FormBuilder.View.Editor.PropertyGrid = TYPO3.FormBuilder.View.Editor.AbstractEditor.extend({
+  TYPO3.FormBuilder.View.Editor.AbstractPropertyEditor = TYPO3.FormBuilder.View.Editor.AbstractEditor.extend({
     /* PUBLIC API
     */
     propertyPath: null,
-    columns: null,
-    isSortable: false,
-    enableAddRow: false,
-    /* PRIVATE
+    /* API FOR SUBCLASSES
     */
+    defaultValue: '',
     value: (function(k, v) {
       var value;
-      if (v) {
+      if (v !== void 0) {
         return this.formElement.setPath(this.get('propertyPath'), v);
       } else {
         value = this.formElement.getPath(this.get('propertyPath'));
         if (!value) {
-          this.formElement.setPath(this.get('propertyPath'), []);
+          this.formElement.setPathRecursively(this.get('propertyPath'), this.get('defaultValue'));
           value = this.formElement.getPath(this.get('propertyPath'));
         }
         console.log("VAL", value);
@@ -431,7 +434,50 @@
     valueChanged: function() {
       var _base;
       return typeof (_base = this.get('formElement')).somePropertyChanged === "function" ? _base.somePropertyChanged(this.formElement, this.get('propertyPath')) : void 0;
-    },
+    }
+  });
+
+  TYPO3.FormBuilder.View.Editor.LabelEditor = TYPO3.FormBuilder.View.Editor.AbstractEditor.extend({
+    templateName: 'LabelEditor',
+    label: (function(k, v) {
+      if (v !== void 0) {
+        return this.setPath('formElement.label', v);
+      } else {
+        return this.getPath('formElement.label');
+      }
+    }).property('formElement').cacheable(),
+    identifier: (function(k, v) {
+      if (v !== void 0) {
+        return this.setPath('formElement.identifier', v);
+      } else {
+        return this.getPath('formElement.identifier');
+      }
+    }).property('formElement').cacheable()
+  });
+
+  TYPO3.FormBuilder.View.Editor.TextEditor = TYPO3.FormBuilder.View.Editor.AbstractPropertyEditor.extend({
+    /* PUBLIC API
+    */
+    label: null,
+    onValueChange: (function() {
+      return this.valueChanged();
+    }).observes('value'),
+    /* PRIVATE
+    */
+    templateName: 'TextEditor'
+  });
+
+  TYPO3.FormBuilder.View.Editor.PropertyGrid = TYPO3.FormBuilder.View.Editor.AbstractPropertyEditor.extend({
+    /* PUBLIC API
+    */
+    columns: null,
+    isSortable: false,
+    enableAddRow: false,
+    /* PRIVATE
+    */
+    defaultValue: (function() {
+      return [];
+    }).property().cacheable(),
     options: (function() {
       return {
         enableColumnReorder: false,
@@ -473,6 +519,8 @@
       var moveRowsPlugin,
         _this = this;
       this.grid = new Slick.Grid(this.$(), this.get('value'), this.get('columnDefinition'), this.get('options'));
+      this.$().find('.slick-viewport').css('overflow-x', 'hidden');
+      this.$().find('.slick-viewport').css('overflow-y', 'hidden');
       this.grid.setSelectionModel(new Slick.RowSelectionModel());
       this.grid.onCellChange.subscribe(function(e, args) {
         _this.get('value').replace(args.row, 1, args.item);
@@ -522,24 +570,29 @@
   TYPO3.FormBuilder.View.FormPageView = Ember.View.extend({
     formPagesBinding: 'TYPO3.FormBuilder.Model.Form.formDefinition.renderables',
     currentPageIndex: 0,
+    currentAjaxRequest: null,
     page: Ember.computed(function() {
       var _ref;
       return (_ref = this.get('formPages')) != null ? _ref.get(this.get('currentPageIndex')) : void 0;
     }).property('formPages', 'currentPageIndex').cacheable(),
     renderPageIfPageObjectChanges: (function() {
-      var formDefinition, _ref,
+      var _ref,
         _this = this;
       if (!((_ref = TYPO3.FormBuilder.Model.Form.get('formDefinition')) != null ? _ref.get('identifier') : void 0)) {
         return;
       }
-      formDefinition = TYPO3.FormBuilder.Utility.convertToSimpleObject(TYPO3.FormBuilder.Model.Form.get('formDefinition'));
-      console.log("POST DATA");
-      return $.post(TYPO3.FormBuilder.Configuration.endpoints.formPageRenderer, {
-        formDefinition: formDefinition
-      }, function(data) {
-        _this.$().html(data);
-        return _this.postProcessRenderedPage();
-      });
+      if (this.currentAjaxRequest) this.currentAjaxRequest.abort();
+      return window.setTimeout(function() {
+        var formDefinition;
+        formDefinition = TYPO3.FormBuilder.Utility.convertToSimpleObject(TYPO3.FormBuilder.Model.Form.get('formDefinition'));
+        console.log("POST DATA");
+        return _this.currentAjaxRequest = $.post(TYPO3.FormBuilder.Configuration.endpoints.formPageRenderer, {
+          formDefinition: formDefinition
+        }, function(data, textStatus, jqXHR) {
+          _this.$().html(data);
+          return _this.postProcessRenderedPage();
+        });
+      }, 300);
     }).observes('page', 'page.__nestedPropertyChange'),
     postProcessRenderedPage: function() {
       return this.$().find('fieldset').addClass('typo3-form-sortable').sortable({
