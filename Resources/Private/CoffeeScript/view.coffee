@@ -175,7 +175,8 @@ TYPO3.FormBuilder.View.FormElementInspector = Ember.ContainerView.extend {
 			throw "Editor class '#{formFieldEditor.viewName}' not found" if !subViewClass
 
 			subViewOptions = $.extend({}, formFieldEditor, {
-				formElement: @formElement
+				formElement: @formElement,
+				formElementType: @get('formElementType')
 			})
 			subView = subViewClass.create(subViewOptions)
 			@get('childViews').push(subView)
@@ -186,6 +187,7 @@ TYPO3.FormBuilder.View.FormElementInspector = Ember.ContainerView.extend {
 TYPO3.FormBuilder.View.Editor = {}
 TYPO3.FormBuilder.View.Editor.AbstractEditor = Ember.View.extend {
 	formElement: null,
+	formElementType: null
 }
 
 TYPO3.FormBuilder.View.Editor.AbstractPropertyEditor = TYPO3.FormBuilder.View.Editor.AbstractEditor.extend {
@@ -218,6 +220,8 @@ TYPO3.FormBuilder.View.Editor.AbstractPropertyEditor = TYPO3.FormBuilder.View.Ed
 	valueChanged: ->
 		@get('formElement').somePropertyChanged?(@formElement, @get('propertyPath'))
 
+}
+TYPO3.FormBuilder.View.Editor.TextOutput = TYPO3.FormBuilder.View.Editor.AbstractEditor.extend {
 }
 
 TYPO3.FormBuilder.View.Editor.LabelEditor = TYPO3.FormBuilder.View.Editor.AbstractEditor.extend {

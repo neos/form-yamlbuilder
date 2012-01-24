@@ -19,8 +19,12 @@ TYPO3:
             formBuilder:
               #todo rename to "editors"
               formFieldEditors:
-                labelAndIdentifier:
+                elementType:
                   sorting: 100
+                  viewName: 'TYPO3.FormBuilder.View.Editor.TextOutput'
+                  templateName: 'PropertyPanelTitle'
+                labelAndIdentifier:
+                  sorting: 110
                   viewName: 'TYPO3.FormBuilder.View.Editor.LabelEditor'
 
           'TYPO3.Form:Page':

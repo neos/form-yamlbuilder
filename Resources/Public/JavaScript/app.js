@@ -391,7 +391,8 @@
           throw "Editor class '" + formFieldEditor.viewName + "' not found";
         }
         subViewOptions = $.extend({}, formFieldEditor, {
-          formElement: this.formElement
+          formElement: this.formElement,
+          formElementType: this.get('formElementType')
         });
         subView = subViewClass.create(subViewOptions);
         this.get('childViews').push(subView);
@@ -403,7 +404,8 @@
   TYPO3.FormBuilder.View.Editor = {};
 
   TYPO3.FormBuilder.View.Editor.AbstractEditor = Ember.View.extend({
-    formElement: null
+    formElement: null,
+    formElementType: null
   });
 
   TYPO3.FormBuilder.View.Editor.AbstractPropertyEditor = TYPO3.FormBuilder.View.Editor.AbstractEditor.extend({
@@ -432,6 +434,8 @@
       return typeof (_base = this.get('formElement')).somePropertyChanged === "function" ? _base.somePropertyChanged(this.formElement, this.get('propertyPath')) : void 0;
     }
   });
+
+  TYPO3.FormBuilder.View.Editor.TextOutput = TYPO3.FormBuilder.View.Editor.AbstractEditor.extend({});
 
   TYPO3.FormBuilder.View.Editor.LabelEditor = TYPO3.FormBuilder.View.Editor.AbstractEditor.extend({
     templateName: 'LabelEditor',
