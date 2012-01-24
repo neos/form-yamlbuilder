@@ -1,0 +1,108 @@
+TYPO3:
+  Form:
+    supertypeResolver:
+      hiddenProperties:
+        formBuilder: formBuilder
+    Presets:
+      ########### DEFAULT ###########
+      Default:
+        formElementGroups:
+          simple:
+            sorting: 100
+            label: 'Simple Form Elements'
+          composite:
+            sorting: 200
+            label: 'Composite Form Elements'
+
+        formElementTypes:
+          'TYPO3.Form:Base':
+            formBuilder:
+              formFieldEditors:
+                labelAndIdentifier:
+                  sorting: 100
+                  viewName: 'TYPO3.FormBuilder.View.Editor.LabelEditor'
+
+          'TYPO3.Form:Page':
+            formBuilder:
+              label: 'Page'
+              group: 'composite'
+              sorting: 100
+              # todo rename this to "isPage"
+              _isCompositeRenderable: true
+
+          'TYPO3.Form:Section':
+            formBuilder:
+              label: 'Section (Fieldset)'
+              group: 'composite'
+              sorting: 200
+
+          'TYPO3.Form:Textfield':
+            formBuilder:
+              label: 'Simple Textfield'
+              group: simple
+              sorting: 100
+
+          'TYPO3.Form:Textarea':
+            formBuilder:
+              label: 'Multiline Text'
+              group: simple
+              sorting: 110
+
+          'TYPO3.Form:Checkbox':
+            formBuilder:
+              label: 'Single Checkbox'
+              group: simple
+              sorting: 120
+
+          'TYPO3.Form:Checkboxes':
+            formBuilder:
+              label: 'Checkbox List'
+              group: simple
+              sorting: 130
+
+          'TYPO3.Form:Radiobuttons':
+            formBuilder:
+              label: 'Radio Button List'
+              group: simple
+              sorting: 140
+
+          'TYPO3.Form:Select':
+            formBuilder:
+              label: 'Select Field'
+              group: simple
+              sorting: 150
+
+          'TYPO3.Form:Date':
+            formBuilder:
+              label: 'Date Selection'
+              group: simple
+              sorting: 160
+
+          'TYPO3.Form:ImageUpload':
+            formBuilder:
+              label: 'Image Upload'
+              group: simple
+              sorting: 170
+
+
+
+
+          'TYPO3.Form:SelectionMixin':
+            formBuilder:
+              formFieldEditors:
+                options:
+                  sorting: 200
+                  viewName: 'TYPO3.FormBuilder.View.Editor.PropertyGrid'
+                  # TODO: rename to "optionListPath"?
+                  propertyPath: 'properties.options'
+                  isSortable: true
+                  enableAddRow: true
+                  columns:
+                    0:
+                      field: '_key'
+                      name: 'Value'
+                      editor: 'TextCellEditor'
+                    1:
+                      field: '_value'
+                      name: 'Label'
+                      editor: 'TextCellEditor'

@@ -9,17 +9,18 @@ TYPO3.FormBuilder.View.AvailableFormElementsView = Ember.View.extend {
 
 		for formElementTypeName in @get('allFormElementTypes')
 			formElementType = TYPO3.FormBuilder.Model.FormElementTypes.get(formElementTypeName)
-			if !formElementsByGroup[formElementType.group]
-				formElementsByGroup[formElementType.group] = []
+			continue unless formElementType.formBuilder?.group?
+			if !formElementsByGroup[formElementType.formBuilder.group]
+				formElementsByGroup[formElementType.formBuilder.group] = []
 
 			formElementType.set('key', formElementTypeName)
-			formElementsByGroup[formElementType.group].push(formElementType)
+			formElementsByGroup[formElementType.formBuilder.group].push(formElementType)
 
 		formGroups = []
 		for formGroupName in TYPO3.FormBuilder.Model.FormElementGroups.get('allGroupNames')
 			formGroup = TYPO3.FormBuilder.Model.FormElementGroups.get(formGroupName)
 			formGroup.set('key', formGroupName)
-			formElementsByGroup[formGroupName].sort((a, b) -> a.sorting - b.sorting)
+			formElementsByGroup[formGroupName]?.sort((a, b) -> a.formBuilder.sorting - b.formBuilder.sorting)
 			formGroup.set('elements', formElementsByGroup[formGroupName])
 			formGroups.push(formGroup)
 
@@ -38,7 +39,8 @@ TYPO3.FormBuilder.View.AvailableFormElementsElement = Ember.View.extend {
 	currentlySelectedElementBinding: 'TYPO3.FormBuilder.Model.Form.currentlySelectedRenderable'
 
 	didInsertElement: ->
-		@$().html(@getPath('formElementType.label'))
+		@$().html(@getPath('formElementType.formBuilder.label'))
+		@$().attr('title', @getPath('formElementType.key'))
 	click: ->
 		el = @get('currentlySelectedElement')
 		return unless el
@@ -68,7 +70,7 @@ TYPO3.FormBuilder.View.FormStructure = Ember.View.extend {
 				onDragStart: -> true
 				autoExpandMS: 300
 				onDragEnter: (targetNode, sourceNode) ->
-					targetNodeIsCompositeRenderable = TYPO3.FormBuilder.Model.FormElementTypes.get("#{targetNode.data.formRenderable.get('type')}._isCompositeRenderable")
+					targetNodeIsCompositeRenderable = TYPO3.FormBuilder.Model.FormElementTypes.get(targetNode.data.formRenderable.get('type')).getPath('formBuilder.__isCompositeRenderable')
 
 					if sourceNode.getLevel() == 1
 						# source node is a PAGE
@@ -152,7 +154,8 @@ TYPO3.FormBuilder.View.FormElementInspector = Ember.ContainerView.extend {
 
 	orderedFormFieldEditors: ( ->
 		# copy the schema to work on a clone
-		formFieldEditors = $.extend({}, @getPath('formElementType.formFieldEditors'))
+		formFieldEditors = $.extend({}, @getPath('formElementType.formBuilder.formFieldEditors'))
+		console.log("ffe", formFieldEditors)
 
 		orderedFormFieldEditors = for k, v of formFieldEditors
 			v['key'] = k
@@ -202,37 +205,87 @@ TYPO3.FormBuilder.View.Editor.LabelEditor = TYPO3.FormBuilder.View.Editor.Abstra
 	).property('formElement').cacheable()
 }
 TYPO3.FormBuilder.View.Editor.PropertyGrid = TYPO3.FormBuilder.View.Editor.AbstractEditor.extend {
+
+	### PUBLIC API ###
+	# the property path at which the array with the form values resides, relative to the current @formElement.
+	# Required.
 	propertyPath: null,
 
+	# list of columns. Required.
+	columns: null,
+
+	# if TRUE, the grid is made sortable by adding a drag handle as the leftmost column
+	isSortable: false,
+
+	# if TRUE, there is always one row more inside the table which can be used to create new elements
+	enableAddRow: false
+
+	### PRIVATE ###
+	# accessor for the current value array
 	value: ( (k, v) ->
 		if v
 			@formElement.setPath(@get('propertyPath'), v)
 		else
-			@formElement.getPath(@get('propertyPath'))
+			value = @formElement.getPath(@get('propertyPath'))
+			if !value
+				@formElement.setPath(@get('propertyPath'), [])
+				value = @formElement.getPath(@get('propertyPath'))
+			console.log("VAL", value)
+			value
 	).property('propertyPath', 'formElement').cacheable()
 
+	# callback function which needs to be executed when the value changes
 	valueChanged: ->
 		@get('formElement').somePropertyChanged?(@formElement, @get('propertyPath'))
 
-	columns: null,
-	options: {
-		enableColumnReorder: false,
-		autoHeight: true
+	# slick grid options
+	options: (->
+		return {
+			enableColumnReorder: false
+			autoHeight: true
+			editable: true
+			enableAddRow: @get('enableAddRow')
+			enableCellNavigation: true
+			asyncEditorLoading: false
+			forceFitColumns: true
+		}
+	).property('enableAddRow').cacheable()
 
-		editable: true,
-		enableAddRow: true,
-		enableCellNavigation: true,
-		asyncEditorLoading: false,
-		forceFitColumns: true
-	},
+	# slick grid column definition
+	columnDefinition: (->
+		columns = []
 
+		if @get('isSortable')
+			columns.push {
+				id: "#",
+				name: "",
+				width: 40,
+				behavior: "selectAndMove",
+				selectable: false,
+				resizable: false,
+				cssClass: "cell-reorder dnd",
+				focusable: false
+			}
+
+		for column in @get('columns')
+			# copy columns object as we intend to modify it.
+			column = $.extend({}, column)
+			column.id = column.field
+			# fetch actual object for the column editor
+			column.editor = Ember.getPath(column.editor)
+			columns.push(column)
+
+		return columns
+	).property('columns', 'isSortable').cacheable()
+
+	# instance of the slick grid
 	grid: null
 
 	#
 	# Initialize Grid
 	#
 	didInsertElement: ->
-		@grid = new Slick.Grid(@$(), @get('value'), @columns, @options);
+		@grid = new Slick.Grid(@$(), @get('value'), @get('columnDefinition'), @get('options'));
 		@grid.setSelectionModel(new Slick.RowSelectionModel());
 
 		# Save changes to cells

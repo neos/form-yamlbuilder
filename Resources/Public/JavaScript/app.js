@@ -182,28 +182,33 @@
   TYPO3.FormBuilder.View.AvailableFormElementsView = Ember.View.extend({
     allFormElementTypesBinding: 'TYPO3.FormBuilder.Model.FormElementTypes.allTypeNames',
     formElementsGrouped: (function() {
-      var formElementType, formElementTypeName, formElementsByGroup, formGroup, formGroupName, formGroups, _i, _j, _len, _len2, _ref, _ref2;
+      var formElementType, formElementTypeName, formElementsByGroup, formGroup, formGroupName, formGroups, _i, _j, _len, _len2, _ref, _ref2, _ref3, _ref4;
       console.log("ASDF");
       formElementsByGroup = {};
       _ref = this.get('allFormElementTypes');
       for (_i = 0, _len = _ref.length; _i < _len; _i++) {
         formElementTypeName = _ref[_i];
         formElementType = TYPO3.FormBuilder.Model.FormElementTypes.get(formElementTypeName);
-        if (!formElementsByGroup[formElementType.group]) {
-          formElementsByGroup[formElementType.group] = [];
+        if (((_ref2 = formElementType.formBuilder) != null ? _ref2.group : void 0) == null) {
+          continue;
+        }
+        if (!formElementsByGroup[formElementType.formBuilder.group]) {
+          formElementsByGroup[formElementType.formBuilder.group] = [];
         }
         formElementType.set('key', formElementTypeName);
-        formElementsByGroup[formElementType.group].push(formElementType);
+        formElementsByGroup[formElementType.formBuilder.group].push(formElementType);
       }
       formGroups = [];
-      _ref2 = TYPO3.FormBuilder.Model.FormElementGroups.get('allGroupNames');
-      for (_j = 0, _len2 = _ref2.length; _j < _len2; _j++) {
-        formGroupName = _ref2[_j];
+      _ref3 = TYPO3.FormBuilder.Model.FormElementGroups.get('allGroupNames');
+      for (_j = 0, _len2 = _ref3.length; _j < _len2; _j++) {
+        formGroupName = _ref3[_j];
         formGroup = TYPO3.FormBuilder.Model.FormElementGroups.get(formGroupName);
         formGroup.set('key', formGroupName);
-        formElementsByGroup[formGroupName].sort(function(a, b) {
-          return a.sorting - b.sorting;
-        });
+        if ((_ref4 = formElementsByGroup[formGroupName]) != null) {
+          _ref4.sort(function(a, b) {
+            return a.formBuilder.sorting - b.formBuilder.sorting;
+          });
+        }
         formGroup.set('elements', formElementsByGroup[formGroupName]);
         formGroups.push(formGroup);
       }
@@ -221,7 +226,8 @@
     formElementType: null,
     currentlySelectedElementBinding: 'TYPO3.FormBuilder.Model.Form.currentlySelectedRenderable',
     didInsertElement: function() {
-      return this.$().html(this.getPath('formElementType.label'));
+      this.$().html(this.getPath('formElementType.formBuilder.label'));
+      return this.$().attr('title', this.getPath('formElementType.key'));
     },
     click: function() {
       var el, indexInParent, newRenderable, parentRenderablesArray;
@@ -252,7 +258,7 @@
           autoExpandMS: 300,
           onDragEnter: function(targetNode, sourceNode) {
             var targetNodeIsCompositeRenderable;
-            targetNodeIsCompositeRenderable = TYPO3.FormBuilder.Model.FormElementTypes.get("" + (targetNode.data.formRenderable.get('type')) + "._isCompositeRenderable");
+            targetNodeIsCompositeRenderable = TYPO3.FormBuilder.Model.FormElementTypes.get(targetNode.data.formRenderable.get('type')).getPath('formBuilder.__isCompositeRenderable');
             if (sourceNode.getLevel() === 1) {
               if (targetNode.getLevel() === 1) {
                 return ['before', 'after'];
@@ -336,7 +342,8 @@
     }).property('formElement').cacheable(),
     orderedFormFieldEditors: (function() {
       var formFieldEditors, k, orderedFormFieldEditors, v;
-      formFieldEditors = $.extend({}, this.getPath('formElementType.formFieldEditors'));
+      formFieldEditors = $.extend({}, this.getPath('formElementType.formBuilder.formFieldEditors'));
+      console.log("ffe", formFieldEditors);
       orderedFormFieldEditors = (function() {
         var _results;
         _results = [];
@@ -399,33 +406,73 @@
   });
 
   TYPO3.FormBuilder.View.Editor.PropertyGrid = TYPO3.FormBuilder.View.Editor.AbstractEditor.extend({
+    /* PUBLIC API
+    */
     propertyPath: null,
+    columns: null,
+    isSortable: false,
+    enableAddRow: false,
+    /* PRIVATE
+    */
     value: (function(k, v) {
+      var value;
       if (v) {
         return this.formElement.setPath(this.get('propertyPath'), v);
       } else {
-        return this.formElement.getPath(this.get('propertyPath'));
+        value = this.formElement.getPath(this.get('propertyPath'));
+        if (!value) {
+          this.formElement.setPath(this.get('propertyPath'), []);
+          value = this.formElement.getPath(this.get('propertyPath'));
+        }
+        console.log("VAL", value);
+        return value;
       }
     }).property('propertyPath', 'formElement').cacheable(),
     valueChanged: function() {
       var _base;
       return typeof (_base = this.get('formElement')).somePropertyChanged === "function" ? _base.somePropertyChanged(this.formElement, this.get('propertyPath')) : void 0;
     },
-    columns: null,
-    options: {
-      enableColumnReorder: false,
-      autoHeight: true,
-      editable: true,
-      enableAddRow: true,
-      enableCellNavigation: true,
-      asyncEditorLoading: false,
-      forceFitColumns: true
-    },
+    options: (function() {
+      return {
+        enableColumnReorder: false,
+        autoHeight: true,
+        editable: true,
+        enableAddRow: this.get('enableAddRow'),
+        enableCellNavigation: true,
+        asyncEditorLoading: false,
+        forceFitColumns: true
+      };
+    }).property('enableAddRow').cacheable(),
+    columnDefinition: (function() {
+      var column, columns, _i, _len, _ref;
+      columns = [];
+      if (this.get('isSortable')) {
+        columns.push({
+          id: "#",
+          name: "",
+          width: 40,
+          behavior: "selectAndMove",
+          selectable: false,
+          resizable: false,
+          cssClass: "cell-reorder dnd",
+          focusable: false
+        });
+      }
+      _ref = this.get('columns');
+      for (_i = 0, _len = _ref.length; _i < _len; _i++) {
+        column = _ref[_i];
+        column = $.extend({}, column);
+        column.id = column.field;
+        column.editor = Ember.getPath(column.editor);
+        columns.push(column);
+      }
+      return columns;
+    }).property('columns', 'isSortable').cacheable(),
     grid: null,
     didInsertElement: function() {
       var moveRowsPlugin,
         _this = this;
-      this.grid = new Slick.Grid(this.$(), this.get('value'), this.columns, this.options);
+      this.grid = new Slick.Grid(this.$(), this.get('value'), this.get('columnDefinition'), this.get('options'));
       this.grid.setSelectionModel(new Slick.RowSelectionModel());
       this.grid.onCellChange.subscribe(function(e, args) {
         _this.get('value').replace(args.row, 1, args.item);

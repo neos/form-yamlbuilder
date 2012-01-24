@@ -1,3 +1,4 @@
+{namespace formbuilder=TYPO3\FormBuilder\ViewHelpers}
 <html>
 	<head>
 		<f:base />
@@ -70,63 +71,7 @@
 		</style>
 
 		<script type="text/javascript">
-			<![CDATA[FORMBUILDER_CONFIGURATION = {
-				'endpoints': {]]>
-					'formPageRenderer': '{f:uri.action(action:"renderformpage")}'
-				},
-				<![CDATA[
-				'formElementGroups': {
-					'composite': {
-						sorting: 100,
-						label: 'Composite Elements'
-					},
-					'simple': {
-						sorting: 200,
-						label: 'Simple Elements'
-					}
-				},
-				'formElementTypes': {
-					'TYPO3.Form:Page': {
-						label: 'Page',
-						group: 'composite',
-						sorting: 100,
-						__isCompositeRenderable: true
-					},
-					'TYPO3.Form:Radiobuttons': {
-						label: 'Radio Buttons',
-						group: 'simple',
-						sorting: 100,
-
-						formFieldEditors: {
-							'labelAndIdentifier': {
-								sorting: 100,
-								viewName: 'TYPO3.FormBuilder.View.Editor.LabelEditor'
-							},
-
-							'options': {
-								sorting: 200,
-								viewName: 'TYPO3.FormBuilder.View.Editor.PropertyGrid',
-								propertyPath: 'properties.options',
-								columns: [
-									{
-										id: "#",
-										name: "",
-										width: 40,
-										behavior: "selectAndMove",
-										selectable: false,
-										resizable: false,
-										cssClass: "cell-reorder dnd",
-										focusable: false
-									},
-									{id:"ident", name:"Value", field:"_key", editor:TextCellEditor},
-									{id:"value", name:"Label", field:"_value", editor:TextCellEditor},
-								]
-							}
-						}
-					}
-				}
-			}
-			]]>
+			FORMBUILDER_CONFIGURATION = {formbuilder:jsonConfiguration()};
 		</script>
 
 		<script type="text/x-handlebars" data-template-name="AvailableFormElements">

@@ -15,7 +15,9 @@ use TYPO3\Form\Core\Model\FormDefinition;
  *
  */
 class FormBuilderFactory extends \TYPO3\Form\Factory\AbstractFormFactory {
-
+	public function getPresetConfiguration($presetName) {
+		return parent::getPresetConfiguration($presetName);
+	}
 	public function build(array $configuration, $presetName) {
 		$formDefaults = $this->getPresetConfiguration($presetName);
 
