@@ -17,6 +17,7 @@ TYPO3:
         formElementTypes:
           'TYPO3.Form:Base':
             formBuilder:
+              #todo rename to "editors"
               formFieldEditors:
                 labelAndIdentifier:
                   sorting: 100
@@ -29,6 +30,13 @@ TYPO3:
               sorting: 100
               # todo rename this to "isPage"
               _isCompositeRenderable: true
+
+          'TYPO3.Form:FormElement':
+            formBuilder:
+              formFieldEditors:
+                requiredValidator:
+                  sorting: 800
+                  viewName: 'TYPO3.FormBuilder.View.Editor.RequiredValidatorEditor'
 
           'TYPO3.Form:Section':
             formBuilder:

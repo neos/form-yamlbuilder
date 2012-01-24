@@ -205,7 +205,6 @@
     allFormElementTypesBinding: 'TYPO3.FormBuilder.Model.FormElementTypes.allTypeNames',
     formElementsGrouped: (function() {
       var formElementType, formElementTypeName, formElementsByGroup, formGroup, formGroupName, formGroups, _i, _j, _len, _len2, _ref, _ref2, _ref3, _ref4;
-      console.log("ASDF");
       formElementsByGroup = {};
       _ref = this.get('allFormElementTypes');
       for (_i = 0, _len = _ref.length; _i < _len; _i++) {
@@ -237,7 +236,6 @@
       formGroups.sort(function(a, b) {
         return a.sorting - b.sorting;
       });
-      console.log(formGroups);
       return formGroups;
     }).property('allFormElementTypes').cacheable(),
     templateName: 'AvailableFormElements'
@@ -366,7 +364,6 @@
     orderedFormFieldEditors: (function() {
       var formFieldEditors, k, orderedFormFieldEditors, v;
       formFieldEditors = $.extend({}, this.getPath('formElementType.formBuilder.formFieldEditors'));
-      console.log("ffe", formFieldEditors);
       orderedFormFieldEditors = (function() {
         var _results;
         _results = [];
@@ -396,7 +393,6 @@
         subViewOptions = $.extend({}, formFieldEditor, {
           formElement: this.formElement
         });
-        console.log(subViewOptions);
         subView = subViewClass.create(subViewOptions);
         this.get('childViews').push(subView);
       }
@@ -420,14 +416,14 @@
     value: (function(k, v) {
       var value;
       if (v !== void 0) {
-        return this.formElement.setPath(this.get('propertyPath'), v);
+        this.formElement.setPath(this.get('propertyPath'), v);
+        return v;
       } else {
         value = this.formElement.getPath(this.get('propertyPath'));
-        if (!value) {
+        if (value === void 0) {
           this.formElement.setPathRecursively(this.get('propertyPath'), this.get('defaultValue'));
           value = this.formElement.getPath(this.get('propertyPath'));
         }
-        console.log("VAL", value);
         return value;
       }
     }).property('propertyPath', 'formElement').cacheable(),
@@ -465,6 +461,40 @@
     /* PRIVATE
     */
     templateName: 'TextEditor'
+  });
+
+  TYPO3.FormBuilder.View.Editor.RequiredValidatorEditor = TYPO3.FormBuilder.View.Editor.AbstractPropertyEditor.extend({
+    /* PUBLIC API
+    */
+    /* PRIVATE
+    */
+    templateName: 'RequiredValidatorEditor',
+    propertyPath: 'validators',
+    defaultValue: (function() {
+      return [];
+    }).property().cacheable(),
+    isRequiredValidatorConfigured: (function(k, v) {
+      var a, notEmptyValidatorClassName, val;
+      notEmptyValidatorClassName = 'TYPO3\\FLOW3\\Validation\\Validator\\NotEmptyValidator';
+      if (v !== void 0) {
+        a = this.get('value').filter(function(validatorConfiguration) {
+          return validatorConfiguration.name !== notEmptyValidatorClassName;
+        });
+        this.set('value', a);
+        if (v === true) {
+          this.get('value').push({
+            name: notEmptyValidatorClassName
+          });
+        }
+        this.valueChanged();
+        return v;
+      } else {
+        val = !!this.get('value').some(function(validatorConfiguration) {
+          return validatorConfiguration.name === notEmptyValidatorClassName;
+        });
+        return val;
+      }
+    }).property('value').cacheable()
   });
 
   TYPO3.FormBuilder.View.Editor.PropertyGrid = TYPO3.FormBuilder.View.Editor.AbstractPropertyEditor.extend({

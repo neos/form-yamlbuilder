@@ -4,7 +4,6 @@ TYPO3.FormBuilder.View.AvailableFormElementsView = Ember.View.extend {
 	allFormElementTypesBinding: 'TYPO3.FormBuilder.Model.FormElementTypes.allTypeNames'
 
 	formElementsGrouped: (->
-		console.log("ASDF")
 		formElementsByGroup = {}
 
 		for formElementTypeName in @get('allFormElementTypes')
@@ -26,7 +25,6 @@ TYPO3.FormBuilder.View.AvailableFormElementsView = Ember.View.extend {
 
 		formGroups.sort((a, b) -> a.sorting - b.sorting)
 
-		console.log(formGroups)
 		return formGroups
 	).property('allFormElementTypes').cacheable()
 
@@ -157,7 +155,6 @@ TYPO3.FormBuilder.View.FormElementInspector = Ember.ContainerView.extend {
 	orderedFormFieldEditors: ( ->
 		# copy the schema to work on a clone
 		formFieldEditors = $.extend({}, @getPath('formElementType.formBuilder.formFieldEditors'))
-		console.log("ffe", formFieldEditors)
 
 		orderedFormFieldEditors = for k, v of formFieldEditors
 			v['key'] = k
@@ -180,7 +177,6 @@ TYPO3.FormBuilder.View.FormElementInspector = Ember.ContainerView.extend {
 			subViewOptions = $.extend({}, formFieldEditor, {
 				formElement: @formElement
 			})
-			console.log(subViewOptions);
 			subView = subViewClass.create(subViewOptions)
 			@get('childViews').push(subView)
 		@rerender()
@@ -208,13 +204,14 @@ TYPO3.FormBuilder.View.Editor.AbstractPropertyEditor = TYPO3.FormBuilder.View.Ed
 	value: ( (k, v) ->
 		if v != undefined
 			@formElement.setPath(@get('propertyPath'), v)
+			# EXTREMELY IMPORTANT that the computed property SETTER returns the given value as well!
+			return v
 		else
 			value = @formElement.getPath(@get('propertyPath'))
-			if !value
+			if value == undefined
 				@formElement.setPathRecursively(@get('propertyPath'), @get('defaultValue'))
 				value = @formElement.getPath(@get('propertyPath'))
-			console.log("VAL", value)
-			value
+			return value
 	).property('propertyPath', 'formElement').cacheable()
 
 	# callback function which needs to be executed when the value changes
@@ -250,6 +247,39 @@ TYPO3.FormBuilder.View.Editor.TextEditor = TYPO3.FormBuilder.View.Editor.Abstrac
 	### PRIVATE ###
 	templateName: 'TextEditor'
 }
+TYPO3.FormBuilder.View.Editor.RequiredValidatorEditor = TYPO3.FormBuilder.View.Editor.AbstractPropertyEditor.extend {
+	### PUBLIC API ###
+
+	### PRIVATE ###
+	templateName: 'RequiredValidatorEditor'
+
+	propertyPath: 'validators'
+	defaultValue: (-> []).property().cacheable()
+
+	isRequiredValidatorConfigured: ((k, v) ->
+		notEmptyValidatorClassName = 'TYPO3\\FLOW3\\Validation\\Validator\\NotEmptyValidator'
+		if v != undefined
+			# set case
+			# remove all NotEmptyValidators first
+
+			a = @get('value').filter((validatorConfiguration) -> validatorConfiguration.name != notEmptyValidatorClassName)
+			@set('value', a)
+
+			# then, re-add the validator if needed
+			if v == true
+				@get('value').push {
+					name: notEmptyValidatorClassName
+				}
+			@valueChanged()
+			# EXTREMELY IMPORTANT that the computed property SETTER returns the given value as well!
+			return v
+		else
+			# get case
+			val = !!@get('value').some((validatorConfiguration) -> validatorConfiguration.name == notEmptyValidatorClassName)
+			return val
+	).property('value').cacheable()
+}
+
 TYPO3.FormBuilder.View.Editor.PropertyGrid = TYPO3.FormBuilder.View.Editor.AbstractPropertyEditor.extend {
 
 	### PUBLIC API ###

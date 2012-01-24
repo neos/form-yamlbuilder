@@ -44,10 +44,18 @@ class FormBuilderFactory extends \TYPO3\Form\Factory\AbstractFormFactory {
 			$childRenderables = array();
 		}
 
+		if (isset($nestedRenderableConfiguration['validators']) && is_array($nestedRenderableConfiguration['validators'])) {
+			foreach ($nestedRenderableConfiguration['validators'] as $validatorConfiguration) {
+				$validatorClassName = $validatorConfiguration['name'];
+				$validatorOptions = (isset($validatorConfiguration['options']) ? $validatorConfiguration['options'] : array());
+				$renderable->addValidator(new $validatorClassName($validatorOptions));
+			}
+		}
 
 		unset($nestedRenderableConfiguration['type']);
 		unset($nestedRenderableConfiguration['identifier']);
 		unset($nestedRenderableConfiguration['renderables']);
+		unset($nestedRenderableConfiguration['validators']);
 
 		$nestedRenderableConfiguration = $this->convertJsonToAssociativeArray($nestedRenderableConfiguration);
 		$renderable->setOptions($nestedRenderableConfiguration);
