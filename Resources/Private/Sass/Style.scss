@@ -1,0 +1,75 @@
+@import "compass/reset/utilities";
+
+#header, #leftSidebar, #rightSidebar {
+	@include global-reset();
+}
+
+
+
+$headerSize: 50px;
+$leftSidebarWidth: 300px;
+$rightSidebarWidth: 300px;
+
+#app {
+	position: absolute;
+	left: 0;
+	top: 0;
+	width: 100%;
+	height: 100%;
+	overflow: none;
+}
+
+#header {
+	left: 0;
+	top: 0;
+	width: 100%;
+	height: $headerSize;
+	background: red;
+	position: fixed;
+}
+
+#leftSidebar {
+	position:fixed;
+	left: 0;
+	top: 0;
+	margin-top: $headerSize;
+	background: green;
+	width: $leftSidebarWidth;
+	height: 100%;
+}
+
+#rightSidebar {
+	position:fixed;
+	right: 0;
+	top: 0;
+	margin-top: $headerSize;
+	background: green;
+	width: $rightSidebarWidth;
+	height: 100%;
+}
+
+// Here, the main form area is diplayed
+#main {
+	padding-left: $leftSidebarWidth;
+	padding-top: $headerSize;
+	padding-right: $rightSidebarWidth;
+
+	.formbuilder-form-element-selected {
+		background: #CCC;
+	}
+}
+
+#rightSidebar {
+	// Table Styling
+	.slick-row {
+		.cell-reorder {
+			cursor: move;
+			background: url(Library/SlickGrid/images/drag-handle.png) no-repeat center center;
+		}
+		.editor-text {
+			width: 100%;
+			height: 100%;
+			font-size: 15px;
+		}
+	}
+}

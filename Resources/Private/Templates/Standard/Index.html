@@ -6,7 +6,6 @@
 		<script src="http://ajax.googleapis.com/ajax/libs/jqueryui/1.8.16/jquery-ui.min.js"></script>
 		<script src="{f:uri.resource(path:'Library/ember-0.9.4.js')}"></script>
 		<script src="{f:uri.resource(path:'Library/dynatree-1.2.0/src/jquery.dynatree.js')}"></script>
-		<link rel="stylesheet" href="{f:uri.resource(path:'Library/dynatree-1.2.0/src/skin/ui.dynatree.css')}" />
 
 		<script src="{f:uri.resource(path:'Library/SlickGrid/lib/jquery.event.drag-2.0.min.js')}"></script>
 		<script src="{f:uri.resource(path:'Library/SlickGrid/slick.core.js')}"></script>
@@ -17,67 +16,11 @@
 		<script src="{f:uri.resource(path:'Library/SlickGrid/plugins/slick.rowmovemanager.js')}"></script>
 		<script src="{f:uri.resource(path:'Library/SlickGrid/slick.editors.js')}"></script>
 		<script src="{f:uri.resource(path:'Library/SlickGrid/slick.grid.js')}"></script>
+
+		<link rel="stylesheet" href="{f:uri.resource(path:'style.css')}" />
+		<link rel="stylesheet" href="{f:uri.resource(path:'Library/dynatree-1.2.0/src/skin/ui.dynatree.wrapped.css')}" />
 		<link rel="stylesheet" href="http://ajax.googleapis.com/ajax/libs/jqueryui/1.8/themes/smoothness/jquery-ui.css" />
-		<link rel="stylesheet" href="{f:uri.resource(path:'Library/SlickGrid/slick.grid.css')}" />
-
-		<style>
-		html,body {margin:0;padding:0;}
-
-		#app {
-			height:100%;
-			display: -webkit-box;
-			-webkit-box-orient: vertical;
-			-webkit-box-align:stretch;
-		}
-
-		#header {
-			height:50px;
-			background-color:#cdcdcd;
-		}
-
-		#footer {
-			height:30px;
-			background-color:#cdcdcd;
-		}
-
-		#content {
-			-webkit-box-flex:1;
-			display: -webkit-box;
-				-webkit-box-orient: horizontal;
-			-webkit-box-align:stretch;
-		}
-
-		#sidebar { width:300px; background-color:#676767;}
-
-		#main {
-			-webkit-box-flex:1;
-			background-color:green;
-		}
-
-		.slick-row .cell-reorder {
-			cursor: move;
-			background: url("{f:uri.resource(path:'Library/SlickGrid/images/drag-handle.png')}") no-repeat center center;
-		}
-		.slick-row .editor-text {
-			width: 100%;
-			height: 100%;
-			font-size: 15px;
-		}
-
-		#elementOptions {
-			display:block;
-			position:fixed;
-			width: 300px;
-			height:100%;
-			right: 0;
-			top: 0;
-			background:white;
-		}
-
-		.formbuilder-form-element-selected {
-			background: #CCC;
-		}
-		</style>
+		<link rel="stylesheet" href="{f:uri.resource(path:'Library/SlickGrid/slick.grid.wrapped.css')}" />
 
 		<script type="text/javascript">
 			FORMBUILDER_CONFIGURATION = {formbuilder:jsonConfiguration()};
@@ -121,7 +64,7 @@
 				</script>
 			</div>
 			<div id="content">
-				<div id="sidebar">
+				<div id="leftSidebar">
 					<script type="text/x-handlebars"><![CDATA[
 						{{view TYPO3.FormBuilder.View.FormStructure}}
 					]]></script>
@@ -135,15 +78,12 @@
 						{{view TYPO3.FormBuilder.View.FormPageView}}
 					]]></script>
 				</div>
-				<div id="elementOptions">
+				<div id="rightSidebar">
 					<h2>Element Options</h2>
 					<script type="text/x-handlebars"><![CDATA[
 						{{view TYPO3.FormBuilder.View.FormElementInspector formElementBinding="TYPO3.FormBuilder.Model.Form.currentlySelectedRenderable"}}
 					]]></script>
 				</div>
-			</div>
-			<div id="footer">
-				&copy; 2010 Awesome Productions Ltd.
 			</div>
 		</div>
 		<script src="{f:uri.resource(path:'JavaScript/app.js')}"></script>

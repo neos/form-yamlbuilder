@@ -1,0 +1,88 @@
+#header html, #header body, #header div, #header span, #header applet, #header object, #header iframe,
+#header h1, #header h2, #header h3, #header h4, #header h5, #header h6, #header p, #header blockquote, #header pre,
+#header a, #header abbr, #header acronym, #header address, #header big, #header cite, #header code,
+#header del, #header dfn, #header em, #header img, #header ins, #header kbd, #header q, #header s, #header samp,
+#header small, #header strike, #header strong, #header sub, #header sup, #header tt, #header var,
+#header b, #header u, #header i, #header center,
+#header dl, #header dt, #header dd, #header ol, #header ul, #header li,
+#header fieldset, #header form, #header label, #header legend,
+#header table, #header caption, #header tbody, #header tfoot, #header thead, #header tr, #header th, #header td,
+#header article, #header aside, #header canvas, #header details, #header embed,
+#header figure, #header figcaption, #header footer, #header header, #header hgroup,
+#header menu, #header nav, #header output, #header ruby, #header section, #header summary,
+#header time, #header mark, #header audio, #header video, #leftSidebar html, #leftSidebar body, #leftSidebar div, #leftSidebar span, #leftSidebar applet, #leftSidebar object, #leftSidebar iframe, #leftSidebar h1, #leftSidebar h2, #leftSidebar h3, #leftSidebar h4, #leftSidebar h5, #leftSidebar h6, #leftSidebar p, #leftSidebar blockquote, #leftSidebar pre, #leftSidebar a, #leftSidebar abbr, #leftSidebar acronym, #leftSidebar address, #leftSidebar big, #leftSidebar cite, #leftSidebar code, #leftSidebar del, #leftSidebar dfn, #leftSidebar em, #leftSidebar img, #leftSidebar ins, #leftSidebar kbd, #leftSidebar q, #leftSidebar s, #leftSidebar samp, #leftSidebar small, #leftSidebar strike, #leftSidebar strong, #leftSidebar sub, #leftSidebar sup, #leftSidebar tt, #leftSidebar var, #leftSidebar b, #leftSidebar u, #leftSidebar i, #leftSidebar center, #leftSidebar dl, #leftSidebar dt, #leftSidebar dd, #leftSidebar ol, #leftSidebar ul, #leftSidebar li, #leftSidebar fieldset, #leftSidebar form, #leftSidebar label, #leftSidebar legend, #leftSidebar table, #leftSidebar caption, #leftSidebar tbody, #leftSidebar tfoot, #leftSidebar thead, #leftSidebar tr, #leftSidebar th, #leftSidebar td, #leftSidebar article, #leftSidebar aside, #leftSidebar canvas, #leftSidebar details, #leftSidebar embed, #leftSidebar figure, #leftSidebar figcaption, #leftSidebar footer, #leftSidebar header, #leftSidebar hgroup, #leftSidebar menu, #leftSidebar nav, #leftSidebar output, #leftSidebar ruby, #leftSidebar section, #leftSidebar summary, #leftSidebar time, #leftSidebar mark, #leftSidebar audio, #leftSidebar video, #rightSidebar html, #rightSidebar body, #rightSidebar div, #rightSidebar span, #rightSidebar applet, #rightSidebar object, #rightSidebar iframe, #rightSidebar h1, #rightSidebar h2, #rightSidebar h3, #rightSidebar h4, #rightSidebar h5, #rightSidebar h6, #rightSidebar p, #rightSidebar blockquote, #rightSidebar pre, #rightSidebar a, #rightSidebar abbr, #rightSidebar acronym, #rightSidebar address, #rightSidebar big, #rightSidebar cite, #rightSidebar code, #rightSidebar del, #rightSidebar dfn, #rightSidebar em, #rightSidebar img, #rightSidebar ins, #rightSidebar kbd, #rightSidebar q, #rightSidebar s, #rightSidebar samp, #rightSidebar small, #rightSidebar strike, #rightSidebar strong, #rightSidebar sub, #rightSidebar sup, #rightSidebar tt, #rightSidebar var, #rightSidebar b, #rightSidebar u, #rightSidebar i, #rightSidebar center, #rightSidebar dl, #rightSidebar dt, #rightSidebar dd, #rightSidebar ol, #rightSidebar ul, #rightSidebar li, #rightSidebar fieldset, #rightSidebar form, #rightSidebar label, #rightSidebar legend, #rightSidebar table, #rightSidebar caption, #rightSidebar tbody, #rightSidebar tfoot, #rightSidebar thead, #rightSidebar tr, #rightSidebar th, #rightSidebar td, #rightSidebar article, #rightSidebar aside, #rightSidebar canvas, #rightSidebar details, #rightSidebar embed, #rightSidebar figure, #rightSidebar figcaption, #rightSidebar footer, #rightSidebar header, #rightSidebar hgroup, #rightSidebar menu, #rightSidebar nav, #rightSidebar output, #rightSidebar ruby, #rightSidebar section, #rightSidebar summary, #rightSidebar time, #rightSidebar mark, #rightSidebar audio, #rightSidebar video {
+  margin: 0;
+  padding: 0;
+  border: 0;
+  font-size: 100%;
+  font: inherit;
+  vertical-align: baseline; }
+#header body, #leftSidebar body, #rightSidebar body {
+  line-height: 1; }
+#header ol, #header ul, #leftSidebar ol, #leftSidebar ul, #rightSidebar ol, #rightSidebar ul {
+  list-style: none; }
+#header table, #leftSidebar table, #rightSidebar table {
+  border-collapse: collapse;
+  border-spacing: 0; }
+#header caption, #header th, #header td, #leftSidebar caption, #leftSidebar th, #leftSidebar td, #rightSidebar caption, #rightSidebar th, #rightSidebar td {
+  text-align: left;
+  font-weight: normal;
+  vertical-align: middle; }
+#header q, #header blockquote, #leftSidebar q, #leftSidebar blockquote, #rightSidebar q, #rightSidebar blockquote {
+  quotes: none; }
+  #header q:before, #header q:after, #header blockquote:before, #header blockquote:after, #leftSidebar q:before, #leftSidebar q:after, #leftSidebar blockquote:before, #leftSidebar blockquote:after, #rightSidebar q:before, #rightSidebar q:after, #rightSidebar blockquote:before, #rightSidebar blockquote:after {
+    content: "";
+    content: none; }
+#header a img, #leftSidebar a img, #rightSidebar a img {
+  border: none; }
+#header article, #header aside, #header details, #header figcaption, #header figure, #header footer, #header header, #header hgroup, #header menu, #header nav, #header section, #header summary, #leftSidebar article, #leftSidebar aside, #leftSidebar details, #leftSidebar figcaption, #leftSidebar figure, #leftSidebar footer, #leftSidebar header, #leftSidebar hgroup, #leftSidebar menu, #leftSidebar nav, #leftSidebar section, #leftSidebar summary, #rightSidebar article, #rightSidebar aside, #rightSidebar details, #rightSidebar figcaption, #rightSidebar figure, #rightSidebar footer, #rightSidebar header, #rightSidebar hgroup, #rightSidebar menu, #rightSidebar nav, #rightSidebar section, #rightSidebar summary {
+  display: block; }
+
+#app {
+  position: absolute;
+  left: 0;
+  top: 0;
+  width: 100%;
+  height: 100%;
+  overflow: none; }
+
+#header {
+  left: 0;
+  top: 0;
+  width: 100%;
+  height: 50px;
+  background: red;
+  position: fixed; }
+
+#leftSidebar {
+  position: fixed;
+  left: 0;
+  top: 0;
+  margin-top: 50px;
+  background: green;
+  width: 300px;
+  height: 100%; }
+
+#rightSidebar {
+  position: fixed;
+  right: 0;
+  top: 0;
+  margin-top: 50px;
+  background: green;
+  width: 300px;
+  height: 100%; }
+
+#main {
+  padding-left: 300px;
+  padding-top: 50px;
+  padding-right: 300px; }
+  #main .formbuilder-form-element-selected {
+    background: #CCC; }
+
+#rightSidebar .slick-row .cell-reorder {
+  cursor: move;
+  background: url(Library/SlickGrid/images/drag-handle.png) no-repeat center center; }
+#rightSidebar .slick-row .editor-text {
+  width: 100%;
+  height: 100%;
+  font-size: 15px; }
