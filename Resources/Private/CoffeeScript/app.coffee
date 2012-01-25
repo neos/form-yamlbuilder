@@ -1,10 +1,16 @@
+# #Main Base Class#
+# Main Entry for the form builder, setting up the environment and initializing
+# `TYPO3.FormBuilder` namespace.
+#
+
 TYPO3 = window.TYPO3 || {}
 window.TYPO3 = TYPO3
 
-
+# `TYPO3.FormBuilder` is the namespace where the whole package is inside
 TYPO3.FormBuilder = Ember.Application.create {
 	rootElement: 'body'
 }
+# `TYPO3.FormBuilder.Configuration` contains the server-side generated config array.
 TYPO3.FormBuilder.Configuration = window.FORMBUILDER_CONFIGURATION
 
 

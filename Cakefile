@@ -51,3 +51,6 @@ task 'modifyExternalLibraryCss', 'Modify external library CSS by wrapping it and
 	wrapCssFile('Resources/Public/Library/dynatree-1.2.0/src/skin/ui.dynatree', '#leftSidebar {')
 	wrapCssFile('Resources/Public/Library/SlickGrid/slick.grid', '#rightSidebar {')
 
+
+task 'buildDocumentation', 'build JS api documentation with docco-husky', ->
+	exec "docco-husky Resources/Private/CoffeeScript", consoleOutput
