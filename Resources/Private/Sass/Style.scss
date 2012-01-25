@@ -11,6 +11,7 @@ $rightSidebarWidth: 300px;
 $colorDarkBackground: #222222;
 $colorLighterBackground: #3C3C3C;
 $colorLightBackground: #CCC;
+$colorHighlight: #FF8700;
 
 @import "globalreset";
 @import "layout";
@@ -33,7 +34,7 @@ $colorLightBackground: #CCC;
 		background-color: $colorDarkBackground !important;
 		color: white !important;
 		span.dynatree-active a {
-			background-color: $colorLighterBackground !important;
+			background-color: $colorHighlight !important;
 		}
 		a {
 			color: white !important;
@@ -68,6 +69,9 @@ $colorLightBackground: #CCC;
 				text-align: center;
 				color: black;
 				font-weight: bold;
+			}
+			&:hover:before {
+				background: $colorHighlight;
 			}
 		}
 	}

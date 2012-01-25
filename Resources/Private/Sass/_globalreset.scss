@@ -1,3 +1,5 @@
+@import "compass/css3/box-shadow";
+
 #header, #leftSidebar, #rightSidebar {
 	@include global-reset();
 
@@ -8,6 +10,7 @@
 	select {
 		display: inline;
 		color: white;
+		background-color: $colorLighterBackground;
 	}
 
 	// Resetting Bootstrap.css
@@ -21,6 +24,12 @@
 		width: inherit;
 		height: inherit;
 		padding: 0;
+
+		&:focus {
+			outline: 0;
+			border: 1px solid $colorHighlight;
+			@include box-shadow($colorHighlight 0 0 5px);
+		}
 	}
 
 	line-height: normal;
