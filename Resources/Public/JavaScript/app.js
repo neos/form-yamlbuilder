@@ -77,6 +77,11 @@
 
   TYPO3.FormBuilder.Model = {};
 
+  TYPO3.FormBuilder.Model.Form = Ember.Object.create({
+    formDefinition: null,
+    currentlySelectedRenderable: null
+  });
+
   TYPO3.FormBuilder.Model.Renderable = Ember.Object.extend({
     parentRenderable: null,
     renderables: null,
@@ -194,12 +199,104 @@
     }
   });
 
-  TYPO3.FormBuilder.Model.Form = Ember.Object.create({
-    formDefinition: null,
-    currentlySelectedRenderable: null
-  });
-
   TYPO3.FormBuilder.View = {};
+
+  TYPO3.FormBuilder.View.FormPageView = Ember.View.extend({
+    formPagesBinding: 'TYPO3.FormBuilder.Model.Form.formDefinition.renderables',
+    currentPageIndex: 0,
+    currentAjaxRequest: null,
+    page: Ember.computed(function() {
+      var _ref;
+      return (_ref = this.get('formPages')) != null ? _ref.get(this.get('currentPageIndex')) : void 0;
+    }).property('formPages', 'currentPageIndex').cacheable(),
+    renderPageIfPageObjectChanges: (function() {
+      var _ref,
+        _this = this;
+      if (!((_ref = TYPO3.FormBuilder.Model.Form.get('formDefinition')) != null ? _ref.get('identifier') : void 0)) {
+        return;
+      }
+      if (this.currentAjaxRequest) this.currentAjaxRequest.abort();
+      if (this.timeout) window.clearTimeout(this.timeout);
+      return this.timeout = window.setTimeout(function() {
+        var formDefinition;
+        formDefinition = TYPO3.FormBuilder.Utility.convertToSimpleObject(TYPO3.FormBuilder.Model.Form.get('formDefinition'));
+        return _this.currentAjaxRequest = $.post(TYPO3.FormBuilder.Configuration.endpoints.formPageRenderer, {
+          formDefinition: formDefinition
+        }, function(data, textStatus, jqXHR) {
+          if (_this.currentAjaxRequest !== jqXHR) return;
+          _this.$().html(data);
+          return _this.postProcessRenderedPage();
+        });
+      }, 300);
+    }).observes('page', 'page.__nestedPropertyChange'),
+    postProcessRenderedPage: function() {
+      var _this = this;
+      this.$().find('[data-element]').parent().addClass('typo3-form-sortable').sortable({
+        revert: 'true',
+        update: function(e, o) {
+          var movedRenderable, nextElement, nextElementPath, pathOfMovedElement, previousElement, previousElementPath, referenceElementIndex;
+          pathOfMovedElement = $(o.item.context).attr('data-element');
+          movedRenderable = _this.findRenderableForPath(pathOfMovedElement);
+          movedRenderable.getPath('parentRenderable.renderables').removeObject(movedRenderable);
+          nextElementPath = $(o.item.context).nextAll('[data-element]').first().attr('data-element');
+          if (nextElementPath) {
+            nextElement = _this.findRenderableForPath(nextElementPath);
+          }
+          previousElementPath = $(o.item.context).prevAll('[data-element]').first().attr('data-element');
+          if (previousElementPath) {
+            previousElement = _this.findRenderableForPath(previousElementPath);
+          }
+          if (!nextElement && !previousElement) {
+            throw 'Next Element or Previous Element need to be set. Should not happen...';
+          }
+          if (nextElement) {
+            referenceElementIndex = nextElement.getPath('parentRenderable.renderables').indexOf(nextElement);
+            return nextElement.getPath('parentRenderable.renderables').insertAt(referenceElementIndex, movedRenderable);
+          } else if (previousElement) {
+            referenceElementIndex = previousElement.getPath('parentRenderable.renderables').indexOf(previousElement);
+            return previousElement.getPath('parentRenderable.renderables').insertAt(referenceElementIndex + 1, movedRenderable);
+          }
+        }
+      });
+      return this.onCurrentElementChanges();
+    },
+    onCurrentElementChanges: (function() {
+      var identifierPath, renderable;
+      renderable = TYPO3.FormBuilder.Model.Form.get('currentlySelectedRenderable');
+      if (!renderable) return;
+      this.$().find('.formbuilder-form-element-selected').removeClass('formbuilder-form-element-selected');
+      identifierPath = renderable.identifier;
+      while (renderable = renderable.parentRenderable) {
+        identifierPath = renderable.identifier + '/' + identifierPath;
+      }
+      return this.$().find('[data-element="' + identifierPath + '"]').addClass('formbuilder-form-element-selected');
+    }).observes('TYPO3.FormBuilder.Model.Form.currentlySelectedRenderable'),
+    findRenderableForPath: function(path) {
+      var currentRenderable, expandedPathToClickedElement, pathPart, renderable, _i, _j, _len, _len2, _ref;
+      expandedPathToClickedElement = path.split('/');
+      expandedPathToClickedElement.shift();
+      expandedPathToClickedElement.shift();
+      currentRenderable = this.get('page');
+      for (_i = 0, _len = expandedPathToClickedElement.length; _i < _len; _i++) {
+        pathPart = expandedPathToClickedElement[_i];
+        _ref = currentRenderable.get('renderables');
+        for (_j = 0, _len2 = _ref.length; _j < _len2; _j++) {
+          renderable = _ref[_j];
+          if (renderable.identifier === pathPart) {
+            currentRenderable = renderable;
+            break;
+          }
+        }
+      }
+      return currentRenderable;
+    },
+    click: function(e) {
+      var pathToClickedElement;
+      pathToClickedElement = $(e.target).closest('[data-element]').attr('data-element');
+      if (!pathToClickedElement) return;
+      return TYPO3.FormBuilder.Model.Form.set('currentlySelectedRenderable', this.findRenderableForPath(pathToClickedElement));
+    }
+  });
 
   TYPO3.FormBuilder.View.AvailableFormElementsView = Ember.View.extend({
     classNames: ['availableFormElements'],
@@ -266,7 +363,7 @@
     }
   });
 
-  TYPO3.FormBuilder.View.FormStructure = Ember.View.extend({
+  TYPO3.FormBuilder.View.FormTree = Ember.View.extend({
     formDefinitionBinding: 'TYPO3.FormBuilder.Model.Form.formDefinition',
     didInsertElement: function() {
       this.$().dynatree({
@@ -474,40 +571,6 @@
     templateName: 'TextEditor'
   });
 
-  TYPO3.FormBuilder.View.Editor.RequiredValidatorEditor = TYPO3.FormBuilder.View.Editor.AbstractPropertyEditor.extend({
-    /* PUBLIC API
-    */
-    /* PRIVATE
-    */
-    templateName: 'RequiredValidatorEditor',
-    propertyPath: 'validators',
-    defaultValue: (function() {
-      return [];
-    }).property().cacheable(),
-    isRequiredValidatorConfigured: (function(k, v) {
-      var a, notEmptyValidatorClassName, val;
-      notEmptyValidatorClassName = 'TYPO3\\FLOW3\\Validation\\Validator\\NotEmptyValidator';
-      if (v !== void 0) {
-        a = this.get('value').filter(function(validatorConfiguration) {
-          return validatorConfiguration.name !== notEmptyValidatorClassName;
-        });
-        this.set('value', a);
-        if (v === true) {
-          this.get('value').push({
-            name: notEmptyValidatorClassName
-          });
-        }
-        this.valueChanged();
-        return v;
-      } else {
-        val = !!this.get('value').some(function(validatorConfiguration) {
-          return validatorConfiguration.name === notEmptyValidatorClassName;
-        });
-        return val;
-      }
-    }).property('value').cacheable()
-  });
-
   TYPO3.FormBuilder.View.Editor.PropertyGrid = TYPO3.FormBuilder.View.Editor.AbstractPropertyEditor.extend({
     /* PUBLIC API
     */
@@ -613,101 +676,38 @@
     }
   });
 
-  TYPO3.FormBuilder.View.FormPageView = Ember.View.extend({
-    formPagesBinding: 'TYPO3.FormBuilder.Model.Form.formDefinition.renderables',
-    currentPageIndex: 0,
-    currentAjaxRequest: null,
-    page: Ember.computed(function() {
-      var _ref;
-      return (_ref = this.get('formPages')) != null ? _ref.get(this.get('currentPageIndex')) : void 0;
-    }).property('formPages', 'currentPageIndex').cacheable(),
-    renderPageIfPageObjectChanges: (function() {
-      var _ref,
-        _this = this;
-      if (!((_ref = TYPO3.FormBuilder.Model.Form.get('formDefinition')) != null ? _ref.get('identifier') : void 0)) {
-        return;
-      }
-      if (this.currentAjaxRequest) this.currentAjaxRequest.abort();
-      if (this.timeout) window.clearTimeout(this.timeout);
-      return this.timeout = window.setTimeout(function() {
-        var formDefinition;
-        formDefinition = TYPO3.FormBuilder.Utility.convertToSimpleObject(TYPO3.FormBuilder.Model.Form.get('formDefinition'));
-        return _this.currentAjaxRequest = $.post(TYPO3.FormBuilder.Configuration.endpoints.formPageRenderer, {
-          formDefinition: formDefinition
-        }, function(data, textStatus, jqXHR) {
-          if (_this.currentAjaxRequest !== jqXHR) return;
-          _this.$().html(data);
-          return _this.postProcessRenderedPage();
+  TYPO3.FormBuilder.View.Editor.RequiredValidatorEditor = TYPO3.FormBuilder.View.Editor.AbstractPropertyEditor.extend({
+    /* PUBLIC API
+    */
+    /* PRIVATE
+    */
+    templateName: 'RequiredValidatorEditor',
+    propertyPath: 'validators',
+    defaultValue: (function() {
+      return [];
+    }).property().cacheable(),
+    isRequiredValidatorConfigured: (function(k, v) {
+      var a, notEmptyValidatorClassName, val;
+      notEmptyValidatorClassName = 'TYPO3\\FLOW3\\Validation\\Validator\\NotEmptyValidator';
+      if (v !== void 0) {
+        a = this.get('value').filter(function(validatorConfiguration) {
+          return validatorConfiguration.name !== notEmptyValidatorClassName;
         });
-      }, 300);
-    }).observes('page', 'page.__nestedPropertyChange'),
-    postProcessRenderedPage: function() {
-      var _this = this;
-      this.$().find('[data-element]').parent().addClass('typo3-form-sortable').sortable({
-        revert: 'true',
-        update: function(e, o) {
-          var movedRenderable, nextElement, nextElementPath, pathOfMovedElement, previousElement, previousElementPath, referenceElementIndex;
-          pathOfMovedElement = $(o.item.context).attr('data-element');
-          movedRenderable = _this.findRenderableForPath(pathOfMovedElement);
-          movedRenderable.getPath('parentRenderable.renderables').removeObject(movedRenderable);
-          nextElementPath = $(o.item.context).nextAll('[data-element]').first().attr('data-element');
-          if (nextElementPath) {
-            nextElement = _this.findRenderableForPath(nextElementPath);
-          }
-          previousElementPath = $(o.item.context).prevAll('[data-element]').first().attr('data-element');
-          if (previousElementPath) {
-            previousElement = _this.findRenderableForPath(previousElementPath);
-          }
-          if (!nextElement && !previousElement) {
-            throw 'Next Element or Previous Element need to be set. Should not happen...';
-          }
-          if (nextElement) {
-            referenceElementIndex = nextElement.getPath('parentRenderable.renderables').indexOf(nextElement);
-            return nextElement.getPath('parentRenderable.renderables').insertAt(referenceElementIndex, movedRenderable);
-          } else if (previousElement) {
-            referenceElementIndex = previousElement.getPath('parentRenderable.renderables').indexOf(previousElement);
-            return previousElement.getPath('parentRenderable.renderables').insertAt(referenceElementIndex + 1, movedRenderable);
-          }
+        this.set('value', a);
+        if (v === true) {
+          this.get('value').push({
+            name: notEmptyValidatorClassName
+          });
         }
-      });
-      return this.onCurrentElementChanges();
-    },
-    onCurrentElementChanges: (function() {
-      var identifierPath, renderable;
-      renderable = TYPO3.FormBuilder.Model.Form.get('currentlySelectedRenderable');
-      if (!renderable) return;
-      this.$().find('.formbuilder-form-element-selected').removeClass('formbuilder-form-element-selected');
-      identifierPath = renderable.identifier;
-      while (renderable = renderable.parentRenderable) {
-        identifierPath = renderable.identifier + '/' + identifierPath;
+        this.valueChanged();
+        return v;
+      } else {
+        val = !!this.get('value').some(function(validatorConfiguration) {
+          return validatorConfiguration.name === notEmptyValidatorClassName;
+        });
+        return val;
       }
-      return this.$().find('[data-element="' + identifierPath + '"]').addClass('formbuilder-form-element-selected');
-    }).observes('TYPO3.FormBuilder.Model.Form.currentlySelectedRenderable'),
-    findRenderableForPath: function(path) {
-      var currentRenderable, expandedPathToClickedElement, pathPart, renderable, _i, _j, _len, _len2, _ref;
-      expandedPathToClickedElement = path.split('/');
-      expandedPathToClickedElement.shift();
-      expandedPathToClickedElement.shift();
-      currentRenderable = this.get('page');
-      for (_i = 0, _len = expandedPathToClickedElement.length; _i < _len; _i++) {
-        pathPart = expandedPathToClickedElement[_i];
-        _ref = currentRenderable.get('renderables');
-        for (_j = 0, _len2 = _ref.length; _j < _len2; _j++) {
-          renderable = _ref[_j];
-          if (renderable.identifier === pathPart) {
-            currentRenderable = renderable;
-            break;
-          }
-        }
-      }
-      return currentRenderable;
-    },
-    click: function(e) {
-      var pathToClickedElement;
-      pathToClickedElement = $(e.target).closest('[data-element]').attr('data-element');
-      if (!pathToClickedElement) return;
-      return TYPO3.FormBuilder.Model.Form.set('currentlySelectedRenderable', this.findRenderableForPath(pathToClickedElement));
-    }
+    }).property('value').cacheable()
   });
 
 }).call(this);

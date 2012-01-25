@@ -7,6 +7,12 @@ appFiles  = [
 	'utility'
 	'model'
 	'view'
+	'view/availableFormElements'
+	'view/formTree'
+	'view/elementInspector'
+	'view/editors/basic'
+	'view/editors/grid'
+	'view/editors/validator'
 ]
 
 consoleOutput = (error, stdout, stderr) ->
