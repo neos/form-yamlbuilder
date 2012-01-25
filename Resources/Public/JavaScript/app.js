@@ -758,7 +758,7 @@
         return a.sorting - b.sorting;
       });
       return validatorsArray;
-    }).property('availableValidators', 'value').cacheable(),
+    }).property('availableValidators', 'formElement.__nestedPropertyChange').cacheable(),
     addValidatorSelection: null,
     addValidator: (function() {
       var validatorToBeAdded;

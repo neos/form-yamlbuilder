@@ -61,7 +61,7 @@ TYPO3.FormBuilder.View.Editor.ValidatorEditor = TYPO3.FormBuilder.View.Editor.Ab
 			validatorsArray.push($.extend({key}, validatorTemplate))
 		validatorsArray.sort((a, b) -> a.sorting - b.sorting)
 		return validatorsArray
-	).property('availableValidators', 'value').cacheable()
+	).property('availableValidators', 'formElement.__nestedPropertyChange').cacheable()
 
 	# this property needs to be bound to the current selection, of the "add validator"
 	# select field, such that we can observe this value for changes.
