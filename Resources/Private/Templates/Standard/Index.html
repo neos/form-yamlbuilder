@@ -27,8 +27,9 @@
 		</script>
 
 		<script type="text/x-handlebars" data-template-name="AvailableFormElements">
+			<h2>Elements</h2>
 			{{#collection contentBinding="formElementsGrouped"}}
-				<h2>{{content.label}}</h2>
+				<h3>{{content.label}}</h3>
 				<ul>
 				{{#collection contentBinding="content.elements"}}
 					{{view TYPO3.FormBuilder.View.AvailableFormElementsElement formElementTypeBinding="content"}}
@@ -38,14 +39,23 @@
 		</script>
 
 		<script type="text/x-handlebars" data-template-name="LabelEditor">
-			<div>Identifier: {{view Ember.TextField valueBinding="identifier"}}<br />
-			Label: {{view Ember.TextField valueBinding="label"}}</div>
+			<div class="formbuilder-element">
+				<label>Identifier:</label>
+				{{view Ember.TextField valueBinding="identifier"}}
+				<label>Label:</label>
+				{{view Ember.TextField valueBinding="label"}}
+			</div>
 		</script>
 		<script type="text/x-handlebars" data-template-name="TextEditor">
-			<div>
-				{{label}}<br />
+			<div class="formBuilder-element">
+				<label>{{label}}:</label>
 				{{view Ember.TextField valueBinding="value"}}
 			</div>
+		</script>
+
+		<script type="text/x-handlebars" data-template-name="PropertyGridEditor">
+			<label>Choices:</label>
+			<div class="grid"></div>
 		</script>
 
 		<script type="text/x-handlebars" data-template-name="RequiredValidatorEditor">

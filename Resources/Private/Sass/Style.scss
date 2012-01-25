@@ -1,52 +1,20 @@
 @import "compass/reset/utilities";
 
-#header, #leftSidebar, #rightSidebar {
-	@include global-reset();
-}
-
-
-
+/**
+ * Global Variables
+ */
 $headerSize: 50px;
 $leftSidebarWidth: 300px;
 $rightSidebarWidth: 300px;
 
-#app {
-	position: absolute;
-	left: 0;
-	top: 0;
-	width: 100%;
-	height: 100%;
-	overflow: none;
-}
+$colorDarkBackground: #222222;
+$colorLighterBackground: #3C3C3C;
+$colorLightBackground: #CCC;
 
-#header {
-	left: 0;
-	top: 0;
-	width: 100%;
-	height: $headerSize;
-	background: red;
-	position: fixed;
-}
+@import "globalreset";
+@import "layout";
 
-#leftSidebar {
-	position:fixed;
-	left: 0;
-	top: 0;
-	margin-top: $headerSize;
-	background: green;
-	width: $leftSidebarWidth;
-	height: 100%;
-}
 
-#rightSidebar {
-	position:fixed;
-	right: 0;
-	top: 0;
-	margin-top: $headerSize;
-	background: green;
-	width: $rightSidebarWidth;
-	height: 100%;
-}
 
 // Here, the main form area is diplayed
 #main {
@@ -56,6 +24,65 @@ $rightSidebarWidth: 300px;
 
 	.formbuilder-form-element-selected {
 		background: #CCC;
+	}
+}
+
+#leftSidebar {
+	ul.dynatree-container {
+		background-color: $colorDarkBackground !important;
+		color: white !important;
+		span.dynatree-active a {
+			background-color: $colorLighterBackground !important;
+		}
+		a {
+			color: white !important;
+			&:hover {
+				background-color: $colorLighterBackground !important;
+			}
+		}
+	}
+
+	.availableFormElements {
+		ul {
+			padding-left: 10px;
+		}
+		ul li {
+			cursor: pointer;
+			background-color: $colorLighterBackground;
+
+			padding: 3px;
+			padding-left: 25px;
+			margin-top: 3px;
+
+			position: relative;
+
+			&:before {
+				content: '+';
+				background: $colorLightBackground;
+				width: 20px;
+				height: 100%;
+				position: absolute;
+				left: 0;
+				top: 0;
+				text-align: center;
+				color: black;
+				font-weight: bold;
+			}
+		}
+	}
+}
+
+#leftSidebar, #rightSidebar {
+	overflow: auto;
+	color: white;
+	h2 {
+		background: $colorLighterBackground;
+		padding: 10px;
+		font-weight: bold;
+	}
+	h3 {
+		padding: 10px;
+		font-weight: bold;
 	}
 }
 
@@ -70,6 +97,30 @@ $rightSidebarWidth: 300px;
 			width: 100%;
 			height: 100%;
 			font-size: 15px;
+		}
+	}
+
+	.form-editor {
+		h3 {
+			padding-left: 0;
+		}
+		padding-left: 10px;
+
+		.formBuilder-element {
+			input {
+				display: block;
+				background-color: $colorLighterBackground;
+				color: white;
+				border: none;
+				font-size: 17px;
+			}
+		}
+		&.PropertyGrid, .formBuilder-element {
+			label {
+				margin-top: 5px;
+				font-size: 12px;
+				display: block;
+			}
 		}
 	}
 }

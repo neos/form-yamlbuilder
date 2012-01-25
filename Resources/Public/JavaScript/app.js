@@ -202,6 +202,7 @@
   TYPO3.FormBuilder.View = {};
 
   TYPO3.FormBuilder.View.AvailableFormElementsView = Ember.View.extend({
+    classNames: ['availableFormElements'],
     allFormElementTypesBinding: 'TYPO3.FormBuilder.Model.FormElementTypes.allTypeNames',
     formElementsGrouped: (function() {
       var formElementType, formElementTypeName, formElementsByGroup, formGroup, formGroupName, formGroups, _i, _j, _len, _len2, _ref, _ref2, _ref3, _ref4;
@@ -409,6 +410,7 @@
   TYPO3.FormBuilder.View.Editor = {};
 
   TYPO3.FormBuilder.View.Editor.AbstractEditor = Ember.View.extend({
+    classNames: ['form-editor'],
     formElement: null,
     formElementType: null
   });
@@ -514,6 +516,7 @@
     enableAddRow: false,
     /* PRIVATE
     */
+    templateName: 'PropertyGridEditor',
     defaultValue: (function() {
       return [];
     }).property().cacheable(),
@@ -554,10 +557,14 @@
       return columns;
     }).property('columns', 'isSortable').cacheable(),
     grid: null,
+    init: function() {
+      this.classNames.push('PropertyGrid');
+      return this._super();
+    },
     didInsertElement: function() {
       var moveRowsPlugin,
         _this = this;
-      this.grid = new Slick.Grid(this.$(), this.get('value'), this.get('columnDefinition'), this.get('options'));
+      this.grid = new Slick.Grid(this.$().find('.grid'), this.get('value'), this.get('columnDefinition'), this.get('options'));
       this.$().find('.slick-viewport').css('overflow-x', 'hidden');
       this.$().find('.slick-viewport').css('overflow-y', 'hidden');
       this.grid.setSelectionModel(new Slick.RowSelectionModel());
@@ -621,12 +628,14 @@
         return;
       }
       if (this.currentAjaxRequest) this.currentAjaxRequest.abort();
-      return window.setTimeout(function() {
+      if (this.timeout) window.clearTimeout(this.timeout);
+      return this.timeout = window.setTimeout(function() {
         var formDefinition;
         formDefinition = TYPO3.FormBuilder.Utility.convertToSimpleObject(TYPO3.FormBuilder.Model.Form.get('formDefinition'));
         return _this.currentAjaxRequest = $.post(TYPO3.FormBuilder.Configuration.endpoints.formPageRenderer, {
           formDefinition: formDefinition
         }, function(data, textStatus, jqXHR) {
+          if (_this.currentAjaxRequest !== jqXHR) return;
           _this.$().html(data);
           return _this.postProcessRenderedPage();
         });

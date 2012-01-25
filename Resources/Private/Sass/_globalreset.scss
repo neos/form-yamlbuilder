@@ -1,0 +1,5 @@
+#header, #leftSidebar, #rightSidebar {
+	@include global-reset();
+
+	font-family: Arial, sans-serif;
+}

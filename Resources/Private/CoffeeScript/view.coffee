@@ -1,6 +1,7 @@
 TYPO3.FormBuilder.View = {}
 
 TYPO3.FormBuilder.View.AvailableFormElementsView = Ember.View.extend {
+	classNames: ['availableFormElements']
 	allFormElementTypesBinding: 'TYPO3.FormBuilder.Model.FormElementTypes.allTypeNames'
 
 	formElementsGrouped: (->
@@ -191,6 +192,7 @@ TYPO3.FormBuilder.View.FormElementInspector = Ember.ContainerView.extend {
 
 TYPO3.FormBuilder.View.Editor = {}
 TYPO3.FormBuilder.View.Editor.AbstractEditor = Ember.View.extend {
+	classNames: ['form-editor']
 	formElement: null,
 	formElementType: null
 }
@@ -304,6 +306,8 @@ TYPO3.FormBuilder.View.Editor.PropertyGrid = TYPO3.FormBuilder.View.Editor.Abstr
 
 	### PRIVATE ###
 
+	templateName: 'PropertyGridEditor'
+
 	defaultValue: (-> []).property().cacheable()
 
 	# slick grid options
@@ -349,11 +353,14 @@ TYPO3.FormBuilder.View.Editor.PropertyGrid = TYPO3.FormBuilder.View.Editor.Abstr
 	# instance of the slick grid
 	grid: null
 
+	init: ->
+		@classNames.push('PropertyGrid')
+		@_super()
 	#
 	# Initialize Grid
 	#
 	didInsertElement: ->
-		@grid = new Slick.Grid(@$(), @get('value'), @get('columnDefinition'), @get('options'));
+		@grid = new Slick.Grid(@$().find('.grid'), @get('value'), @get('columnDefinition'), @get('options'));
 
 		# make autoHeight really work
 		@$().find('.slick-viewport').css('overflow-x', 'hidden');
@@ -424,20 +431,22 @@ TYPO3.FormBuilder.View.FormPageView = Ember.View.extend {
 		@get('formPages')?.get(@get('currentPageIndex'))
 	).property('formPages', 'currentPageIndex').cacheable()
 
+
 	renderPageIfPageObjectChanges: (->
 		if (!TYPO3.FormBuilder.Model.Form.get('formDefinition')?.get('identifier'))
 			return
 		if @currentAjaxRequest
 			@currentAjaxRequest.abort()
 
-		window.setTimeout( =>
+		if @timeout
+			window.clearTimeout(@timeout)
+		@timeout = window.setTimeout( =>
 			formDefinition = TYPO3.FormBuilder.Utility.convertToSimpleObject(TYPO3.FormBuilder.Model.Form.get('formDefinition'))
-#			console.log("POST DATA" )
 			@currentAjaxRequest = $.post(
 				TYPO3.FormBuilder.Configuration.endpoints.formPageRenderer,
 				{ formDefinition },
 				(data, textStatus, jqXHR) =>
-					#return unless @currentAjaxRequest == jqXHR
+					return unless @currentAjaxRequest == jqXHR
 					this.$().html(data);
 					@postProcessRenderedPage();
 			)
