@@ -52,6 +52,7 @@ TYPO3.FormBuilder.View.Editor.ValidatorEditor = TYPO3.FormBuilder.View.Editor.Ab
 
 	init: ->
 		@_super()
+		@validatorEditorViews = []
 		@updateValidatorEditorViews()
 
 	sortedAvailableValidators: (->
@@ -111,8 +112,9 @@ TYPO3.FormBuilder.View.Editor.ValidatorEditor = TYPO3.FormBuilder.View.Editor.Ab
 					validatorViews.push(validatorEditor.create(validatorEditorOptions))
 					break
 
-		@set('validatorEditorViews', validatorViews)
-	).observes('value', 'availableValidators')
+
+		@set('validatorEditorViews', validatorViews) #unless @get('validatorEditorViews')
+	).observes('value')
 
 	addRequiredValidatorsIfNeededToValidatorList: ->
 		validators = @get('value')
@@ -153,6 +155,10 @@ TYPO3.FormBuilder.View.Editor.ValidatorEditor.DefaultValidatorEditor = Ember.Vie
 	# index of this validator
 	validatorIndex: null
 
+	validator: (->
+		@get('validators').get(@get('validatorIndex'))
+	).property('validators', 'validatorIndex')
+
 	valueChanged: Ember.K
 
 	notRequired: (->
@@ -162,4 +168,30 @@ TYPO3.FormBuilder.View.Editor.ValidatorEditor.DefaultValidatorEditor = Ember.Vie
 	remove: ->
 		@get('validators').removeAt(@get('validatorIndex'))
 		@valueChanged()
+}
+
+TYPO3.FormBuilder.View.Editor.ValidatorEditor.MinimumMaximumValidatorEditor = TYPO3.FormBuilder.View.Editor.ValidatorEditor.DefaultValidatorEditor.extend {
+	templateName: 'ValidatorEditor-MinimumMaximum'
+
+	pathToMinimumOption: 'validator.options.minimum'
+
+	pathToMaximumOption: 'validator.options.maximum'
+
+
+	minimum: ((k, v) ->
+		if v != undefined
+			@setPath(@get('pathToMinimumOption'), v)
+			@valueChanged()
+			return v
+		else
+			return @getPath(@get('pathToMinimumOption'))
+	).property('pathToMinimumOption').cacheable()
+	maximum: ((k, v) ->
+		if v != undefined
+			@setPath(@get('pathToMaximumOption'), v)
+			@valueChanged()
+			return v
+		else
+			return @getPath(@get('pathToMaximumOption'))
+	).property('pathToMaximumOption').cacheable()
 }

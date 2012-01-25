@@ -75,6 +75,12 @@
 			{{label}}
 			{{#view Ember.Button target="parentView" action="remove" isVisibleBinding="notRequired"}}Remove{{/view}}
 		</script>
+
+		<script type="text/x-handlebars" data-template-name="ValidatorEditor-MinimumMaximum">
+			{{label}}
+			{{#view Ember.Button target="parentView" action="remove" isVisibleBinding="notRequired"}}Remove{{/view}}
+			Min: {{view Ember.TextField valueBinding="minimum"}} Max: {{view Ember.TextField valueBinding="maximum"}}
+		</script>
 	</head>
 	<body>
 		<div id="app">

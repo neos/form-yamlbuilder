@@ -12,10 +12,12 @@
 
   TYPO3.FormBuilder.Configuration = window.FORMBUILDER_CONFIGURATION;
 
-  _ref = TYPO3.FormBuilder.Configuration.cssFiles;
-  for (_i = 0, _len = _ref.length; _i < _len; _i++) {
-    cssFile = _ref[_i];
-    $('head').append($('<link rel="stylesheet" />').attr('href', cssFile));
+  if (TYPO3.FormBuilder.Configuration.cssFiles) {
+    _ref = TYPO3.FormBuilder.Configuration.cssFiles;
+    for (_i = 0, _len = _ref.length; _i < _len; _i++) {
+      cssFile = _ref[_i];
+      $('head').append($('<link rel="stylesheet" />').attr('href', cssFile));
+    }
   }
 
   window.setTimeout((function() {
@@ -739,6 +741,7 @@
     }).property().cacheable(),
     init: function() {
       this._super();
+      this.validatorEditorViews = [];
       return this.updateValidatorEditorViews();
     },
     sortedAvailableValidators: (function() {
@@ -803,7 +806,7 @@
         }
       }
       return this.set('validatorEditorViews', validatorViews);
-    }).observes('value', 'availableValidators'),
+    }).observes('value'),
     addRequiredValidatorsIfNeededToValidatorList: function() {
       var availableValidators, key, requiredAndMissingValidators, validatorTemplate, validatorTemplateName, validators, _j, _len2, _results;
       validators = this.get('value');
@@ -843,6 +846,9 @@
     required: false,
     validators: null,
     validatorIndex: null,
+    validator: (function() {
+      return this.get('validators').get(this.get('validatorIndex'));
+    }).property('validators', 'validatorIndex'),
     valueChanged: Ember.K,
     notRequired: (function() {
       return !this.get('required');
@@ -851,6 +857,30 @@
       this.get('validators').removeAt(this.get('validatorIndex'));
       return this.valueChanged();
     }
+  });
+
+  TYPO3.FormBuilder.View.Editor.ValidatorEditor.MinimumMaximumValidatorEditor = TYPO3.FormBuilder.View.Editor.ValidatorEditor.DefaultValidatorEditor.extend({
+    templateName: 'ValidatorEditor-MinimumMaximum',
+    pathToMinimumOption: 'validator.options.minimum',
+    pathToMaximumOption: 'validator.options.maximum',
+    minimum: (function(k, v) {
+      if (v !== void 0) {
+        this.setPath(this.get('pathToMinimumOption'), v);
+        this.valueChanged();
+        return v;
+      } else {
+        return this.getPath(this.get('pathToMinimumOption'));
+      }
+    }).property('pathToMinimumOption').cacheable(),
+    maximum: (function(k, v) {
+      if (v !== void 0) {
+        this.setPath(this.get('pathToMaximumOption'), v);
+        this.valueChanged();
+        return v;
+      } else {
+        return this.getPath(this.get('pathToMaximumOption'));
+      }
+    }).property('pathToMaximumOption').cacheable()
   });
 
 }).call(this);

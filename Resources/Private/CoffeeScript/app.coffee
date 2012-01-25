@@ -13,8 +13,9 @@ TYPO3.FormBuilder = Ember.Application.create {
 # `TYPO3.FormBuilder.Configuration` contains the server-side generated config array.
 TYPO3.FormBuilder.Configuration = window.FORMBUILDER_CONFIGURATION
 
-for cssFile in TYPO3.FormBuilder.Configuration.cssFiles
-	$('head').append($('<link rel="stylesheet" />').attr('href', cssFile))
+if TYPO3.FormBuilder.Configuration.cssFiles
+	for cssFile in TYPO3.FormBuilder.Configuration.cssFiles
+		$('head').append($('<link rel="stylesheet" />').attr('href', cssFile))
 
 window.setTimeout((->
 

@@ -119,6 +119,11 @@ TYPO3:
                       label: 'EMail'
                       name: 'TYPO3\FLOW3\Validation\Validator\EmailAddressValidator'
                       required: false
+                    stringLength:
+                      label: 'String Length'
+                      name: 'TYPO3\FLOW3\Validation\Validator\StringLengthValidator'
+                      viewName: 'TYPO3.FormBuilder.View.Editor.ValidatorEditor.MinimumMaximumValidatorEditor'
+                      required: true
 
           'TYPO3.Form:SelectionMixin':
             formBuilder:
