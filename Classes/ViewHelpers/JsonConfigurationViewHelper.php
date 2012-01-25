@@ -31,6 +31,7 @@ class JsonConfigurationViewHelper extends \TYPO3\Fluid\Core\ViewHelper\AbstractV
 		$configuration['formElementTypes'] = $supertypeResolver->getCompleteMergedTypeDefinition(TRUE);
 
 		$configuration['formElementGroups'] = isset($presetConfiguration['formElementGroups']) ? $presetConfiguration['formElementGroups'] : array();
+		$configuration['cssFiles'] = isset($presetConfiguration['cssFiles']) ? $presetConfiguration['cssFiles'] : array();
 
 		$configuration['endpoints']['formPageRenderer'] = $this->controllerContext->getUriBuilder()->uriFor('renderformpage');
 

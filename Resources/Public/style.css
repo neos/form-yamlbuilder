@@ -2,7 +2,8 @@
  * Global Variables
  */
 #header, #leftSidebar, #rightSidebar {
-  font-family: Arial, sans-serif; }
+  font-family: Arial, sans-serif;
+  line-height: normal; }
   #header html, #header body, #header div, #header span, #header applet, #header object, #header iframe,
   #header h1, #header h2, #header h3, #header h4, #header h5, #header h6, #header p, #header blockquote, #header pre,
   #header a, #header abbr, #header acronym, #header address, #header big, #header cite, #header code,
@@ -42,6 +43,23 @@
     border: none; }
   #header article, #header aside, #header details, #header figcaption, #header figure, #header footer, #header header, #header hgroup, #header menu, #header nav, #header section, #header summary, #leftSidebar article, #leftSidebar aside, #leftSidebar details, #leftSidebar figcaption, #leftSidebar figure, #leftSidebar footer, #leftSidebar header, #leftSidebar hgroup, #leftSidebar menu, #leftSidebar nav, #leftSidebar section, #leftSidebar summary, #rightSidebar article, #rightSidebar aside, #rightSidebar details, #rightSidebar figcaption, #rightSidebar figure, #rightSidebar footer, #rightSidebar header, #rightSidebar hgroup, #rightSidebar menu, #rightSidebar nav, #rightSidebar section, #rightSidebar summary {
     display: block; }
+  #header h1, #header h2, #header h3, #header h4, #header h5, #header h6, #header li, #leftSidebar h1, #leftSidebar h2, #leftSidebar h3, #leftSidebar h4, #leftSidebar h5, #leftSidebar h6, #leftSidebar li, #rightSidebar h1, #rightSidebar h2, #rightSidebar h3, #rightSidebar h4, #rightSidebar h5, #rightSidebar h6, #rightSidebar li {
+    color: white; }
+  #header select, #leftSidebar select, #rightSidebar select {
+    display: inline;
+    color: white; }
+  #header label, #leftSidebar label, #rightSidebar label {
+    color: white;
+    text-align: left;
+    float: none; }
+  #header input, #header textarea, #leftSidebar input, #leftSidebar textarea, #rightSidebar input, #rightSidebar textarea {
+    -moz-transition-property: none;
+    -webkit-transition-property: none;
+    -o-transition-property: none;
+    transition-property: none;
+    width: inherit;
+    height: inherit;
+    padding: 0; }
 
 #app {
   position: absolute;

@@ -1,4 +1,5 @@
 @import "compass/reset/utilities";
+@import "compass/css3/transition";
 
 /**
  * Global Variables
@@ -99,6 +100,10 @@ $colorLightBackground: #CCC;
 			font-size: 15px;
 		}
 	}
+
+
+
+
 
 	.form-editor {
 		h3 {

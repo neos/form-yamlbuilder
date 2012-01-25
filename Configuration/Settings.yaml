@@ -13,7 +13,7 @@ TYPO3:
           composite:
             sorting: 200
             label: 'Composite Form Elements'
-
+        cssFiles: ['/_Resources/Static/Packages/TYPO3.FormExample/Css/bootstrap.min.css', '/_Resources/Static/Packages/TYPO3.FormExample/Css/main.css']
         formElementTypes:
           'TYPO3.Form:Base':
             formBuilder:
@@ -45,12 +45,6 @@ TYPO3:
                 validation:
                   sorting: 900
                   viewName: 'TYPO3.FormBuilder.View.Editor.ValidatorEditor'
-                  availableValidators:
-                    stringLength:
-                      label: 'String Length'
-                      name: 'TYPO3\FLOW3\Validation\Validator\StringLengthValidator'
-                      options:
-                        groupName: 'stringLengthAndNotEmpty'
 
           'TYPO3.Form:Section':
             formBuilder:
@@ -119,7 +113,12 @@ TYPO3:
                   viewName: 'TYPO3.FormBuilder.View.Editor.TextEditor'
                   label: 'Default Value'
                   propertyPath: 'defaultValue'
-
+                validation:
+                   availableValidators:
+                    email:
+                      label: 'EMail'
+                      name: 'TYPO3\FLOW3\Validation\Validator\EmailAddressValidator'
+                      required: false
 
           'TYPO3.Form:SelectionMixin':
             formBuilder:
