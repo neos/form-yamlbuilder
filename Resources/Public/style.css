@@ -147,3 +147,5 @@
     margin-top: 5px;
     font-size: 12px;
     display: block; }
+#rightSidebar .formbuilder-validator-editor {
+  border: 1px solid #3c3c3c; }

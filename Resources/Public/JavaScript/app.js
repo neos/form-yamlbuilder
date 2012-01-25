@@ -298,6 +298,20 @@
     }
   });
 
+  TYPO3.FormBuilder.View.ContainerView = Ember.ContainerView.extend({
+    instanciatedViews: null,
+    onInstanciatedViewsChange: (function() {
+      var view, _i, _len, _ref;
+      this.removeAllChildren();
+      _ref = this.get('instanciatedViews');
+      for (_i = 0, _len = _ref.length; _i < _len; _i++) {
+        view = _ref[_i];
+        this.get('childViews').push(view);
+      }
+      return this.rerender();
+    }).observes('instanciatedViews')
+  });
+
   TYPO3.FormBuilder.View.AvailableFormElementsView = Ember.View.extend({
     classNames: ['availableFormElements'],
     allFormElementTypesBinding: 'TYPO3.FormBuilder.Model.FormElementTypes.allTypeNames',
@@ -708,6 +722,94 @@
         return val;
       }
     }).property('value').cacheable()
+  });
+
+  TYPO3.FormBuilder.View.Editor.ValidatorEditor = TYPO3.FormBuilder.View.Editor.AbstractPropertyEditor.extend({
+    availableValidators: null,
+    templateName: 'ValidatorEditor',
+    propertyPath: 'validators',
+    defaultValue: (function() {
+      return [];
+    }).property().cacheable(),
+    init: function() {
+      this._super();
+      return this.updateValidatorEditorViews();
+    },
+    sortedAvailableValidators: (function() {
+      var key, validatorsArray, value;
+      validatorsArray = (function() {
+        var _ref, _results;
+        _ref = this.get('availableValidators');
+        _results = [];
+        for (key in _ref) {
+          value = _ref[key];
+          _results.push($.extend({
+            key: key
+          }, value));
+        }
+        return _results;
+      }).call(this);
+      validatorsArray.sort(function(a, b) {
+        return a.sorting - b.sorting;
+      });
+      return validatorsArray;
+    }).property('availableValidators').cacheable(),
+    addValidatorSelection: null,
+    addValidator: (function() {
+      var validatorToBeAdded;
+      validatorToBeAdded = this.get('addValidatorSelection');
+      if (!validatorToBeAdded) return;
+      this.get('value').push({
+        name: validatorToBeAdded.name,
+        options: validatorToBeAdded.options
+      });
+      this.valueChanged();
+      this.updateValidatorEditorViews();
+      return this.set('addValidatorSelection', null);
+    }).observes('addValidatorSelection'),
+    updateValidatorEditorViews: (function() {
+      var availableValidators, i, key, validator, validatorEditor, validatorEditorOptions, validatorTemplate, validatorViews, validators, _len,
+        _this = this;
+      validators = this.get('value');
+      availableValidators = this.get('availableValidators');
+      validatorViews = [];
+      for (i = 0, _len = validators.length; i < _len; i++) {
+        validator = validators[i];
+        for (key in availableValidators) {
+          validatorTemplate = availableValidators[key];
+          if (validatorTemplate.name === validator.name) {
+            validatorEditor = Ember.getPath(validatorTemplate.viewName || 'TYPO3.FormBuilder.View.Editor.ValidatorEditor.DefaultValidatorEditor');
+            if (!validatorEditor) {
+              throw "Validator Editor class '" + validatorTemplate.viewName + "' not found";
+            }
+            validatorEditorOptions = $.extend({
+              validatorIndex: i,
+              valueChanged: function() {
+                _this.valueChanged();
+                return _this.updateValidatorEditorViews();
+              },
+              validators: this.get('value')
+            }, validatorTemplate);
+            validatorViews.push(validatorEditor.create(validatorEditorOptions));
+            break;
+          }
+        }
+      }
+      return this.set('validatorEditorViews', validatorViews);
+    }).observes('value', 'availableValidators'),
+    validatorEditorViews: null
+  });
+
+  TYPO3.FormBuilder.View.Editor.ValidatorEditor.DefaultValidatorEditor = Ember.View.extend({
+    classNames: ['formbuilder-validator-editor'],
+    templateName: 'ValidatorEditor-Default',
+    validators: null,
+    validatorIndex: null,
+    valueChanged: Ember.K,
+    remove: function() {
+      this.get('validators').removeAt(this.get('validatorIndex'));
+      return this.valueChanged();
+    }
   });
 
 }).call(this);

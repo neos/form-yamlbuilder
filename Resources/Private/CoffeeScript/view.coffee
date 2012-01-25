@@ -93,3 +93,13 @@ TYPO3.FormBuilder.View.FormPageView = Ember.View.extend {
 		return unless pathToClickedElement
 		TYPO3.FormBuilder.Model.Form.set('currentlySelectedRenderable', @findRenderableForPath(pathToClickedElement));
 }
+
+TYPO3.FormBuilder.View.ContainerView = Ember.ContainerView.extend {
+	instanciatedViews: null
+	onInstanciatedViewsChange: (->
+		@removeAllChildren()
+		for view in @get('instanciatedViews')
+			@get('childViews').push(view)
+		@rerender()
+	).observes('instanciatedViews')
+}

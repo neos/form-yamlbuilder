@@ -42,6 +42,16 @@ TYPO3:
                   sorting: 800
                   viewName: 'TYPO3.FormBuilder.View.Editor.RequiredValidatorEditor'
 
+                validation:
+                  sorting: 900
+                  viewName: 'TYPO3.FormBuilder.View.Editor.ValidatorEditor'
+                  availableValidators:
+                    stringLength:
+                      label: 'String Length'
+                      name: 'TYPO3\FLOW3\Validation\Validator\StringLengthValidator'
+                      options:
+                        groupName: 'stringLengthAndNotEmpty'
+
           'TYPO3.Form:Section':
             formBuilder:
               label: 'Section (Fieldset)'

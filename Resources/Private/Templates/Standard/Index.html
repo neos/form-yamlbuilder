@@ -61,9 +61,19 @@
 		<script type="text/x-handlebars" data-template-name="RequiredValidatorEditor">
 			{{view Ember.Checkbox valueBinding="isRequiredValidatorConfigured" title="required field"}}
 		</script>
-
+		<script type="text/x-handlebars" data-template-name="ValidatorEditor">
+			<hr />
+			<h3>Validators</h3>
+			{{view Ember.Select prompt="Select a validator to add" contentBinding="sortedAvailableValidators" optionLabelPath="content.label" selectionBinding="addValidatorSelection"}}
+			{{view TYPO3.FormBuilder.View.ContainerView instanciatedViewsBinding="validatorEditorViews"}}
+		</script>
 		<script type="text/x-handlebars" data-template-name="PropertyPanelTitle">
 			<h3>{{formElementType.formBuilder.label}}</h3>
+		</script>
+
+		<script type="text/x-handlebars" data-template-name="ValidatorEditor-Default">
+			{{label}}
+			{{#view Ember.Button target="parentView" action="remove"}}Remove{{/view}}
 		</script>
 	</head>
 	<body>

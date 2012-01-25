@@ -24,7 +24,7 @@ TYPO3.FormBuilder.View.FormElementInspector = Ember.ContainerView.extend {
 
 
 	onFormElementChange: (->
-		@removeAllChildren();
+		@removeAllChildren()
 		return unless @formElement
 		#formElement = @formElement
 
