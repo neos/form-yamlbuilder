@@ -795,8 +795,7 @@
             validatorEditorOptions = $.extend({
               validatorIndex: i,
               valueChanged: function() {
-                _this.valueChanged();
-                return _this.updateValidatorEditorViews();
+                return _this.valueChanged();
               },
               validators: this.get('value')
             }, validatorTemplate);

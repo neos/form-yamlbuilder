@@ -106,14 +106,13 @@ TYPO3.FormBuilder.View.Editor.ValidatorEditor = TYPO3.FormBuilder.View.Editor.Ab
 						validatorIndex: i
 						valueChanged: =>
 							@valueChanged()
-							@updateValidatorEditorViews()
 						validators: @get('value')
 					}, validatorTemplate)
 					validatorViews.push(validatorEditor.create(validatorEditorOptions))
 					break
 
 
-		@set('validatorEditorViews', validatorViews) #unless @get('validatorEditorViews')
+		@set('validatorEditorViews', validatorViews)
 	).observes('value')
 
 	addRequiredValidatorsIfNeededToValidatorList: ->
