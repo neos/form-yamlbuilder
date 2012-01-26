@@ -94,6 +94,13 @@
     parentRenderable: null,
     renderables: null,
     __nestedPropertyChange: 0,
+    type: null,
+    typeDefinition: (function() {
+      var formElementTypeName;
+      formElementTypeName = this.get('type');
+      if (!formElementTypeName) return null;
+      return TYPO3.FormBuilder.Model.FormElementTypes.get(formElementTypeName);
+    }).property('type').cacheable(),
     init: function() {
       this.renderables = [];
       return this.renderables.addArrayObserver(this);
@@ -484,15 +491,9 @@
 
   TYPO3.FormBuilder.View.FormElementInspector = Ember.ContainerView.extend({
     formElement: null,
-    formElementType: (function() {
-      var formElementTypeName;
-      formElementTypeName = this.getPath('formElement.type');
-      if (!formElementTypeName) return null;
-      return TYPO3.FormBuilder.Model.FormElementTypes.get(formElementTypeName);
-    }).property('formElement').cacheable(),
     orderedFormFieldEditors: (function() {
       var formFieldEditors, k, orderedFormFieldEditors, v;
-      formFieldEditors = $.extend({}, this.getPath('formElementType.formBuilder.formFieldEditors'));
+      formFieldEditors = $.extend({}, this.getPath('formElement.typeDefinition.formBuilder.formFieldEditors'));
       orderedFormFieldEditors = (function() {
         var _results;
         _results = [];
@@ -507,7 +508,7 @@
         return a.sorting - b.sorting;
       });
       return orderedFormFieldEditors;
-    }).property('formElementType').cacheable(),
+    }).property('formElement.typeDefinition').cacheable(),
     onFormElementChange: (function() {
       var formFieldEditor, subView, subViewClass, subViewOptions, _j, _len2, _ref2;
       this.removeAllChildren();
@@ -520,8 +521,7 @@
           throw "Editor class '" + formFieldEditor.viewName + "' not found";
         }
         subViewOptions = $.extend({}, formFieldEditor, {
-          formElement: this.formElement,
-          formElementType: this.get('formElementType')
+          formElement: this.formElement
         });
         subView = subViewClass.create(subViewOptions);
         this.get('childViews').push(subView);
@@ -534,8 +534,7 @@
 
   TYPO3.FormBuilder.View.Editor.AbstractEditor = Ember.View.extend({
     classNames: ['form-editor'],
-    formElement: null,
-    formElementType: null
+    formElement: null
   });
 
   TYPO3.FormBuilder.View.Editor.AbstractPropertyEditor = TYPO3.FormBuilder.View.Editor.AbstractEditor.extend({

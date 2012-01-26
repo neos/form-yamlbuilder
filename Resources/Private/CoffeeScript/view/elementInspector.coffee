@@ -3,16 +3,9 @@ TYPO3.FormBuilder.View.FormElementInspector = Ember.ContainerView.extend {
 	# the renderable which should be edited
 	formElement: null,
 
-	formElementType: ( ->
-		formElementTypeName = @getPath('formElement.type')
-		return null unless formElementTypeName
-
-		return TYPO3.FormBuilder.Model.FormElementTypes.get(formElementTypeName)
-	).property('formElement').cacheable()
-
 	orderedFormFieldEditors: ( ->
 		# copy the schema to work on a clone
-		formFieldEditors = $.extend({}, @getPath('formElementType.formBuilder.formFieldEditors'))
+		formFieldEditors = $.extend({}, @getPath('formElement.typeDefinition.formBuilder.formFieldEditors'))
 
 		orderedFormFieldEditors = for k, v of formFieldEditors
 			v['key'] = k
@@ -20,7 +13,7 @@ TYPO3.FormBuilder.View.FormElementInspector = Ember.ContainerView.extend {
 
 		orderedFormFieldEditors.sort((a,b)-> a.sorting - b.sorting)
 		return orderedFormFieldEditors
-	).property('formElementType').cacheable()
+	).property('formElement.typeDefinition').cacheable()
 
 
 	onFormElementChange: (->
@@ -34,7 +27,6 @@ TYPO3.FormBuilder.View.FormElementInspector = Ember.ContainerView.extend {
 
 			subViewOptions = $.extend({}, formFieldEditor, {
 				formElement: @formElement,
-				formElementType: @get('formElementType')
 			})
 			subView = subViewClass.create(subViewOptions)
 			@get('childViews').push(subView)
@@ -47,8 +39,7 @@ TYPO3.FormBuilder.View.FormElementInspector = Ember.ContainerView.extend {
 TYPO3.FormBuilder.View.Editor = {}
 TYPO3.FormBuilder.View.Editor.AbstractEditor = Ember.View.extend {
 	classNames: ['form-editor']
-	formElement: null,
-	formElementType: null
+	formElement: null
 }
 
 TYPO3.FormBuilder.View.Editor.AbstractPropertyEditor = TYPO3.FormBuilder.View.Editor.AbstractEditor.extend {

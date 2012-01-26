@@ -54,6 +54,17 @@ TYPO3.FormBuilder.Model.Renderable = Ember.Object.extend {
 	#   Do not rely on the value of this property, though!
 	__nestedPropertyChange: 0,
 
+	# * `type`: (String) form element type of this renderable -- string type identifier
+	type: null
+
+	# * `typeDefinition`: (TYPO3.FormBuilder.Model.FormElementType) form element type of this renderable -- dereferenced type definition object
+	typeDefinition: ( ->
+		formElementTypeName = @get('type')
+		return null unless formElementTypeName
+
+		return TYPO3.FormBuilder.Model.FormElementTypes.get(formElementTypeName)
+	).property('type').cacheable()
+
 	# ***
 	# ###Private###
 
