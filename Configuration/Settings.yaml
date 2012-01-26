@@ -111,19 +111,26 @@ TYPO3:
               sorting: 110
 
           # group CONTAINER
-          'TYPO3.Form:Page':
-            formBuilder:
-              label: 'Page'
-              group: container
-              sorting: 100
-              _isPage: true
-
           'TYPO3.Form:Section':
             formBuilder:
               label: 'Section (Fieldset)'
               group: container
-              sorting: 200
+              sorting: 100
               _isCompositeRenderable: true
+
+          'TYPO3.Form:Page':
+            formBuilder:
+              label: 'Page'
+              group: container
+              sorting: 110
+              _isPage: true
+
+          'TYPO3.Form:PreviewPage':
+            formBuilder:
+              label: 'Preview Page'
+              group: container
+              sorting: 120
+              _isPage: true
 
 
           'TYPO3.Form:TextMixin':
