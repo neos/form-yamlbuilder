@@ -473,7 +473,7 @@
       return this.updateTreeStateFromModel(this.$().dynatree('getRoot'), this.getPath('formDefinition.renderables'));
     },
     updateTree: (function() {
-      var activeNodePath, expandedNodePath, expandedNodePaths, _base, _j, _len2, _ref3, _ref4;
+      var activeNodePath, expandedNodePath, expandedNodePaths, _base, _j, _len2, _ref3, _ref4, _ref5;
       if (!this.$().dynatree('getTree').visit) return;
       expandedNodePaths = [];
       this.$().dynatree('getTree').visit(function(node) {
@@ -486,9 +486,11 @@
       this.updateTreeStateFromModel(this.$().dynatree('getRoot'), this.getPath('formDefinition.renderables'));
       for (_j = 0, _len2 = expandedNodePaths.length; _j < _len2; _j++) {
         expandedNodePath = expandedNodePaths[_j];
-        this.$().dynatree('getTree').getNodeByKey(expandedNodePath).expand(true);
+        if ((_ref4 = this.$().dynatree('getTree').getNodeByKey(expandedNodePath)) != null) {
+          _ref4.expand(true);
+        }
       }
-      return (_ref4 = this.$().dynatree('getTree').getNodeByKey(activeNodePath)) != null ? _ref4.activate(true) : void 0;
+      return (_ref5 = this.$().dynatree('getTree').getNodeByKey(activeNodePath)) != null ? _ref5.activate(true) : void 0;
     }).observes('formDefinition.__nestedPropertyChange'),
     updateTreeStateFromModel: function(dynaTreeParentNode, currentListOfSubRenderables) {
       var newNode, subRenderable, _j, _len2, _results;

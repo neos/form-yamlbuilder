@@ -67,7 +67,7 @@ TYPO3.FormBuilder.View.FormTree = Ember.View.extend {
 		@updateTreeStateFromModel(@$().dynatree('getRoot'), @getPath('formDefinition.renderables'))
 
 		for expandedNodePath in expandedNodePaths
-			@$().dynatree('getTree').getNodeByKey(expandedNodePath).expand(true)
+			@$().dynatree('getTree').getNodeByKey(expandedNodePath)?.expand(true)
 		@$().dynatree('getTree').getNodeByKey(activeNodePath)?.activate(true)
 	).observes('formDefinition.__nestedPropertyChange')
 
