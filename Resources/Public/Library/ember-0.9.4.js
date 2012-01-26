@@ -14414,7 +14414,6 @@ Ember.Select = Ember.View.extend({
   content: null,
   selection: null,
   prompt: null,
-
   optionLabelPath: 'content',
   optionValuePath: 'content',
 

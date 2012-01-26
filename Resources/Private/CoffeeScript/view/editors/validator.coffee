@@ -64,6 +64,10 @@ TYPO3.FormBuilder.View.Editor.ValidatorEditor = TYPO3.FormBuilder.View.Editor.Ab
 		return validatorsArray
 	).property('availableValidators', 'formElement.__nestedPropertyChange').cacheable()
 
+	noValidatorsAvailable: ( ->
+		@get('sortedAvailableValidators').length == 0
+	).property('sortedAvailableValidators').cacheable()
+
 	# this property needs to be bound to the current selection, of the "add validator"
 	# select field, such that we can observe this value for changes.
 	addValidatorSelection: null
@@ -106,6 +110,8 @@ TYPO3.FormBuilder.View.Editor.ValidatorEditor = TYPO3.FormBuilder.View.Editor.Ab
 						validatorIndex: i
 						valueChanged: =>
 							@valueChanged()
+						updateValidatorEditorViews: =>
+							@updateValidatorEditorViews()
 						validators: @get('value')
 					}, validatorTemplate)
 					validatorViews.push(validatorEditor.create(validatorEditorOptions))
@@ -167,6 +173,7 @@ TYPO3.FormBuilder.View.Editor.ValidatorEditor.DefaultValidatorEditor = Ember.Vie
 	remove: ->
 		@get('validators').removeAt(@get('validatorIndex'))
 		@valueChanged()
+		@updateValidatorEditorViews()
 }
 
 TYPO3.FormBuilder.View.Editor.ValidatorEditor.MinimumMaximumValidatorEditor = TYPO3.FormBuilder.View.Editor.ValidatorEditor.DefaultValidatorEditor.extend {

@@ -103,3 +103,7 @@ TYPO3.FormBuilder.View.ContainerView = Ember.ContainerView.extend {
 		@rerender()
 	).observes('instanciatedViews')
 }
+
+TYPO3.FormBuilder.View.Select = Ember.Select.extend {
+	attributeBindings: ['disabled']
+}

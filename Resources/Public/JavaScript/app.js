@@ -320,6 +320,10 @@
     }).observes('instanciatedViews')
   });
 
+  TYPO3.FormBuilder.View.Select = Ember.Select.extend({
+    attributeBindings: ['disabled']
+  });
+
   TYPO3.FormBuilder.View.AvailableFormElementsView = Ember.View.extend({
     classNames: ['availableFormElements'],
     allFormElementTypesBinding: 'TYPO3.FormBuilder.Model.FormElementTypes.allTypeNames',
@@ -762,6 +766,9 @@
       });
       return validatorsArray;
     }).property('availableValidators', 'formElement.__nestedPropertyChange').cacheable(),
+    noValidatorsAvailable: (function() {
+      return this.get('sortedAvailableValidators').length === 0;
+    }).property('sortedAvailableValidators').cacheable(),
     addValidatorSelection: null,
     addValidator: (function() {
       var validatorToBeAdded;
@@ -796,6 +803,9 @@
               validatorIndex: i,
               valueChanged: function() {
                 return _this.valueChanged();
+              },
+              updateValidatorEditorViews: function() {
+                return _this.updateValidatorEditorViews();
               },
               validators: this.get('value')
             }, validatorTemplate);
@@ -854,7 +864,8 @@
     }).property('required').cacheable(),
     remove: function() {
       this.get('validators').removeAt(this.get('validatorIndex'));
-      return this.valueChanged();
+      this.valueChanged();
+      return this.updateValidatorEditorViews();
     }
   });
 

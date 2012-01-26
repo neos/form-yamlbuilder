@@ -64,7 +64,7 @@
 		<script type="text/x-handlebars" data-template-name="ValidatorEditor">
 			<hr />
 			<h3>Validators</h3>
-			{{view Ember.Select prompt="Select a validator to add" contentBinding="sortedAvailableValidators" optionLabelPath="content.label" selectionBinding="addValidatorSelection"}}
+			{{view TYPO3.FormBuilder.View.Select prompt="Select a validator to add" contentBinding="sortedAvailableValidators" optionLabelPath="content.label" selectionBinding="addValidatorSelection" disabledBinding="noValidatorsAvailable"}}
 			{{view TYPO3.FormBuilder.View.ContainerView instanciatedViewsBinding="validatorEditorViews"}}
 		</script>
 		<script type="text/x-handlebars" data-template-name="PropertyPanelTitle">
@@ -78,8 +78,11 @@
 
 		<script type="text/x-handlebars" data-template-name="ValidatorEditor-MinimumMaximum">
 			{{label}}
-			{{#view Ember.Button target="parentView" action="remove" isVisibleBinding="notRequired"}}Remove{{/view}}
-			Min: {{view Ember.TextField valueBinding="minimum"}} Max: {{view Ember.TextField valueBinding="maximum"}}
+			{{#view Ember.Button target="parentView" action="remove" isVisibleBinding="notRequired"}}Remove{{/view}}<br />
+			<table><tr>
+				<td><label>Minimum:</label>{{view Ember.TextField valueBinding="minimum"}}</td>
+				<td><label>Maximum:</label>{{view Ember.TextField valueBinding="maximum"}}</td>
+			</tr></table>
 		</script>
 	</head>
 	<body>
