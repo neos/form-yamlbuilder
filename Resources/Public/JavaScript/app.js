@@ -380,7 +380,7 @@
       return this.$().attr('title', this.getPath('formElementType.key'));
     },
     click: function() {
-      var currentlySelectedRenderable, indexInParent, newRenderable, parentRenderablesArray;
+      var currentlySelectedRenderable, indexInParent, newRenderable, parentRenderablesArray, referenceRenderable;
       currentlySelectedRenderable = this.get('currentlySelectedElement');
       if (!currentlySelectedRenderable) return;
       newRenderable = TYPO3.FormBuilder.Model.Renderable.create({
@@ -391,8 +391,14 @@
       if (!this.formElementType.getPath('formBuilder._isPage') && currentlySelectedRenderable.getPath('typeDefinition.formBuilder._isPage')) {
         currentlySelectedRenderable.get('renderables').pushObject(newRenderable);
       } else {
-        parentRenderablesArray = currentlySelectedRenderable.getPath('parentRenderable.renderables');
-        indexInParent = parentRenderablesArray.indexOf(currentlySelectedRenderable);
+        referenceRenderable = currentlySelectedRenderable;
+        if (this.formElementType.getPath('formBuilder._isPage') && !currentlySelectedRenderable.getPath('typeDefinition.formBuilder._isPage')) {
+          while (referenceRenderable.getPath('parentRenderable.parentRenderable') !== null) {
+            referenceRenderable = referenceRenderable.get('parentRenderable');
+          }
+        }
+        parentRenderablesArray = referenceRenderable.getPath('parentRenderable.renderables');
+        indexInParent = parentRenderablesArray.indexOf(referenceRenderable);
         parentRenderablesArray.replace(indexInParent + 1, 0, [newRenderable]);
       }
       return this.set('currentlySelectedElement', newRenderable);
