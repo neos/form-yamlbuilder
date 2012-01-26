@@ -99,8 +99,7 @@ TYPO3.FormBuilder.View.ContainerView = Ember.ContainerView.extend {
 	onInstanciatedViewsChange: (->
 		@removeAllChildren()
 		for view in @get('instanciatedViews')
-			@get('childViews').push(view)
-		@rerender()
+			@get('childViews').pushObject(view)
 	).observes('instanciatedViews')
 }
 

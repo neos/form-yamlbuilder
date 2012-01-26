@@ -89,7 +89,7 @@ TYPO3.FormBuilder.View.Editor.PropertyGrid = TYPO3.FormBuilder.View.Editor.Abstr
 			newItem = {}
 			newItem[columnDefinition.field] = '' for columnDefinition in @columns
 			$.extend(newItem, args.item)
-			@get('value').push(newItem)
+			@get('value').pushObject(newItem)
 
 			@grid.updateRowCount()
 			@grid.render()

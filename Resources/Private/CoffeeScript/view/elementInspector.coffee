@@ -19,7 +19,6 @@ TYPO3.FormBuilder.View.FormElementInspector = Ember.ContainerView.extend {
 	onFormElementChange: (->
 		@removeAllChildren()
 		return unless @formElement
-		#formElement = @formElement
 
 		for formFieldEditor in @get('orderedFormFieldEditors')
 			subViewClass = Ember.getPath(formFieldEditor.viewName)
@@ -29,8 +28,7 @@ TYPO3.FormBuilder.View.FormElementInspector = Ember.ContainerView.extend {
 				formElement: @formElement,
 			})
 			subView = subViewClass.create(subViewOptions)
-			@get('childViews').push(subView)
-		@rerender()
+			@get('childViews').pushObject(subView)
 	).observes('formElement')
 }
 

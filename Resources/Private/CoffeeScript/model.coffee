@@ -116,8 +116,8 @@ TYPO3.FormBuilder.Model.Renderable = Ember.Object.extend {
 			subArray.objectAt(i).set('parentRenderable', this);
 
 		@set('__nestedPropertyChange', @get('__nestedPropertyChange') + 1);
-		if (@parentRenderable)
-			@parentRenderable.somePropertyChanged(@parentRenderable, "renderables")
+		if @parentRenderable
+			@parentRenderable.somePropertyChanged(@parentRenderable, "renderables.#{ @parentRenderable.get('renderables').indexOf(this) }.renderables")
 
 	# Helper function returning the full path of the current renderable.
 	_path: (->

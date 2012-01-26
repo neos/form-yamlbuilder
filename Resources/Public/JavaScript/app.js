@@ -1,5 +1,5 @@
 (function() {
-  var TYPO3, convertToSimpleObject, cssFile, _i, _len, _ref,
+  var TYPO3, convertToSimpleObject, cssFile, _i, _len, _ref, _ref2,
     __hasProp = Object.prototype.hasOwnProperty;
 
   TYPO3 = window.TYPO3 || {};
@@ -12,10 +12,10 @@
 
   TYPO3.FormBuilder.Configuration = window.FORMBUILDER_CONFIGURATION;
 
-  if (TYPO3.FormBuilder.Configuration.cssFiles) {
-    _ref = TYPO3.FormBuilder.Configuration.cssFiles;
-    for (_i = 0, _len = _ref.length; _i < _len; _i++) {
-      cssFile = _ref[_i];
+  if ((_ref = TYPO3.FormBuilder.Configuration) != null ? _ref.cssFiles : void 0) {
+    _ref2 = TYPO3.FormBuilder.Configuration.cssFiles;
+    for (_i = 0, _len = _ref2.length; _i < _len; _i++) {
+      cssFile = _ref2[_i];
       $('head').append($('<link rel="stylesheet" />').attr('href', cssFile));
     }
   }
@@ -128,21 +128,21 @@
       }
     },
     arrayWillChange: function(subArray, startIndex, removeCount, addCount) {
-      var i, _ref2, _results;
+      var i, _ref3, _results;
       _results = [];
-      for (i = startIndex, _ref2 = startIndex + removeCount; startIndex <= _ref2 ? i < _ref2 : i > _ref2; startIndex <= _ref2 ? i++ : i--) {
+      for (i = startIndex, _ref3 = startIndex + removeCount; startIndex <= _ref3 ? i < _ref3 : i > _ref3; startIndex <= _ref3 ? i++ : i--) {
         _results.push(subArray.objectAt(i).set('parentRenderable', null));
       }
       return _results;
     },
     arrayDidChange: function(subArray, startIndex, removeCount, addCount) {
-      var i, _ref2;
-      for (i = startIndex, _ref2 = startIndex + addCount; startIndex <= _ref2 ? i < _ref2 : i > _ref2; startIndex <= _ref2 ? i++ : i--) {
+      var i, _ref3;
+      for (i = startIndex, _ref3 = startIndex + addCount; startIndex <= _ref3 ? i < _ref3 : i > _ref3; startIndex <= _ref3 ? i++ : i--) {
         subArray.objectAt(i).set('parentRenderable', this);
       }
       this.set('__nestedPropertyChange', this.get('__nestedPropertyChange') + 1);
       if (this.parentRenderable) {
-        return this.parentRenderable.somePropertyChanged(this.parentRenderable, "renderables");
+        return this.parentRenderable.somePropertyChanged(this.parentRenderable, "renderables." + (this.parentRenderable.get('renderables').indexOf(this)) + ".renderables");
       }
     },
     _path: (function() {
@@ -174,21 +174,19 @@
     }
   });
 
-  TYPO3.FormBuilder.Model.FormElementType = Ember.Object.extend({
-    _isCompositeRenderable: false
-  });
+  TYPO3.FormBuilder.Model.FormElementType = Ember.Object.extend({});
 
   TYPO3.FormBuilder.Model.FormElementTypes = Ember.Object.create({
     allTypeNames: [],
     init: function() {
-      var typeConfiguration, typeName, _ref2, _ref3, _results;
-      if (((_ref2 = TYPO3.FormBuilder.Configuration) != null ? _ref2.formElementTypes : void 0) == null) {
+      var typeConfiguration, typeName, _ref3, _ref4, _results;
+      if (((_ref3 = TYPO3.FormBuilder.Configuration) != null ? _ref3.formElementTypes : void 0) == null) {
         return;
       }
-      _ref3 = TYPO3.FormBuilder.Configuration.formElementTypes;
+      _ref4 = TYPO3.FormBuilder.Configuration.formElementTypes;
       _results = [];
-      for (typeName in _ref3) {
-        typeConfiguration = _ref3[typeName];
+      for (typeName in _ref4) {
+        typeConfiguration = _ref4[typeName];
         this.allTypeNames.push(typeName);
         _results.push(this.set(typeName, TYPO3.FormBuilder.Model.FormElementType.create(typeConfiguration)));
       }
@@ -199,14 +197,14 @@
   TYPO3.FormBuilder.Model.FormElementGroups = Ember.Object.create({
     allGroupNames: [],
     init: function() {
-      var groupConfiguration, groupName, _ref2, _ref3, _results;
-      if (((_ref2 = TYPO3.FormBuilder.Configuration) != null ? _ref2.formElementGroups : void 0) == null) {
+      var groupConfiguration, groupName, _ref3, _ref4, _results;
+      if (((_ref3 = TYPO3.FormBuilder.Configuration) != null ? _ref3.formElementGroups : void 0) == null) {
         return;
       }
-      _ref3 = TYPO3.FormBuilder.Configuration.formElementGroups;
+      _ref4 = TYPO3.FormBuilder.Configuration.formElementGroups;
       _results = [];
-      for (groupName in _ref3) {
-        groupConfiguration = _ref3[groupName];
+      for (groupName in _ref4) {
+        groupConfiguration = _ref4[groupName];
         this.allGroupNames.push(groupName);
         _results.push(this.set(groupName, Ember.Object.create(groupConfiguration)));
       }
@@ -221,13 +219,13 @@
     currentPageIndex: 0,
     currentAjaxRequest: null,
     page: Ember.computed(function() {
-      var _ref2;
-      return (_ref2 = this.get('formPages')) != null ? _ref2.get(this.get('currentPageIndex')) : void 0;
+      var _ref3;
+      return (_ref3 = this.get('formPages')) != null ? _ref3.get(this.get('currentPageIndex')) : void 0;
     }).property('formPages', 'currentPageIndex').cacheable(),
     renderPageIfPageObjectChanges: (function() {
-      var _ref2,
+      var _ref3,
         _this = this;
-      if (!((_ref2 = TYPO3.FormBuilder.Model.Form.get('formDefinition')) != null ? _ref2.get('identifier') : void 0)) {
+      if (!((_ref3 = TYPO3.FormBuilder.Model.Form.get('formDefinition')) != null ? _ref3.get('identifier') : void 0)) {
         return;
       }
       if (this.currentAjaxRequest) this.currentAjaxRequest.abort();
@@ -287,16 +285,16 @@
       return this.$().find('[data-element="' + identifierPath + '"]').addClass('formbuilder-form-element-selected');
     }).observes('TYPO3.FormBuilder.Model.Form.currentlySelectedRenderable'),
     findRenderableForPath: function(path) {
-      var currentRenderable, expandedPathToClickedElement, pathPart, renderable, _j, _k, _len2, _len3, _ref2;
+      var currentRenderable, expandedPathToClickedElement, pathPart, renderable, _j, _k, _len2, _len3, _ref3;
       expandedPathToClickedElement = path.split('/');
       expandedPathToClickedElement.shift();
       expandedPathToClickedElement.shift();
       currentRenderable = this.get('page');
       for (_j = 0, _len2 = expandedPathToClickedElement.length; _j < _len2; _j++) {
         pathPart = expandedPathToClickedElement[_j];
-        _ref2 = currentRenderable.get('renderables');
-        for (_k = 0, _len3 = _ref2.length; _k < _len3; _k++) {
-          renderable = _ref2[_k];
+        _ref3 = currentRenderable.get('renderables');
+        for (_k = 0, _len3 = _ref3.length; _k < _len3; _k++) {
+          renderable = _ref3[_k];
           if (renderable.identifier === pathPart) {
             currentRenderable = renderable;
             break;
@@ -316,14 +314,15 @@
   TYPO3.FormBuilder.View.ContainerView = Ember.ContainerView.extend({
     instanciatedViews: null,
     onInstanciatedViewsChange: (function() {
-      var view, _j, _len2, _ref2;
+      var view, _j, _len2, _ref3, _results;
       this.removeAllChildren();
-      _ref2 = this.get('instanciatedViews');
-      for (_j = 0, _len2 = _ref2.length; _j < _len2; _j++) {
-        view = _ref2[_j];
-        this.get('childViews').push(view);
+      _ref3 = this.get('instanciatedViews');
+      _results = [];
+      for (_j = 0, _len2 = _ref3.length; _j < _len2; _j++) {
+        view = _ref3[_j];
+        _results.push(this.get('childViews').pushObject(view));
       }
-      return this.rerender();
+      return _results;
     }).observes('instanciatedViews')
   });
 
@@ -335,13 +334,13 @@
     classNames: ['availableFormElements'],
     allFormElementTypesBinding: 'TYPO3.FormBuilder.Model.FormElementTypes.allTypeNames',
     formElementsGrouped: (function() {
-      var formElementType, formElementTypeName, formElementsByGroup, formGroup, formGroupName, formGroups, _j, _k, _len2, _len3, _ref2, _ref3, _ref4, _ref5;
+      var formElementType, formElementTypeName, formElementsByGroup, formGroup, formGroupName, formGroups, _j, _k, _len2, _len3, _ref3, _ref4, _ref5, _ref6;
       formElementsByGroup = {};
-      _ref2 = this.get('allFormElementTypes');
-      for (_j = 0, _len2 = _ref2.length; _j < _len2; _j++) {
-        formElementTypeName = _ref2[_j];
+      _ref3 = this.get('allFormElementTypes');
+      for (_j = 0, _len2 = _ref3.length; _j < _len2; _j++) {
+        formElementTypeName = _ref3[_j];
         formElementType = TYPO3.FormBuilder.Model.FormElementTypes.get(formElementTypeName);
-        if (((_ref3 = formElementType.formBuilder) != null ? _ref3.group : void 0) == null) {
+        if (((_ref4 = formElementType.formBuilder) != null ? _ref4.group : void 0) == null) {
           continue;
         }
         if (!formElementsByGroup[formElementType.formBuilder.group]) {
@@ -351,13 +350,13 @@
         formElementsByGroup[formElementType.formBuilder.group].push(formElementType);
       }
       formGroups = [];
-      _ref4 = TYPO3.FormBuilder.Model.FormElementGroups.get('allGroupNames');
-      for (_k = 0, _len3 = _ref4.length; _k < _len3; _k++) {
-        formGroupName = _ref4[_k];
+      _ref5 = TYPO3.FormBuilder.Model.FormElementGroups.get('allGroupNames');
+      for (_k = 0, _len3 = _ref5.length; _k < _len3; _k++) {
+        formGroupName = _ref5[_k];
         formGroup = TYPO3.FormBuilder.Model.FormElementGroups.get(formGroupName);
         formGroup.set('key', formGroupName);
-        if ((_ref5 = formElementsByGroup[formGroupName]) != null) {
-          _ref5.sort(function(a, b) {
+        if ((_ref6 = formElementsByGroup[formGroupName]) != null) {
+          _ref6.sort(function(a, b) {
             return a.formBuilder.sorting - b.formBuilder.sorting;
           });
         }
@@ -381,17 +380,21 @@
       return this.$().attr('title', this.getPath('formElementType.key'));
     },
     click: function() {
-      var el, indexInParent, newRenderable, parentRenderablesArray;
-      el = this.get('currentlySelectedElement');
-      if (!el) return;
-      parentRenderablesArray = el.getPath('parentRenderable.renderables');
-      indexInParent = parentRenderablesArray.indexOf(el);
+      var currentlySelectedRenderable, indexInParent, newRenderable, parentRenderablesArray;
+      currentlySelectedRenderable = this.get('currentlySelectedElement');
+      if (!currentlySelectedRenderable) return;
       newRenderable = TYPO3.FormBuilder.Model.Renderable.create({
         type: this.formElementType.get('key'),
         label: '',
         identifier: Ember.generateGuid(null, 'formElement')
       });
-      parentRenderablesArray.replace(indexInParent + 1, 0, [newRenderable]);
+      if (!this.formElementType.getPath('formBuilder._isPage') && currentlySelectedRenderable.getPath('typeDefinition.formBuilder._isPage')) {
+        currentlySelectedRenderable.get('renderables').pushObject(newRenderable);
+      } else {
+        parentRenderablesArray = currentlySelectedRenderable.getPath('parentRenderable.renderables');
+        indexInParent = parentRenderablesArray.indexOf(currentlySelectedRenderable);
+        parentRenderablesArray.replace(indexInParent + 1, 0, [newRenderable]);
+      }
       return this.set('currentlySelectedElement', newRenderable);
     }
   });
@@ -410,7 +413,7 @@
           autoExpandMS: 300,
           onDragEnter: function(targetNode, sourceNode) {
             var targetNodeIsCompositeRenderable;
-            targetNodeIsCompositeRenderable = TYPO3.FormBuilder.Model.FormElementTypes.get(targetNode.data.formRenderable.get('type')).getPath('formBuilder.__isCompositeRenderable');
+            targetNodeIsCompositeRenderable = targetNode.data.formRenderable.getPath('typeDefinition.formBuilder._isCompositeRenderable');
             if (sourceNode.getLevel() === 1) {
               if (targetNode.getLevel() === 1) {
                 return ['before', 'after'];
@@ -450,13 +453,13 @@
       return this.updateTreeStateFromModel(this.$().dynatree('getRoot'), this.getPath('formDefinition.renderables'));
     },
     updateTree: (function() {
-      var activeNodePath, expandedNodePath, expandedNodePaths, _base, _j, _len2, _ref2, _ref3;
+      var activeNodePath, expandedNodePath, expandedNodePaths, _base, _j, _len2, _ref3, _ref4;
       if (!this.$().dynatree('getTree').visit) return;
       expandedNodePaths = [];
       this.$().dynatree('getTree').visit(function(node) {
         if (node.isExpanded()) return expandedNodePaths.push(node.data.key);
       });
-      activeNodePath = (_ref2 = this.$().dynatree('getActiveNode')) != null ? _ref2.data.key : void 0;
+      activeNodePath = (_ref3 = this.$().dynatree('getActiveNode')) != null ? _ref3.data.key : void 0;
       if (typeof (_base = this.$().dynatree('getRoot')).removeChildren === "function") {
         _base.removeChildren();
       }
@@ -465,7 +468,7 @@
         expandedNodePath = expandedNodePaths[_j];
         this.$().dynatree('getTree').getNodeByKey(expandedNodePath).expand(true);
       }
-      return (_ref3 = this.$().dynatree('getTree').getNodeByKey(activeNodePath)) != null ? _ref3.activate(true) : void 0;
+      return (_ref4 = this.$().dynatree('getTree').getNodeByKey(activeNodePath)) != null ? _ref4.activate(true) : void 0;
     }).observes('formDefinition.__nestedPropertyChange'),
     updateTreeStateFromModel: function(dynaTreeParentNode, currentListOfSubRenderables) {
       var newNode, subRenderable, _j, _len2, _results;
@@ -483,9 +486,9 @@
       return _results;
     },
     updateCurrentlySelectedNode: (function() {
-      var activeNodePath, _base, _ref2;
+      var activeNodePath, _base, _ref3;
       activeNodePath = TYPO3.FormBuilder.Model.Form.getPath('currentlySelectedRenderable._path');
-      return typeof (_base = this.$().dynatree('getTree')).getNodeByKey === "function" ? (_ref2 = _base.getNodeByKey(activeNodePath)) != null ? _ref2.activate(true) : void 0 : void 0;
+      return typeof (_base = this.$().dynatree('getTree')).getNodeByKey === "function" ? (_ref3 = _base.getNodeByKey(activeNodePath)) != null ? _ref3.activate(true) : void 0 : void 0;
     }).observes('TYPO3.FormBuilder.Model.Form.currentlySelectedRenderable')
   });
 
@@ -510,12 +513,13 @@
       return orderedFormFieldEditors;
     }).property('formElement.typeDefinition').cacheable(),
     onFormElementChange: (function() {
-      var formFieldEditor, subView, subViewClass, subViewOptions, _j, _len2, _ref2;
+      var formFieldEditor, subView, subViewClass, subViewOptions, _j, _len2, _ref3, _results;
       this.removeAllChildren();
       if (!this.formElement) return;
-      _ref2 = this.get('orderedFormFieldEditors');
-      for (_j = 0, _len2 = _ref2.length; _j < _len2; _j++) {
-        formFieldEditor = _ref2[_j];
+      _ref3 = this.get('orderedFormFieldEditors');
+      _results = [];
+      for (_j = 0, _len2 = _ref3.length; _j < _len2; _j++) {
+        formFieldEditor = _ref3[_j];
         subViewClass = Ember.getPath(formFieldEditor.viewName);
         if (!subViewClass) {
           throw "Editor class '" + formFieldEditor.viewName + "' not found";
@@ -524,9 +528,9 @@
           formElement: this.formElement
         });
         subView = subViewClass.create(subViewOptions);
-        this.get('childViews').push(subView);
+        _results.push(this.get('childViews').pushObject(subView));
       }
-      return this.rerender();
+      return _results;
     }).observes('formElement')
   });
 
@@ -620,7 +624,7 @@
       };
     }).property('enableAddRow').cacheable(),
     columnDefinition: (function() {
-      var column, columns, _j, _len2, _ref2;
+      var column, columns, _j, _len2, _ref3;
       columns = [];
       if (this.get('isSortable')) {
         columns.push({
@@ -634,9 +638,9 @@
           focusable: false
         });
       }
-      _ref2 = this.get('columns');
-      for (_j = 0, _len2 = _ref2.length; _j < _len2; _j++) {
-        column = _ref2[_j];
+      _ref3 = this.get('columns');
+      for (_j = 0, _len2 = _ref3.length; _j < _len2; _j++) {
+        column = _ref3[_j];
         column = $.extend({}, column);
         column.id = column.field;
         column.editor = Ember.getPath(column.editor);
@@ -661,16 +665,16 @@
         return _this.valueChanged();
       });
       this.grid.onAddNewRow.subscribe(function(e, args) {
-        var columnDefinition, newItem, _j, _len2, _ref2;
+        var columnDefinition, newItem, _j, _len2, _ref3;
         _this.grid.invalidateRow(_this.get('value').length);
         newItem = {};
-        _ref2 = _this.columns;
-        for (_j = 0, _len2 = _ref2.length; _j < _len2; _j++) {
-          columnDefinition = _ref2[_j];
+        _ref3 = _this.columns;
+        for (_j = 0, _len2 = _ref3.length; _j < _len2; _j++) {
+          columnDefinition = _ref3[_j];
           newItem[columnDefinition.field] = '';
         }
         $.extend(newItem, args.item);
-        _this.get('value').push(newItem);
+        _this.get('value').pushObject(newItem);
         _this.grid.updateRowCount();
         _this.grid.render();
         return _this.valueChanged();
@@ -678,8 +682,8 @@
       moveRowsPlugin = new Slick.RowMoveManager();
       this.grid.registerPlugin(moveRowsPlugin);
       moveRowsPlugin.onBeforeMoveRows.subscribe(function(e, data) {
-        var i, _ref2;
-        for (i = 0, _ref2 = data.rows.length; 0 <= _ref2 ? i < _ref2 : i > _ref2; 0 <= _ref2 ? i++ : i--) {
+        var i, _ref3;
+        for (i = 0, _ref3 = data.rows.length; 0 <= _ref3 ? i < _ref3 : i > _ref3; 0 <= _ref3 ? i++ : i--) {
           if (data.rows[i] === data.insertBefore || data.rows[i] === data.insertBefore - 1) {
             e.stopPropagation();
             return false;
@@ -748,11 +752,11 @@
       return this.updateValidatorEditorViews();
     },
     sortedAvailableValidators: (function() {
-      var key, validatorTemplate, validatorsArray, _ref2;
+      var key, validatorTemplate, validatorsArray, _ref3;
       validatorsArray = [];
-      _ref2 = this.get('availableValidators');
-      for (key in _ref2) {
-        validatorTemplate = _ref2[key];
+      _ref3 = this.get('availableValidators');
+      for (key in _ref3) {
+        validatorTemplate = _ref3[key];
         if (this.isValidatorTemplateFoundInValidatorList(validatorTemplate)) {
           continue;
         }
