@@ -23,6 +23,11 @@ TYPO3.FormBuilder.Model.Form = Ember.Object.create {
 	formDefinition: null,
 	# * `currentlySelectedRenderable`: Reference to the currently selected `Renderable` object.
 	currentlySelectedRenderable: null
+
+	onFormDefinitionChange: (->
+		return unless @get('formDefinition')
+		@set('currentlySelectedRenderable', @get('formDefinition'))
+	).observes('formDefinition')
 }
 
 # ***

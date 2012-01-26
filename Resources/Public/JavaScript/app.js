@@ -22,6 +22,7 @@
 
   window.setTimeout((function() {
     return TYPO3.FormBuilder.Model.Form.set('formDefinition', TYPO3.FormBuilder.Model.Renderable.create({
+      type: 'TYPO3.Form:Form',
       identifier: 'myForm',
       renderables: [
         {
@@ -87,7 +88,11 @@
 
   TYPO3.FormBuilder.Model.Form = Ember.Object.create({
     formDefinition: null,
-    currentlySelectedRenderable: null
+    currentlySelectedRenderable: null,
+    onFormDefinitionChange: (function() {
+      if (!this.get('formDefinition')) return;
+      return this.set('currentlySelectedRenderable', this.get('formDefinition'));
+    }).observes('formDefinition')
   });
 
   TYPO3.FormBuilder.Model.Renderable = Ember.Object.extend({
@@ -230,6 +235,7 @@
       if (!currentlySelectedRenderable) return 0;
       enclosingPage = currentlySelectedRenderable.findEnclosingPage();
       if (!enclosingPage) return 0;
+      if (!enclosingPage.getPath('parentRenderable.renderables')) return 0;
       return enclosingPage.getPath('parentRenderable.renderables').indexOf(enclosingPage);
     }).property('TYPO3.FormBuilder.Model.Form.currentlySelectedRenderable').cacheable(),
     currentAjaxRequest: null,
@@ -421,8 +427,11 @@
 
   TYPO3.FormBuilder.View.FormTree = Ember.View.extend({
     formDefinitionBinding: 'TYPO3.FormBuilder.Model.Form.formDefinition',
+    templateName: 'FormTree',
+    _tree: null,
     didInsertElement: function() {
-      this.$().dynatree({
+      this._tree = this.$().find('.tree');
+      this._tree.dynatree({
         onActivate: function(node) {
           return TYPO3.FormBuilder.Model.Form.set('currentlySelectedRenderable', node.data.formRenderable);
         },
@@ -470,27 +479,29 @@
           }
         }
       });
-      return this.updateTreeStateFromModel(this.$().dynatree('getRoot'), this.getPath('formDefinition.renderables'));
+      return this.updateTreeStateFromModel(this._tree.dynatree('getRoot'), this.getPath('formDefinition.renderables'));
     },
     updateTree: (function() {
-      var activeNodePath, expandedNodePath, expandedNodePaths, _base, _j, _len2, _ref3, _ref4, _ref5;
-      if (!this.$().dynatree('getTree').visit) return;
+      var activeNodePath, expandedNodePath, expandedNodePaths, _base, _j, _len2, _ref3, _ref4, _ref5, _ref6;
+      if (!((_ref3 = this._tree) != null ? _ref3.dynatree('getTree').visit : void 0)) {
+        return;
+      }
       expandedNodePaths = [];
-      this.$().dynatree('getTree').visit(function(node) {
+      this._tree.dynatree('getTree').visit(function(node) {
         if (node.isExpanded()) return expandedNodePaths.push(node.data.key);
       });
-      activeNodePath = (_ref3 = this.$().dynatree('getActiveNode')) != null ? _ref3.data.key : void 0;
-      if (typeof (_base = this.$().dynatree('getRoot')).removeChildren === "function") {
+      activeNodePath = (_ref4 = this._tree.dynatree('getActiveNode')) != null ? _ref4.data.key : void 0;
+      if (typeof (_base = this._tree.dynatree('getRoot')).removeChildren === "function") {
         _base.removeChildren();
       }
-      this.updateTreeStateFromModel(this.$().dynatree('getRoot'), this.getPath('formDefinition.renderables'));
+      this.updateTreeStateFromModel(this._tree.dynatree('getRoot'), this.getPath('formDefinition.renderables'));
       for (_j = 0, _len2 = expandedNodePaths.length; _j < _len2; _j++) {
         expandedNodePath = expandedNodePaths[_j];
-        if ((_ref4 = this.$().dynatree('getTree').getNodeByKey(expandedNodePath)) != null) {
-          _ref4.expand(true);
+        if ((_ref5 = this._tree.dynatree('getTree').getNodeByKey(expandedNodePath)) != null) {
+          _ref5.expand(true);
         }
       }
-      return (_ref5 = this.$().dynatree('getTree').getNodeByKey(activeNodePath)) != null ? _ref5.activate(true) : void 0;
+      return (_ref6 = this._tree.dynatree('getTree').getNodeByKey(activeNodePath)) != null ? _ref6.activate(true) : void 0;
     }).observes('formDefinition.__nestedPropertyChange'),
     updateTreeStateFromModel: function(dynaTreeParentNode, currentListOfSubRenderables) {
       var newNode, subRenderable, _j, _len2, _results;
@@ -510,8 +521,11 @@
     updateCurrentlySelectedNode: (function() {
       var activeNodePath, _base, _ref3;
       activeNodePath = TYPO3.FormBuilder.Model.Form.getPath('currentlySelectedRenderable._path');
-      return typeof (_base = this.$().dynatree('getTree')).getNodeByKey === "function" ? (_ref3 = _base.getNodeByKey(activeNodePath)) != null ? _ref3.activate(true) : void 0 : void 0;
-    }).observes('TYPO3.FormBuilder.Model.Form.currentlySelectedRenderable')
+      return typeof (_base = this._tree.dynatree('getTree')).getNodeByKey === "function" ? (_ref3 = _base.getNodeByKey(activeNodePath)) != null ? _ref3.activate(true) : void 0 : void 0;
+    }).observes('TYPO3.FormBuilder.Model.Form.currentlySelectedRenderable'),
+    showFormOptions: function() {
+      return TYPO3.FormBuilder.Model.Form.set('currentlySelectedRenderable', TYPO3.FormBuilder.Model.Form.get('formDefinition'));
+    }
   });
 
   TYPO3.FormBuilder.View.FormElementInspector = Ember.ContainerView.extend({

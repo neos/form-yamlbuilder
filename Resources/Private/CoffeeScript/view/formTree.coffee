@@ -5,8 +5,12 @@
 #
 TYPO3.FormBuilder.View.FormTree = Ember.View.extend {
 	formDefinitionBinding: 'TYPO3.FormBuilder.Model.Form.formDefinition'
+	templateName: 'FormTree'
+
+	_tree: null
 	didInsertElement: ->
-		@$().dynatree {
+		@_tree = @$().find('.tree')
+		@_tree.dynatree {
 			onActivate: (node)->
 				TYPO3.FormBuilder.Model.Form.set('currentlySelectedRenderable', node.data.formRenderable)
 			dnd: {
@@ -53,22 +57,22 @@ TYPO3.FormBuilder.View.FormTree = Ember.View.extend {
 
 			}
 		}
-		@updateTreeStateFromModel(@$().dynatree('getRoot'), @getPath('formDefinition.renderables'))
+		@updateTreeStateFromModel(@_tree.dynatree('getRoot'), @getPath('formDefinition.renderables'))
 
 	updateTree: (->
-		return unless @$().dynatree('getTree').visit
+		return unless @_tree?.dynatree('getTree').visit
 
 		expandedNodePaths = []
-		@$().dynatree('getTree').visit (node) -> expandedNodePaths.push(node.data.key) if node.isExpanded()
+		@_tree.dynatree('getTree').visit (node) -> expandedNodePaths.push(node.data.key) if node.isExpanded()
 
-		activeNodePath = @$().dynatree('getActiveNode')?.data.key
+		activeNodePath = @_tree.dynatree('getActiveNode')?.data.key
 
-		@$().dynatree('getRoot').removeChildren?()
-		@updateTreeStateFromModel(@$().dynatree('getRoot'), @getPath('formDefinition.renderables'))
+		@_tree.dynatree('getRoot').removeChildren?()
+		@updateTreeStateFromModel(@_tree.dynatree('getRoot'), @getPath('formDefinition.renderables'))
 
 		for expandedNodePath in expandedNodePaths
-			@$().dynatree('getTree').getNodeByKey(expandedNodePath)?.expand(true)
-		@$().dynatree('getTree').getNodeByKey(activeNodePath)?.activate(true)
+			@_tree.dynatree('getTree').getNodeByKey(expandedNodePath)?.expand(true)
+		@_tree.dynatree('getTree').getNodeByKey(activeNodePath)?.activate(true)
 	).observes('formDefinition.__nestedPropertyChange')
 
 	updateTreeStateFromModel: (dynaTreeParentNode, currentListOfSubRenderables) ->
@@ -84,6 +88,14 @@ TYPO3.FormBuilder.View.FormTree = Ember.View.extend {
 
 	updateCurrentlySelectedNode: ( ->
 		activeNodePath = TYPO3.FormBuilder.Model.Form.getPath('currentlySelectedRenderable._path')
-		@$().dynatree('getTree').getNodeByKey?(activeNodePath)?.activate(true)
+		@_tree.dynatree('getTree').getNodeByKey?(activeNodePath)?.activate(true)
 	).observes('TYPO3.FormBuilder.Model.Form.currentlySelectedRenderable')
+
+	showFormOptions: ->
+		#debugger
+		#console.log(TYPO3.FormBuilder.Model.Form.get('currentlySelectedRenderable'))
+		#Ember.run ->
+		TYPO3.FormBuilder.Model.Form.set('currentlySelectedRenderable', TYPO3.FormBuilder.Model.Form.get('formDefinition'));
+		#console.log(TYPO3.FormBuilder.Model.Form.get('currentlySelectedRenderable'))
+
 }

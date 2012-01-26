@@ -26,8 +26,13 @@
 			FORMBUILDER_CONFIGURATION = {formbuilder:jsonConfiguration()};
 		</script>
 
+		<script type="text/x-handlebars" data-template-name="FormTree">
+			<h2>Structure {{#view Ember.Button target="parentView" action="showFormOptions"}}Form Options{{/view}}</h2>
+			<div class="tree"></div>
+		</script>
+
 		<script type="text/x-handlebars" data-template-name="AvailableFormElements">
-			<h2>Elements</h2>
+			<h2>Insert Elements</h2>
 			{{#collection contentBinding="formElementsGrouped"}}
 				<h3>{{content.label}}</h3>
 				<ul>

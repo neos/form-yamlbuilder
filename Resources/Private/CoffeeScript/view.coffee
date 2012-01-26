@@ -13,6 +13,8 @@ TYPO3.FormBuilder.View.FormPageView = Ember.View.extend {
 		enclosingPage = currentlySelectedRenderable.findEnclosingPage()
 		return 0 unless enclosingPage
 
+		return 0 unless enclosingPage.getPath('parentRenderable.renderables')
+
 		return enclosingPage.getPath('parentRenderable.renderables').indexOf(enclosingPage)
 	).property('TYPO3.FormBuilder.Model.Form.currentlySelectedRenderable').cacheable()
 

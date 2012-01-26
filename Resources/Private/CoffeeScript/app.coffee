@@ -20,6 +20,7 @@ if TYPO3.FormBuilder.Configuration?.cssFiles
 window.setTimeout((->
 
 	TYPO3.FormBuilder.Model.Form.set('formDefinition', TYPO3.FormBuilder.Model.Renderable.create {
+		type: 'TYPO3.Form:Form',
 		identifier: 'myForm'
 		renderables: [
 			{

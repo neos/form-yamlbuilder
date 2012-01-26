@@ -26,6 +26,9 @@ TYPO3:
                 labelAndIdentifier:
                   sorting: 110
                   viewName: 'TYPO3.FormBuilder.View.Editor.LabelEditor'
+          'TYPO3.Form:Form':
+            formBuilder:
+              label: 'Form'
 
           'TYPO3.Form:Page':
             formBuilder:
