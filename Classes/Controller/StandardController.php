@@ -25,12 +25,14 @@ class StandardController extends \TYPO3\FLOW3\MVC\Controller\ActionController {
 
 	/**
 	 * @param array $formDefinition
+	 * @param integer $currentPageIndex
 	 */
-	public function renderformpageAction($formDefinition) {
+	public function renderformpageAction($formDefinition, $currentPageIndex) {
 		$formFactory = new \TYPO3\FormBuilder\FormBuilderFactory();
 		$formDefinition = $formFactory->build($formDefinition, 'Default');
 		$formDefinition->setRenderingOption('previewMode', TRUE);
 		$form = $formDefinition->bind($this->request);
+		$form->overrideCurrentPage($currentPageIndex);
 		return $form->render();
 	}
 }

@@ -58,8 +58,7 @@ TYPO3.FormBuilder.View.AvailableFormElementsElement = Ember.View.extend {
 			if @formElementType.getPath('formBuilder._isPage') && !currentlySelectedRenderable.getPath('typeDefinition.formBuilder._isPage')
 				# element to be inserted IS a page, but the selected renderable is not. thus, we need to bubble up the tree
 				# to find the closest page.
-				while referenceRenderable.getPath('parentRenderable.parentRenderable') != null
-					referenceRenderable = referenceRenderable.get('parentRenderable')
+				referenceRenderable = referenceRenderable.findEnclosingPage()
 
 			parentRenderablesArray = referenceRenderable.getPath('parentRenderable.renderables')
 			indexInParent = parentRenderablesArray.indexOf(referenceRenderable)

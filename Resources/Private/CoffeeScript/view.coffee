@@ -5,7 +5,16 @@ TYPO3.FormBuilder.View = {}
 #
 TYPO3.FormBuilder.View.FormPageView = Ember.View.extend {
 	formPagesBinding: 'TYPO3.FormBuilder.Model.Form.formDefinition.renderables',
-	currentPageIndex: 0
+
+	currentPageIndex: (->
+		currentlySelectedRenderable = TYPO3.FormBuilder.Model.Form.get('currentlySelectedRenderable')
+		return 0 unless currentlySelectedRenderable
+
+		enclosingPage = currentlySelectedRenderable.findEnclosingPage()
+		return 0 unless enclosingPage
+
+		return enclosingPage.getPath('parentRenderable.renderables').indexOf(enclosingPage)
+	).property('TYPO3.FormBuilder.Model.Form.currentlySelectedRenderable').cacheable()
 
 	currentAjaxRequest: null,
 
@@ -26,7 +35,7 @@ TYPO3.FormBuilder.View.FormPageView = Ember.View.extend {
 			formDefinition = TYPO3.FormBuilder.Utility.convertToSimpleObject(TYPO3.FormBuilder.Model.Form.get('formDefinition'))
 			@currentAjaxRequest = $.post(
 				TYPO3.FormBuilder.Configuration.endpoints.formPageRenderer,
-				{ formDefinition },
+				{ formDefinition, currentPageIndex: @get('currentPageIndex') },
 				(data, textStatus, jqXHR) =>
 					return unless @currentAjaxRequest == jqXHR
 					this.$().html(data);

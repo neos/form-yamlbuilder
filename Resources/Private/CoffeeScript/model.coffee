@@ -126,6 +126,13 @@ TYPO3.FormBuilder.Model.Renderable = Ember.Object.extend {
 		else
 			''
 	).property()
+
+	# the *page* is everything which is added as direct child to the form, i.e. which does not have a grandparent
+	findEnclosingPage: ->
+		referenceRenderable = this
+		while referenceRenderable.getPath('parentRenderable.parentRenderable') != null
+			referenceRenderable = referenceRenderable.get('parentRenderable')
+		return referenceRenderable
 }
 
 # We override the `create` function of Ember.JS to add observers for all properties,

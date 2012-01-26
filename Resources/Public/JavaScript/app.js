@@ -151,7 +151,15 @@
       } else {
         return '';
       }
-    }).property()
+    }).property(),
+    findEnclosingPage: function() {
+      var referenceRenderable;
+      referenceRenderable = this;
+      while (referenceRenderable.getPath('parentRenderable.parentRenderable') !== null) {
+        referenceRenderable = referenceRenderable.get('parentRenderable');
+      }
+      return referenceRenderable;
+    }
   });
 
   TYPO3.FormBuilder.Model.Renderable.reopenClass({
@@ -216,7 +224,14 @@
 
   TYPO3.FormBuilder.View.FormPageView = Ember.View.extend({
     formPagesBinding: 'TYPO3.FormBuilder.Model.Form.formDefinition.renderables',
-    currentPageIndex: 0,
+    currentPageIndex: (function() {
+      var currentlySelectedRenderable, enclosingPage;
+      currentlySelectedRenderable = TYPO3.FormBuilder.Model.Form.get('currentlySelectedRenderable');
+      if (!currentlySelectedRenderable) return 0;
+      enclosingPage = currentlySelectedRenderable.findEnclosingPage();
+      if (!enclosingPage) return 0;
+      return enclosingPage.getPath('parentRenderable.renderables').indexOf(enclosingPage);
+    }).property('TYPO3.FormBuilder.Model.Form.currentlySelectedRenderable').cacheable(),
     currentAjaxRequest: null,
     page: Ember.computed(function() {
       var _ref3;
@@ -234,7 +249,8 @@
         var formDefinition;
         formDefinition = TYPO3.FormBuilder.Utility.convertToSimpleObject(TYPO3.FormBuilder.Model.Form.get('formDefinition'));
         return _this.currentAjaxRequest = $.post(TYPO3.FormBuilder.Configuration.endpoints.formPageRenderer, {
-          formDefinition: formDefinition
+          formDefinition: formDefinition,
+          currentPageIndex: _this.get('currentPageIndex')
         }, function(data, textStatus, jqXHR) {
           if (_this.currentAjaxRequest !== jqXHR) return;
           _this.$().html(data);
@@ -393,9 +409,7 @@
       } else {
         referenceRenderable = currentlySelectedRenderable;
         if (this.formElementType.getPath('formBuilder._isPage') && !currentlySelectedRenderable.getPath('typeDefinition.formBuilder._isPage')) {
-          while (referenceRenderable.getPath('parentRenderable.parentRenderable') !== null) {
-            referenceRenderable = referenceRenderable.get('parentRenderable');
-          }
+          referenceRenderable = referenceRenderable.findEnclosingPage();
         }
         parentRenderablesArray = referenceRenderable.getPath('parentRenderable.renderables');
         indexInParent = parentRenderablesArray.indexOf(referenceRenderable);
