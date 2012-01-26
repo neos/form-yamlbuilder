@@ -30,12 +30,20 @@ describe('Model', function() {
 				var r = Renderable.create({
 					renderables: [{
 						'identifier': 'foo',
-						'prop': 'bar'
+						'prop': 'bar',
+						'renderables': [{
+							identifier: 'sub',
+							prop2: 'bar2'
+						}]
 					}]
 				});
 				expect(r.getPath('renderables.0.identifier')).toEqual('foo');
 				expect(r.getPath('renderables.0.prop')).toEqual('bar');
 				expect(r.getPath('renderables.0.parentRenderable')).toEqual(r);
+
+				expect(r.getPath('renderables.0.renderables.0.identifier')).toEqual('sub');
+				expect(r.getPath('renderables.0.renderables.0.prop2')).toEqual('bar2');
+				expect(r.getPath('renderables.0.renderables.0.parentRenderable')).toEqual(r.getPath('renderables.0'));
 			})
 
 			it('should set the backreference to the parent renderable once it is added to a renderable', function() {

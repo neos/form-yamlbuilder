@@ -151,7 +151,9 @@ TYPO3.FormBuilder.Model.Renderable.reopenClass {
 # ##Model.FormElementType##
 # Container object for a form element type (i.e. a "schema object" for a form element).
 TYPO3.FormBuilder.Model.FormElementType = Ember.Object.extend {
-	_isCompositeRenderable: false
+	# formBuilder
+		# _isCompositeRenderable: false
+		# _isPage: false
 }
 
 # ***

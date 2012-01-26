@@ -32,8 +32,7 @@ TYPO3:
               label: 'Page'
               group: 'composite'
               sorting: 100
-              # todo rename this to "isPage"
-              _isCompositeRenderable: true
+              _isPage: true
 
           'TYPO3.Form:FormElement':
             formBuilder:
@@ -51,6 +50,7 @@ TYPO3:
               label: 'Section (Fieldset)'
               group: 'composite'
               sorting: 200
+              _isCompositeRenderable: true
 
           'TYPO3.Form:Textfield':
             formBuilder:

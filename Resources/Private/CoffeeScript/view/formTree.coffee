@@ -13,7 +13,7 @@ TYPO3.FormBuilder.View.FormTree = Ember.View.extend {
 				onDragStart: -> true
 				autoExpandMS: 300
 				onDragEnter: (targetNode, sourceNode) ->
-					targetNodeIsCompositeRenderable = TYPO3.FormBuilder.Model.FormElementTypes.get(targetNode.data.formRenderable.get('type')).getPath('formBuilder.__isCompositeRenderable')
+					targetNodeIsCompositeRenderable = targetNode.data.formRenderable.getPath('typeDefinition.formBuilder._isCompositeRenderable')
 
 					if sourceNode.getLevel() == 1
 						# source node is a PAGE

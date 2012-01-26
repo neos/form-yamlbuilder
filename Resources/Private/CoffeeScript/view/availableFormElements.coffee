@@ -40,11 +40,8 @@ TYPO3.FormBuilder.View.AvailableFormElementsElement = Ember.View.extend {
 		@$().html(@getPath('formElementType.formBuilder.label'))
 		@$().attr('title', @getPath('formElementType.key'))
 	click: ->
-		el = @get('currentlySelectedElement')
-		return unless el
-
-		parentRenderablesArray = el.getPath('parentRenderable.renderables')
-		indexInParent = parentRenderablesArray.indexOf(el)
+		currentlySelectedRenderable = @get('currentlySelectedElement')
+		return unless currentlySelectedRenderable
 
 		newRenderable = TYPO3.FormBuilder.Model.Renderable.create({
 			type: @formElementType.get('key')
@@ -52,7 +49,14 @@ TYPO3.FormBuilder.View.AvailableFormElementsElement = Ember.View.extend {
 			identifier: Ember.generateGuid(null, 'formElement')
 		})
 
-		parentRenderablesArray.replace(indexInParent+1, 0, [newRenderable])
+		if !@formElementType.getPath('formBuilder._isPage') && currentlySelectedRenderable.getPath('typeDefinition.formBuilder._isPage')
+			# element to be inserted is no page, but the selected renderable is a page. Thus, we need to add the
+			# form element as child.
+			currentlySelectedRenderable.get('renderables').pushObject(newRenderable)
+		else
+			parentRenderablesArray = currentlySelectedRenderable.getPath('parentRenderable.renderables')
+			indexInParent = parentRenderablesArray.indexOf(currentlySelectedRenderable)
+			parentRenderablesArray.replace(indexInParent+1, 0, [newRenderable])
 
 		@set('currentlySelectedElement', newRenderable)
 }
