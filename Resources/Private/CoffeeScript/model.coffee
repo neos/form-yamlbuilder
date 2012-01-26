@@ -18,12 +18,16 @@ TYPO3.FormBuilder.Model = {};
 # Container which has a reference to the currently edited form definition and
 # to the currently selected renderable.
 TYPO3.FormBuilder.Model.Form = Ember.Object.create {
-	# ###Public API###
+	# ###Public Properties###
 	# * `formDefinition`: Reference to the `Renderable` object for the form.
 	formDefinition: null,
 	# * `currentlySelectedRenderable`: Reference to the currently selected `Renderable` object.
 	currentlySelectedRenderable: null
 
+	# ***
+	# ###Private###
+	# When the form definition is set anew, we select the form definition itself.
+	# This mostly happens when the form itself is loaded.
 	onFormDefinitionChange: (->
 		return unless @get('formDefinition')
 		@set('currentlySelectedRenderable', @get('formDefinition'))
@@ -48,7 +52,7 @@ TYPO3.FormBuilder.Model.Form = Ember.Object.create {
 # ***
 TYPO3.FormBuilder.Model.Renderable = Ember.Object.extend {
 
-	# ###Public API###
+	# ###Public Properties###
 	# * `parentRenderable`: reference to the parent `Renderable` object
 	parentRenderable: null,
 
@@ -162,10 +166,11 @@ TYPO3.FormBuilder.Model.Renderable.reopenClass {
 # ***
 # ##Model.FormElementType##
 # Container object for a form element type (i.e. a "schema object" for a form element).
+# It especially contains the following structure:
 TYPO3.FormBuilder.Model.FormElementType = Ember.Object.extend {
-	# formBuilder
-		# _isCompositeRenderable: false
-		# _isPage: false
+	# * formBuilder
+	#    * `_isCompositeRenderable`: if TRUE, it is a composite renderable like a section or a fieldset. Note: Pages do NOT have this flag set.
+	#    * `_isPage`: if TRUE, is a "Page", i.e. appears in the first level directly underneath the form object
 }
 
 # ***
@@ -178,7 +183,7 @@ TYPO3.FormBuilder.Model.FormElementType = Ember.Object.extend {
 # ***
 TYPO3.FormBuilder.Model.FormElementTypes = Ember.Object.create {
 
-	# list of all form element type names which are set on this object
+	# * `allTypeNames`: list of all form element type names which are set on this object
 	allTypeNames:[]
 
 	# initializer function
@@ -195,8 +200,9 @@ TYPO3.FormBuilder.Model.FormElementTypes = Ember.Object.create {
 # **Singleton**
 #
 # Contains references to all *form element groups*, which are shown as groups
-# in the "create new element" panel.
+# in the "create new element" panel, and also a property containing all group names:
 TYPO3.FormBuilder.Model.FormElementGroups = Ember.Object.create {
+	# * `allGroupNames`: list of all form element group names
 	allGroupNames: []
 	init: ->
 		return unless TYPO3.FormBuilder.Configuration?.formElementGroups?

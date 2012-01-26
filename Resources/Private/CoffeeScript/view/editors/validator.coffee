@@ -1,19 +1,31 @@
-
+# #Namespace `TYPO3.FormBuilder.View.Editor`#
+#
+# This file implements all editors related to Validation.
+#
+# Contains the following classes:
+#
+# * Editor.RequiredValidatorEditor
+# * Editor.ValidatorEditor
+# * Editor.ValidatorEditor.DefaultValidatorEditor
+# * Editor.ValidatorEditor.MinimumMaximumValidatorEditor
+#
+# ***
+# ##Class Editor.RequiredValidatorEditor##
+#
+# This view adds a `required` checkbox which selects or deselects the NotEmpty validator from the list of validators.
 TYPO3.FormBuilder.View.Editor.RequiredValidatorEditor = TYPO3.FormBuilder.View.Editor.AbstractPropertyEditor.extend {
-	### PUBLIC API ###
-
-	### PRIVATE ###
+	# ***
+	# ###Private###
 	templateName: 'RequiredValidatorEditor'
-
 	propertyPath: 'validators'
 	defaultValue: (-> []).property().cacheable()
 
+	# returns TRUE if the required validator is currently configured, FALSE otherwise.
 	isRequiredValidatorConfigured: ((k, v) ->
 		notEmptyValidatorClassName = 'TYPO3\\FLOW3\\Validation\\Validator\\NotEmptyValidator'
 		if v != undefined
 			# set case
 			# remove all NotEmptyValidators first
-
 			a = @get('value').filter((validatorConfiguration) -> validatorConfiguration.name != notEmptyValidatorClassName)
 			@set('value', a)
 
@@ -32,38 +44,47 @@ TYPO3.FormBuilder.View.Editor.RequiredValidatorEditor = TYPO3.FormBuilder.View.E
 	).property('value').cacheable()
 }
 
+# ***
+# ##Class Editor.ValidatorEditor##
+#
+# This is an editor for all validators. They are defined using the `availableValidators` property.
 TYPO3.FormBuilder.View.Editor.ValidatorEditor = TYPO3.FormBuilder.View.Editor.AbstractPropertyEditor.extend {
-	# ###Public###
+	# ###Public Properties###
 	# * `availableValidators`: JSON object of available validators, where each validator has the following options:
 	#
 	#    * `label`: human-readable label of the validator
 	#    * `sorting`: sorting index to be used for the validator
-	#    * `name`: Validator class name
+	#    * `name`: Validator class name, if not specified the `TYPO3.FormBuilder.View.Editor.ValidatorEditor.DefaultValidatorEditor` is used.
 	#    * `options`: Validator options to be set (JSON object)
-	#    * `required`: (boolean) if TRUE; it is required validator
+	#    * `required`: (boolean) if TRUE; it is required validator which is not de-selectable
 	availableValidators: null,
 
 	# ***
 	# ###Private###
 	templateName: 'ValidatorEditor'
-
 	propertyPath: 'validators'
 	defaultValue: (-> []).property().cacheable()
 
+	# list of initialized views, one for each validator editor
+	validatorEditorViews: null
+
+	# initializer.
 	init: ->
 		@_super()
 		@validatorEditorViews = []
 		@updateValidatorEditorViews()
 
+	# sort the available validators based on their sorting
 	sortedAvailableValidators: (->
 		validatorsArray = []
 		for key, validatorTemplate of @get('availableValidators')
-			continue if @isValidatorTemplateFoundInValidatorList(validatorTemplate) # TODO: this does not yet work for added validators
+			continue if @isValidatorTemplateFoundInValidatorList(validatorTemplate)
 			validatorsArray.push($.extend({key}, validatorTemplate))
 		validatorsArray.sort((a, b) -> a.sorting - b.sorting)
 		return validatorsArray
 	).property('availableValidators', 'formElement.__nestedPropertyChange').cacheable()
 
+	# if TRUE, no validators are available.
 	noValidatorsAvailable: ( ->
 		@get('sortedAvailableValidators').length == 0
 	).property('sortedAvailableValidators').cacheable()
@@ -89,8 +110,7 @@ TYPO3.FormBuilder.View.Editor.ValidatorEditor = TYPO3.FormBuilder.View.Editor.Ab
 		@set('addValidatorSelection', null)
 	).observes('addValidatorSelection')
 
-	validatorEditorViews: null
-
+	# helper function which updates the validator editor views.
 	updateValidatorEditorViews: (->
 		@addRequiredValidatorsIfNeededToValidatorList()
 
@@ -117,10 +137,10 @@ TYPO3.FormBuilder.View.Editor.ValidatorEditor = TYPO3.FormBuilder.View.Editor.Ab
 					validatorViews.push(validatorEditor.create(validatorEditorOptions))
 					break
 
-
 		@set('validatorEditorViews', validatorViews)
 	).observes('value')
 
+	# add the required validators if needed to the list of validators
 	addRequiredValidatorsIfNeededToValidatorList: ->
 		validators = @get('value')
 		availableValidators = @get('availableValidators')
@@ -139,6 +159,7 @@ TYPO3.FormBuilder.View.Editor.ValidatorEditor = TYPO3.FormBuilder.View.Editor.Ab
 				options: $.extend({}, availableValidators[validatorTemplateName].options)
 			})
 
+	# is a validator template found in the list of validators?
 	isValidatorTemplateFoundInValidatorList: (validatorTemplate) ->
 		validators = @get('value')
 		for validator in validators
@@ -147,7 +168,11 @@ TYPO3.FormBuilder.View.Editor.ValidatorEditor = TYPO3.FormBuilder.View.Editor.Ab
 
 		return false
 }
-
+# ***
+# ##Class Editor.ValidatorEditor.DefaultValidatorEditor##
+#
+# Base class for validator editors.
+# TODO: continue documentation here
 TYPO3.FormBuilder.View.Editor.ValidatorEditor.DefaultValidatorEditor = Ember.View.extend {
 	classNames: ['formbuilder-validator-editor']
 	templateName: 'ValidatorEditor-Default'

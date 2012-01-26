@@ -1,22 +1,33 @@
-
-
+# #Namespace `TYPO3.FormBuilder.View.Editor`#
+#
+# This file implements the `Property Grid` editor.
+#
+# ##Class Editor.PropertyGrid##
+#
+# This editor makes a collection of properties editable, supports the following features:
+#
+# - arbitrary number of columns
+# - columns are made sortable if wanted
+# - a new column is added at the bottom to insert a new element
 TYPO3.FormBuilder.View.Editor.PropertyGrid = TYPO3.FormBuilder.View.Editor.AbstractPropertyEditor.extend {
 
-	### PUBLIC API ###
-
-	# list of columns. Required.
+	# ###Public API###
+	#
+	# - `columns`: Array of column definition objects, where each object needs at least:
+	#    - `field`: Field name of the column
+	#    - `editor`: Editor name
+	#    - [any other SlickGrid Column Option]: You can override any other SlickGrid column option here
 	columns: null,
 
-	# if TRUE, the grid is made sortable by adding a drag handle as the leftmost column
+	# - `isSortable`: if TRUE, the grid is made sortable by adding a drag handle as the leftmost column
 	isSortable: false,
 
-	# if TRUE, there is always one row more inside the table which can be used to create new elements
+	# - `enableAddRow`: if TRUE, there is always one row more inside the table which can be used to create new elements
 	enableAddRow: false
 
-	### PRIVATE ###
-
+	# ***
+	# ###Private###
 	templateName: 'PropertyGridEditor'
-
 	defaultValue: (-> []).property().cacheable()
 
 	# slick grid options
@@ -65,9 +76,8 @@ TYPO3.FormBuilder.View.Editor.PropertyGrid = TYPO3.FormBuilder.View.Editor.Abstr
 	init: ->
 		@classNames.push('PropertyGrid')
 		@_super()
-	#
+
 	# Initialize Grid
-	#
 	didInsertElement: ->
 		@grid = new Slick.Grid(@$().find('.grid'), @get('value'), @get('columnDefinition'), @get('options'));
 

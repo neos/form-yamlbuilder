@@ -238,15 +238,14 @@
       if (!enclosingPage.getPath('parentRenderable.renderables')) return 0;
       return enclosingPage.getPath('parentRenderable.renderables').indexOf(enclosingPage);
     }).property('TYPO3.FormBuilder.Model.Form.currentlySelectedRenderable').cacheable(),
-    currentAjaxRequest: null,
     page: Ember.computed(function() {
       var _ref3;
       return (_ref3 = this.get('formPages')) != null ? _ref3.get(this.get('currentPageIndex')) : void 0;
     }).property('formPages', 'currentPageIndex').cacheable(),
+    currentAjaxRequest: null,
     renderPageIfPageObjectChanges: (function() {
-      var _ref3,
-        _this = this;
-      if (!((_ref3 = TYPO3.FormBuilder.Model.Form.get('formDefinition')) != null ? _ref3.get('identifier') : void 0)) {
+      var _this = this;
+      if (!TYPO3.FormBuilder.Model.Form.getPath('formDefinition.identifier')) {
         return;
       }
       if (this.currentAjaxRequest) this.currentAjaxRequest.abort();
@@ -266,7 +265,8 @@
     }).observes('page', 'page.__nestedPropertyChange'),
     postProcessRenderedPage: function() {
       var _this = this;
-      this.$().find('[data-element]').parent().addClass('typo3-form-sortable').sortable({
+      this.onCurrentElementChanges();
+      return this.$().find('[data-element]').parent().addClass('typo3-form-sortable').sortable({
         revert: 'true',
         update: function(e, o) {
           var movedRenderable, nextElement, nextElementPath, pathOfMovedElement, previousElement, previousElementPath, referenceElementIndex;
@@ -281,19 +281,17 @@
           if (previousElementPath) {
             previousElement = _this.findRenderableForPath(previousElementPath);
           }
-          if (!nextElement && !previousElement) {
-            throw 'Next Element or Previous Element need to be set. Should not happen...';
-          }
           if (nextElement) {
             referenceElementIndex = nextElement.getPath('parentRenderable.renderables').indexOf(nextElement);
             return nextElement.getPath('parentRenderable.renderables').insertAt(referenceElementIndex, movedRenderable);
           } else if (previousElement) {
             referenceElementIndex = previousElement.getPath('parentRenderable.renderables').indexOf(previousElement);
             return previousElement.getPath('parentRenderable.renderables').insertAt(referenceElementIndex + 1, movedRenderable);
+          } else {
+            throw 'Next Element or Previous Element need to be set. Should not happen...';
           }
         }
       });
-      return this.onCurrentElementChanges();
     },
     onCurrentElementChanges: (function() {
       var identifierPath, renderable;
@@ -306,6 +304,12 @@
       }
       return this.$().find('[data-element="' + identifierPath + '"]').addClass('formbuilder-form-element-selected');
     }).observes('TYPO3.FormBuilder.Model.Form.currentlySelectedRenderable'),
+    click: function(e) {
+      var pathToClickedElement;
+      pathToClickedElement = $(e.target).closest('[data-element]').attr('data-element');
+      if (!pathToClickedElement) return;
+      return TYPO3.FormBuilder.Model.Form.set('currentlySelectedRenderable', this.findRenderableForPath(pathToClickedElement));
+    },
     findRenderableForPath: function(path) {
       var currentRenderable, expandedPathToClickedElement, pathPart, renderable, _j, _k, _len2, _len3, _ref3;
       expandedPathToClickedElement = path.split('/');
@@ -324,12 +328,6 @@
         }
       }
       return currentRenderable;
-    },
-    click: function(e) {
-      var pathToClickedElement;
-      pathToClickedElement = $(e.target).closest('[data-element]').attr('data-element');
-      if (!pathToClickedElement) return;
-      return TYPO3.FormBuilder.Model.Form.set('currentlySelectedRenderable', this.findRenderableForPath(pathToClickedElement));
     }
   });
 
@@ -354,6 +352,7 @@
 
   TYPO3.FormBuilder.View.AvailableFormElementsView = Ember.View.extend({
     classNames: ['availableFormElements'],
+    templateName: 'AvailableFormElements',
     allFormElementTypesBinding: 'TYPO3.FormBuilder.Model.FormElementTypes.allTypeNames',
     formElementsGrouped: (function() {
       var formElementType, formElementTypeName, formElementsByGroup, formGroup, formGroupName, formGroups, _j, _k, _len2, _len3, _ref3, _ref4, _ref5, _ref6;
@@ -389,27 +388,38 @@
         return a.sorting - b.sorting;
       });
       return formGroups;
-    }).property('allFormElementTypes').cacheable(),
-    templateName: 'AvailableFormElements'
+    }).property('allFormElementTypes').cacheable()
   });
 
   TYPO3.FormBuilder.View.AvailableFormElementsElement = Ember.View.extend({
     tagName: 'li',
-    formElementType: null,
     currentlySelectedElementBinding: 'TYPO3.FormBuilder.Model.Form.currentlySelectedRenderable',
+    formElementType: null,
     didInsertElement: function() {
       this.$().html(this.getPath('formElementType.formBuilder.label'));
       return this.$().attr('title', this.getPath('formElementType.key'));
     },
     click: function() {
-      var currentlySelectedRenderable, indexInParent, newRenderable, parentRenderablesArray, referenceRenderable;
+      var currentlySelectedRenderable, defaultValues, indexInParent, newRenderable, parentRenderablesArray, referenceRenderable;
       currentlySelectedRenderable = this.get('currentlySelectedElement');
       if (!currentlySelectedRenderable) return;
-      newRenderable = TYPO3.FormBuilder.Model.Renderable.create({
+      defaultValues = {};
+      if (this.formElementType.get('label')) {
+        defaultValues.label = this.formElementType.get('label');
+      }
+      if (this.formElementType.get('defaultValue')) {
+        defaultValues.defaultValue = this.formElementType.get('defaultValue');
+      }
+      if (this.formElementType.get('properties')) {
+        defaultValues.properties = this.formElementType.get('properties');
+      }
+      if (this.formElementType.get('renderingOptions')) {
+        defaultValues.renderingOptions = this.formElementType.get('renderingOptions');
+      }
+      newRenderable = TYPO3.FormBuilder.Model.Renderable.create($.extend({
         type: this.formElementType.get('key'),
-        label: '',
         identifier: Ember.generateGuid(null, 'formElement')
-      });
+      }, defaultValues));
       if (!this.formElementType.getPath('formBuilder._isPage') && currentlySelectedRenderable.getPath('typeDefinition.formBuilder._isPage')) {
         currentlySelectedRenderable.get('renderables').pushObject(newRenderable);
       } else {
@@ -532,7 +542,7 @@
     formElement: null,
     orderedFormFieldEditors: (function() {
       var formFieldEditors, k, orderedFormFieldEditors, v;
-      formFieldEditors = $.extend({}, this.getPath('formElement.typeDefinition.formBuilder.formFieldEditors'));
+      formFieldEditors = $.extend({}, this.getPath('formElement.typeDefinition.formBuilder.editors'));
       orderedFormFieldEditors = (function() {
         var _results;
         _results = [];
@@ -578,12 +588,12 @@
   });
 
   TYPO3.FormBuilder.View.Editor.AbstractPropertyEditor = TYPO3.FormBuilder.View.Editor.AbstractEditor.extend({
-    /* PUBLIC API
-    */
     propertyPath: null,
-    /* API FOR SUBCLASSES
-    */
     defaultValue: '',
+    valueChanged: function() {
+      var _base;
+      return typeof (_base = this.get('formElement')).somePropertyChanged === "function" ? _base.somePropertyChanged(this.formElement, this.get('propertyPath')) : void 0;
+    },
     value: (function(k, v) {
       var value;
       if (v !== void 0) {
@@ -597,11 +607,7 @@
         }
         return value;
       }
-    }).property('propertyPath', 'formElement').cacheable(),
-    valueChanged: function() {
-      var _base;
-      return typeof (_base = this.get('formElement')).somePropertyChanged === "function" ? _base.somePropertyChanged(this.formElement, this.get('propertyPath')) : void 0;
-    }
+    }).property('propertyPath', 'formElement').cacheable()
   });
 
   TYPO3.FormBuilder.View.Editor.TextOutput = TYPO3.FormBuilder.View.Editor.AbstractEditor.extend({});
@@ -625,25 +631,17 @@
   });
 
   TYPO3.FormBuilder.View.Editor.TextEditor = TYPO3.FormBuilder.View.Editor.AbstractPropertyEditor.extend({
-    /* PUBLIC API
-    */
     label: null,
     onValueChange: (function() {
       return this.valueChanged();
     }).observes('value'),
-    /* PRIVATE
-    */
     templateName: 'TextEditor'
   });
 
   TYPO3.FormBuilder.View.Editor.PropertyGrid = TYPO3.FormBuilder.View.Editor.AbstractPropertyEditor.extend({
-    /* PUBLIC API
-    */
     columns: null,
     isSortable: false,
     enableAddRow: false,
-    /* PRIVATE
-    */
     templateName: 'PropertyGridEditor',
     defaultValue: (function() {
       return [];
@@ -742,10 +740,6 @@
   });
 
   TYPO3.FormBuilder.View.Editor.RequiredValidatorEditor = TYPO3.FormBuilder.View.Editor.AbstractPropertyEditor.extend({
-    /* PUBLIC API
-    */
-    /* PRIVATE
-    */
     templateName: 'RequiredValidatorEditor',
     propertyPath: 'validators',
     defaultValue: (function() {
@@ -782,6 +776,7 @@
     defaultValue: (function() {
       return [];
     }).property().cacheable(),
+    validatorEditorViews: null,
     init: function() {
       this._super();
       this.validatorEditorViews = [];
@@ -821,7 +816,6 @@
       this.updateValidatorEditorViews();
       return this.set('addValidatorSelection', null);
     }).observes('addValidatorSelection'),
-    validatorEditorViews: null,
     updateValidatorEditorViews: (function() {
       var availableValidators, i, key, validator, validatorEditor, validatorEditorOptions, validatorTemplate, validatorViews, validators, _len2,
         _this = this;

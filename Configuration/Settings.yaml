@@ -25,7 +25,7 @@ TYPO3:
           'TYPO3.Form:Base':
             formBuilder:
               #todo rename to "editors"
-              formFieldEditors:
+              editors:
                 elementType:
                   sorting: 100
                   viewName: 'TYPO3.FormBuilder.View.Editor.TextOutput'
@@ -35,7 +35,7 @@ TYPO3:
                   viewName: 'TYPO3.FormBuilder.View.Editor.LabelEditor'
           'TYPO3.Form:FormElement':
             formBuilder:
-              formFieldEditors:
+              editors:
                 requiredValidator:
                   sorting: 800
                   viewName: 'TYPO3.FormBuilder.View.Editor.RequiredValidatorEditor'
@@ -78,6 +78,12 @@ TYPO3:
               label: 'Single Select (Radiobuttons)'
               group: select
               sorting: 120
+              editors:
+                value:
+                  sorting: 300
+                  viewName: 'TYPO3.FormBuilder.View.Editor.TextEditor'
+                  label: 'Value'
+                  propertyPath: 'properties.value'
 
           'TYPO3.Form:MultipleSelectDropdown':
             formBuilder:
@@ -122,7 +128,7 @@ TYPO3:
 
           'TYPO3.Form:TextMixin':
             formBuilder:
-              formFieldEditors:
+              editors:
                 placeholder:
                   sorting: 150
                   viewName: 'TYPO3.FormBuilder.View.Editor.TextEditor'
@@ -147,7 +153,7 @@ TYPO3:
 
           'TYPO3.Form:SelectionMixin':
             formBuilder:
-              formFieldEditors:
+              editors:
                 options:
                   sorting: 200
                   viewName: 'TYPO3.FormBuilder.View.Editor.PropertyGrid'

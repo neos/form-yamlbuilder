@@ -1,6 +1,28 @@
-
+# #Namespace `TYPO3.FormBuilder.View`#
+#
+# All views in this file render the grouped list of available form elements on
+# the bottom-left of the Form Builder.
+#
+# Contains the following classes:
+#
+# * AvailableFormElementsView
+# * AvailableFormElementsElement
+#
+# ***
+# ##Class View.AvailableFormElementsView##
+#
+# Outer view which renders the available form elements. It especially groups the
+# form elements by the specified "group", converting the flat array into a hierarchy,
+# where the first level is the group, and the second level the form element types
+# belonging to this group.
+#
+# This also evaluates the *sorting* property and orders the form elements and groups
+# in the respective order.
 TYPO3.FormBuilder.View.AvailableFormElementsView = Ember.View.extend {
+	# ***
+	# ###Private###
 	classNames: ['availableFormElements']
+	templateName: 'AvailableFormElements'
 	allFormElementTypesBinding: 'TYPO3.FormBuilder.Model.FormElementTypes.allTypeNames'
 
 	formElementsGrouped: (->
@@ -27,27 +49,67 @@ TYPO3.FormBuilder.View.AvailableFormElementsView = Ember.View.extend {
 
 		return formGroups
 	).property('allFormElementTypes').cacheable()
-
-	templateName: 'AvailableFormElements'
 }
 
+# ***
+# ##Class View.AvailableFormElementsElement##
+#
+# This view class implements a single `<li>` element for a specific form element
+# type, and actually adds the element to the form when clicking on it.
+#
+# When an element is added, the following code is executed:
+#
+# - build a new `TYPO3.FormBuilder.Model.Renderable` object, using the specified type
+#   and a random identifier.
+# - Further, apply the default values `label, defaultValue, properties` and `renderingOptions`
+#   from the form type definition, such that the values can be edited correctly
+# - Third, find the currently selected renderable, and depending on this, insert the new
+#   renderable before/after/inside the currently selected renderable. See below for details.
+# - Make the newly inserted renderable active.
+#
+# ###Insertion Position###
+#
+# The logic for determining the insertion position works as follows:
+#
+# - If a *page* should be inserted, it is inserted *after the currently selected page*. If we
+#   have a form element selected, we take the page this form element belongs to and add the new
+#   page after it.
+# - Normal form elements are, by default, added *after* the currently selected form element.
+#   However, if a *page* is selected, it is added as the *child* of this page.
 TYPO3.FormBuilder.View.AvailableFormElementsElement = Ember.View.extend {
+	# ***
+	# ###Private###
 	tagName: 'li',
-	formElementType: null
 	currentlySelectedElementBinding: 'TYPO3.FormBuilder.Model.Form.currentlySelectedRenderable'
 
+	# this is set from the outside, containing a reference to the enclosing form element type.
+	formElementType: null
+
+	# set the label and title attributes after we are inserted into the DOM
 	didInsertElement: ->
 		@$().html(@getPath('formElementType.formBuilder.label'))
 		@$().attr('title', @getPath('formElementType.key'))
+
+	# callback which is triggered when clicking on an element. Determines the insertion position and
+	# adds the new element.
 	click: ->
 		currentlySelectedRenderable = @get('currentlySelectedElement')
 		return unless currentlySelectedRenderable
 
-		newRenderable = TYPO3.FormBuilder.Model.Renderable.create({
+		defaultValues = {}
+		if @formElementType.get('label')
+			defaultValues.label = @formElementType.get('label')
+		if @formElementType.get('defaultValue')
+			defaultValues.defaultValue = @formElementType.get('defaultValue')
+		if @formElementType.get('properties')
+			defaultValues.properties = @formElementType.get('properties')
+		if @formElementType.get('renderingOptions')
+			defaultValues.renderingOptions = @formElementType.get('renderingOptions')
+
+		newRenderable = TYPO3.FormBuilder.Model.Renderable.create($.extend({
 			type: @formElementType.get('key')
-			label: '',
 			identifier: Ember.generateGuid(null, 'formElement')
-		})
+		}, defaultValues))
 
 		if !@formElementType.getPath('formBuilder._isPage') && currentlySelectedRenderable.getPath('typeDefinition.formBuilder._isPage')
 			# element to be inserted is no page, but the selected renderable is a page. Thus, we need to add the
