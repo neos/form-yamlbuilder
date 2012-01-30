@@ -30,17 +30,17 @@ window.setTimeout((->
 				renderables: [
 					{
 						identifier: 'foobarbaz'
-						type: 'TYPO3.Form:Textfield',
+						type: 'TYPO3.Form:SingleLineText',
 						label: 'My Label'
 					}
 					{
 						identifier: 'foobarbaz2'
-						type: 'TYPO3.Form:Textfield',
+						type: 'TYPO3.Form:SingleLineText',
 						label: 'My Label'
 					}
 					{
 						identifier: 'gender'
-						type: 'TYPO3.Form:Radiobuttons',
+						type: 'TYPO3.Form:SingleSelectRadiobuttons',
 						label: 'Gender'
 						properties: {
 							options: [
