@@ -1,1 +1,6 @@
 SlickGrid currently uses commit 5b6e673f57d4c705386c37afe22e1b273c0c8645
+
+jQuery ContextMenu
+
+https://github.com/medialize/jQuery-contextMenu
+Commit f72284e281c713939439941295af87e266279c27

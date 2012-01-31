@@ -25,6 +25,9 @@ TYPO3.FormBuilder.View.Editor.PropertyGrid = TYPO3.FormBuilder.View.Editor.Abstr
 	# - `enableAddRow`: if TRUE, there is always one row more inside the table which can be used to create new elements
 	enableAddRow: false
 
+	# - `enableContextMenu`: if TRUE, context menu for deleting rows is shown
+	enableContextMenu: false
+
 	# - `shouldShowPreselectedValueColumn`: (false|'single'|'multiple'). If set, then a column for setting the defaultValue
 	#   on the Form Element is shown.
 	#
@@ -224,5 +227,37 @@ TYPO3.FormBuilder.View.Editor.PropertyGrid = TYPO3.FormBuilder.View.Editor.Abstr
 
 			@grid.invalidateAllRows();
 			@grid.render()
+
+		if @get('enableContextMenu')
+			@initializeContextMenu()
+
+	initializeContextMenu: ->
+		that = this
+		$.contextMenu {
+			selector: '#rightSidebar .slick-row'
+			appendTo: '#rightSidebarInner'
+			items: {
+				'delete': {
+					name: 'Delete'
+					callback: ->
+						rowToBeDeletedIndex = $(this).attr('row')
+						return if rowToBeDeletedIndex >= that.getPath('tableRowModel.length')
+						that.get('tableRowModel').removeAt(parseInt(rowToBeDeletedIndex), 1)
+
+						that.grid.invalidateAllRows();
+						that.grid.render()
+						that.valueChanged()
+				}
+			},
+			position: (opt)->
+				opt.$menu.css('display', 'block').position({
+					my: "center top",
+					at: "center bottom",
+					of: this,
+					offset: "0 5",
+					collision: "fit"
+				}).css('display', 'none');
+		}
+
 }
 

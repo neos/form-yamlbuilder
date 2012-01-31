@@ -2,7 +2,7 @@
 <html>
 	<head>
 		<f:base />
-		<script src="{f:uri.resource(path:'Library/jquery-1.6.1.min.js')}"></script>
+		<script src="{f:uri.resource(path:'Library/jquery-1.7.1.min.js')}"></script>
 		<script src="http://ajax.googleapis.com/ajax/libs/jqueryui/1.8.16/jquery-ui.min.js"></script>
 		<script src="{f:uri.resource(path:'Library/ember-0.9.4.js')}"></script>
 		<script src="{f:uri.resource(path:'Library/dynatree-1.2.0/src/jquery.dynatree.js')}"></script>
@@ -17,10 +17,13 @@
 		<script src="{f:uri.resource(path:'Library/SlickGrid/slick.editors.js')}"></script>
 		<script src="{f:uri.resource(path:'Library/SlickGrid/slick.grid.js')}"></script>
 
+		<script src="{f:uri.resource(path:'Library/jQuery-contextMenu/jquery.contextMenu.js')}"></script>
+
 		<link rel="stylesheet" href="{f:uri.resource(path:'style.css')}" />
 		<link rel="stylesheet" href="{f:uri.resource(path:'Library/dynatree-1.2.0/src/skin/ui.dynatree.wrapped.css')}" />
 		<link rel="stylesheet" href="http://ajax.googleapis.com/ajax/libs/jqueryui/1.8/themes/smoothness/jquery-ui.css" />
 		<link rel="stylesheet" href="{f:uri.resource(path:'Library/SlickGrid/slick.grid.wrapped.css')}" />
+		<link rel="stylesheet" href="{f:uri.resource(path:'Library/jQuery-contextMenu/jquery.contextMenu.wrapped.css')}" />
 
 		<script type="text/javascript">
 			FORMBUILDER_CONFIGURATION = {formbuilder:jsonConfiguration()};
@@ -99,13 +102,15 @@
 			</div>
 			<div id="content">
 				<div id="leftSidebar">
-					<script type="text/x-handlebars"><![CDATA[
-						{{view TYPO3.FormBuilder.View.FormTree}}
-					]]></script>
+					<div id="leftSidebarInner">
+						<script type="text/x-handlebars"><![CDATA[
+							{{view TYPO3.FormBuilder.View.FormTree}}
+						]]></script>
 
-					<script type="text/x-handlebars"><![CDATA[
-						{{view TYPO3.FormBuilder.View.AvailableFormElementsView}}
-					]]></script>
+						<script type="text/x-handlebars"><![CDATA[
+							{{view TYPO3.FormBuilder.View.AvailableFormElementsView}}
+						]]></script>
+					</div>
 				</div>
 				<div id="main">
 					<script type="text/x-handlebars"><![CDATA[
@@ -113,12 +118,15 @@
 					]]></script>
 				</div>
 				<div id="rightSidebar">
-					<h2>Element Options</h2>
-					<script type="text/x-handlebars"><![CDATA[
-						{{view TYPO3.FormBuilder.View.FormElementInspector formElementBinding="TYPO3.FormBuilder.Model.Form.currentlySelectedRenderable"}}
-					]]></script>
+					<div id="rightSidebarInner">
+						<h2>Element Options</h2>
+						<script type="text/x-handlebars"><![CDATA[
+							{{view TYPO3.FormBuilder.View.FormElementInspector formElementBinding="TYPO3.FormBuilder.Model.Form.currentlySelectedRenderable"}}
+						]]></script>
+					</div>
 				</div>
 			</div>
+			<div id="contextMenuContainer"></div>
 		</div>
 		<script src="{f:uri.resource(path:'JavaScript/app.js')}"></script>
 	</body>

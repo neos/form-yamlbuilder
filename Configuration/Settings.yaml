@@ -168,6 +168,7 @@ TYPO3:
                   propertyPath: 'properties.options'
                   isSortable: true
                   enableAddRow: true
+                  enableContextMenu: true
                   columns:
                     0:
                       field: '_key'

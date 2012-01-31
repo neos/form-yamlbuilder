@@ -90,16 +90,20 @@
   position: fixed;
   left: 0;
   top: 0;
-  margin-top: 50px;
   background: #222222;
   width: 300px;
   height: 100%; }
+
+#leftSidebarInner, #rightSidebarInner {
+  position: absolute;
+  left: 0;
+  top: 50px;
+  width: 100%; }
 
 #rightSidebar {
   position: fixed;
   right: 0;
   top: 0;
-  margin-top: 50px;
   background: #222222;
   width: 300px;
   height: 100%; }
@@ -153,6 +157,8 @@
   #leftSidebar h3, #rightSidebar h3 {
     padding: 10px;
     font-weight: bold; }
+  #leftSidebar .context-menu-item, #rightSidebar .context-menu-item {
+    color: black; }
 
 #rightSidebar .slick-row .cell-reorder {
   cursor: move;

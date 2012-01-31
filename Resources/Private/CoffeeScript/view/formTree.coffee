@@ -94,6 +94,36 @@ TYPO3.FormBuilder.View.FormTree = Ember.View.extend {
 		# we initialize the tree from the model
 		@updateTreeStateFromModel(@_tree.dynatree('getRoot'), @getPath('formDefinition.renderables'))
 
+		@initializeContextMenu()
+
+	initializeContextMenu: ->
+		$.contextMenu {
+			selector: '#leftSidebar .tree a.dynatree-title'
+			appendTo: '#leftSidebar'
+			items: {
+				'delete': {
+					name: 'Delete'
+					callback: ->
+						dynaTreeNode = $(this).closest('li')[0].dtnode;
+						return unless dynaTreeNode
+						renderableToRemove = dynaTreeNode.data.formRenderable
+						return unless renderableToRemove
+
+						$('<div>Remove Element?</div>').dialog {
+							modal: true
+							resizable: false
+							buttons: {
+								'Delete': ->
+									renderableToRemove.getPath('parentRenderable.renderables').removeObject(renderableToRemove)
+									$(this).dialog('close')
+								'Cancel': ->
+									$(this).dialog('close')
+							}
+						}
+				}
+			}
+		}
+
 	# if a property changes, we re-draw the tree, and save the current selection on the tree and expansion state as needed.
 	updateTree: (->
 		return unless @_tree?.dynatree('getTree').visit

@@ -413,6 +413,9 @@
       if (this.formElementType.get('properties')) {
         defaultValues.properties = this.formElementType.get('properties');
       }
+      if (this.formElementType.get('renderingOptions')) {
+        defaultValues.renderingOptions = this.formElementType.get('renderingOptions');
+      }
       newRenderable = TYPO3.FormBuilder.Model.Renderable.create($.extend({
         type: this.formElementType.get('key'),
         identifier: Ember.generateGuid(null, 'formElement')
@@ -486,7 +489,39 @@
           }
         }
       });
-      return this.updateTreeStateFromModel(this._tree.dynatree('getRoot'), this.getPath('formDefinition.renderables'));
+      this.updateTreeStateFromModel(this._tree.dynatree('getRoot'), this.getPath('formDefinition.renderables'));
+      return this.initializeContextMenu();
+    },
+    initializeContextMenu: function() {
+      return $.contextMenu({
+        selector: '#leftSidebar .tree a.dynatree-title',
+        appendTo: '#leftSidebar',
+        items: {
+          'delete': {
+            name: 'Delete',
+            callback: function() {
+              var dynaTreeNode, renderableToRemove;
+              dynaTreeNode = $(this).closest('li')[0].dtnode;
+              if (!dynaTreeNode) return;
+              renderableToRemove = dynaTreeNode.data.formRenderable;
+              if (!renderableToRemove) return;
+              return $('<div>Remove Element?</div>').dialog({
+                modal: true,
+                resizable: false,
+                buttons: {
+                  'Delete': function() {
+                    renderableToRemove.getPath('parentRenderable.renderables').removeObject(renderableToRemove);
+                    return $(this).dialog('close');
+                  },
+                  'Cancel': function() {
+                    return $(this).dialog('close');
+                  }
+                }
+              });
+            }
+          }
+        }
+      });
     },
     updateTree: (function() {
       var activeNodePath, expandedNodePath, expandedNodePaths, _base, _j, _len2, _ref3, _ref4, _ref5, _ref6;
@@ -639,6 +674,7 @@
     columns: null,
     isSortable: false,
     enableAddRow: false,
+    enableContextMenu: false,
     shouldShowPreselectedValueColumn: false,
     templateName: 'PropertyGridEditor',
     defaultValue: (function() {
@@ -801,7 +837,7 @@
         }
         return true;
       });
-      return moveRowsPlugin.onMoveRows.subscribe(function(e, args) {
+      moveRowsPlugin.onMoveRows.subscribe(function(e, args) {
         var arrayRowToBeMoved, movedRowIndex;
         movedRowIndex = args.rows[0];
         arrayRowToBeMoved = _this.get('tableRowModel').objectAt(movedRowIndex);
@@ -811,6 +847,40 @@
         _this.valueChanged();
         _this.grid.invalidateAllRows();
         return _this.grid.render();
+      });
+      if (this.get('enableContextMenu')) return this.initializeContextMenu();
+    },
+    initializeContextMenu: function() {
+      var that;
+      that = this;
+      return $.contextMenu({
+        selector: '#rightSidebar .slick-row',
+        appendTo: '#rightSidebarInner',
+        items: {
+          'delete': {
+            name: 'Delete',
+            callback: function() {
+              var rowToBeDeletedIndex;
+              rowToBeDeletedIndex = $(this).attr('row');
+              if (rowToBeDeletedIndex >= that.getPath('tableRowModel.length')) {
+                return;
+              }
+              that.get('tableRowModel').removeAt(parseInt(rowToBeDeletedIndex), 1);
+              that.grid.invalidateAllRows();
+              that.grid.render();
+              return that.valueChanged();
+            }
+          }
+        },
+        position: function(opt) {
+          return opt.$menu.css('display', 'block').position({
+            my: "center top",
+            at: "center bottom",
+            of: this,
+            offset: "0 5",
+            collision: "fit"
+          }).css('display', 'none');
+        }
       });
     }
   });
