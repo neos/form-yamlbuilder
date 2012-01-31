@@ -103,8 +103,8 @@ TYPO3.FormBuilder.View.AvailableFormElementsElement = Ember.View.extend {
 			defaultValues.defaultValue = @formElementType.get('defaultValue')
 		if @formElementType.get('properties')
 			defaultValues.properties = @formElementType.get('properties')
-		if @formElementType.get('renderingOptions')
-			defaultValues.renderingOptions = @formElementType.get('renderingOptions')
+		#if @formElementType.get('renderingOptions')
+		#	defaultValues.renderingOptions = @formElementType.get('renderingOptions')
 
 		newRenderable = TYPO3.FormBuilder.Model.Renderable.create($.extend({
 			type: @formElementType.get('key')
