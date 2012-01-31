@@ -413,9 +413,6 @@
       if (this.formElementType.get('properties')) {
         defaultValues.properties = this.formElementType.get('properties');
       }
-      if (this.formElementType.get('renderingOptions')) {
-        defaultValues.renderingOptions = this.formElementType.get('renderingOptions');
-      }
       newRenderable = TYPO3.FormBuilder.Model.Renderable.create($.extend({
         type: this.formElementType.get('key'),
         identifier: Ember.generateGuid(null, 'formElement')
@@ -642,6 +639,7 @@
     columns: null,
     isSortable: false,
     enableAddRow: false,
+    shouldShowPreselectedValueColumn: false,
     templateName: 'PropertyGridEditor',
     defaultValue: (function() {
       return [];
@@ -680,8 +678,85 @@
         column.editor = Ember.getPath(column.editor);
         columns.push(column);
       }
+      if (this.get('shouldShowPreselectedValueColumn')) {
+        columns.push({
+          id: '__preselectedValues',
+          field: '__isPreselected',
+          name: 'Selected',
+          selectable: false,
+          resizable: false,
+          formatter: YesNoCellFormatter,
+          editor: YesNoCheckboxCellEditor
+        });
+      }
       return columns;
     }).property('columns', 'isSortable').cacheable(),
+    tableRowModel: null,
+    buildTableRowModel: (function() {
+      var defaultValue, isPreselected, originalRow, tableRowModel, v, _j, _k, _len2, _len3, _ref3, _results;
+      if (!this.get('tableRowModel')) this.set('tableRowModel', []);
+      tableRowModel = this.get('tableRowModel');
+      if (tableRowModel.get('length') > 0) {
+        tableRowModel.removeAt(0, tableRowModel.get('length'));
+      }
+      if (this.get('shouldShowPreselectedValueColumn') === 'multiple') {
+        defaultValue = this.getPath('formElement.defaultValue') || [];
+      } else if (this.get('shouldShowPreselectedValueColumn') === 'single' && this.getPath('formElement.defaultValue')) {
+        defaultValue = [this.getPath('formElement.defaultValue')];
+      } else {
+        defaultValue = [];
+      }
+      _ref3 = this.get('value');
+      _results = [];
+      for (_j = 0, _len2 = _ref3.length; _j < _len2; _j++) {
+        originalRow = _ref3[_j];
+        isPreselected = false;
+        for (_k = 0, _len3 = defaultValue.length; _k < _len3; _k++) {
+          v = defaultValue[_k];
+          if (v === originalRow._key) isPreselected = true;
+        }
+        _results.push(tableRowModel.push($.extend({
+          __isPreselected: isPreselected
+        }, originalRow)));
+      }
+      return _results;
+    }),
+    valueChanged: function() {
+      var defaultValue, i, oldDefaultValue, rows, tableRowModelRow, tmp, v, _j, _len2, _len3, _ref3;
+      rows = [];
+      defaultValue = [];
+      _ref3 = this.get('tableRowModel');
+      for (_j = 0, _len2 = _ref3.length; _j < _len2; _j++) {
+        tableRowModelRow = _ref3[_j];
+        if (tableRowModelRow.__isPreselected) {
+          defaultValue.push(tableRowModelRow._key);
+        }
+        tmp = $.extend({}, tableRowModelRow);
+        delete tmp.__isPreselected;
+        rows.push(tmp);
+      }
+      if (this.get('shouldShowPreselectedValueColumn') === 'multiple') {
+        this.setPath('formElement.defaultValue', defaultValue);
+        this.set('value', rows);
+      } else if (this.get('shouldShowPreselectedValueColumn') === 'single') {
+        this.set('value', rows);
+        if (defaultValue.length === 0) {
+          this.setPath('formElement.defaultValue', null);
+        } else {
+          oldDefaultValue = this.getPath('formElement.defaultValue');
+          for (i = 0, _len3 = defaultValue.length; i < _len3; i++) {
+            v = defaultValue[i];
+            if (v !== oldDefaultValue) this.setPath('formElement.defaultValue', v);
+          }
+        }
+        this.buildTableRowModel();
+        this.grid.invalidateAllRows();
+        this.grid.render();
+      } else {
+        this.set('value', rows);
+      }
+      return this._super();
+    },
     grid: null,
     init: function() {
       this.classNames.push('PropertyGrid');
@@ -690,17 +765,18 @@
     didInsertElement: function() {
       var moveRowsPlugin,
         _this = this;
-      this.grid = new Slick.Grid(this.$().find('.grid'), this.get('value'), this.get('columnDefinition'), this.get('options'));
+      this.buildTableRowModel();
+      this.grid = new Slick.Grid(this.$().find('.grid'), this.get('tableRowModel'), this.get('columnDefinition'), this.get('options'));
       this.$().find('.slick-viewport').css('overflow-x', 'hidden');
       this.$().find('.slick-viewport').css('overflow-y', 'hidden');
       this.grid.setSelectionModel(new Slick.RowSelectionModel());
       this.grid.onCellChange.subscribe(function(e, args) {
-        _this.get('value').replace(args.row, 1, args.item);
+        _this.get('tableRowModel').replace(args.row, 1, args.item);
         return _this.valueChanged();
       });
       this.grid.onAddNewRow.subscribe(function(e, args) {
         var columnDefinition, newItem, _j, _len2, _ref3;
-        _this.grid.invalidateRow(_this.get('value').length);
+        _this.grid.invalidateRow(_this.get('tableRowModel').length);
         newItem = {};
         _ref3 = _this.columns;
         for (_j = 0, _len2 = _ref3.length; _j < _len2; _j++) {
@@ -708,7 +784,7 @@
           newItem[columnDefinition.field] = '';
         }
         $.extend(newItem, args.item);
-        _this.get('value').pushObject(newItem);
+        _this.get('tableRowModel').pushObject(newItem);
         _this.grid.updateRowCount();
         _this.grid.render();
         return _this.valueChanged();
@@ -728,10 +804,10 @@
       return moveRowsPlugin.onMoveRows.subscribe(function(e, args) {
         var arrayRowToBeMoved, movedRowIndex;
         movedRowIndex = args.rows[0];
-        arrayRowToBeMoved = _this.get('value').objectAt(movedRowIndex);
-        _this.get('value').removeAt(movedRowIndex, 1);
+        arrayRowToBeMoved = _this.get('tableRowModel').objectAt(movedRowIndex);
+        _this.get('tableRowModel').removeAt(movedRowIndex, 1);
         if (movedRowIndex < args.insertBefore) args.insertBefore--;
-        _this.get('value').insertAt(args.insertBefore, arrayRowToBeMoved);
+        _this.get('tableRowModel').insertAt(args.insertBefore, arrayRowToBeMoved);
         _this.valueChanged();
         _this.grid.invalidateAllRows();
         return _this.grid.render();

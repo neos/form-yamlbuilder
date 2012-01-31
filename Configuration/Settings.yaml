@@ -177,3 +177,13 @@ TYPO3:
                       field: '_value'
                       name: 'Label'
                       editor: 'TextCellEditor'
+          'TYPO3.Form:SingleSelectionMixin':
+            formBuilder:
+              editors:
+                options:
+                  shouldShowPreselectedValueColumn: 'single'
+          'TYPO3.Form:MultiSelectionMixin':
+            formBuilder:
+              editors:
+                options:
+                  shouldShowPreselectedValueColumn: 'multiple'
