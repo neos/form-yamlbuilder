@@ -56,6 +56,7 @@ wrapCssFile = (filePath, beforeWrapper, afterWrapper = '}') ->
 task 'modifyExternalLibraryCss', 'Modify external library CSS by wrapping it and compiling it with SASS', ->
 	wrapCssFile('Resources/Public/Library/dynatree-1.2.0/src/skin/ui.dynatree', '#leftSidebar {')
 	wrapCssFile('Resources/Public/Library/SlickGrid/slick.grid', '#rightSidebar {')
+	wrapCssFile('Resources/Public/Library/jQuery-contextMenu/jquery.contextMenu', '#rightSidebar, #leftSidebar {')
 
 
 task 'buildDocumentation', 'build JS api documentation with docco-husky', ->
