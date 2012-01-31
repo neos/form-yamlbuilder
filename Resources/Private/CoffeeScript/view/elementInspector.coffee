@@ -38,9 +38,11 @@ TYPO3.FormBuilder.View.FormElementInspector = Ember.ContainerView.extend {
 		# copy the schema to work on a clone
 		formFieldEditors = $.extend({}, @getPath('formElement.typeDefinition.formBuilder.editors'))
 
-		orderedFormFieldEditors = for k, v of formFieldEditors
+		orderedFormFieldEditors = []
+		for k, v of formFieldEditors
+			continue unless v
 			v['key'] = k
-			v
+			orderedFormFieldEditors.push(v)
 
 		orderedFormFieldEditors.sort((a,b)-> a.sorting - b.sorting)
 		return orderedFormFieldEditors

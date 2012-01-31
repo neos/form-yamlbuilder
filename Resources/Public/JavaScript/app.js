@@ -403,19 +403,7 @@
       var currentlySelectedRenderable, defaultValues, indexInParent, newRenderable, parentRenderablesArray, referenceRenderable;
       currentlySelectedRenderable = this.get('currentlySelectedElement');
       if (!currentlySelectedRenderable) return;
-      defaultValues = {};
-      if (this.formElementType.get('label')) {
-        defaultValues.label = this.formElementType.get('label');
-      }
-      if (this.formElementType.get('defaultValue')) {
-        defaultValues.defaultValue = this.formElementType.get('defaultValue');
-      }
-      if (this.formElementType.get('properties')) {
-        defaultValues.properties = this.formElementType.get('properties');
-      }
-      if (this.formElementType.get('renderingOptions')) {
-        defaultValues.renderingOptions = this.formElementType.get('renderingOptions');
-      }
+      defaultValues = this.formElementType.getPath('formBuilder.predefinedDefaults') || {};
       newRenderable = TYPO3.FormBuilder.Model.Renderable.create($.extend({
         type: this.formElementType.get('key'),
         identifier: Ember.generateGuid(null, 'formElement')
@@ -575,16 +563,13 @@
     orderedFormFieldEditors: (function() {
       var formFieldEditors, k, orderedFormFieldEditors, v;
       formFieldEditors = $.extend({}, this.getPath('formElement.typeDefinition.formBuilder.editors'));
-      orderedFormFieldEditors = (function() {
-        var _results;
-        _results = [];
-        for (k in formFieldEditors) {
-          v = formFieldEditors[k];
-          v['key'] = k;
-          _results.push(v);
-        }
-        return _results;
-      })();
+      orderedFormFieldEditors = [];
+      for (k in formFieldEditors) {
+        v = formFieldEditors[k];
+        if (!v) continue;
+        v['key'] = k;
+        orderedFormFieldEditors.push(v);
+      }
       orderedFormFieldEditors.sort(function(a, b) {
         return a.sorting - b.sorting;
       });

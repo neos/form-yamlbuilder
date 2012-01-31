@@ -96,15 +96,7 @@ TYPO3.FormBuilder.View.AvailableFormElementsElement = Ember.View.extend {
 		currentlySelectedRenderable = @get('currentlySelectedElement')
 		return unless currentlySelectedRenderable
 
-		defaultValues = {}
-		if @formElementType.get('label')
-			defaultValues.label = @formElementType.get('label')
-		if @formElementType.get('defaultValue')
-			defaultValues.defaultValue = @formElementType.get('defaultValue')
-		if @formElementType.get('properties')
-			defaultValues.properties = @formElementType.get('properties')
-		if @formElementType.get('renderingOptions')
-			defaultValues.renderingOptions = @formElementType.get('renderingOptions')
+		defaultValues = @formElementType.getPath('formBuilder.predefinedDefaults') || {}
 
 		newRenderable = TYPO3.FormBuilder.Model.Renderable.create($.extend({
 			type: @formElementType.get('key')
