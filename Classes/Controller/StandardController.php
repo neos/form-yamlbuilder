@@ -21,6 +21,12 @@ class StandardController extends \TYPO3\FLOW3\MVC\Controller\ActionController {
 	 * @return void
 	 */
 	public function indexAction() {
+		$handlebarsTemplates = array();
+		foreach ($this->settings['handlebarsTemplates'] as $templateName => $filePath) {
+			$handlebarsTemplates[] = '<script type="text/x-handlebars" data-template-name="' . $templateName . '">' . file_get_contents($filePath) . '</script>';
+		}
+
+		$this->view->assign('handlebarsTemplates', implode("\n", $handlebarsTemplates));
 	}
 
 	/**

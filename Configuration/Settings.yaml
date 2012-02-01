@@ -1,4 +1,17 @@
 TYPO3:
+  FormBuilder:
+    handlebarsTemplates:
+      AvailableFormElements: resource://TYPO3.FormBuilder/Private/Templates/FormBuilder/AvailableFormElements.html
+      FormTree: resource://TYPO3.FormBuilder/Private/Templates/FormBuilder/FormTree.html
+      LabelEditor: resource://TYPO3.FormBuilder/Private/Templates/FormBuilder/LabelEditor.html
+      PropertyGridEditor: resource://TYPO3.FormBuilder/Private/Templates/FormBuilder/PropertyGridEditor.html
+      PropertyPanelTitle: resource://TYPO3.FormBuilder/Private/Templates/FormBuilder/PropertyPanelTitle.html
+      RequiredValidatorEditor: resource://TYPO3.FormBuilder/Private/Templates/FormBuilder/RequiredValidatorEditor.html
+      TextEditor: resource://TYPO3.FormBuilder/Private/Templates/FormBuilder/TextEditor.html
+      ValidatorEditor-Default: resource://TYPO3.FormBuilder/Private/Templates/FormBuilder/ValidatorEditor-Default.html
+      ValidatorEditor-MinimumMaximum: resource://TYPO3.FormBuilder/Private/Templates/FormBuilder/ValidatorEditor-MinimumMaximum.html
+      ValidatorEditor: resource://TYPO3.FormBuilder/Private/Templates/FormBuilder/ValidatorEditor.html
+
   Form:
     supertypeResolver:
       hiddenProperties:
