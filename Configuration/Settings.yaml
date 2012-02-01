@@ -33,7 +33,7 @@ TYPO3:
             sorting: 400
             label: 'Container Form Elements'
 
-        cssFiles: ['/_Resources/Static/Packages/TYPO3.FormExample/Css/bootstrap.min.css', '/_Resources/Static/Packages/TYPO3.FormExample/Css/main.css']
+        cssFiles: ['resource://TYPO3.FormExample/Public/Css/bootstrap.min.css', 'resource://TYPO3.FormExample/Public/Css/main.css']
         formElementTypes:
           'TYPO3.Form:Base':
             formBuilder:

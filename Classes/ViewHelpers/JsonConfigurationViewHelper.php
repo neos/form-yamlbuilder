@@ -15,6 +15,12 @@ class JsonConfigurationViewHelper extends \TYPO3\Fluid\Core\ViewHelper\AbstractV
 
 	/**
 	 * @FLOW3\Inject
+	 * @var \TYPO3\FLOW3\Resource\Publishing\ResourcePublisher
+	 */
+	protected $resourcePublisher;
+
+	/**
+	 * @FLOW3\Inject
 	 * @var \TYPO3\FormBuilder\FormBuilderFactory
 	 */
 	protected $formBuilderFactory;
@@ -31,11 +37,29 @@ class JsonConfigurationViewHelper extends \TYPO3\Fluid\Core\ViewHelper\AbstractV
 		$configuration['formElementTypes'] = $supertypeResolver->getCompleteMergedTypeDefinition(TRUE);
 
 		$configuration['formElementGroups'] = isset($presetConfiguration['formElementGroups']) ? $presetConfiguration['formElementGroups'] : array();
-		$configuration['cssFiles'] = isset($presetConfiguration['cssFiles']) ? $presetConfiguration['cssFiles'] : array();
+
+		$configuration['cssFiles'] = isset($presetConfiguration['cssFiles']) ? $this->resolveCssFiles($presetConfiguration['cssFiles']) : array();
 
 		$configuration['endpoints']['formPageRenderer'] = $this->controllerContext->getUriBuilder()->uriFor('renderformpage');
 
 		return json_encode($configuration);
+	}
+
+	protected function resolveCssFiles(array $cssFiles) {
+		$processedCssFiles = array();
+		foreach ($cssFiles as $cssFile) {
+			// TODO: This method should be somewhere in the resource manager probably?
+			if (preg_match('#resource://([^/]*)/Public/(.*)#', $cssFile, $matches) > 0) {
+				$package = $matches[1];
+				$path = $matches[2];
+
+				$processedCssFiles[] = $this->resourcePublisher->getStaticResourcesWebBaseUri() . 'Packages/' . $package . '/' . $path;
+
+			} else {
+				$processedCssFiles[] = $cssFile;
+			}
+		}
+		return $processedCssFiles;
 	}
 }
 ?>
