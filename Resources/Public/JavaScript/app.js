@@ -941,7 +941,7 @@
       if (!validatorToBeAdded) return;
       this.get('value').push({
         name: validatorToBeAdded.name,
-        options: validatorToBeAdded.options
+        options: validatorToBeAdded.options || {}
       });
       this.valueChanged();
       this.updateValidatorEditorViews();
@@ -1055,6 +1055,21 @@
         return this.getPath(this.get('pathToMaximumOption'));
       }
     }).property('pathToMaximumOption').cacheable()
+  });
+
+  TYPO3.FormBuilder.View.Editor.ValidatorEditor.SimpleValueValidatorEditor = TYPO3.FormBuilder.View.Editor.ValidatorEditor.DefaultValidatorEditor.extend({
+    templateName: 'ValidatorEditor-SimpleValue',
+    pathToEditedValue: 'validator.options.TODO',
+    label: 'Label',
+    value: (function(k, v) {
+      if (v !== void 0) {
+        this.setPath(this.get('pathToEditedValue'), v);
+        this.valueChanged();
+        return v;
+      } else {
+        return this.getPath(this.get('pathToEditedValue'));
+      }
+    }).property('pathToEditedValue').cacheable()
   });
 
 }).call(this);

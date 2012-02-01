@@ -100,7 +100,7 @@ TYPO3.FormBuilder.View.Editor.ValidatorEditor = TYPO3.FormBuilder.View.Editor.Ab
 
 		@get('value').push {
 			name: validatorToBeAdded.name
-			options: validatorToBeAdded.options
+			options: validatorToBeAdded.options || {}
 		}
 
 		@valueChanged()
@@ -208,7 +208,6 @@ TYPO3.FormBuilder.View.Editor.ValidatorEditor.MinimumMaximumValidatorEditor = TY
 
 	pathToMaximumOption: 'validator.options.maximum'
 
-
 	minimum: ((k, v) ->
 		if v != undefined
 			@setPath(@get('pathToMinimumOption'), v)
@@ -225,4 +224,22 @@ TYPO3.FormBuilder.View.Editor.ValidatorEditor.MinimumMaximumValidatorEditor = TY
 		else
 			return @getPath(@get('pathToMaximumOption'))
 	).property('pathToMaximumOption').cacheable()
+}
+
+TYPO3.FormBuilder.View.Editor.ValidatorEditor.SimpleValueValidatorEditor = TYPO3.FormBuilder.View.Editor.ValidatorEditor.DefaultValidatorEditor.extend {
+	templateName: 'ValidatorEditor-SimpleValue'
+
+	# this needs to be filled by the parent
+	pathToEditedValue: 'validator.options.TODO'
+
+	label: 'Label'
+
+	value: ((k, v) ->
+		if v != undefined
+			@setPath(@get('pathToEditedValue'), v)
+			@valueChanged()
+			return v
+		else
+			return @getPath(@get('pathToEditedValue'))
+	).property('pathToEditedValue').cacheable()
 }

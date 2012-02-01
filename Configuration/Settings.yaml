@@ -10,6 +10,7 @@ TYPO3:
       TextEditor: resource://TYPO3.FormBuilder/Private/Templates/FormBuilder/TextEditor.html
       ValidatorEditor-Default: resource://TYPO3.FormBuilder/Private/Templates/FormBuilder/ValidatorEditor-Default.html
       ValidatorEditor-MinimumMaximum: resource://TYPO3.FormBuilder/Private/Templates/FormBuilder/ValidatorEditor-MinimumMaximum.html
+      ValidatorEditor-SimpleValue: resource://TYPO3.FormBuilder/Private/Templates/FormBuilder/ValidatorEditor-SimpleValue.html
       ValidatorEditor: resource://TYPO3.FormBuilder/Private/Templates/FormBuilder/ValidatorEditor.html
 
   Form:
@@ -91,12 +92,6 @@ TYPO3:
               label: 'Single Select (Radiobuttons)'
               group: select
               sorting: 120
-              editors:
-                value:
-                  sorting: 300
-                  viewName: 'TYPO3.FormBuilder.View.Editor.TextEditor'
-                  label: 'Value'
-                  propertyPath: 'properties.value'
 
           'TYPO3.Form:MultipleSelectDropdown':
             formBuilder:
@@ -116,6 +111,15 @@ TYPO3:
               label: 'Date Picker'
               group: custom
               sorting: 100
+              editors:
+                validation:
+                  availableValidators:
+                    dateTimeRange:
+                      label: 'Date/Time Range'
+                      name: 'TYPO3\FLOW3\Validation\Validator\DateTimeRangeValidator'
+                      viewName: 'TYPO3.FormBuilder.View.Editor.ValidatorEditor.MinimumMaximumValidatorEditor'
+                      pathToMinimumOption: 'validator.options.earliestDate'
+                      pathToMaximumOption: 'validator.options.latestDate'
 
           'TYPO3.Form:ImageUpload':
             formBuilder:
@@ -161,15 +165,46 @@ TYPO3:
                   propertyPath: 'defaultValue'
                 validation:
                    availableValidators:
-                    email:
-                      label: 'EMail'
-                      name: 'TYPO3\FLOW3\Validation\Validator\EmailAddressValidator'
-                      required: false
+                    alphanumeric:
+                      label: 'Alphanumeric'
+                      sorting: 100
+                      name: 'TYPO3\FLOW3\Validation\Validator\AlphanumericValidator'
+                    text:
+                      label: 'Non-XML Text'
+                      sorting: 110
+                      name: 'TYPO3\FLOW3\Validation\Validator\TextValidator'
                     stringLength:
                       label: 'String Length'
+                      sorting: 120
                       name: 'TYPO3\FLOW3\Validation\Validator\StringLengthValidator'
                       viewName: 'TYPO3.FormBuilder.View.Editor.ValidatorEditor.MinimumMaximumValidatorEditor'
-                      required: true
+                      required: false
+                    emailAddress:
+                      label: 'EMail'
+                      sorting: 130
+                      name: 'TYPO3\FLOW3\Validation\Validator\EmailAddressValidator'
+                      required: false
+
+                    integer:
+                      label: 'Integer Number'
+                      sorting: 200
+                      name: 'TYPO3\FLOW3\Validation\Validator\IntegerValidator'
+                    float:
+                      label: 'Floating-point Number'
+                      sorting: 210
+                      name: 'TYPO3\FLOW3\Validation\Validator\FloatValidator'
+                    numberRange:
+                      label: 'Number Range'
+                      sorting: 220
+                      name: 'TYPO3\FLOW3\Validation\Validator\NumberRangeValidator'
+                      viewName: 'TYPO3.FormBuilder.View.Editor.ValidatorEditor.MinimumMaximumValidatorEditor'
+
+                    regularExpression:
+                      label: 'Regular Expression'
+                      sorting: 300
+                      name: 'TYPO3\FLOW3\Validation\Validator\RegularExpressionValidator'
+                      viewName: 'TYPO3.FormBuilder.View.Editor.ValidatorEditor.SimpleValueValidatorEditor'
+                      pathToEditedValue: 'validator.options.regularExpression'
 
           'TYPO3.Form:SelectionMixin':
             formBuilder:
@@ -201,3 +236,10 @@ TYPO3:
               editors:
                 options:
                   shouldShowPreselectedValueColumn: 'multiple'
+                validation:
+                  availableValidators:
+                    count:
+                      label: 'Number of submitted values'
+                      sorting: 100
+                      name: 'TYPO3\FLOW3\Validation\Validator\CountValidator'
+                      viewName: 'TYPO3.FormBuilder.View.Editor.ValidatorEditor.MinimumMaximumValidatorEditor'
