@@ -972,10 +972,16 @@
     defaultValue: (function() {
       return [];
     }).property().cacheable(),
+    isVisible: (function() {
+      var validatorEditorViewsFound, validatorsAvailable;
+      validatorsAvailable = !this.get('noValidatorsAvailable');
+      validatorEditorViewsFound = this.get('validatorEditorViews').length > 0;
+      return validatorsAvailable || validatorEditorViewsFound;
+    }).property('validatorEditorViews', 'noValidatorsAvailable').cacheable(),
     validatorEditorViews: null,
     init: function() {
       this._super();
-      this.validatorEditorViews = [];
+      this.set('validatorEditorViews', []);
       return this.updateValidatorEditorViews();
     },
     sortedAvailableValidators: (function() {

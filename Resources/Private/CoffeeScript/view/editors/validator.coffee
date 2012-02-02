@@ -65,13 +65,22 @@ TYPO3.FormBuilder.View.Editor.ValidatorEditor = TYPO3.FormBuilder.View.Editor.Ab
 	propertyPath: 'validators'
 	defaultValue: (-> []).property().cacheable()
 
+	# we only show the validators view if there are validators available or already shown
+	isVisible: (->
+		validatorsAvailable = !@get('noValidatorsAvailable')
+		validatorEditorViewsFound = @get('validatorEditorViews').length > 0
+
+		return validatorsAvailable or validatorEditorViewsFound
+	).property('validatorEditorViews', 'noValidatorsAvailable').cacheable()
+
+
 	# list of initialized views, one for each validator editor
 	validatorEditorViews: null
 
 	# initializer.
 	init: ->
 		@_super()
-		@validatorEditorViews = []
+		@set('validatorEditorViews', [])
 		@updateValidatorEditorViews()
 
 	# sort the available validators based on their sorting
