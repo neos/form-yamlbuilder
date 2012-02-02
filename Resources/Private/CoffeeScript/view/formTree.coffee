@@ -148,7 +148,7 @@ TYPO3.FormBuilder.View.FormTree = Ember.View.extend {
 		for subRenderable in currentListOfSubRenderables
 			newNode = dynaTreeParentNode.addChild {
 				key: subRenderable.get('_path')
-				title: if subRenderable.label then subRenderable.label else subRenderable.identifier
+				title: "#{if subRenderable.label then subRenderable.label else subRenderable.identifier} (#{subRenderable.getPath('typeDefinition.formBuilder.label')})"
 				formRenderable: subRenderable
 			}
 			@updateTreeStateFromModel(newNode, subRenderable.getPath('renderables'))

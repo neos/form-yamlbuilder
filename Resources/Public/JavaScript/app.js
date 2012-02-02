@@ -518,7 +518,7 @@
         subRenderable = currentListOfSubRenderables[_j];
         newNode = dynaTreeParentNode.addChild({
           key: subRenderable.get('_path'),
-          title: subRenderable.label ? subRenderable.label : subRenderable.identifier,
+          title: "" + (subRenderable.label ? subRenderable.label : subRenderable.identifier) + " (" + (subRenderable.getPath('typeDefinition.formBuilder.label')) + ")",
           formRenderable: subRenderable
         });
         _results.push(this.updateTreeStateFromModel(newNode, subRenderable.getPath('renderables')));
