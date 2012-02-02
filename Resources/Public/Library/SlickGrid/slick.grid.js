@@ -1253,7 +1253,6 @@ if (typeof Slick === "undefined") {
     }
 
     function resizeCanvas() {
-		console.log("Resize canvas");
       if (options.autoHeight) {
         viewportH = options.rowHeight * (getDataLength() + (options.enableAddRow ? 1 : 0) + (options.leaveSpaceForNewRows ? numVisibleRows - 1 : 0));
       } else {
