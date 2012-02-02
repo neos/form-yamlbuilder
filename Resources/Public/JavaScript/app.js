@@ -409,15 +409,47 @@
       }
       return true;
     }).property('formElementType', 'currentlySelectedElement').cacheable(),
+    getNextFreeIdentifier: function() {
+      var i, isIdentifierUsed, prefix, type;
+      type = this.getPath('formElementType.key');
+      prefix = type.split(':')[1];
+      prefix = prefix.toLowerCase();
+      isIdentifierUsed = function(identifier) {
+        var checkIdentifier, identifierFound;
+        identifierFound = false;
+        checkIdentifier = function(renderable) {
+          var childRenderable, _j, _len2, _ref5, _results;
+          if (renderable.get('identifier') === identifier) identifierFound = true;
+          if (!identifierFound) {
+            _ref5 = renderable.get('renderables');
+            _results = [];
+            for (_j = 0, _len2 = _ref5.length; _j < _len2; _j++) {
+              childRenderable = _ref5[_j];
+              _results.push(checkIdentifier(childRenderable));
+            }
+            return _results;
+          }
+        };
+        checkIdentifier(TYPO3.FormBuilder.Model.Form.get('formDefinition'));
+        return identifierFound;
+      };
+      i = 1;
+      while (isIdentifierUsed(prefix + i)) {
+        i++;
+      }
+      return prefix + i;
+    },
     click: function() {
-      var currentlySelectedRenderable, defaultValues, indexInParent, newRenderable, parentRenderablesArray, referenceRenderable;
+      var currentlySelectedRenderable, defaultValues, identifier, indexInParent, newRenderable, parentRenderablesArray, referenceRenderable;
       currentlySelectedRenderable = this.get('currentlySelectedElement');
       if (!currentlySelectedRenderable) return;
       if (!this.get('enabled')) return;
       defaultValues = this.getPath('formElementType.formBuilder.predefinedDefaults') || {};
+      identifier = this.getNextFreeIdentifier();
       newRenderable = TYPO3.FormBuilder.Model.Renderable.create($.extend({
         type: this.getPath('formElementType.key'),
-        identifier: Ember.generateGuid(null, 'formElement')
+        identifier: identifier,
+        label: identifier
       }, defaultValues));
       if (!this.getPath('formElementType.formBuilder._isTopLevel') && currentlySelectedRenderable.getPath('typeDefinition.formBuilder._isCompositeRenderable')) {
         currentlySelectedRenderable.get('renderables').pushObject(newRenderable);

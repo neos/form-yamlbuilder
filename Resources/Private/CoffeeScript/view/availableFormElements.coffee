@@ -111,6 +111,31 @@ TYPO3.FormBuilder.View.AvailableFormElementsElement = Ember.View.extend {
 		return true
 	).property('formElementType', 'currentlySelectedElement').cacheable()
 
+	# helper function which gets the next free identifier of the form "formElementTypeI" (Checkbox1, Checkbox2, ...)
+	getNextFreeIdentifier: ->
+		type = @getPath('formElementType.key')
+		prefix = type.split(':')[1]
+		prefix = prefix.toLowerCase()
+
+		isIdentifierUsed = (identifier) ->
+			identifierFound = false
+			checkIdentifier = (renderable) ->
+				if renderable.get('identifier') == identifier
+					identifierFound = true
+
+				if !identifierFound
+					for childRenderable in renderable.get('renderables')
+						checkIdentifier(childRenderable)
+
+			checkIdentifier(TYPO3.FormBuilder.Model.Form.get('formDefinition'))
+			return identifierFound
+
+		i = 1
+		while isIdentifierUsed(prefix + i)
+			i++
+
+		return prefix + i
+
 	# callback which is triggered when clicking on an element. Determines the insertion position and
 	# adds the new element.
 	click: ->
@@ -120,9 +145,12 @@ TYPO3.FormBuilder.View.AvailableFormElementsElement = Ember.View.extend {
 
 		defaultValues = @getPath('formElementType.formBuilder.predefinedDefaults') || {}
 
+		identifier = @getNextFreeIdentifier()
+
 		newRenderable = TYPO3.FormBuilder.Model.Renderable.create($.extend({
 			type: @getPath('formElementType.key')
-			identifier: Ember.generateGuid(null, 'formElement')
+			identifier: identifier,
+			label: identifier
 		}, defaultValues))
 
 		if !@getPath('formElementType.formBuilder._isTopLevel') && currentlySelectedRenderable.getPath('typeDefinition.formBuilder._isCompositeRenderable')
