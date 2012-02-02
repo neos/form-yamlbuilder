@@ -501,7 +501,7 @@
       if (typeof (_base = this._tree.dynatree('getRoot')).removeChildren === "function") {
         _base.removeChildren();
       }
-      this.updateTreeStateFromModel(this._tree.dynatree('getRoot'), this.getPath('formDefinition.renderables'));
+      this.updateTreeStateFromModel(this._tree.dynatree('getRoot'), this.getPath('formDefinition.renderables'), expandedNodePaths.length === 0);
       for (_j = 0, _len2 = expandedNodePaths.length; _j < _len2; _j++) {
         expandedNodePath = expandedNodePaths[_j];
         if ((_ref7 = this._tree.dynatree('getTree').getNodeByKey(expandedNodePath)) != null) {
@@ -510,18 +510,21 @@
       }
       return (_ref8 = this._tree.dynatree('getTree').getNodeByKey(activeNodePath)) != null ? _ref8.activate(true) : void 0;
     }).observes('formDefinition.__nestedPropertyChange'),
-    updateTreeStateFromModel: function(dynaTreeParentNode, currentListOfSubRenderables) {
-      var newNode, subRenderable, _j, _len2, _results;
+    updateTreeStateFromModel: function(dynaTreeParentNode, currentListOfSubRenderables, expandFirstNode) {
+      var i, newNode, nodeOptions, subRenderable, _len2, _results;
+      if (expandFirstNode == null) expandFirstNode = false;
       if (!currentListOfSubRenderables) return;
       _results = [];
-      for (_j = 0, _len2 = currentListOfSubRenderables.length; _j < _len2; _j++) {
-        subRenderable = currentListOfSubRenderables[_j];
-        newNode = dynaTreeParentNode.addChild({
+      for (i = 0, _len2 = currentListOfSubRenderables.length; i < _len2; i++) {
+        subRenderable = currentListOfSubRenderables[i];
+        nodeOptions = {
           key: subRenderable.get('_path'),
           title: "" + (subRenderable.label ? subRenderable.label : subRenderable.identifier) + " (" + (subRenderable.getPath('typeDefinition.formBuilder.label')) + ")",
           formRenderable: subRenderable,
           addClass: "formbuilder-group-" + (subRenderable.getPath('typeDefinition.formBuilder.group')) + " formbuilder-type-" + (subRenderable.getPath('type').toLowerCase().replace(/[^a-z0-9]/g, '-'))
-        });
+        };
+        if (expandFirstNode && i === 0) nodeOptions.expand = true;
+        newNode = dynaTreeParentNode.addChild(nodeOptions);
         _results.push(this.updateTreeStateFromModel(newNode, subRenderable.getPath('renderables')));
       }
       return _results;

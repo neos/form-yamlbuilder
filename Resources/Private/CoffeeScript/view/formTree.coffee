@@ -93,7 +93,6 @@ TYPO3.FormBuilder.View.FormTree = Ember.View.extend {
 
 		# we initialize the tree from the model
 		@updateTreeStateFromModel(@_tree.dynatree('getRoot'), @getPath('formDefinition.renderables'))
-
 		@initializeContextMenu()
 
 	initializeContextMenu: ->
@@ -134,7 +133,7 @@ TYPO3.FormBuilder.View.FormTree = Ember.View.extend {
 		activeNodePath = @_tree.dynatree('getActiveNode')?.data.key
 
 		@_tree.dynatree('getRoot').removeChildren?()
-		@updateTreeStateFromModel(@_tree.dynatree('getRoot'), @getPath('formDefinition.renderables'))
+		@updateTreeStateFromModel(@_tree.dynatree('getRoot'), @getPath('formDefinition.renderables'), expandedNodePaths.length == 0)
 
 		for expandedNodePath in expandedNodePaths
 			@_tree.dynatree('getTree').getNodeByKey(expandedNodePath)?.expand(true)
@@ -142,16 +141,19 @@ TYPO3.FormBuilder.View.FormTree = Ember.View.extend {
 	).observes('formDefinition.__nestedPropertyChange')
 
 	# build Tree Nodes from the form
-	updateTreeStateFromModel: (dynaTreeParentNode, currentListOfSubRenderables) ->
+	updateTreeStateFromModel: (dynaTreeParentNode, currentListOfSubRenderables, expandFirstNode = false) ->
 		return if !currentListOfSubRenderables
 
-		for subRenderable in currentListOfSubRenderables
-			newNode = dynaTreeParentNode.addChild {
+		for subRenderable, i in currentListOfSubRenderables
+			nodeOptions = {
 				key: subRenderable.get('_path')
 				title: "#{if subRenderable.label then subRenderable.label else subRenderable.identifier} (#{subRenderable.getPath('typeDefinition.formBuilder.label')})"
 				formRenderable: subRenderable
 				addClass: "formbuilder-group-#{subRenderable.getPath('typeDefinition.formBuilder.group')} formbuilder-type-#{subRenderable.getPath('type').toLowerCase().replace(/[^a-z0-9]/g, '-')}"
 			}
+			nodeOptions.expand = true if expandFirstNode && i == 0
+
+			newNode = dynaTreeParentNode.addChild nodeOptions
 			@updateTreeStateFromModel(newNode, subRenderable.getPath('renderables'))
 
 	# the currently selected renderable should also be active inside the tree
