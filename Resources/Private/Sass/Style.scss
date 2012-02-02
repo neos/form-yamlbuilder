@@ -34,6 +34,9 @@ $colorHighlight: #FF8700;
 }
 
 #leftSidebar {
+	.tree {
+		min-height:200px;
+	}
 	ul.dynatree-container {
 		background-color: $colorDarkBackground !important;
 		color: white !important;

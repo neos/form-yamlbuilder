@@ -120,6 +120,8 @@
   font-size: 22px;
   font-weight: bold; }
 
+#leftSidebar .tree {
+  min-height: 200px; }
 #leftSidebar ul.dynatree-container {
   background-color: #222222 !important;
   color: white !important; }
