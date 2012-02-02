@@ -181,6 +181,9 @@ TYPO3.FormBuilder.View.Editor.PropertyGrid = TYPO3.FormBuilder.View.Editor.Abstr
 		@$().find('.slick-viewport').css('overflow-y', 'hidden');
 		@grid.setSelectionModel(new Slick.RowSelectionModel());
 
+		# as soon as drag and drop starts, commit the current edit (else, drag/drop won't work)
+		@grid.onDragInit.subscribe => @grid.getEditorLock().commitCurrentEdit()
+
 		# Save changes to cells
 		@grid.onCellChange.subscribe (e, args) =>
 			@get('tableRowModel').replace(args.row, 1, args.item)
@@ -261,3 +264,12 @@ TYPO3.FormBuilder.View.Editor.PropertyGrid = TYPO3.FormBuilder.View.Editor.Abstr
 
 }
 
+# This is just a standard TextCellEditor of SlickGrid; extended in a way that when
+# defocussing the text field, the edit is committed / saved.
+TYPO3.FormBuilder.View.Editor.PropertyGrid.TextCellEditor = (args) ->
+	retVal = window.TextCellEditor.apply(this, arguments)
+
+	$(args.container).children('.editor-text').focusout ->
+		Slick.GlobalEditorLock.commitCurrentEdit()
+
+	return retVal

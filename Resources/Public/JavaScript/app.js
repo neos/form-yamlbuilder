@@ -856,6 +856,9 @@
       this.$().find('.slick-viewport').css('overflow-x', 'hidden');
       this.$().find('.slick-viewport').css('overflow-y', 'hidden');
       this.grid.setSelectionModel(new Slick.RowSelectionModel());
+      this.grid.onDragInit.subscribe(function() {
+        return _this.grid.getEditorLock().commitCurrentEdit();
+      });
       this.grid.onCellChange.subscribe(function(e, args) {
         _this.get('tableRowModel').replace(args.row, 1, args.item);
         return _this.valueChanged();
@@ -934,6 +937,15 @@
       });
     }
   });
+
+  TYPO3.FormBuilder.View.Editor.PropertyGrid.TextCellEditor = function(args) {
+    var retVal;
+    retVal = window.TextCellEditor.apply(this, arguments);
+    $(args.container).children('.editor-text').focusout(function() {
+      return Slick.GlobalEditorLock.commitCurrentEdit();
+    });
+    return retVal;
+  };
 
   TYPO3.FormBuilder.View.Editor.RequiredValidatorEditor = TYPO3.FormBuilder.View.Editor.AbstractPropertyEditor.extend({
     templateName: 'RequiredValidatorEditor',

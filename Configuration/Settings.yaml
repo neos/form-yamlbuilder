@@ -233,11 +233,11 @@ TYPO3:
                     0:
                       field: '_value'
                       name: 'Label'
-                      editor: 'TextCellEditor'
+                      editor: 'TYPO3.FormBuilder.View.Editor.PropertyGrid.TextCellEditor'
                     1:
                       field: '_key'
                       name: 'Value'
-                      editor: 'TextCellEditor'
+                      editor: 'TYPO3.FormBuilder.View.Editor.PropertyGrid.TextCellEditor'
           'TYPO3.Form:SingleSelectionMixin':
             formBuilder:
               editors:
