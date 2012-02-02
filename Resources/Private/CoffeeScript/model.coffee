@@ -73,7 +73,6 @@ TYPO3.FormBuilder.Model.Renderable = Ember.Object.extend {
 
 		return TYPO3.FormBuilder.Model.FormElementTypes.get(formElementTypeName)
 	).property('type').cacheable()
-
 	# ***
 	# ###Private###
 
@@ -171,6 +170,12 @@ TYPO3.FormBuilder.Model.FormElementType = Ember.Object.extend {
 	# * formBuilder
 	#    * `_isCompositeRenderable`: if TRUE, it is a composite renderable like a section or a fieldset. Note: Pages do NOT have this flag set.
 	#    * `_isPage`: if TRUE, is a "Page", i.e. appears in the first level directly underneath the form object
+	# * type
+	type: null
+
+	__cssClassNames: ( ->
+		"formbuilder-group-#{@getPath('formBuilder.group')} formbuilder-type-#{@get('type').toLowerCase().replace(/[^a-z0-9]/g, '-')}"
+	).property('formBuilder.group', 'type').cacheable()
 }
 
 # ***
@@ -190,6 +195,7 @@ TYPO3.FormBuilder.Model.FormElementTypes = Ember.Object.create {
 	init: ->
 		return unless TYPO3.FormBuilder.Configuration?.formElementTypes?
 		for typeName, typeConfiguration of TYPO3.FormBuilder.Configuration.formElementTypes
+			typeConfiguration.type = typeName
 			@allTypeNames.push(typeName)
 			@set(typeName, TYPO3.FormBuilder.Model.FormElementType.create(typeConfiguration))
 }

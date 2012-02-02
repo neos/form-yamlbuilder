@@ -79,16 +79,18 @@ TYPO3.FormBuilder.View.AvailableFormElementsView = Ember.View.extend {
 TYPO3.FormBuilder.View.AvailableFormElementsElement = Ember.View.extend {
 	# ***
 	# ###Private###
-	tagName: 'li',
 	currentlySelectedElementBinding: 'TYPO3.FormBuilder.Model.Form.currentlySelectedRenderable'
 
 	# this is set from the outside, containing a reference to the enclosing form element type.
-	formElementType: null
+	content: null
+
+	formElementTypeBinding: 'content'
 
 	# set the label and title attributes after we are inserted into the DOM
 	didInsertElement: ->
 		@$().html(@getPath('formElementType.formBuilder.label'))
 		@$().attr('title', @getPath('formElementType.key'))
+		@$().addClass(@getPath('formElementType.__cssClassNames'))
 
 	# callback which is triggered when clicking on an element. Determines the insertion position and
 	# adds the new element.
@@ -96,20 +98,20 @@ TYPO3.FormBuilder.View.AvailableFormElementsElement = Ember.View.extend {
 		currentlySelectedRenderable = @get('currentlySelectedElement')
 		return unless currentlySelectedRenderable
 
-		defaultValues = @formElementType.getPath('formBuilder.predefinedDefaults') || {}
+		defaultValues = @getPath('formElementType.formBuilder.predefinedDefaults') || {}
 
 		newRenderable = TYPO3.FormBuilder.Model.Renderable.create($.extend({
-			type: @formElementType.get('key')
+			type: @getPath('formElementType.key')
 			identifier: Ember.generateGuid(null, 'formElement')
 		}, defaultValues))
 
-		if !@formElementType.getPath('formBuilder._isPage') && currentlySelectedRenderable.getPath('typeDefinition.formBuilder._isPage')
+		if !@getPath('formElementType.formBuilder._isPage') && currentlySelectedRenderable.getPath('typeDefinition.formBuilder._isPage')
 			# element to be inserted is no page, but the selected renderable is a page. Thus, we need to add the
 			# form element as child.
 			currentlySelectedRenderable.get('renderables').pushObject(newRenderable)
 		else
 			referenceRenderable = currentlySelectedRenderable
-			if @formElementType.getPath('formBuilder._isPage') && !currentlySelectedRenderable.getPath('typeDefinition.formBuilder._isPage')
+			if @getPath('formElementType.formBuilder._isPage') && !currentlySelectedRenderable.getPath('typeDefinition.formBuilder._isPage')
 				# element to be inserted IS a page, but the selected renderable is not. thus, we need to bubble up the tree
 				# to find the closest page.
 				referenceRenderable = referenceRenderable.findEnclosingPage()
@@ -119,4 +121,8 @@ TYPO3.FormBuilder.View.AvailableFormElementsElement = Ember.View.extend {
 			parentRenderablesArray.replace(indexInParent+1, 0, [newRenderable])
 
 		@set('currentlySelectedElement', newRenderable)
+}
+
+TYPO3.FormBuilder.View.AvailableFormElementsCollection = Ember.CollectionView.extend {
+	itemViewClass: TYPO3.FormBuilder.View.AvailableFormElementsElement
 }

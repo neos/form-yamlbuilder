@@ -1,9 +1,6 @@
 <h2>Insert Elements</h2>
 {{#collection contentBinding="formElementsGrouped"}}
 	<h3>{{content.label}}</h3>
-	<ul>
-	{{#collection contentBinding="content.elements"}}
-		{{view TYPO3.FormBuilder.View.AvailableFormElementsElement formElementTypeBinding="content"}}
-	{{/collection}}
-	</ul>
+	{{view TYPO3.FormBuilder.View.AvailableFormElementsCollection contentBinding="content.elements" tagName="ul"}}
+
 {{/collection}}

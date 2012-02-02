@@ -164,7 +164,12 @@
     }
   });
 
-  TYPO3.FormBuilder.Model.FormElementType = Ember.Object.extend({});
+  TYPO3.FormBuilder.Model.FormElementType = Ember.Object.extend({
+    type: null,
+    __cssClassNames: (function() {
+      return "formbuilder-group-" + (this.getPath('formBuilder.group')) + " formbuilder-type-" + (this.get('type').toLowerCase().replace(/[^a-z0-9]/g, '-'));
+    }).property('formBuilder.group', 'type').cacheable()
+  });
 
   TYPO3.FormBuilder.Model.FormElementTypes = Ember.Object.create({
     allTypeNames: [],
@@ -177,6 +182,7 @@
       _results = [];
       for (typeName in _ref6) {
         typeConfiguration = _ref6[typeName];
+        typeConfiguration.type = typeName;
         this.allTypeNames.push(typeName);
         _results.push(this.set(typeName, TYPO3.FormBuilder.Model.FormElementType.create(typeConfiguration)));
       }
@@ -369,27 +375,28 @@
   });
 
   TYPO3.FormBuilder.View.AvailableFormElementsElement = Ember.View.extend({
-    tagName: 'li',
     currentlySelectedElementBinding: 'TYPO3.FormBuilder.Model.Form.currentlySelectedRenderable',
-    formElementType: null,
+    content: null,
+    formElementTypeBinding: 'content',
     didInsertElement: function() {
       this.$().html(this.getPath('formElementType.formBuilder.label'));
-      return this.$().attr('title', this.getPath('formElementType.key'));
+      this.$().attr('title', this.getPath('formElementType.key'));
+      return this.$().addClass(this.getPath('formElementType.__cssClassNames'));
     },
     click: function() {
       var currentlySelectedRenderable, defaultValues, indexInParent, newRenderable, parentRenderablesArray, referenceRenderable;
       currentlySelectedRenderable = this.get('currentlySelectedElement');
       if (!currentlySelectedRenderable) return;
-      defaultValues = this.formElementType.getPath('formBuilder.predefinedDefaults') || {};
+      defaultValues = this.getPath('formElementType.formBuilder.predefinedDefaults') || {};
       newRenderable = TYPO3.FormBuilder.Model.Renderable.create($.extend({
-        type: this.formElementType.get('key'),
+        type: this.getPath('formElementType.key'),
         identifier: Ember.generateGuid(null, 'formElement')
       }, defaultValues));
-      if (!this.formElementType.getPath('formBuilder._isPage') && currentlySelectedRenderable.getPath('typeDefinition.formBuilder._isPage')) {
+      if (!this.getPath('formElementType.formBuilder._isPage') && currentlySelectedRenderable.getPath('typeDefinition.formBuilder._isPage')) {
         currentlySelectedRenderable.get('renderables').pushObject(newRenderable);
       } else {
         referenceRenderable = currentlySelectedRenderable;
-        if (this.formElementType.getPath('formBuilder._isPage') && !currentlySelectedRenderable.getPath('typeDefinition.formBuilder._isPage')) {
+        if (this.getPath('formElementType.formBuilder._isPage') && !currentlySelectedRenderable.getPath('typeDefinition.formBuilder._isPage')) {
           referenceRenderable = referenceRenderable.findEnclosingPage();
         }
         parentRenderablesArray = referenceRenderable.getPath('parentRenderable.renderables');
@@ -398,6 +405,10 @@
       }
       return this.set('currentlySelectedElement', newRenderable);
     }
+  });
+
+  TYPO3.FormBuilder.View.AvailableFormElementsCollection = Ember.CollectionView.extend({
+    itemViewClass: TYPO3.FormBuilder.View.AvailableFormElementsElement
   });
 
   TYPO3.FormBuilder.View.FormTree = Ember.View.extend({
@@ -521,7 +532,7 @@
           key: subRenderable.get('_path'),
           title: "" + (subRenderable.label ? subRenderable.label : subRenderable.identifier) + " (" + (subRenderable.getPath('typeDefinition.formBuilder.label')) + ")",
           formRenderable: subRenderable,
-          addClass: "formbuilder-group-" + (subRenderable.getPath('typeDefinition.formBuilder.group')) + " formbuilder-type-" + (subRenderable.getPath('type').toLowerCase().replace(/[^a-z0-9]/g, '-'))
+          addClass: subRenderable.getPath('typeDefinition.__cssClassNames')
         };
         if (expandFirstNode && i === 0) nodeOptions.expand = true;
         newNode = dynaTreeParentNode.addChild(nodeOptions);
