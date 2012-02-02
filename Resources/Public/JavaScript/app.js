@@ -486,15 +486,17 @@
             targetRenderable = targetNode.data.formRenderable;
             sourceRenderable.getPath('parentRenderable.renderables').removeObject(sourceRenderable);
             if (hitMode === 'over') {
-              return targetRenderable.get('renderables').pushObject(sourceRenderable);
+              targetRenderable.get('renderables').pushObject(sourceRenderable);
             } else {
               indexOfTargetRenderable = targetRenderable.getPath('parentRenderable.renderables').indexOf(targetRenderable);
               if (hitMode === 'before') {
-                return targetRenderable.getPath('parentRenderable.renderables').insertAt(indexOfTargetRenderable, sourceRenderable);
+                targetRenderable.getPath('parentRenderable.renderables').insertAt(indexOfTargetRenderable, sourceRenderable);
               } else {
-                return targetRenderable.getPath('parentRenderable.renderables').insertAt(indexOfTargetRenderable + 1, sourceRenderable);
+                targetRenderable.getPath('parentRenderable.renderables').insertAt(indexOfTargetRenderable + 1, sourceRenderable);
               }
             }
+            TYPO3.FormBuilder.Model.Form.set('currentlySelectedRenderable', null);
+            return TYPO3.FormBuilder.Model.Form.set('currentlySelectedRenderable', sourceRenderable);
           }
         }
       });

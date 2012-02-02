@@ -91,6 +91,9 @@ TYPO3.FormBuilder.View.FormTree = Ember.View.extend {
 						else
 							targetRenderable.getPath('parentRenderable.renderables').insertAt(indexOfTargetRenderable+1, sourceRenderable)
 
+					# trigger a property change event such that we switch the current page
+					TYPO3.FormBuilder.Model.Form.set('currentlySelectedRenderable', null)
+					TYPO3.FormBuilder.Model.Form.set('currentlySelectedRenderable', sourceRenderable)
 			}
 		}
 
