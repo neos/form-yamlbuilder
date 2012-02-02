@@ -231,12 +231,12 @@ TYPO3:
                   enableContextMenu: true
                   columns:
                     0:
-                      field: '_key'
-                      name: 'Value'
-                      editor: 'TextCellEditor'
-                    1:
                       field: '_value'
                       name: 'Label'
+                      editor: 'TextCellEditor'
+                    1:
+                      field: '_key'
+                      name: 'Value'
                       editor: 'TextCellEditor'
           'TYPO3.Form:SingleSelectionMixin':
             formBuilder:
