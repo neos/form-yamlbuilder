@@ -55,6 +55,7 @@ class EditorController extends \TYPO3\FLOW3\MVC\Controller\ActionController {
 	/**
 	 * @param array $formDefinition
 	 * @param integer $currentPageIndex
+	 * @return string
 	 */
 	public function renderformpageAction($formDefinition, $currentPageIndex) {
 		$formFactory = new \TYPO3\Form\Factory\ArrayFormFactory();

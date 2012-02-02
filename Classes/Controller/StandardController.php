@@ -19,7 +19,7 @@ class StandardController extends \TYPO3\FLOW3\MVC\Controller\ActionController {
 	 * Standard controller
 	 */
 	public function indexAction() {
-		$this->redirect('index', 'SelectForm');
+		$this->redirect('index', 'FormManager');
 	}
 
 }

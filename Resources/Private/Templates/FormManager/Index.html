@@ -1,0 +1,131 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+	<meta charset="utf-8">
+	<f:base />
+	<title>TYPO3 Form Builder :: Form Manager</title>
+	<!--[if lt IE 9]>
+		<script src="http://html5shim.googlecode.com/svn/trunk/html5.js"></script>
+	<![endif]-->
+
+	<link href="../../../Public/Css/bootstrap.min.css" rel="stylesheet">
+	<link href="../../../Public/Css/FormManager.css" rel="stylesheet">
+</head>
+<body>
+
+	<div class="navbar navbar-fixed-top">
+		<div class="navbar-inner">
+			<div class="container">
+				<a class="btn btn-navbar" data-toggle="collapse" data-target=".nav-collapse">
+					<span class="icon-bar"></span>
+					<span class="icon-bar"></span>
+					<span class="icon-bar"></span>
+				</a>
+				<a class="brand" href="#">TYPO3 Form Builder</a>
+			</div>
+		</div>
+	</div>
+
+	<div class="container-fluid">
+		<div class="row-fluid">
+			<div class="span6">
+				<h1>Form Manager</h1>
+				<p>This is the Form Manager of the TYPO3 Form Builder.</p>
+				<h3>Create a new Form:</h3>
+				<a class="btn" data-toggle="modal" href="#modalNewForm"><i class="icon-plus"></i> New Form</a>
+				<hr />
+				<h3>Edit/Preview existing Forms:</h3>
+				<table id="forms" class="table table-striped table-bordered table-condensed">
+					<thead>
+						<tr>
+							<th>Form name</th>
+							<th class="span3">Options</th>
+						</tr>
+					</thead>
+					<tbody>
+						<f:for each="{forms}" as="form">
+							<tr>
+								<td>{form.name}</td>
+								<td>
+									<f:link.action action="show" target="_blank" arguments="{formPersistenceIdentifier: form.persistenceIdentifier}" title="Preview this form" class="icon-search preview" />
+									<f:link.action controller="Editor" action="index" arguments="{formPersistenceIdentifier: form.persistenceIdentifier}" title="Edit this form" class="icon-pencil edit" />
+									<a href="#modalDuplicateForm" title="duplicate" data-form-name="{form.name}" data-form-persistence-identifier="{form.persistenceIdentifier}" class="icon-plus-sign duplicate"></a>
+								</td>
+							</tr>
+						</f:for>
+					</tbody>
+				</table>
+			</div>
+			<div class="span3">
+				<div class="well">
+					<h3>Instructions</h3>
+					<p>Click on the <strong>New Form</strong> button to create a new Form from scratch.</p>
+					<p>Or click on the icons in order to <strong><i class="icon-search"></i> preview</strong>, <strong><i class="icon-pencil"></i> edit</strong> or <strong><i class="icon-plus-sign"></i> duplicate</strong> existing forms.</p>
+				</div>
+			</div>
+		</div>
+		<hr>
+		<footer>
+			<p>&copy; Company 2012</p>
+		</footer>
+	</div>
+
+	<div class="modal hide" id="modalNewForm">
+		<f:form action="create" class="form-horizontal">
+			<fieldset>
+				<div class="modal-header">
+					<a class="close" data-dismiss="modal">×</a>
+					<h3>New Form</h3>
+				</div>
+				<div class="modal-body">
+					<div class="control-group">
+						<label class="control-label" for="newFormName">Form Name</label>
+						<div class="controls">
+							<f:form.textfield name="formName" id="newFormName" class="input-large" />
+						</div>
+					</div>
+					<div class="control-group">
+						<label class="control-label" for="newFormTemplate">Form Template</label>
+						<div class="controls">
+							<f:form.select name="templatePath" id="newFormTemplate" options="{newFormTemplates}" />
+						</div>
+					</div>
+				</div>
+				<div class="modal-footer">
+					<button class="btn btn-primary">Create Form</button>
+					<button class="btn" data-dismiss="modal">Cancel</button>
+				</div>
+			</fieldset>
+		</f:form>
+	</div>
+
+	<div class="modal hide" id="modalDuplicateForm">
+		<f:form action="duplicate" class="form-horizontal">
+			<fieldset>
+				<div class="modal-header">
+					<a class="close" data-dismiss="modal">×</a>
+					<h3>Duplicate Form &quot;<span class="formName"></span>&quot;</h3>
+				</div>
+				<div class="modal-body">
+					<div class="control-group">
+						<label class="control-label" for="duplicateFormName">Form Name</label>
+						<div class="controls">
+							<f:form.textfield name="formName" id="duplicateFormName" class="input-large" />
+						</div>
+					</div>
+				</div>
+				<div class="modal-footer">
+					<f:form.hidden name="formPersistenceIdentifier" class="formPersistenceIdentifier" />
+					<button class="btn btn-primary">Duplicate Form</button>
+					<button class="btn" data-dismiss="modal">Cancel</button>
+				</div>
+			</fieldset>
+		</f:form>
+	</div>
+
+	<script src="../../../Public/JavaScript/jquery.min.js"></script>
+	<script src="../../../Public/JavaScript/bootstrap.min.js"></script>
+	<script src="../../../Public/JavaScript/FormManager.js"></script>
+
+</body>
+</html>

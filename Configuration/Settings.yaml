@@ -2,6 +2,7 @@ TYPO3:
   FormBuilder:
     newFormTemplates:
       'resource://TYPO3.FormBuilder/Private/NewFormTemplates/Blank.yaml': Blank
+    defaultFormPersistenceIdentifier: 'resource://TYPO3.FormBuilder/Private/Forms/{identifier}.yaml'
 
 
     handlebarsTemplates:

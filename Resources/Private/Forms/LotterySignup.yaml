@@ -23,7 +23,7 @@ renderables:
                 identifier: name
                 properties:
                     placeholder: 'Firstname Lastname'
-                defaultValue: ''
+                defaultValue: 'This Rocks!'
                 label: Name
             -
                 type: 'TYPO3.Form:Checkbox'
@@ -32,3 +32,8 @@ renderables:
                     -
                         name: TYPO3\FLOW3\Validation\Validator\NotEmptyValidator
                 label: AGBs
+    -
+        type: 'TYPO3.Form:PreviewPage'
+        identifier: previewpage1
+        label: previewpage1
+label: ''
