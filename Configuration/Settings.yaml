@@ -1,5 +1,9 @@
 TYPO3:
   FormBuilder:
+    newFormTemplates:
+      'resource://TYPO3.FormBuilder/Private/NewFormTemplates/Blank.yaml': Blank
+
+
     handlebarsTemplates:
       AvailableFormElements: resource://TYPO3.FormBuilder/Private/Templates/FormBuilder/AvailableFormElements.html
       FormTree: resource://TYPO3.FormBuilder/Private/Templates/FormBuilder/FormTree.html
@@ -14,6 +18,9 @@ TYPO3:
       ValidatorEditor: resource://TYPO3.FormBuilder/Private/Templates/FormBuilder/ValidatorEditor.html
 
   Form:
+    yamlPersistenceManager:
+      allowedDirectories:
+        formBuilder: 'resource://TYPO3.FormBuilder/Private/Forms/'
     supertypeResolver:
       hiddenProperties:
         formBuilder: formBuilder

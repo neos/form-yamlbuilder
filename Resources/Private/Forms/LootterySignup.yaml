@@ -1,0 +1,34 @@
+type: 'TYPO3.Form:Form'
+identifier: LotterySignup
+renderables:
+    -
+        type: 'TYPO3.Form:Page'
+        identifier: lotterySignup
+        label: 'Lottery Signup'
+        renderables:
+            -
+                type: 'TYPO3.Form:SingleLineText'
+                identifier: email
+                validators:
+                    -
+                        name: TYPO3\FLOW3\Validation\Validator\EmailAddressValidator
+                    -
+                        name: TYPO3\FLOW3\Validation\Validator\NotEmptyValidator
+                properties:
+                    placeholder: 'Enter your email here'
+                defaultValue: ''
+                label: Email
+            -
+                type: 'TYPO3.Form:SingleLineText'
+                identifier: name
+                properties:
+                    placeholder: 'Firstname Lastname'
+                defaultValue: ''
+                label: Name
+            -
+                type: 'TYPO3.Form:Checkbox'
+                identifier: readAgb
+                validators:
+                    -
+                        name: TYPO3\FLOW3\Validation\Validator\NotEmptyValidator
+                label: AGBs

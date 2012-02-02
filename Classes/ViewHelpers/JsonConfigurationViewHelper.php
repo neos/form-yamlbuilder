@@ -41,6 +41,10 @@ class JsonConfigurationViewHelper extends \TYPO3\Fluid\Core\ViewHelper\AbstractV
 		$configuration['cssFiles'] = isset($presetConfiguration['cssFiles']) ? $this->resolveCssFiles($presetConfiguration['cssFiles']) : array();
 
 		$configuration['endpoints']['formPageRenderer'] = $this->controllerContext->getUriBuilder()->uriFor('renderformpage');
+		$configuration['endpoints']['loadForm'] = $this->controllerContext->getUriBuilder()->uriFor('loadform');
+		$configuration['endpoints']['saveForm'] = $this->controllerContext->getUriBuilder()->uriFor('saveform');
+
+		$configuration['formPersistenceIdentifier'] = $this->controllerContext->getArguments()->getArgument('formPersistenceIdentifier')->getValue();
 
 		return json_encode($configuration);
 	}

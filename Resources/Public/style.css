@@ -84,7 +84,8 @@
   height: 50px;
   position: fixed;
   background: #222222;
-  color: white; }
+  color: white;
+  z-index: 1; }
 
 #leftSidebar {
   position: fixed;

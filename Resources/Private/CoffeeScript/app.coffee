@@ -9,6 +9,19 @@ window.TYPO3 = TYPO3
 # `TYPO3.FormBuilder` is the namespace where the whole package is inside
 TYPO3.FormBuilder = Ember.Application.create {
 	rootElement: 'body'
+	save: ->
+		console.log("Save clicked")
+
+		formDefinition = TYPO3.FormBuilder.Utility.convertToSimpleObject(TYPO3.FormBuilder.Model.Form.get('formDefinition'))
+		$.post(
+			TYPO3.FormBuilder.Configuration.endpoints.saveForm,
+			{
+				formPersistenceIdentifier: TYPO3.FormBuilder.Configuration?.formPersistenceIdentifier
+				formDefinition
+			},
+			(data, textStatus, jqXHR) =>
+				console.log("SAVED")
+		)
 }
 # `TYPO3.FormBuilder.Configuration` contains the server-side generated config array.
 TYPO3.FormBuilder.Configuration = window.FORMBUILDER_CONFIGURATION
@@ -17,52 +30,10 @@ if TYPO3.FormBuilder.Configuration?.cssFiles
 	for cssFile in TYPO3.FormBuilder.Configuration.cssFiles
 		$('head').append($('<link rel="stylesheet" />').attr('href', cssFile))
 
-window.setTimeout((->
-
-	TYPO3.FormBuilder.Model.Form.set('formDefinition', TYPO3.FormBuilder.Model.Renderable.create {
-		type: 'TYPO3.Form:Form',
-		identifier: 'myForm'
-		renderables: [
-			{
-				type: 'TYPO3.Form:Page',
-				identifier: 'myPage',
-				label: 'My Page 1'
-				renderables: [
-					{
-						identifier: 'foobarbaz'
-						type: 'TYPO3.Form:SingleLineText',
-						label: 'My Label'
-					}
-					{
-						identifier: 'foobarbaz2'
-						type: 'TYPO3.Form:SingleLineText',
-						label: 'My Label'
-					}
-					{
-						identifier: 'gender'
-						type: 'TYPO3.Form:SingleSelectRadiobuttons',
-						label: 'Gender'
-						properties: {
-							options: [
-								{
-									_key: 'm'
-									_value: 'Male'
-								}
-								{
-									_key: 'f'
-									_value: 'Female'
-								}
-							]
-						}
-					}
-				]
-			}
-			{
-				type: 'TYPO3.Form:Page',
-				identifier: 'myPage2',
-				label: ''
-			}
-		],
-
-	})
-), 2000);
+if TYPO3.FormBuilder.Configuration?.formPersistenceIdentifier
+	$.getJSON(
+		TYPO3.FormBuilder.Configuration.endpoints.loadForm,
+		{ formPersistenceIdentifier: TYPO3.FormBuilder.Configuration?.formPersistenceIdentifier },
+		(data, textStatus, jqXHR) =>
+			TYPO3.FormBuilder.Model.Form.set('formDefinition', TYPO3.FormBuilder.Model.Renderable.create(data))
+	)
