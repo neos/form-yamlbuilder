@@ -60,8 +60,11 @@ TYPO3.FormBuilder.View.FormTree = Ember.View.extend {
 					else
 						# source node is NO page
 						if targetNode.getLevel() == 1
-							# ... but target node is -> we only allow INSERTING
-							return ['over']
+							# ... but target node is -> we only allow INSERTING if the target node is also a composite renderable
+							if targetNode.data.formRenderable.getPath('typeDefinition.formBuilder._isCompositeRenderable')
+								return ['over']
+							else
+								return false
 						else
 							# both source and target nodes are no page
 							if targetNodeIsCompositeRenderable

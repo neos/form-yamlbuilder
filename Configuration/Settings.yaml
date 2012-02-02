@@ -64,6 +64,8 @@ TYPO3:
           'TYPO3.Form:Form':
             formBuilder:
               label: 'Form'
+              _isCompositeRenderable: false
+              _isTopLevel: true
 
           # group INPUT
           'TYPO3.Form:SingleLineText':
@@ -144,14 +146,16 @@ TYPO3:
               label: 'Page'
               group: container
               sorting: 110
-              _isPage: true
+              _isTopLevel: true
+              _isCompositeRenderable: true
 
           'TYPO3.Form:PreviewPage':
             formBuilder:
               label: 'Preview Page'
               group: container
               sorting: 120
-              _isPage: true
+              _isTopLevel: true
+              _isCompositeRenderable: false
 
 
           'TYPO3.Form:TextMixin':

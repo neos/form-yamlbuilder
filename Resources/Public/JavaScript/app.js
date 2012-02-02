@@ -383,20 +383,34 @@
       this.$().attr('title', this.getPath('formElementType.key'));
       return this.$().addClass(this.getPath('formElementType.__cssClassNames'));
     },
+    classNameBindings: ['enabled:formbuilder-enabled'],
+    enabled: (function() {
+      var currentlySelectedRenderable;
+      if (this.getPath('formElementType.formBuilder._isTopLevel')) return true;
+      currentlySelectedRenderable = this.get('currentlySelectedElement');
+      if (!currentlySelectedRenderable) return false;
+      if (currentlySelectedRenderable.getPath('typeDefinition.formBuilder._isTopLevel') && !currentlySelectedRenderable.getPath('typeDefinition.formBuilder._isCompositeRenderable')) {
+        return false;
+      }
+      return true;
+    }).property('formElementType', 'currentlySelectedElement').cacheable(),
     click: function() {
       var currentlySelectedRenderable, defaultValues, indexInParent, newRenderable, parentRenderablesArray, referenceRenderable;
       currentlySelectedRenderable = this.get('currentlySelectedElement');
       if (!currentlySelectedRenderable) return;
+      if (!this.get('enabled')) return;
       defaultValues = this.getPath('formElementType.formBuilder.predefinedDefaults') || {};
       newRenderable = TYPO3.FormBuilder.Model.Renderable.create($.extend({
         type: this.getPath('formElementType.key'),
         identifier: Ember.generateGuid(null, 'formElement')
       }, defaultValues));
-      if (!this.getPath('formElementType.formBuilder._isPage') && currentlySelectedRenderable.getPath('typeDefinition.formBuilder._isPage')) {
+      if (!this.getPath('formElementType.formBuilder._isTopLevel') && currentlySelectedRenderable.getPath('typeDefinition.formBuilder._isCompositeRenderable')) {
         currentlySelectedRenderable.get('renderables').pushObject(newRenderable);
       } else {
         referenceRenderable = currentlySelectedRenderable;
-        if (this.getPath('formElementType.formBuilder._isPage') && !currentlySelectedRenderable.getPath('typeDefinition.formBuilder._isPage')) {
+        if (referenceRenderable === TYPO3.FormBuilder.Model.Form.get('formDefinition')) {
+          referenceRenderable = referenceRenderable.getPath('renderables.0');
+        } else if (this.getPath('formElementType.formBuilder._isTopLevel') && !currentlySelectedRenderable.getPath('typeDefinition.formBuilder._isTopLevel')) {
           referenceRenderable = referenceRenderable.findEnclosingPage();
         }
         parentRenderablesArray = referenceRenderable.getPath('parentRenderable.renderables');
@@ -437,7 +451,11 @@
               }
             } else {
               if (targetNode.getLevel() === 1) {
-                return ['over'];
+                if (targetNode.data.formRenderable.getPath('typeDefinition.formBuilder._isCompositeRenderable')) {
+                  return ['over'];
+                } else {
+                  return false;
+                }
               } else {
                 if (targetNodeIsCompositeRenderable) {
                   return ['before', 'over', 'after'];

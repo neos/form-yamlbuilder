@@ -134,7 +134,7 @@
 #leftSidebar .availableFormElements ul {
   padding-left: 10px; }
 #leftSidebar .availableFormElements ul li {
-  cursor: pointer;
+  opacity: 0.5;
   background-color: #3c3c3c;
   padding: 3px;
   padding-left: 25px;
@@ -151,8 +151,11 @@
     text-align: center;
     color: black;
     font-weight: bold; }
-  #leftSidebar .availableFormElements ul li:hover:before {
-    background: #ff8700; }
+  #leftSidebar .availableFormElements ul li.formbuilder-enabled {
+    cursor: pointer;
+    opacity: 1; }
+    #leftSidebar .availableFormElements ul li.formbuilder-enabled:hover:before {
+      background: #ff8700; }
 
 #leftSidebar, #rightSidebar {
   overflow: auto;

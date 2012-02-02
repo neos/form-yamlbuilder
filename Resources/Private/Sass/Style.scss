@@ -56,9 +56,8 @@ $colorHighlight: #FF8700;
 			padding-left: 10px;
 		}
 		ul li {
-			cursor: pointer;
+			opacity: 0.5;
 			background-color: $colorLighterBackground;
-
 			padding: 3px;
 			padding-left: 25px;
 			margin-top: 3px;
@@ -77,8 +76,13 @@ $colorHighlight: #FF8700;
 				color: black;
 				font-weight: bold;
 			}
-			&:hover:before {
-				background: $colorHighlight;
+
+			&.formbuilder-enabled {
+				cursor: pointer;
+				opacity: 1;
+				&:hover:before {
+					background: $colorHighlight;
+				}
 			}
 		}
 	}

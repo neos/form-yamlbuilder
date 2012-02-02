@@ -168,8 +168,8 @@ TYPO3.FormBuilder.Model.Renderable.reopenClass {
 # It especially contains the following structure:
 TYPO3.FormBuilder.Model.FormElementType = Ember.Object.extend {
 	# * formBuilder
-	#    * `_isCompositeRenderable`: if TRUE, it is a composite renderable like a section or a fieldset. Note: Pages do NOT have this flag set.
-	#    * `_isPage`: if TRUE, is a "Page", i.e. appears in the first level directly underneath the form object
+	#    * `_isCompositeRenderable`: if TRUE, it is a composite renderable like a section or a fieldset or a page, i.e. it is allowed to insert SIMPLE FORM ELEMENTS INSIDE this element. Form and Page have this set to FALSE.
+	#    * `_isTopLevel`: if TRUE, is a "Page" or a "Form", i.e. appears in the first level directly underneath the form object
 	# * type
 	type: null
 
