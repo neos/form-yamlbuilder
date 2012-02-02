@@ -6,12 +6,22 @@
 TYPO3 = window.TYPO3 || {}
 window.TYPO3 = TYPO3
 
+window.onbeforeunload = (e) ->
+	return undefined unless TYPO3.FormBuilder.Model.Form.get('unsavedContent')
+
+	e = e || window.event
+
+	text = 'There is unsaved content. Are you sure that you want to close the browser?'
+	if e
+		e.returnValue = text
+
+	return text
+
 # `TYPO3.FormBuilder` is the namespace where the whole package is inside
 TYPO3.FormBuilder = Ember.Application.create {
 	rootElement: 'body'
-	save: ->
-		console.log("Save clicked")
 
+	save: ->
 		formDefinition = TYPO3.FormBuilder.Utility.convertToSimpleObject(TYPO3.FormBuilder.Model.Form.get('formDefinition'))
 		$.post(
 			TYPO3.FormBuilder.Configuration.endpoints.saveForm,
@@ -20,7 +30,7 @@ TYPO3.FormBuilder = Ember.Application.create {
 				formDefinition
 			},
 			(data, textStatus, jqXHR) =>
-				console.log("SAVED")
+				TYPO3.FormBuilder.Model.Form.set('unsavedContent', false)
 		)
 }
 # `TYPO3.FormBuilder.Configuration` contains the server-side generated config array.

@@ -21,6 +21,10 @@ TYPO3.FormBuilder.Model.Form = Ember.Object.create {
 	# ###Public Properties###
 	# * `formDefinition`: Reference to the `Renderable` object for the form.
 	formDefinition: null,
+
+	# * `unsavedContent`: if TRUE, has unsaved content. FALSE otherwise.
+	unsavedContent: false,
+
 	# * `currentlySelectedRenderable`: Reference to the currently selected `Renderable` object.
 	currentlySelectedRenderable: null
 
@@ -32,6 +36,16 @@ TYPO3.FormBuilder.Model.Form = Ember.Object.create {
 		return unless @get('formDefinition')
 		@set('currentlySelectedRenderable', @get('formDefinition'))
 	).observes('formDefinition')
+
+	setUnsavedContentFalseWhenLoadingFormDefinition: (->
+		@set('unsavedContent', false)
+	).observes('formDefinition')
+
+	contentChanged: ( ->
+		@set('unsavedContent', true)
+	).observes('formDefinition.__nestedPropertyChange')
+
+
 }
 
 # ***

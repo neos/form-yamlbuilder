@@ -7,18 +7,26 @@
 
   window.TYPO3 = TYPO3;
 
+  window.onbeforeunload = function(e) {
+    var text;
+    if (!TYPO3.FormBuilder.Model.Form.get('unsavedContent')) return;
+    e = e || window.event;
+    text = 'There is unsaved content. Are you sure that you want to close the browser?';
+    if (e) e.returnValue = text;
+    return text;
+  };
+
   TYPO3.FormBuilder = Ember.Application.create({
     rootElement: 'body',
     save: function() {
       var formDefinition, _ref,
         _this = this;
-      console.log("Save clicked");
       formDefinition = TYPO3.FormBuilder.Utility.convertToSimpleObject(TYPO3.FormBuilder.Model.Form.get('formDefinition'));
       return $.post(TYPO3.FormBuilder.Configuration.endpoints.saveForm, {
         formPersistenceIdentifier: (_ref = TYPO3.FormBuilder.Configuration) != null ? _ref.formPersistenceIdentifier : void 0,
         formDefinition: formDefinition
       }, function(data, textStatus, jqXHR) {
-        return console.log("SAVED");
+        return TYPO3.FormBuilder.Model.Form.set('unsavedContent', false);
       });
     }
   });
@@ -65,11 +73,18 @@
 
   TYPO3.FormBuilder.Model.Form = Ember.Object.create({
     formDefinition: null,
+    unsavedContent: false,
     currentlySelectedRenderable: null,
     onFormDefinitionChange: (function() {
       if (!this.get('formDefinition')) return;
       return this.set('currentlySelectedRenderable', this.get('formDefinition'));
-    }).observes('formDefinition')
+    }).observes('formDefinition'),
+    setUnsavedContentFalseWhenLoadingFormDefinition: (function() {
+      return this.set('unsavedContent', false);
+    }).observes('formDefinition'),
+    contentChanged: (function() {
+      return this.set('unsavedContent', true);
+    }).observes('formDefinition.__nestedPropertyChange')
   });
 
   TYPO3.FormBuilder.Model.Renderable = Ember.Object.extend({
