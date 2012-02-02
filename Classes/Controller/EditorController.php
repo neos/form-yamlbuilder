@@ -57,7 +57,7 @@ class EditorController extends \TYPO3\FLOW3\MVC\Controller\ActionController {
 	 * @param integer $currentPageIndex
 	 */
 	public function renderformpageAction($formDefinition, $currentPageIndex) {
-		$formFactory = new \TYPO3\FormBuilder\FormBuilderFactory();
+		$formFactory = new \TYPO3\Form\Factory\ArrayFormFactory();
 		$formDefinition = $formFactory->build($formDefinition, 'Default');
 		$formDefinition->setRenderingOption('previewMode', TRUE);
 		$form = $formDefinition->bind($this->request);

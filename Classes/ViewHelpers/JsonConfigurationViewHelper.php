@@ -21,7 +21,7 @@ class JsonConfigurationViewHelper extends \TYPO3\Fluid\Core\ViewHelper\AbstractV
 
 	/**
 	 * @FLOW3\Inject
-	 * @var \TYPO3\FormBuilder\FormBuilderFactory
+	 * @var \TYPO3\Form\Factory\ArrayFormFactory
 	 */
 	protected $formBuilderFactory;
 

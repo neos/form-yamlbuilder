@@ -27,6 +27,13 @@ class SelectFormController extends \TYPO3\FLOW3\MVC\Controller\ActionController 
 	}
 
 	/**
+	 * @param string $formPersistenceIdentifier
+	 */
+	public function showAction($formPersistenceIdentifier) {
+		$this->view->assign('formPersistenceIdentifier', $formPersistenceIdentifier);
+	}
+
+	/**
 	 *
 	 * @param string $formName
 	 * @param string $formPersistenceIdentifier
@@ -36,8 +43,7 @@ class SelectFormController extends \TYPO3\FLOW3\MVC\Controller\ActionController 
 		if (!isset($this->settings['newFormTemplates'][$templatePath])) {
 			throw new \TYPO3\FLOW3\Exception('TODO: the template "' . $templatePath . '" was not allowed');
 		}
-
-		$form = $this->formPersistenceManager->load($templatePath, FALSE);
+		$form = \Symfony\Component\Yaml\Yaml::parse(file_get_contents($templatePath));
 		$form['identifier'] = $formName;
 		$this->formPersistenceManager->save($formPersistenceIdentifier, $form);
 

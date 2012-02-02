@@ -9,6 +9,7 @@
 			<f:for each="{forms}" key="formPersistenceIdentifier" as="formName">
 				<li>
 					<f:link.action controller="Editor" action="index" arguments="{formPersistenceIdentifier: formPersistenceIdentifier}">{formName} -- {formPersistenceIdentifier}</f:link.action>
+					-- <f:link.action action="show" arguments="{formPersistenceIdentifier: formPersistenceIdentifier}">Show</f:link.action>
 				</li>
 			</f:for>
 		</ul>
