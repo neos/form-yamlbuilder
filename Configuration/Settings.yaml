@@ -18,9 +18,6 @@ TYPO3:
       ValidatorEditor: resource://TYPO3.FormBuilder/Private/Templates/FormBuilder/ValidatorEditor.html
 
   Form:
-    yamlPersistenceManager:
-      allowedDirectories:
-        formBuilder: 'resource://TYPO3.FormBuilder/Private/Forms/'
     supertypeResolver:
       hiddenProperties:
         formBuilder: formBuilder

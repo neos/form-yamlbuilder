@@ -1,0 +1,5 @@
+TYPO3:
+  Form:
+    yamlPersistenceManager:
+      allowedDirectories:
+        formBuilder: resource://TYPO3.FormBuilder/Private/Forms/
