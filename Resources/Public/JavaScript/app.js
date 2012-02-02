@@ -688,22 +688,28 @@
 
   TYPO3.FormBuilder.View.Editor.TextOutput = TYPO3.FormBuilder.View.Editor.AbstractEditor.extend({});
 
-  TYPO3.FormBuilder.View.Editor.LabelEditor = TYPO3.FormBuilder.View.Editor.AbstractEditor.extend({
-    templateName: 'LabelEditor',
-    label: (function(k, v) {
-      if (v !== void 0) {
-        return this.setPath('formElement.label', v);
-      } else {
-        return this.getPath('formElement.label');
-      }
-    }).property('formElement').cacheable(),
-    identifier: (function(k, v) {
-      if (v !== void 0) {
-        return this.setPath('formElement.identifier', v);
-      } else {
-        return this.getPath('formElement.identifier');
-      }
-    }).property('formElement').cacheable()
+  TYPO3.FormBuilder.View.Editor.IdentifierEditor = TYPO3.FormBuilder.View.Editor.AbstractPropertyEditor.extend({
+    templateName: 'IdentifierEditor',
+    propertyPath: 'identifier',
+    editMode: false,
+    click: function() {
+      return this.set('editMode', true);
+    }
+  });
+
+  TYPO3.FormBuilder.View.Editor.IdentifierEditor.TextField = Ember.TextField.extend({
+    insertNewline: function() {
+      return this.setPath('parentView.editMode', false);
+    },
+    cancel: function() {
+      return this.setPath('parentView.editMode', false);
+    },
+    focusOut: function() {
+      return this.setPath('parentView.editMode', false);
+    },
+    didInsertElement: function() {
+      return this.$().select();
+    }
   });
 
   TYPO3.FormBuilder.View.Editor.TextEditor = TYPO3.FormBuilder.View.Editor.AbstractPropertyEditor.extend({

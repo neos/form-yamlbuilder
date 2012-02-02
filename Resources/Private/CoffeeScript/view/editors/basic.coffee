@@ -19,26 +19,33 @@ TYPO3.FormBuilder.View.Editor.TextOutput = TYPO3.FormBuilder.View.Editor.Abstrac
 }
 
 # ***
-# ##Class Editor.LabelEditor##
+# ##Class Editor.IdentifierEditor##
 #
-# This editor makes the `identifier` and the `label` of a form element editable.
+# This editor makes the `identifier` of a form element editable.
 #
-# TODO: if the `identifier` is automatically assigned, update it from the label as soon
-# as the label is inserted.
-TYPO3.FormBuilder.View.Editor.LabelEditor = TYPO3.FormBuilder.View.Editor.AbstractEditor.extend {
-	templateName: 'LabelEditor'
-	label: ( (k, v) ->
-		if v != undefined
-			@setPath('formElement.label', v)
-		else
-			@getPath('formElement.label')
-	).property('formElement').cacheable()
-	identifier: ( (k, v)->
-		if v != undefined
-			@setPath('formElement.identifier', v)
-		else
-			@getPath('formElement.identifier')
-	).property('formElement').cacheable()
+TYPO3.FormBuilder.View.Editor.IdentifierEditor = TYPO3.FormBuilder.View.Editor.AbstractPropertyEditor.extend {
+	templateName: 'IdentifierEditor'
+
+	propertyPath: 'identifier'
+
+	# ###Private###
+
+	editMode: false
+
+	click: ->
+		@set('editMode', true)
+}
+
+# special text field which selects its contents when being clicked upon
+TYPO3.FormBuilder.View.Editor.IdentifierEditor.TextField = Ember.TextField.extend {
+	insertNewline: ->
+		@setPath('parentView.editMode', false)
+	cancel: ->
+		@setPath('parentView.editMode', false)
+	focusOut: ->
+		@setPath('parentView.editMode', false)
+	didInsertElement: ->
+		@$().select()
 }
 
 # ***

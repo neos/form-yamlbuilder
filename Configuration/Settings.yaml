@@ -7,7 +7,7 @@ TYPO3:
     handlebarsTemplates:
       AvailableFormElements: resource://TYPO3.FormBuilder/Private/Templates/FormBuilder/AvailableFormElements.html
       FormTree: resource://TYPO3.FormBuilder/Private/Templates/FormBuilder/FormTree.html
-      LabelEditor: resource://TYPO3.FormBuilder/Private/Templates/FormBuilder/LabelEditor.html
+      IdentifierEditor: resource://TYPO3.FormBuilder/Private/Templates/FormBuilder/IdentifierEditor.html
       PropertyGridEditor: resource://TYPO3.FormBuilder/Private/Templates/FormBuilder/PropertyGridEditor.html
       PropertyPanelTitle: resource://TYPO3.FormBuilder/Private/Templates/FormBuilder/PropertyPanelTitle.html
       RequiredValidatorEditor: resource://TYPO3.FormBuilder/Private/Templates/FormBuilder/RequiredValidatorEditor.html
@@ -42,15 +42,19 @@ TYPO3:
         formElementTypes:
           'TYPO3.Form:Base':
             formBuilder:
-              #todo rename to "editors"
               editors:
                 elementType:
                   sorting: 100
                   viewName: 'TYPO3.FormBuilder.View.Editor.TextOutput'
                   templateName: 'PropertyPanelTitle'
-                labelAndIdentifier:
+                identifier:
                   sorting: 110
-                  viewName: 'TYPO3.FormBuilder.View.Editor.LabelEditor'
+                  viewName: 'TYPO3.FormBuilder.View.Editor.IdentifierEditor'
+                label:
+                  label: 'Label'
+                  propertyPath: 'label'
+                  sorting: 120
+                  viewName: 'TYPO3.FormBuilder.View.Editor.TextEditor'
           'TYPO3.Form:FormElement':
             formBuilder:
               editors:
