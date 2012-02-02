@@ -116,6 +116,10 @@
   #main .formbuilder-form-element-selected {
     background: #CCC; }
 
+#header h1 {
+  font-size: 22px;
+  font-weight: bold; }
+
 #leftSidebar ul.dynatree-container {
   background-color: #222222 !important;
   color: white !important; }
