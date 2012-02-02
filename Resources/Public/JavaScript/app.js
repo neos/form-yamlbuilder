@@ -519,7 +519,8 @@
         newNode = dynaTreeParentNode.addChild({
           key: subRenderable.get('_path'),
           title: "" + (subRenderable.label ? subRenderable.label : subRenderable.identifier) + " (" + (subRenderable.getPath('typeDefinition.formBuilder.label')) + ")",
-          formRenderable: subRenderable
+          formRenderable: subRenderable,
+          addClass: "formbuilder-group-" + (subRenderable.getPath('typeDefinition.formBuilder.group')) + " formbuilder-type-" + (subRenderable.getPath('type').toLowerCase().replace(/[^a-z0-9]/g, '-'))
         });
         _results.push(this.updateTreeStateFromModel(newNode, subRenderable.getPath('renderables')));
       }
