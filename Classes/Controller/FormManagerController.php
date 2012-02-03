@@ -38,7 +38,7 @@ class FormManagerController extends \TYPO3\FLOW3\MVC\Controller\ActionController
 	 * @param string $presetName
 	 * @return void
 	 */
-	public function showAction($formPersistenceIdentifier, $presetName = NULL) {
+	public function showAction($formPersistenceIdentifier, $presetName = 'Default') {
 		$this->view->assign('formPersistenceIdentifier', $formPersistenceIdentifier);
 		$this->view->assign('presetName', $presetName);
 	}

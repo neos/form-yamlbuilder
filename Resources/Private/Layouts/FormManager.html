@@ -1,0 +1,52 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+	<meta charset="utf-8">
+	<f:base />
+	<title>TYPO3 Form Builder :: Form Manager</title>
+	<!--[if lt IE 9]>
+		<script src="http://html5shim.googlecode.com/svn/trunk/html5.js"></script>
+	<![endif]-->
+
+	<link href="../../../Public/Css/bootstrap.min.css" rel="stylesheet">
+	<link href="../../../Public/Css/FormManager.css" rel="stylesheet">
+</head>
+<body>
+
+	<div class="navbar navbar-fixed-top">
+		<div class="navbar-inner">
+			<div class="container">
+				<a class="btn btn-navbar" data-toggle="collapse" data-target=".nav-collapse">
+					<span class="icon-bar"></span>
+					<span class="icon-bar"></span>
+					<span class="icon-bar"></span>
+				</a>
+				<f:link.action action="index" controller="Standard" class="brand">TYPO3 Form Builder</f:link.action>
+			</div>
+		</div>
+	</div>
+	<div class="container-fluid">
+		<div class="row-fluid">
+			<div class="span6">
+				<f:render section="MainContent" />
+			</div>
+			<div class="span3">
+				<div class="well">
+					<f:render section="SecondaryContent" />
+				</div>
+			</div>
+		</div>
+		<hr>
+		<footer>
+			<p><f:link.action action="index" controller="Standard">Home</f:link.action> | Powered by <a href="http://flow3.typo3.org">FLOW3 <img src="../../../Public/Images/flow3Logo.png" width="11" height="11" /></a></p>
+		</footer>
+	</div>
+
+	<f:render section="FooterContent" />
+
+	<script src="../../../Public/JavaScript/jquery.min.js"></script>
+	<script src="../../../Public/JavaScript/bootstrap.min.js"></script>
+	<script src="../../../Public/JavaScript/FormManager.js"></script>
+
+</body>
+</html>

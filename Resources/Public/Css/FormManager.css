@@ -3,6 +3,14 @@ body {
 	padding-bottom: 40px;
 }
 
+footer p {
+	text-align: center; /* center align it with the container */
+}
+
+footer a {
+	color: #404040;
+}
+
 [class^="icon-"] {
 	background-image: url(../Images/glyphicons-halflings.png);
 }
