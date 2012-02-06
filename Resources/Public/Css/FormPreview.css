@@ -1,0 +1,10 @@
+#presetSelector {
+	position: absolute;
+	top: 5px;
+	right: 5px;
+	height: 1em;
+	background: #ccc;
+}
+#presetSelector select {
+	width: 120px;
+}
