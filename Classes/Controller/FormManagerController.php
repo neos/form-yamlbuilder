@@ -22,6 +22,28 @@ class FormManagerController extends \TYPO3\FLOW3\MVC\Controller\ActionController
 	protected $formPersistenceManager;
 
 	/**
+	 * The settings of the TYPO3.Form package
+	 *
+	 * @var array
+	 * @api
+	 */
+	protected $formSettings;
+
+	/**
+	 * @FLOW3\Inject
+	 * @var \TYPO3\FLOW3\Configuration\ConfigurationManager
+	 * @internal
+	 */
+	protected $configurationManager;
+
+	/**
+	 * @internal
+	 */
+	public function initializeObject() {
+		$this->formSettings = $this->configurationManager->getConfiguration(\TYPO3\FLOW3\Configuration\ConfigurationManager::CONFIGURATION_TYPE_SETTINGS, 'TYPO3.Form');
+	}
+
+	/**
 	 * Displays the Form Manager in all its glory
 	 *
 	 * @return void
@@ -38,9 +60,14 @@ class FormManagerController extends \TYPO3\FLOW3\MVC\Controller\ActionController
 	 * @param string $presetName
 	 * @return void
 	 */
-	public function showAction($formPersistenceIdentifier, $presetName = 'Default') {
+	public function showAction($formPersistenceIdentifier, $presetName = 'default') {
 		$this->view->assign('formPersistenceIdentifier', $formPersistenceIdentifier);
 		$this->view->assign('presetName', $presetName);
+		$availablePresets = array();
+		foreach ($this->formSettings['presets'] as $presetName => $presetConfiguration) {
+			$availablePresets[$presetName] = isset($presetConfiguration['title']) ? $presetConfiguration['title'] : sprintf('[%s]', $presetName);
+		}
+		$this->view->assign('availablePresets', $availablePresets);
 	}
 
 	/**

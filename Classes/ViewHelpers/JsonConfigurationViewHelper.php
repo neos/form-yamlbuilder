@@ -29,41 +29,57 @@ class JsonConfigurationViewHelper extends \TYPO3\Fluid\Core\ViewHelper\AbstractV
 	 * @param string $presetName
 	 * @return type
 	 */
-	public function render($presetName = 'Default') {
-		$configuration = array();
+	public function render($presetName = 'default') {
+		$presetName = 'bootstrap';
+		$mergedConfiguration = array();
 
 		$presetConfiguration = $this->formBuilderFactory->getPresetConfiguration($presetName);
 		$supertypeResolver = new \TYPO3\Form\Utility\SupertypeResolver($presetConfiguration['formElementTypes']);
-		$configuration['formElementTypes'] = $supertypeResolver->getCompleteMergedTypeDefinition(TRUE);
+		$mergedConfiguration['formElementTypes'] = $supertypeResolver->getCompleteMergedTypeDefinition(TRUE);
 
-		$configuration['formElementGroups'] = isset($presetConfiguration['formElementGroups']) ? $presetConfiguration['formElementGroups'] : array();
+		$mergedConfiguration['formElementGroups'] = isset($presetConfiguration['formElementGroups']) ? $presetConfiguration['formElementGroups'] : array();
 
-		$configuration['cssFiles'] = isset($presetConfiguration['cssFiles']) ? $this->resolveCssFiles($presetConfiguration['cssFiles']) : array();
+		$stylesheets = isset($presetConfiguration['stylesheets']) ? $presetConfiguration['stylesheets'] : array();
+		$mergedConfiguration['stylesheets'] = array();
+		foreach ($stylesheets as $stylesheet) {
+			if (isset($stylesheet['skipInFormBuilder']) && $stylesheet['skipInFormBuilder'] === TRUE) {
+				continue;
+			}
+			$mergedConfiguration['stylesheets'][] = $this->resolveResourcePath($stylesheet['source']);
+		}
 
-		$configuration['endpoints']['formPageRenderer'] = $this->controllerContext->getUriBuilder()->uriFor('renderformpage');
-		$configuration['endpoints']['loadForm'] = $this->controllerContext->getUriBuilder()->uriFor('loadform');
-		$configuration['endpoints']['saveForm'] = $this->controllerContext->getUriBuilder()->uriFor('saveform');
+		$javaScripts = isset($presetConfiguration['javaScripts']) ? $presetConfiguration['javaScripts'] : array();
+		$mergedConfiguration['javaScripts'] = array();
+		foreach ($javaScripts as $javaScript) {
+			if (isset($javaScript['skipInFormBuilder']) && $javaScript['skipInFormBuilder'] === TRUE) {
+				continue;
+			}
+			$mergedConfiguration['javaScripts'][] = $this->resolveResourcePath($javaScript['source']);
+		}
 
-		$configuration['formPersistenceIdentifier'] = $this->controllerContext->getArguments()->getArgument('formPersistenceIdentifier')->getValue();
+		$mergedConfiguration['endpoints']['formPageRenderer'] = $this->controllerContext->getUriBuilder()->uriFor('renderformpage');
+		$mergedConfiguration['endpoints']['loadForm'] = $this->controllerContext->getUriBuilder()->uriFor('loadform');
+		$mergedConfiguration['endpoints']['saveForm'] = $this->controllerContext->getUriBuilder()->uriFor('saveform');
 
-		return json_encode($configuration);
+		$mergedConfiguration['formPersistenceIdentifier'] = $this->controllerContext->getArguments()->getArgument('formPersistenceIdentifier')->getValue();
+
+		return json_encode($mergedConfiguration);
 	}
 
-	protected function resolveCssFiles(array $cssFiles) {
-		$processedCssFiles = array();
-		foreach ($cssFiles as $cssFile) {
-			// TODO: This method should be somewhere in the resource manager probably?
-			if (preg_match('#resource://([^/]*)/Public/(.*)#', $cssFile, $matches) > 0) {
-				$package = $matches[1];
-				$path = $matches[2];
-
-				$processedCssFiles[] = $this->resourcePublisher->getStaticResourcesWebBaseUri() . 'Packages/' . $package . '/' . $path;
-
-			} else {
-				$processedCssFiles[] = $cssFile;
-			}
+	/**
+	 * @param string $resourcePath
+	 * @return string
+	 */
+	protected function resolveResourcePath($resourcePath) {
+		// TODO: This method should be somewhere in the resource manager probably?
+		$matches = array();
+		preg_match('#resource://([^/]*)/Public/(.*)#', $resourcePath, $matches);
+		if ($matches === array()) {
+			throw new \TYPO3\Fluid\Core\ViewHelper\Exception('Resource path "' . $resourcePath . '" can\'t be resolved.', 1328543327);
 		}
-		return $processedCssFiles;
+		$package = $matches[1];
+		$path = $matches[2];
+		return $this->resourcePublisher->getStaticResourcesWebBaseUri() . 'Packages/' . $package . '/' . $path;
 	}
 }
 ?>

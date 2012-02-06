@@ -59,7 +59,8 @@ class EditorController extends \TYPO3\FLOW3\MVC\Controller\ActionController {
 	 */
 	public function renderformpageAction($formDefinition, $currentPageIndex) {
 		$formFactory = new \TYPO3\Form\Factory\ArrayFormFactory();
-		$formDefinition = $formFactory->build($formDefinition, 'Default');
+		// TODO make preset name changable
+		$formDefinition = $formFactory->build($formDefinition, 'default');
 		$formDefinition->setRenderingOption('previewMode', TRUE);
 		$form = $formDefinition->bind($this->request);
 		$form->overrideCurrentPage($currentPageIndex);

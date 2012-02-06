@@ -22,9 +22,9 @@ TYPO3:
     supertypeResolver:
       hiddenProperties:
         formBuilder: formBuilder
-    Presets:
+    presets:
       ########### DEFAULT ###########
-      Default:
+      default:
         formElementGroups:
           input:
             sorting: 100
@@ -39,7 +39,6 @@ TYPO3:
             sorting: 400
             label: 'Container Form Elements'
 
-        cssFiles: ['resource://TYPO3.FormExample/Public/Css/bootstrap.min.css', 'resource://TYPO3.FormExample/Public/Css/main.css']
         formElementTypes:
           'TYPO3.Form:Base':
             formBuilder:

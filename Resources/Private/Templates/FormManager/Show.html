@@ -3,9 +3,16 @@
 	<head>
 		<meta charset="utf-8">
 		<f:base />
+		<link href="../../../Public/Css/FormPreview.css" rel="stylesheet">
 		<form:renderHead presetName="{presetName}" />
 	</head>
 	<body>
+		<div id="presetSelector">
+			<f:form action="show" method="get">
+				<f:form.select name="presetName" options="{availablePresets}" value="{presetName}" additionalAttributes="{onchange: 'this.form.submit()'}" />
+				<f:form.hidden name="formPersistenceIdentifier" value="{formPersistenceIdentifier}" />
+			</f:form>
+		</div>
 		<form:render persistenceIdentifier="{formPersistenceIdentifier}" presetName="{presetName}" />
 	</body>
 </html>
