@@ -1,7 +1,10 @@
 <div class="formbuilder-element">
 	<label>Identifier:</label>
 	{{#if editMode}}
-		{{view TYPO3.FormBuilder.View.Editor.IdentifierEditor.TextField valueBinding="value"}}
+		{{view TYPO3.FormBuilder.View.Editor.IdentifierEditor.TextField valueBinding="textFieldValue"}}
+		{{#if validationErrorMessage}}
+			<span class="error">{{validationErrorMessage}}</span>
+		{{/if}}
 	{{/if}}
 	{{#unless editMode}}
 		{{value}}

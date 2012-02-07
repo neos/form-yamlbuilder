@@ -1,6 +1,6 @@
 {{label}}
 {{#view Ember.Button target="parentView" action="remove" isVisibleBinding="notRequired"}}Remove{{/view}}<br />
 <table><tr>
-	<td><label>Minimum:</label>{{view Ember.TextField valueBinding="minimum"}}</td>
-	<td><label>Maximum:</label>{{view Ember.TextField valueBinding="maximum"}}</td>
+	<td><label>Minimum:</label>{{view TYPO3.FormBuilder.TextField validatedValueBinding="minimum" validatorName="TYPO3.FormBuilder.Validators.isNumberOrBlank" }}</td>
+	<td><label>Maximum:</label>{{view TYPO3.FormBuilder.TextField validatedValueBinding="maximum" validatorName="TYPO3.FormBuilder.Validators.isNumberOrBlank" }}</td>
 </tr></table>

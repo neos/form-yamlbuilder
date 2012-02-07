@@ -51,3 +51,33 @@ if TYPO3.FormBuilder.Configuration?.formPersistenceIdentifier
 		(data, textStatus, jqXHR) =>
 			TYPO3.FormBuilder.Model.Form.set('formDefinition', TYPO3.FormBuilder.Model.Renderable.create(data))
 	)
+
+TYPO3.FormBuilder.Validators = {}
+TYPO3.FormBuilder.Validators.isNumberOrBlank = (n) ->
+	return true if n == '' or n == null or n == undefined
+	return !isNaN(parseFloat(n)) && isFinite(n);
+
+
+TYPO3.FormBuilder.TextField = Ember.TextField.extend {
+	_lastValidValue: false
+	validatorName: null
+
+	validate: (v) ->
+		if @get('validatorName')
+			validator = Ember.getPath(@get('validatorName'))
+			return validator.call(this, v)
+		return true
+
+	validatedValue: ((k, v) ->
+		if arguments.length >= 2
+			if @validate(v)
+				this._lastValidValue = v
+
+			return this._lastValidValue
+		else
+			return this._lastValidValue
+	).property().cacheable()
+
+
+	valueBinding: 'validatedValue'
+}

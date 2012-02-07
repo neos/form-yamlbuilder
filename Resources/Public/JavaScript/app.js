@@ -57,6 +57,35 @@
     });
   }
 
+  TYPO3.FormBuilder.Validators = {};
+
+  TYPO3.FormBuilder.Validators.isNumberOrBlank = function(n) {
+    if (n === '' || n === null || n === void 0) return true;
+    return !isNaN(parseFloat(n)) && isFinite(n);
+  };
+
+  TYPO3.FormBuilder.TextField = Ember.TextField.extend({
+    _lastValidValue: false,
+    validatorName: null,
+    validate: function(v) {
+      var validator;
+      if (this.get('validatorName')) {
+        validator = Ember.getPath(this.get('validatorName'));
+        return validator.call(this, v);
+      }
+      return true;
+    },
+    validatedValue: (function(k, v) {
+      if (arguments.length >= 2) {
+        if (this.validate(v)) this._lastValidValue = v;
+        return this._lastValidValue;
+      } else {
+        return this._lastValidValue;
+      }
+    }).property().cacheable(),
+    valueBinding: 'validatedValue'
+  });
+
   TYPO3.FormBuilder.Utility = {};
 
   convertToSimpleObject = function(input) {
@@ -700,20 +729,70 @@
     templateName: 'IdentifierEditor',
     propertyPath: 'identifier',
     editMode: false,
+    textFieldValue: null,
+    validationErrorMessage: null,
+    validate: function(v) {
+      var elementsWithIdentifier, findFormElementsWithIdentifiers;
+      if (v === '') {
+        this.set('validationErrorMessage', 'You need to set an identifier!');
+        return false;
+      }
+      elementsWithIdentifier = [];
+      findFormElementsWithIdentifiers = function(el) {
+        var subRenderable, _k, _len3, _ref7, _results;
+        if (el.get('identifier') === v) elementsWithIdentifier.push(v);
+        _ref7 = el.get('renderables');
+        _results = [];
+        for (_k = 0, _len3 = _ref7.length; _k < _len3; _k++) {
+          subRenderable = _ref7[_k];
+          _results.push(findFormElementsWithIdentifiers(subRenderable));
+        }
+        return _results;
+      };
+      findFormElementsWithIdentifiers(TYPO3.FormBuilder.Model.Form.get('formDefinition'));
+      if (elementsWithIdentifier.length === 0) {
+        this.set('validationErrorMessage', null);
+        return true;
+      } else if (elementsWithIdentifier.length === 1 && elementsWithIdentifier[0] === this.get('formElement')) {
+        this.set('validationErrorMessage', null);
+        return true;
+      } else {
+        this.set('validationErrorMessage', 'The identifier is already used');
+        return false;
+      }
+    },
+    commit: function() {
+      if (this.validate(this.get('textFieldValue'))) {
+        this.set('value', this.get('textFieldValue'));
+        this.set('editMode', false);
+        return true;
+      } else {
+        return false;
+      }
+    },
+    tryToCommit: function() {
+      if (!this.commit()) return this.abort();
+    },
+    abort: function() {
+      return this.set('editMode', false);
+    },
     click: function() {
-      return this.set('editMode', true);
+      if (!this.get('editMode')) {
+        this.set('textFieldValue', this.get('value'));
+        return this.set('editMode', true);
+      }
     }
   });
 
   TYPO3.FormBuilder.View.Editor.IdentifierEditor.TextField = Ember.TextField.extend({
     insertNewline: function() {
-      return this.setPath('parentView.editMode', false);
+      return this.get('parentView').commit();
     },
     cancel: function() {
-      return this.setPath('parentView.editMode', false);
+      return this.get('parentView').abort();
     },
     focusOut: function() {
-      return this.setPath('parentView.editMode', false);
+      return this.get('parentView').tryToCommit();
     },
     didInsertElement: function() {
       return this.$().select();

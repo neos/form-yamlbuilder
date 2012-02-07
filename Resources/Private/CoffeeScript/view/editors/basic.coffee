@@ -32,18 +32,61 @@ TYPO3.FormBuilder.View.Editor.IdentifierEditor = TYPO3.FormBuilder.View.Editor.A
 
 	editMode: false
 
+	textFieldValue: null
+
+	validationErrorMessage: null
+
+	validate: (v) ->
+		if v == ''
+			@set('validationErrorMessage', 'You need to set an identifier!')
+			return false
+
+		elementsWithIdentifier = []
+		findFormElementsWithIdentifiers = (el) ->
+			if el.get('identifier') == v
+				elementsWithIdentifier.push(v)
+
+			for subRenderable in el.get('renderables')
+				findFormElementsWithIdentifiers(subRenderable)
+
+		findFormElementsWithIdentifiers(TYPO3.FormBuilder.Model.Form.get('formDefinition'))
+
+		if elementsWithIdentifier.length == 0
+			@set('validationErrorMessage', null)
+			return true
+		else if elementsWithIdentifier.length == 1 && elementsWithIdentifier[0] == @get('formElement')
+			@set('validationErrorMessage', null)
+			return true
+		else
+			@set('validationErrorMessage', 'The identifier is already used')
+			return false
+
+	commit: ->
+		if @validate(@get('textFieldValue'))
+			@set('value', @get('textFieldValue'))
+			@set('editMode', false)
+			return true
+		else
+			return false
+	tryToCommit: ->
+		if !@commit()
+			@abort()
+	abort: ->
+		@set('editMode', false)
 	click: ->
-		@set('editMode', true)
+		if !@get('editMode')
+			@set('textFieldValue', @get('value'))
+			@set('editMode', true)
 }
 
 # special text field which selects its contents when being clicked upon
 TYPO3.FormBuilder.View.Editor.IdentifierEditor.TextField = Ember.TextField.extend {
 	insertNewline: ->
-		@setPath('parentView.editMode', false)
+		@get('parentView').commit()
 	cancel: ->
-		@setPath('parentView.editMode', false)
+		@get('parentView').abort()
 	focusOut: ->
-		@setPath('parentView.editMode', false)
+		@get('parentView').tryToCommit()
 	didInsertElement: ->
 		@$().select()
 }
