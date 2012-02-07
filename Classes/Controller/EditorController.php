@@ -50,6 +50,8 @@ class EditorController extends \TYPO3\FLOW3\MVC\Controller\ActionController {
 	 */
 	public function saveformAction($formPersistenceIdentifier, array $formDefinition) {
 		$this->formPersistenceManager->save($formPersistenceIdentifier, $formDefinition);
+
+		return 'success';
 	}
 
 	/**

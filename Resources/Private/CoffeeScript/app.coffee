@@ -20,9 +20,22 @@ window.onbeforeunload = (e) ->
 # `TYPO3.FormBuilder` is the namespace where the whole package is inside
 TYPO3.FormBuilder = Ember.Application.create {
 	rootElement: 'body'
+}
+
+TYPO3.FormBuilder.SaveButton = Ember.Button.extend {
+	targetObject: (-> return this).property().cacheable()
+	action: ->
+		@save()
+
+	classNames: ['typo3-formbuilder-savebutton']
+	classNameBindings: ['isActive', 'currentStatus'],
+
+	currentStatus: ''
 
 	save: ->
+		@set('currentStatus', 'currently-saving')
 		formDefinition = TYPO3.FormBuilder.Utility.convertToSimpleObject(TYPO3.FormBuilder.Model.Form.get('formDefinition'))
+
 		$.post(
 			TYPO3.FormBuilder.Configuration.endpoints.saveForm,
 			{
@@ -30,9 +43,14 @@ TYPO3.FormBuilder = Ember.Application.create {
 				formDefinition
 			},
 			(data, textStatus, jqXHR) =>
-				TYPO3.FormBuilder.Model.Form.set('unsavedContent', false)
+				if data == 'success'
+					@set('currentStatus', 'saved')
+					TYPO3.FormBuilder.Model.Form.set('unsavedContent', false)
+				else
+					@set('currentStatus', 'save-error')
 		)
 }
+
 # `TYPO3.FormBuilder.Configuration` contains the server-side generated config array.
 TYPO3.FormBuilder.Configuration = window.FORMBUILDER_CONFIGURATION
 

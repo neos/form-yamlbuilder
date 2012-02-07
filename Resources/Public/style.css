@@ -116,6 +116,19 @@
   #main .formbuilder-form-element-selected {
     background: #CCC; }
 
+#header .typo3-formbuilder-savebutton {
+  padding: 4px 10px 4px;
+  line-height: 18px;
+  display: inline-block;
+  background: white;
+  cursor: pointer; }
+  #header .typo3-formbuilder-savebutton.currently-saving {
+    background: orange; }
+  #header .typo3-formbuilder-savebutton.saved {
+    background: green; }
+  #header .typo3-formbuilder-savebutton.save-error {
+    background: red; }
+
 #header h1 {
   font-size: 22px;
   font-weight: bold; }
