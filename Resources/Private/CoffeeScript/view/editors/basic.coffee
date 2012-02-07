@@ -40,6 +40,9 @@ TYPO3.FormBuilder.View.Editor.IdentifierEditor = TYPO3.FormBuilder.View.Editor.A
 		if v == ''
 			@set('validationErrorMessage', 'You need to set an identifier!')
 			return false
+		if !v.match(/^[a-z][a-zA-Z0-9-_]*$/)
+			@set('validationErrorMessage', 'This is no valid identifier')
+			return false
 
 		elementsWithIdentifier = []
 		findFormElementsWithIdentifiers = (el) ->

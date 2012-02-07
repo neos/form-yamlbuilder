@@ -737,6 +737,10 @@
         this.set('validationErrorMessage', 'You need to set an identifier!');
         return false;
       }
+      if (!v.match(/^[a-z][a-zA-Z0-9-_]*$/)) {
+        this.set('validationErrorMessage', 'This is no valid identifier');
+        return false;
+      }
       elementsWithIdentifier = [];
       findFormElementsWithIdentifiers = function(el) {
         var subRenderable, _k, _len3, _ref7, _results;
