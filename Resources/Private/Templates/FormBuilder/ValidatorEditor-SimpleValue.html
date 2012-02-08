@@ -1,3 +1,4 @@
 {{label}}
 {{#view Ember.Button target="parentView" action="remove" isVisibleBinding="notRequired"}}Remove{{/view}}<br />
-<label>{{label}}:</label>{{view Ember.TextField valueBinding="value"}}
+<label>{{fieldLabel}}:</label>{{view Ember.TextField valueBinding="value"}}
+{{#if fieldExplanationText}}<div>{{fieldExplanationText}}</div>{{/if}}

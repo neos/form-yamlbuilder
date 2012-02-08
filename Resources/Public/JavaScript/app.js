@@ -1266,7 +1266,7 @@
   TYPO3.FormBuilder.View.Editor.ValidatorEditor.SimpleValueValidatorEditor = TYPO3.FormBuilder.View.Editor.ValidatorEditor.DefaultValidatorEditor.extend({
     templateName: 'ValidatorEditor-SimpleValue',
     pathToEditedValue: 'currentCollectionElement.options.TODO',
-    label: 'Label',
+    fieldLabel: Ember.required(),
     value: (function(k, v) {
       if (v !== void 0) {
         this.setPath(this.get('pathToEditedValue'), v);

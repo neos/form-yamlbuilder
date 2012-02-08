@@ -135,7 +135,7 @@ TYPO3.FormBuilder.View.Editor.ValidatorEditor.SimpleValueValidatorEditor = TYPO3
 	# this needs to be filled by the parent
 	pathToEditedValue: 'currentCollectionElement.options.TODO'
 
-	label: 'Label'
+	fieldLabel: Ember.required()
 
 	value: ((k, v) ->
 		if v != undefined

@@ -152,8 +152,8 @@ TYPO3:
                       label: 'Date/Time Range'
                       name: 'TYPO3\FLOW3\Validation\Validator\DateTimeRangeValidator'
                       viewName: 'TYPO3.FormBuilder.View.Editor.ValidatorEditor.MinimumMaximumValidatorEditor'
-                      pathToMinimumOption: 'validator.options.earliestDate'
-                      pathToMaximumOption: 'validator.options.latestDate'
+                      pathToMinimumOption: 'currentCollectionElement.options.earliestDate'
+                      pathToMaximumOption: 'currentCollectionElement.options.latestDate'
 
           'TYPO3.Form:ImageUpload':
             formBuilder:
@@ -237,6 +237,8 @@ TYPO3:
 
                     regularExpression:
                       label: 'Regular Expression'
+                      fieldLabel: 'Regular Expression'
+                      fieldExplanationText: 'Enter a valid PHP PCRE Regular Expression here.'
                       sorting: 300
                       name: 'TYPO3\FLOW3\Validation\Validator\RegularExpressionValidator'
                       viewName: 'TYPO3.FormBuilder.View.Editor.ValidatorEditor.SimpleValueValidatorEditor'
