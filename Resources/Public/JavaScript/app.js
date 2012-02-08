@@ -16,6 +16,11 @@
     return text;
   };
 
+  window.onerror = function(errorMessage, url, lineNumber) {
+    alert("There was a JavaScript error in File " + url + ", line " + lineNumber + ": " + errorMessage + ". Please report the error to the developers");
+    return false;
+  };
+
   TYPO3.FormBuilder = Ember.Application.create({
     rootElement: 'body'
   });

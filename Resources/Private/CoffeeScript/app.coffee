@@ -8,14 +8,15 @@ window.TYPO3 = TYPO3
 
 window.onbeforeunload = (e) ->
 	return undefined unless TYPO3.FormBuilder.Model.Form.get('unsavedContent')
-
 	e = e || window.event
-
 	text = 'There is unsaved content. Are you sure that you want to close the browser?'
 	if e
 		e.returnValue = text
-
 	return text
+
+window.onerror = (errorMessage, url, lineNumber) ->
+	alert "There was a JavaScript error in File #{url}, line #{lineNumber}: #{errorMessage}. Please report the error to the developers"
+	return false
 
 # `TYPO3.FormBuilder` is the namespace where the whole package is inside
 TYPO3.FormBuilder = Ember.Application.create {
