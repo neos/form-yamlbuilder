@@ -27,6 +27,7 @@
 			<div id="header">
 				<script type="text/x-handlebars">
 					<h1>Form Builder &mdash; {{TYPO3.FormBuilder.Model.Form.formDefinition.identifier}}</h1>
+					{{#if TYPO3.FormBuilder.Model.Form.currentlyLoadingPreview}}<span style="width: 60px;height:15px;background:red;position:absolute">Loading..</span>{{/if}}
 					<span style="float:right">{{#view TYPO3.FormBuilder.SaveButton}}Save Changes{{/view}}</span>
 				</script>
 			</div>

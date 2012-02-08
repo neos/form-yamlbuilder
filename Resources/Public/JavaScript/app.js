@@ -339,6 +339,7 @@
       return (_ref7 = this.get('formPages')) != null ? _ref7.get(this.get('currentPageIndex')) : void 0;
     }).property('formPages', 'currentPageIndex').cacheable(),
     currentAjaxRequest: null,
+    isLoadingBinding: 'TYPO3.FormBuilder.Model.Form.currentlyLoadingPreview',
     renderPageIfPageObjectChanges: (function() {
       var _this = this;
       if (!TYPO3.FormBuilder.Model.Form.getPath('formDefinition.identifier')) {
@@ -349,12 +350,14 @@
       return this.timeout = window.setTimeout(function() {
         var formDefinition;
         formDefinition = TYPO3.FormBuilder.Utility.convertToSimpleObject(TYPO3.FormBuilder.Model.Form.get('formDefinition'));
+        _this.set('isLoading', true);
         return _this.currentAjaxRequest = $.post(TYPO3.FormBuilder.Configuration.endpoints.formPageRenderer, {
           formDefinition: formDefinition,
           currentPageIndex: _this.get('currentPageIndex')
         }, function(data, textStatus, jqXHR) {
           if (_this.currentAjaxRequest !== jqXHR) return;
           _this.$().html(data);
+          _this.set('isLoading', false);
           return _this.postProcessRenderedPage();
         });
       }, 300);

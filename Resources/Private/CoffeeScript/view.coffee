@@ -45,6 +45,8 @@ TYPO3.FormBuilder.View.FormPageView = Ember.View.extend {
 	# Reference to the currently running AJAX request, if any.
 	currentAjaxRequest: null,
 
+	isLoadingBinding: 'TYPO3.FormBuilder.Model.Form.currentlyLoadingPreview'
+
 	# Function which renders the page if something changes on the form, with a little delay of 300 ms.
 	# After the response has been received from the server, it triggers the `postProcessPage` function.
 	renderPageIfPageObjectChanges: (->
@@ -58,12 +60,14 @@ TYPO3.FormBuilder.View.FormPageView = Ember.View.extend {
 
 		@timeout = window.setTimeout( =>
 			formDefinition = TYPO3.FormBuilder.Utility.convertToSimpleObject(TYPO3.FormBuilder.Model.Form.get('formDefinition'))
+			@set('isLoading', true)
 			@currentAjaxRequest = $.post(
 				TYPO3.FormBuilder.Configuration.endpoints.formPageRenderer,
 				{ formDefinition, currentPageIndex: @get('currentPageIndex') },
 				(data, textStatus, jqXHR) =>
 					return unless @currentAjaxRequest == jqXHR
 					this.$().html(data);
+					@set('isLoading', false)
 					@postProcessRenderedPage();
 			)
 		, 300)
