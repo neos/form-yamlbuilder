@@ -1,0 +1,15 @@
+<div class="formBuilder-element">
+	<label>Package Key</label>
+	{{view Ember.TextField valueBinding="currentCollectionElement.options.package"}}
+</div>
+
+<div class="formBuilder-element">
+	<label>Controller</label>
+	{{view Ember.TextField valueBinding="currentCollectionElement.options.controller"}}
+</div>
+
+<div class="formBuilder-element">
+	<label>Action</label>
+	{{view Ember.TextField valueBinding="currentCollectionElement.options.action"}}
+</div>
+{{#view Ember.Button target="parentView" action="remove" isVisibleBinding="notRequired"}}Remove{{/view}}

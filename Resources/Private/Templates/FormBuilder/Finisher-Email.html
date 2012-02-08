@@ -4,33 +4,33 @@
 </div>
 
 <div class="formBuilder-element">
-	<label>recipientAddress</label>
+	<label>Recipient Address</label>
 	{{view Ember.TextField valueBinding="currentCollectionElement.options.recipientAddress"}}
 </div>
 
 <div class="formBuilder-element">
-	<label>recipientName</label>
+	<label>Recipient Name</label>
 	{{view Ember.TextField valueBinding="currentCollectionElement.options.recipientName"}}
 </div>
 
 
 <div class="formBuilder-element">
-	<label>senderAddress</label>
+	<label>Sender Address</label>
 	{{view Ember.TextField valueBinding="currentCollectionElement.options.senderAddress"}}
 </div>
 
 <div class="formBuilder-element">
-	<label>senderName</label>
+	<label>Sender Address</label>
 	{{view Ember.TextField valueBinding="currentCollectionElement.options.senderName"}}
 </div>
 
 <div class="formBuilder-element">
-	<label>replyToAddress</label>
+	<label>Reply-To Address</label>
 	{{view Ember.TextField valueBinding="currentCollectionElement.options.replyToAddress"}}
 </div>
 
 <div class="formBuilder-element">
-	<label>format</label>
+	<label>Format</label>
 	{{view Ember.Select contentBinding="availableFormats" optionValuePath="content.key" optionLabelPath="content.value" selectionBinding="format"}}
 </div>
 

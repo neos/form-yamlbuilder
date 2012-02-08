@@ -15,6 +15,7 @@ TYPO3:
       TextEditor: resource://TYPO3.FormBuilder/Private/Templates/FormBuilder/TextEditor.html
       FinisherTitle: resource://TYPO3.FormBuilder/Private/Templates/FormBuilder/FinisherTitle.html
       Finisher-Email: resource://TYPO3.FormBuilder/Private/Templates/FormBuilder/Finisher-Email.html
+      Finisher-Redirect: resource://TYPO3.FormBuilder/Private/Templates/FormBuilder/Finisher-Redirect.html
       ValidatorEditor-Default: resource://TYPO3.FormBuilder/Private/Templates/FormBuilder/ValidatorEditor-Default.html
       ValidatorEditor-MinimumMaximum: resource://TYPO3.FormBuilder/Private/Templates/FormBuilder/ValidatorEditor-MinimumMaximum.html
       ValidatorEditor-SimpleValue: resource://TYPO3.FormBuilder/Private/Templates/FormBuilder/ValidatorEditor-SimpleValue.html
@@ -89,6 +90,10 @@ TYPO3:
                       availableFormats:
                         0: {key: 'plaintext', value: 'Plain Text'}
                         1: {key: 'html', value: 'HTML'}
+                    redirect:
+                      label: 'Redirect to controller/action'
+                      name: 'TYPO3\Form\Finishers\RedirectFinisher'
+                      templateName: 'Finisher-Redirect'
 
           # group INPUT
           'TYPO3.Form:SingleLineText':
