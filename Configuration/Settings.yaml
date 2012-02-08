@@ -292,7 +292,6 @@ TYPO3:
                       fieldLabel: 'Regular Expression'
                       fieldExplanationText: 'Enter a valid PHP PCRE Regular Expression here.'
                       sorting: 300
-                      name: 'TYPO3\FLOW3\Validation\Validator\RegularExpressionValidator'
                       viewName: 'TYPO3.FormBuilder.View.Editor.ValidatorEditor.SimpleValueValidatorEditor'
                       pathToEditedValue: 'currentCollectionElement.options.regularExpression'
 
