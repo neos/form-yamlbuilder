@@ -182,6 +182,12 @@
     font-weight: bold; }
   #leftSidebar .context-menu-item, #rightSidebar .context-menu-item {
     color: black; }
+  #leftSidebar .typo3-formbuilder-removeElementButton, #rightSidebar .typo3-formbuilder-removeElementButton {
+    background: #FF0000;
+    padding: 14px 10px;
+    color: white; }
+    #leftSidebar .typo3-formbuilder-removeElementButton:hover, #rightSidebar .typo3-formbuilder-removeElementButton:hover {
+      background: #FF4444; }
 
 #rightSidebar .slick-row .cell-reorder {
   cursor: move;

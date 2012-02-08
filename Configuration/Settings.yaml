@@ -20,6 +20,7 @@ TYPO3:
       ValidatorEditor-MinimumMaximum: resource://TYPO3.FormBuilder/Private/Templates/FormBuilder/ValidatorEditor-MinimumMaximum.html
       ValidatorEditor-SimpleValue: resource://TYPO3.FormBuilder/Private/Templates/FormBuilder/ValidatorEditor-SimpleValue.html
       ValidatorEditor: resource://TYPO3.FormBuilder/Private/Templates/FormBuilder/ValidatorEditor.html
+      RemoveElementEditor: resource://TYPO3.FormBuilder/Private/Templates/FormBuilder/RemoveElementEditor.html
 
   Form:
     supertypeResolver:
@@ -94,6 +95,14 @@ TYPO3:
                       label: 'Redirect to controller/action'
                       name: 'TYPO3\Form\Finishers\RedirectFinisher'
                       templateName: 'Finisher-Redirect'
+
+
+          'TYPO3.Form:RemovableMixin':
+            formBuilder:
+              editors:
+                removeButton:
+                  sorting: 999
+                  viewName: 'TYPO3.FormBuilder.View.Editor.RemoveElementEditor'
 
           # group INPUT
           'TYPO3.Form:SingleLineText':

@@ -111,3 +111,13 @@ TYPO3.FormBuilder.View.Editor.TextEditor = TYPO3.FormBuilder.View.Editor.Abstrac
 
 	templateName: 'TextEditor'
 }
+
+# ***
+# ##Class Editor.RemoveElementEditor##
+#
+# Displays button to remove this formElement.
+TYPO3.FormBuilder.View.Editor.RemoveElementEditor = TYPO3.FormBuilder.View.Editor.AbstractEditor.extend {
+	templateName: 'RemoveElementEditor'
+	remove: ->
+		@get('formElement').removeWithConfirmationDialog()
+}

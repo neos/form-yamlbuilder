@@ -123,6 +123,15 @@ $colorHighlight: #FF8700;
 	.context-menu-item {
 		color: black;
 	}
+
+	.typo3-formbuilder-removeElementButton {
+		background: #FF0000;
+		padding: 14px 10px;
+		color: white;
+		&:hover {
+			background: #FF4444;
+		}
+	}
 }
 
 #rightSidebar {

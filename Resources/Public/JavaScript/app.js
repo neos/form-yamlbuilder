@@ -216,6 +216,30 @@
         referenceRenderable = referenceRenderable.get('parentRenderable');
       }
       return referenceRenderable;
+    },
+    removeWithConfirmationDialog: function() {
+      var thisRenderable;
+      thisRenderable = this;
+      return $('<div>Remove Element?</div>').dialog({
+        modal: true,
+        resizable: false,
+        buttons: {
+          'Delete': function() {
+            thisRenderable.remove();
+            return $(this).dialog('close');
+          },
+          'Cancel': function() {
+            return $(this).dialog('close');
+          }
+        }
+      });
+    },
+    remove: function(updateCurrentRenderable) {
+      if (updateCurrentRenderable == null) updateCurrentRenderable = true;
+      if (updateCurrentRenderable) {
+        TYPO3.FormBuilder.Model.Form.set('currentlySelectedRenderable', this.get('parentRenderable'));
+      }
+      return this.getPath('parentRenderable.renderables').removeObject(this);
     }
   });
 
@@ -608,19 +632,7 @@
               if (!dynaTreeNode) return;
               renderableToRemove = dynaTreeNode.data.formRenderable;
               if (!renderableToRemove) return;
-              return $('<div>Remove Element?</div>').dialog({
-                modal: true,
-                resizable: false,
-                buttons: {
-                  'Delete': function() {
-                    renderableToRemove.getPath('parentRenderable.renderables').removeObject(renderableToRemove);
-                    return $(this).dialog('close');
-                  },
-                  'Cancel': function() {
-                    return $(this).dialog('close');
-                  }
-                }
-              });
+              return renderableToRemove.removeWithConfirmationDialog();
             }
           }
         }
@@ -951,6 +963,13 @@
       return this.valueChanged();
     }).observes('value'),
     templateName: 'TextEditor'
+  });
+
+  TYPO3.FormBuilder.View.Editor.RemoveElementEditor = TYPO3.FormBuilder.View.Editor.AbstractEditor.extend({
+    templateName: 'RemoveElementEditor',
+    remove: function() {
+      return this.get('formElement').removeWithConfirmationDialog();
+    }
   });
 
   TYPO3.FormBuilder.View.Editor.PropertyGrid = TYPO3.FormBuilder.View.Editor.AbstractPropertyEditor.extend({

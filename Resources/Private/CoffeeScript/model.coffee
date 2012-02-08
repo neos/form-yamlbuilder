@@ -155,6 +155,25 @@ TYPO3.FormBuilder.Model.Renderable = Ember.Object.extend {
 		while referenceRenderable.getPath('parentRenderable.parentRenderable') != null
 			referenceRenderable = referenceRenderable.get('parentRenderable')
 		return referenceRenderable
+
+	# display a confirmation dialog for removing this renderable
+	removeWithConfirmationDialog: ->
+		thisRenderable = this
+		$('<div>Remove Element?</div>').dialog {
+			modal: true
+			resizable: false
+			buttons: {
+				'Delete': ->
+					thisRenderable.remove()
+					$(this).dialog('close')
+				'Cancel': ->
+					$(this).dialog('close')
+			}
+		}
+	# remove this renderable
+	remove: (updateCurrentRenderable = true) ->
+		TYPO3.FormBuilder.Model.Form.set('currentlySelectedRenderable', @get('parentRenderable')) if updateCurrentRenderable
+		@getPath('parentRenderable.renderables').removeObject(this)
 }
 
 # We override the `create` function of Ember.JS to add observers for all properties,

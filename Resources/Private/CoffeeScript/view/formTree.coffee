@@ -114,17 +114,7 @@ TYPO3.FormBuilder.View.FormTree = Ember.View.extend {
 						renderableToRemove = dynaTreeNode.data.formRenderable
 						return unless renderableToRemove
 
-						$('<div>Remove Element?</div>').dialog {
-							modal: true
-							resizable: false
-							buttons: {
-								'Delete': ->
-									renderableToRemove.getPath('parentRenderable.renderables').removeObject(renderableToRemove)
-									$(this).dialog('close')
-								'Cancel': ->
-									$(this).dialog('close')
-							}
-						}
+						renderableToRemove.removeWithConfirmationDialog()
 				}
 			}
 		}
