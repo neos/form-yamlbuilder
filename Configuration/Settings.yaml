@@ -136,16 +136,15 @@ TYPO3:
                   sorting: 410
                   viewName: 'TYPO3.FormBuilder.View.Editor.FinisherEditor'
                   availableFinishers:
-                    email:
+                    'TYPO3.Form:Email':
                       label: 'Send Email'
                       name: 'TYPO3\Form\Finishers\EmailFinisher'
                       viewName: 'TYPO3.FormBuilder.View.Editor.FinisherEditor.EmailFinisherEditor'
                       availableFormats:
                         0: {key: 'plaintext', value: 'Plain Text'}
                         1: {key: 'html', value: 'HTML'}
-                    redirect:
+                    'TYPO3.Form:Redirect':
                       label: 'Redirect to controller/action'
-                      name: 'TYPO3\Form\Finishers\RedirectFinisher'
                       templateName: 'Finisher-Redirect'
 
 
@@ -209,9 +208,8 @@ TYPO3:
               editors:
                 validation:
                   availableValidators:
-                    dateTimeRange:
+                    'TYPO3.FLOW3:DateTimeRange':
                       label: 'Date/Time Range'
-                      name: 'TYPO3\FLOW3\Validation\Validator\DateTimeRangeValidator'
                       viewName: 'TYPO3.FormBuilder.View.Editor.ValidatorEditor.MinimumMaximumValidatorEditor'
                       pathToMinimumOption: 'currentCollectionElement.options.earliestDate'
                       pathToMaximumOption: 'currentCollectionElement.options.latestDate'
@@ -262,41 +260,34 @@ TYPO3:
                   propertyPath: 'defaultValue'
                 validation:
                    availableValidators:
-                    alphanumeric:
+                    'TYPO3.FLOW3:Alphanumeric':
                       label: 'Alphanumeric'
                       sorting: 100
-                      name: 'TYPO3\FLOW3\Validation\Validator\AlphanumericValidator'
-                    text:
+                    'TYPO3.FLOW3:Text':
                       label: 'Non-XML Text'
                       sorting: 110
-                      name: 'TYPO3\FLOW3\Validation\Validator\TextValidator'
-                    stringLength:
+                    'TYPO3.FLOW3:StringLength':
                       label: 'String Length'
                       sorting: 120
-                      name: 'TYPO3\FLOW3\Validation\Validator\StringLengthValidator'
                       viewName: 'TYPO3.FormBuilder.View.Editor.ValidatorEditor.MinimumMaximumValidatorEditor'
                       required: false
-                    emailAddress:
+                    'TYPO3.FLOW3:EmailAddress':
                       label: 'EMail'
                       sorting: 130
-                      name: 'TYPO3\FLOW3\Validation\Validator\EmailAddressValidator'
                       required: false
 
-                    integer:
+                    'TYPO3.FLOW3:Integer':
                       label: 'Integer Number'
                       sorting: 200
-                      name: 'TYPO3\FLOW3\Validation\Validator\IntegerValidator'
-                    float:
+                    'TYPO3.FLOW3:Float':
                       label: 'Floating-point Number'
                       sorting: 210
-                      name: 'TYPO3\FLOW3\Validation\Validator\FloatValidator'
-                    numberRange:
+                    'TYPO3.FLOW3:NumberRange':
                       label: 'Number Range'
                       sorting: 220
-                      name: 'TYPO3\FLOW3\Validation\Validator\NumberRangeValidator'
                       viewName: 'TYPO3.FormBuilder.View.Editor.ValidatorEditor.MinimumMaximumValidatorEditor'
 
-                    regularExpression:
+                    'TYPO3.FLOW3:RegularExpression':
                       label: 'Regular Expression'
                       fieldLabel: 'Regular Expression'
                       fieldExplanationText: 'Enter a valid PHP PCRE Regular Expression here.'
@@ -337,8 +328,7 @@ TYPO3:
                   shouldShowPreselectedValueColumn: 'multiple'
                 validation:
                   availableValidators:
-                    count:
+                    'TYPO3.FLOW3:Count':
                       label: 'Number of submitted values'
                       sorting: 100
-                      name: 'TYPO3\FLOW3\Validation\Validator\CountValidator'
                       viewName: 'TYPO3.FormBuilder.View.Editor.ValidatorEditor.MinimumMaximumValidatorEditor'

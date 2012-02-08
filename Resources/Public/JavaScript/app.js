@@ -793,16 +793,16 @@
       return this.updateCollectionEditorViews();
     },
     sortedAvailableCollectionElements: (function() {
-      var collectionElementTemplate, key, sortedCollectionElements, _ref7;
+      var collectionElementTemplate, identifier, sortedCollectionElements, _ref7;
       sortedCollectionElements = [];
       _ref7 = this.get('availableCollectionElements');
-      for (key in _ref7) {
-        collectionElementTemplate = _ref7[key];
-        if (this.isCollectionElementTemplateFoundInCollection(collectionElementTemplate)) {
+      for (identifier in _ref7) {
+        collectionElementTemplate = _ref7[identifier];
+        if (this.isCollectionElementTemplateFoundInCollection(identifier)) {
           continue;
         }
         sortedCollectionElements.push($.extend({
-          key: key
+          identifier: identifier
         }, collectionElementTemplate));
       }
       sortedCollectionElements.sort(function(a, b) {
@@ -819,7 +819,7 @@
       collectionElementToBeAdded = this.get('addCollectionElementSelection');
       if (!collectionElementToBeAdded) return;
       this.get('value').push({
-        name: collectionElementToBeAdded.name,
+        identifier: collectionElementToBeAdded.identifier,
         options: collectionElementToBeAdded.options || {}
       });
       this.valueChanged();
@@ -827,7 +827,7 @@
       return this.set('addCollectionElementSelection', null);
     }).observes('addCollectionElementSelection'),
     updateCollectionEditorViews: (function() {
-      var availableCollectionElementTemplate, availableCollectionElements, collection, collectionEditorViews, collectionElement, collectionElementEditor, collectionElementEditorOptions, i, key, _len3,
+      var availableCollectionElements, collection, collectionEditorViews, collectionElement, collectionElementEditor, collectionElementEditorOptions, collectionElementTemplate, i, _len3,
         _this = this;
       this.addRequiredCollectionElementsIfNeeded();
       collection = this.get('value');
@@ -836,58 +836,56 @@
       collectionEditorViews = [];
       for (i = 0, _len3 = collection.length; i < _len3; i++) {
         collectionElement = collection[i];
-        for (key in availableCollectionElements) {
-          availableCollectionElementTemplate = availableCollectionElements[key];
-          if (availableCollectionElementTemplate.name === collectionElement.name) {
-            collectionElementEditor = Ember.getPath(availableCollectionElementTemplate.viewName || 'TYPO3.FormBuilder.View.Editor.ValidatorEditor.DefaultValidatorEditor');
-            if (!collectionElementEditor) {
-              throw "Validator Editor class '" + availableCollectionElementTemplate.viewName + "' not found";
-            }
-            collectionElementEditorOptions = $.extend({
-              elementIndex: i,
-              valueChanged: function() {
-                return _this.valueChanged();
-              },
-              updateCollectionEditorViews: function() {
-                return _this.updateCollectionEditorViews();
-              },
-              collection: this.get('value')
-            }, availableCollectionElementTemplate);
-            collectionEditorViews.push(collectionElementEditor.create(collectionElementEditorOptions));
-            break;
-          }
+        collectionElementTemplate = availableCollectionElements[collectionElement.identifier];
+        if (!collectionElementTemplate) continue;
+        collectionElementEditor = Ember.getPath(collectionElementTemplate.viewName || 'TYPO3.FormBuilder.View.Editor.ValidatorEditor.DefaultValidatorEditor');
+        if (!collectionElementEditor) {
+          throw "Validator Editor class '" + collectionElementTemplate.viewName + "' not found";
         }
+        collectionElementEditorOptions = $.extend({
+          elementIndex: i,
+          valueChanged: function() {
+            return _this.valueChanged();
+          },
+          updateCollectionEditorViews: function() {
+            return _this.updateCollectionEditorViews();
+          },
+          collection: this.get('value')
+        }, collectionElementTemplate);
+        collectionEditorViews.push(collectionElementEditor.create(collectionElementEditorOptions));
       }
       return this.set('collectionEditorViews', collectionEditorViews);
     }).observes('value', 'availableCollectionElements'),
     addRequiredCollectionElementsIfNeeded: function() {
-      var availableCollectionElementTemplate, availableCollectionElements, collection, collectionElementName, key, requiredAndMissingCollectionElements, _k, _len3, _results;
+      var availableCollectionElementTemplate, availableCollectionElements, collection, collectionElementName, identifier, requiredAndMissingCollectionElements, _k, _len3, _results;
       collection = this.get('value');
       availableCollectionElements = this.get('availableCollectionElements');
       requiredAndMissingCollectionElements = [];
-      for (key in availableCollectionElements) {
-        availableCollectionElementTemplate = availableCollectionElements[key];
+      for (identifier in availableCollectionElements) {
+        availableCollectionElementTemplate = availableCollectionElements[identifier];
         if (!availableCollectionElementTemplate.required) continue;
-        if (!this.isCollectionElementTemplateFoundInCollection(availableCollectionElementTemplate)) {
-          requiredAndMissingCollectionElements.push(key);
+        if (!this.isCollectionElementTemplateFoundInCollection(identifier)) {
+          requiredAndMissingCollectionElements.push(identifier);
         }
       }
       _results = [];
       for (_k = 0, _len3 = requiredAndMissingCollectionElements.length; _k < _len3; _k++) {
         collectionElementName = requiredAndMissingCollectionElements[_k];
         _results.push(collection.push({
-          name: availableCollectionElements[collectionElementName].name,
+          identifier: collectionElementName,
           options: $.extend({}, availableCollectionElements[collectionElementName].options)
         }));
       }
       return _results;
     },
-    isCollectionElementTemplateFoundInCollection: function(collectionElementTemplate) {
+    isCollectionElementTemplateFoundInCollection: function(collectionElementTemplateIdentifier) {
       var collection, collectionElement, _k, _len3;
       collection = this.get('value');
       for (_k = 0, _len3 = collection.length; _k < _len3; _k++) {
         collectionElement = collection[_k];
-        if (collectionElementTemplate.name === collectionElement.name) return true;
+        if (collectionElementTemplateIdentifier === collectionElement.identifier) {
+          return true;
+        }
       }
       return false;
     }
@@ -1222,23 +1220,23 @@
       return [];
     }).property().cacheable(),
     isRequiredValidatorConfigured: (function(k, v) {
-      var a, notEmptyValidatorClassName, val;
-      notEmptyValidatorClassName = 'TYPO3\\FLOW3\\Validation\\Validator\\NotEmptyValidator';
+      var a, notEmptyValidatorIdentifier, val;
+      notEmptyValidatorIdentifier = 'TYPO3.FLOW3:NotEmpty';
       if (v !== void 0) {
         a = this.get('value').filter(function(validatorConfiguration) {
-          return validatorConfiguration.name !== notEmptyValidatorClassName;
+          return validatorConfiguration.identifier !== notEmptyValidatorIdentifier;
         });
         this.set('value', a);
         if (v === true) {
           this.get('value').push({
-            name: notEmptyValidatorClassName
+            identifier: notEmptyValidatorIdentifier
           });
         }
         this.valueChanged();
         return v;
       } else {
         val = !!this.get('value').some(function(validatorConfiguration) {
-          return validatorConfiguration.name === notEmptyValidatorClassName;
+          return validatorConfiguration.identifier === notEmptyValidatorIdentifier;
         });
         return val;
       }

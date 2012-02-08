@@ -11,9 +11,9 @@ renderables:
                 identifier: email
                 validators:
                     -
-                        name: TYPO3\FLOW3\Validation\Validator\EmailAddressValidator
+                        identifier: 'TYPO3.FLOW3:EmailAddress'
                     -
-                        name: TYPO3\FLOW3\Validation\Validator\NotEmptyValidator
+                        identifier: 'TYPO3.FLOW3:NotEmpty'
                 properties:
                     placeholder: 'Enter your email here'
                 defaultValue: ''
@@ -30,7 +30,7 @@ renderables:
                 identifier: readAgb
                 validators:
                     -
-                        name: TYPO3\FLOW3\Validation\Validator\NotEmptyValidator
+                        identifier: 'TYPO3.FLOW3:NotEmpty'
                 label: AGBs
     -
         type: 'TYPO3.Form:PreviewPage'

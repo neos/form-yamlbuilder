@@ -22,24 +22,24 @@ TYPO3.FormBuilder.View.Editor.RequiredValidatorEditor = TYPO3.FormBuilder.View.E
 
 	# returns TRUE if the required validator is currently configured, FALSE otherwise.
 	isRequiredValidatorConfigured: ((k, v) ->
-		notEmptyValidatorClassName = 'TYPO3\\FLOW3\\Validation\\Validator\\NotEmptyValidator'
+		notEmptyValidatorIdentifier = 'TYPO3.FLOW3:NotEmpty'
 		if v != undefined
 			# set case
 			# remove all NotEmptyValidators first
-			a = @get('value').filter((validatorConfiguration) -> validatorConfiguration.name != notEmptyValidatorClassName)
+			a = @get('value').filter((validatorConfiguration) -> validatorConfiguration.identifier != notEmptyValidatorIdentifier)
 			@set('value', a)
 
 			# then, re-add the validator if needed
 			if v == true
 				@get('value').push {
-					name: notEmptyValidatorClassName
+					identifier: notEmptyValidatorIdentifier
 				}
 			@valueChanged()
 			# EXTREMELY IMPORTANT that the computed property SETTER returns the given value as well!
 			return v
 		else
 			# get case
-			val = !!@get('value').some((validatorConfiguration) -> validatorConfiguration.name == notEmptyValidatorClassName)
+			val = !!@get('value').some((validatorConfiguration) -> validatorConfiguration.identifier == notEmptyValidatorIdentifier)
 			return val
 	).property('value').cacheable()
 }

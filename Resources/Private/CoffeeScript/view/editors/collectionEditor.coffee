@@ -36,9 +36,9 @@ TYPO3.FormBuilder.View.Editor.AbstractCollectionEditor = TYPO3.FormBuilder.View.
 	# sort the available collection elements based on their sorting property
 	sortedAvailableCollectionElements: (->
 		sortedCollectionElements = []
-		for key, collectionElementTemplate of @get('availableCollectionElements')
-			continue if @isCollectionElementTemplateFoundInCollection(collectionElementTemplate)
-			sortedCollectionElements.push($.extend({key}, collectionElementTemplate))
+		for identifier, collectionElementTemplate of @get('availableCollectionElements')
+			continue if @isCollectionElementTemplateFoundInCollection(identifier)
+			sortedCollectionElements.push($.extend({identifier}, collectionElementTemplate))
 
 		sortedCollectionElements.sort((a, b) -> a.sorting - b.sorting)
 		return sortedCollectionElements
@@ -59,7 +59,7 @@ TYPO3.FormBuilder.View.Editor.AbstractCollectionEditor = TYPO3.FormBuilder.View.
 		return unless collectionElementToBeAdded
 
 		@get('value').push {
-			name: collectionElementToBeAdded.name
+			identifier: collectionElementToBeAdded.identifier
 			options: collectionElementToBeAdded.options || {}
 		}
 
@@ -82,22 +82,22 @@ TYPO3.FormBuilder.View.Editor.AbstractCollectionEditor = TYPO3.FormBuilder.View.
 		collectionEditorViews = []
 
 		for collectionElement, i in collection
-			for key, availableCollectionElementTemplate of availableCollectionElements
-				if availableCollectionElementTemplate.name == collectionElement.name # TODO: also check options of validator!
-					# we found the correct validatorTemplate for the current validator,
-					# thus we can output label and determine the view to be used.
-					collectionElementEditor = Ember.getPath(availableCollectionElementTemplate.viewName || 'TYPO3.FormBuilder.View.Editor.ValidatorEditor.DefaultValidatorEditor')
-					throw "Validator Editor class '#{availableCollectionElementTemplate.viewName}' not found" if !collectionElementEditor
-					collectionElementEditorOptions = $.extend({
-						elementIndex: i
-						valueChanged: =>
-							@valueChanged()
-						updateCollectionEditorViews: =>
-							@updateCollectionEditorViews()
-						collection: @get('value')
-					}, availableCollectionElementTemplate)
-					collectionEditorViews.push(collectionElementEditor.create(collectionElementEditorOptions))
-					break
+			collectionElementTemplate = availableCollectionElements[collectionElement.identifier]
+			continue if !collectionElementTemplate # not every collection element has view settings (f.e. NotEmpty validator)
+
+			# we found the correct validatorTemplate for the current validator,
+			# thus we can output label and determine the view to be used.
+			collectionElementEditor = Ember.getPath(collectionElementTemplate.viewName || 'TYPO3.FormBuilder.View.Editor.ValidatorEditor.DefaultValidatorEditor')
+			throw "Validator Editor class '#{collectionElementTemplate.viewName}' not found" if !collectionElementEditor
+			collectionElementEditorOptions = $.extend({
+				elementIndex: i
+				valueChanged: =>
+					@valueChanged()
+				updateCollectionEditorViews: =>
+					@updateCollectionEditorViews()
+				collection: @get('value')
+			}, collectionElementTemplate)
+			collectionEditorViews.push(collectionElementEditor.create(collectionElementEditorOptions))
 
 		@set('collectionEditorViews', collectionEditorViews)
 	).observes('value', 'availableCollectionElements')
@@ -109,24 +109,22 @@ TYPO3.FormBuilder.View.Editor.AbstractCollectionEditor = TYPO3.FormBuilder.View.
 
 		requiredAndMissingCollectionElements = []
 
-		for key, availableCollectionElementTemplate of availableCollectionElements
-			continue unless availableCollectionElementTemplate.required # continue if validator template is not required
-
-			if !@isCollectionElementTemplateFoundInCollection(availableCollectionElementTemplate)
-				requiredAndMissingCollectionElements.push(key)
+		for identifier, availableCollectionElementTemplate of availableCollectionElements
+			continue unless availableCollectionElementTemplate.required # continue if current element is not required
+			if !@isCollectionElementTemplateFoundInCollection(identifier)
+				requiredAndMissingCollectionElements.push(identifier)
 
 		for collectionElementName in requiredAndMissingCollectionElements
 			collection.push({
-				name: availableCollectionElements[collectionElementName].name
+				identifier: collectionElementName
 				options: $.extend({}, availableCollectionElements[collectionElementName].options)
 			})
 
-
 	# is a validator template found in the list of validators?
-	isCollectionElementTemplateFoundInCollection: (collectionElementTemplate) ->
+	isCollectionElementTemplateFoundInCollection: (collectionElementTemplateIdentifier) ->
 		collection = @get('value')
 		for collectionElement in collection
-			if collectionElementTemplate.name == collectionElement.name # TODO: also check options of validator!
+			if collectionElementTemplateIdentifier == collectionElement.identifier
 				return true
 
 		return false
