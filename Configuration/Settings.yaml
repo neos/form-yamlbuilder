@@ -74,6 +74,12 @@ TYPO3:
     presets:
       ########### DEFAULT ###########
       default:
+        validatorPresets:
+          'TYPO3.FormBuilder:ZipCode':
+            implementationClassName: 'TYPO3\FLOW3\Validation\Validator\RegularExpressionValidator'
+            options:
+              regularExpression: '/^[0-9]{5}$/'
+
         formElementGroups:
           input:
             sorting: 100
@@ -294,6 +300,12 @@ TYPO3:
                       sorting: 300
                       viewName: 'TYPO3.FormBuilder.View.Editor.ValidatorEditor.SimpleValueValidatorEditor'
                       pathToEditedValue: 'currentCollectionElement.options.regularExpression'
+
+                    # Example of creating a custom "ZipCode" validator preset,
+                    # which is defined in the "validatorPresets" above.
+                    'TYPO3.FormBuilder:ZipCode':
+                      label: 'Zip Code'
+                      sorting: 140
 
           'TYPO3.Form:SelectionMixin':
             formBuilder:
