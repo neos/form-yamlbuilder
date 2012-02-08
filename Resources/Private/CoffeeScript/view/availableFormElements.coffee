@@ -153,10 +153,11 @@ TYPO3.FormBuilder.View.AvailableFormElementsElement = Ember.View.extend {
 			label: identifier
 		}, defaultValues))
 
+		
 		if !@getPath('formElementType.formBuilder._isTopLevel') && currentlySelectedRenderable.getPath('typeDefinition.formBuilder._isCompositeRenderable')
-			# element to be inserted is no toplevel object (i.e. no page), but the selected renderable is a composite element (a page or section). Thus, we need to add the
-			# form element as child.
-			currentlySelectedRenderable.get('renderables').pushObject(newRenderable)
+				# element to be inserted is no toplevel object (i.e. no page), but the selected renderable is a composite element (a page or section). Thus, we need to add the
+				# form element as child
+				currentlySelectedRenderable.get('renderables').pushObject(newRenderable)
 		else
 			referenceRenderable = currentlySelectedRenderable
 			if referenceRenderable == TYPO3.FormBuilder.Model.Form.get('formDefinition')
@@ -166,6 +167,11 @@ TYPO3.FormBuilder.View.AvailableFormElementsElement = Ember.View.extend {
 				# element to be inserted IS a page, but the selected renderable is not a top level element. thus, we need to bubble up the tree
 				# to find the closest page.
 				referenceRenderable = referenceRenderable.findEnclosingPage()
+			else if @getPath('formElementType.formBuilder._isCompositeRenderable')
+				# form element to be inserted IS composite renderable, and if the currently
+				# selected element has a composite renderable parent which is no page, we add it afterwards.
+				if referenceRenderable.findEnclosingCompositeRenderableWhichIsNotOnTopLevel()
+					referenceRenderable = referenceRenderable.findEnclosingCompositeRenderableWhichIsNotOnTopLevel()
 
 			parentRenderablesArray = referenceRenderable.getPath('parentRenderable.renderables')
 			indexInParent = parentRenderablesArray.indexOf(referenceRenderable)

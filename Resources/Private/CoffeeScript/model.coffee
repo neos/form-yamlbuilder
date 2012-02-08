@@ -156,6 +156,16 @@ TYPO3.FormBuilder.Model.Renderable = Ember.Object.extend {
 			referenceRenderable = referenceRenderable.get('parentRenderable')
 		return referenceRenderable
 
+	findEnclosingCompositeRenderableWhichIsNotOnTopLevel: ->
+		referenceRenderable = this
+		while !referenceRenderable.getPath('typeDefinition.formBuilder._isCompositeRenderable')
+			if referenceRenderable.getPath('typeDefinition.formBuilder._isTopLevel')
+				return null
+			referenceRenderable = referenceRenderable.get('parentRenderable')
+		if referenceRenderable.getPath('typeDefinition.formBuilder._isTopLevel')
+			return null
+		return referenceRenderable
+
 	# display a confirmation dialog for removing this renderable
 	removeWithConfirmationDialog: ->
 		thisRenderable = this

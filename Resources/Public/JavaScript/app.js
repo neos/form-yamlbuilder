@@ -217,6 +217,20 @@
       }
       return referenceRenderable;
     },
+    findEnclosingCompositeRenderableWhichIsNotOnTopLevel: function() {
+      var referenceRenderable;
+      referenceRenderable = this;
+      while (!referenceRenderable.getPath('typeDefinition.formBuilder._isCompositeRenderable')) {
+        if (referenceRenderable.getPath('typeDefinition.formBuilder._isTopLevel')) {
+          return null;
+        }
+        referenceRenderable = referenceRenderable.get('parentRenderable');
+      }
+      if (referenceRenderable.getPath('typeDefinition.formBuilder._isTopLevel')) {
+        return null;
+      }
+      return referenceRenderable;
+    },
     removeWithConfirmationDialog: function() {
       var thisRenderable;
       thisRenderable = this;
@@ -543,6 +557,10 @@
           referenceRenderable = referenceRenderable.getPath('renderables.0');
         } else if (this.getPath('formElementType.formBuilder._isTopLevel') && !currentlySelectedRenderable.getPath('typeDefinition.formBuilder._isTopLevel')) {
           referenceRenderable = referenceRenderable.findEnclosingPage();
+        } else if (this.getPath('formElementType.formBuilder._isCompositeRenderable')) {
+          if (referenceRenderable.findEnclosingCompositeRenderableWhichIsNotOnTopLevel()) {
+            referenceRenderable = referenceRenderable.findEnclosingCompositeRenderableWhichIsNotOnTopLevel();
+          }
         }
         parentRenderablesArray = referenceRenderable.getPath('parentRenderable.renderables');
         indexInParent = parentRenderablesArray.indexOf(referenceRenderable);
