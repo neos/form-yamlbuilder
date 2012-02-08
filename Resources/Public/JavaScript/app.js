@@ -325,6 +325,7 @@
 
   TYPO3.FormBuilder.View.FormPageView = Ember.View.extend({
     formPagesBinding: 'TYPO3.FormBuilder.Model.Form.formDefinition.renderables',
+    presetName: null,
     currentPageIndex: (function() {
       var currentlySelectedRenderable, enclosingPage;
       currentlySelectedRenderable = TYPO3.FormBuilder.Model.Form.get('currentlySelectedRenderable');
@@ -353,7 +354,8 @@
         _this.set('isLoading', true);
         return _this.currentAjaxRequest = $.post(TYPO3.FormBuilder.Configuration.endpoints.formPageRenderer, {
           formDefinition: formDefinition,
-          currentPageIndex: _this.get('currentPageIndex')
+          currentPageIndex: _this.get('currentPageIndex'),
+          presetName: _this.get('presetName')
         }, function(data, textStatus, jqXHR) {
           if (_this.currentAjaxRequest !== jqXHR) return;
           _this.$().html(data);

@@ -6,7 +6,7 @@
 	<f:base />
 
 	<script type="text/javascript">
-		FORMBUILDER_CONFIGURATION = {formbuilder:jsonConfiguration()};
+		FORMBUILDER_CONFIGURATION = {formbuilder:jsonConfiguration(presetName: presetName)};
 	</script>
 
 	<f:for each="{javaScripts}" as="script">
@@ -30,8 +30,12 @@
 			{{#if TYPO3.FormBuilder.Model.Form.currentlyLoadingPreview}}<span style="width: 60px;height:15px;background:red;position:absolute;z-index: 3000">Loading..</span>{{/if}}
 		</script>
 		<ul id="typo3-formbuilder-toolbar">
-			<li class="typo3-formbuilder-preset"><a href="#" target="_blank">Preset: xyz</a></li>
-			<li class="typo3-formbuilder-preview"><f:link.action controller="FormManager" action="show" target="_blank" arguments="{formPersistenceIdentifier: formPersistenceIdentifier}" title="Preview this form" class="icon-search preview">Preview</f:link.action></li>
+			<li class="typo3-formbuilder-preset">
+				<f:link.action action="index" arguments="{formPersistenceIdentifier: formPersistenceIdentifier, presetName: 'bootstrap'}" title="Change preset (TODO: Selector)">Preset: {presetName}</f:link.action>
+			</li>
+			<li class="typo3-formbuilder-preview">
+				<f:link.action controller="FormManager" action="show" target="_blank" arguments="{formPersistenceIdentifier: formPersistenceIdentifier}" title="Preview this form">Preview</f:link.action>
+			</li>
 			<li class="typo3-formbuilder-save">
 				<script type="text/x-handlebars">{{#view TYPO3.FormBuilder.SaveButton}}Save{{/view}}</script>
 			</li>
@@ -39,7 +43,7 @@
 	</header>
 	<section id="typo3-formbuilder-stage">
 		<script type="text/x-handlebars"><![CDATA[
-			{{view TYPO3.FormBuilder.View.FormPageView}}
+			{{view TYPO3.FormBuilder.View.FormPageView presetName="]]>{presetName}<![CDATA["}}
 		]]></script>
 	</section>
 	<section id="typo3-formbuilder-elementSidebar">

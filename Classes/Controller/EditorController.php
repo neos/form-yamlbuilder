@@ -25,9 +25,10 @@ class EditorController extends \TYPO3\FLOW3\MVC\Controller\ActionController {
 	 * Displays the example form
 	 *
 	 * @param string $formPersistenceIdentifier
+	 * @param string $presetName
 	 * @return void
 	 */
-	public function indexAction($formPersistenceIdentifier) {
+	public function indexAction($formPersistenceIdentifier, $presetName = 'default') {
 		$handlebarsTemplates = array();
 		foreach ($this->settings['handlebarsTemplates'] as $templateName => $filePath) {
 			$handlebarsTemplates[] = '<script type="text/x-handlebars" data-template-name="' . $templateName . '">' . file_get_contents($filePath) . '</script>';
@@ -38,6 +39,7 @@ class EditorController extends \TYPO3\FLOW3\MVC\Controller\ActionController {
 		$this->view->assign('stylesheets', $this->filterAndSortArray($this->settings['stylesheets']));
 		$this->view->assign('javaScripts', $this->filterAndSortArray($this->settings['javaScripts']));
 		$this->view->assign('formPersistenceIdentifier', $formPersistenceIdentifier);
+		$this->view->assign('presetName', $presetName);
 	}
 
 	protected function filterAndSortArray($input) {
@@ -73,12 +75,12 @@ class EditorController extends \TYPO3\FLOW3\MVC\Controller\ActionController {
 	/**
 	 * @param array $formDefinition
 	 * @param integer $currentPageIndex
+	 * @param string $presetName
 	 * @return string
 	 */
-	public function renderformpageAction($formDefinition, $currentPageIndex) {
+	public function renderformpageAction($formDefinition, $currentPageIndex, $presetName = 'default') {
 		$formFactory = new \TYPO3\Form\Factory\ArrayFormFactory();
-		// TODO make preset name changable
-		$formDefinition = $formFactory->build($formDefinition, 'default');
+		$formDefinition = $formFactory->build($formDefinition, $presetName);
 		$formDefinition->setRenderingOption('previewMode', TRUE);
 		$form = $formDefinition->bind($this->request);
 		$form->overrideCurrentPage($currentPageIndex);

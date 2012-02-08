@@ -30,7 +30,6 @@ class JsonConfigurationViewHelper extends \TYPO3\Fluid\Core\ViewHelper\AbstractV
 	 * @return type
 	 */
 	public function render($presetName = 'default') {
-		$presetName = 'bootstrap';
 		$mergedConfiguration = array();
 
 		$presetConfiguration = $this->formBuilderFactory->getPresetConfiguration($presetName);
