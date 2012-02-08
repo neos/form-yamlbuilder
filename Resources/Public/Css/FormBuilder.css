@@ -457,7 +457,7 @@ span.dynatree-icon:before {
 .typo3-formbuilder-group-container *:before {
   background-position: -408px -120px !important; }
 
-.typo3-formbuilder-type-typo3-form-page:before,
+.typo3-formbuilder-type-typo3-form-page *:before,
 .typo3-formbuilder-type-typo3-form-previewpage *:before {
   background-position: -24px -24px !important; }
 

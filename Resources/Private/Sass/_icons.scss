@@ -188,7 +188,7 @@ span.dynatree-icon {
 .typo3-formbuilder-group-container * {
 	@include overrideIcon($icon-folder-open);
 }
-.typo3-formbuilder-type-typo3-form-page,
+.typo3-formbuilder-type-typo3-form-page *,
 .typo3-formbuilder-type-typo3-form-previewpage * {
 	@include overrideIcon($icon-file);
 }
