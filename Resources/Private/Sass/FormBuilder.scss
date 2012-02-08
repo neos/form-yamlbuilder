@@ -1,0 +1,258 @@
+@import "compass/reset/utilities";
+@import "compass/css3/transition";
+
+/**
+ * Global Variables
+ */
+$headerSize: 46px;
+$footerSize: 11px;
+
+$colorDarkBackground: #282828;
+$colorLighterBackground: #474747;
+$colorLightBackground: #808080;
+$colorHighlight: #ff8700;
+
+@import 'reset';
+@import 'icons';
+@import 'forms';
+@import 'elementStructure';
+
+#typo3-formbuilder-header,
+#typo3-formbuilder-elementSidebar,
+#typo3-formbuilder-elementOptionsPanel,
+#typo3-formbuilder-footer {
+	background: $colorLighterBackground;
+	color: white;
+	font: 11px Verdana, Arial, Helvetica, sans-serif;
+	overflow: auto;
+	a {
+		color: white;
+		text-decoration: none;
+		&.active, &:hover {
+			color: #ff8700;
+		}
+	}
+	h2, h3, h4 {
+	    padding: 1px 2px 2px 5px;
+		border-bottom: 1px solid $colorDarkBackground;
+		color: white;
+		clear: both;
+		white-space: nowrap;
+		font-size: 10px;
+		font-weight: bold;
+		height: 16px;
+	}
+	h2 {
+		padding-top: 3px;
+		background: #383838;
+		text-transform: uppercase;
+		text-shadow: 0 1px 1px #111;
+	}
+	h3 {
+		background: #777;
+		text-transform: uppercase;
+		color: #383838;
+		border-top: 1px solid #999;
+		border-bottom: 1px solid #383838;
+		text-shadow: 0 1px 1px #aaa;
+		height: 14px;
+	}
+	h4 {
+		background: #555;
+		color: white;
+		border-top: 1px solid #999;
+		border-bottom: 1px solid #383838;
+		height: 14px;
+	}
+}
+
+#typo3-formbuilder-header {
+	margin: 0;
+	padding: 0;
+	background: $colorDarkBackground url('../Images/header_background.png') 0 0 repeat-x;
+	height: $headerSize !important;
+	overflow: hidden;
+	h1 {
+		margin: 5px 0 0 10px;
+		font-size: 25px;
+		color: #fff;
+		text-shadow: 0 -1px 0 #777;
+	}
+	#typo3-formbuilder-toolbar {
+		position: absolute;
+		top: 14px;
+		right: 10px;
+		li {
+			display: inline;
+			margin: 0 0 0 10px;
+			div {
+				display: inline;
+			}
+			a, button {
+				@include icon($icon-cog);
+				padding-left: 17px;
+				background: none;
+				font-size: 11px;
+				color: #eee;
+				&:hover {
+					color: #ff8700;
+				}
+			}
+		}
+		.typo3-formbuilder-preview a {
+			@include overrideIcon($icon-search);
+		}
+		.typo3-formbuilder-save button {
+			@include overrideIcon($icon-download-alt);
+		}
+	}
+}
+
+#typo3-formbuilder-structurePanel {
+	overflow: auto;
+	button {
+		@include icon($icon-cog);
+		color: white;
+		background: none;
+		padding-left: 19px;
+		font-size: 10px;
+		font-weight: bold;
+	}
+}
+#typo3-formbuilder-insertElementsPanel {
+	overflow: auto;
+	h3 span {
+		@include iconDark($icon-cog);
+		padding-left: 17px;
+		color: #383838;
+		&:before {
+			margin-top: 0;
+		}
+	}
+	ul {
+		margin-bottom: 7px;
+		li {
+			padding-left: 25px;
+			color: #999;
+			&.typo3-formbuilder-enabled {
+				color: white;
+				&:hover {
+					color: $colorHighlight;
+					background: #383838;
+				}
+				span {
+					cursor: pointer;
+					@include icon($icon-file);
+				}
+			}
+			span {
+				@include iconDark($icon-ban-circle);
+				cursor: disabled;
+				display: block;
+				padding: 4px 0 3px 2px;
+				font-size: 10px;
+			}
+		}
+	}
+}
+
+#typo3-formbuilder-elementOptionsPanel {
+	.typo3-formbuilder-controlGroup {
+		margin: 7px 5px 7px 5px;
+		clear: both;
+		label {
+			float: left;
+			padding-right: 2px;
+			width: 35%;
+		}
+		.typo3-formbuilder-controls {
+			display: block;
+			margin-left: 40%;
+			width: 57%;
+			.typo3-formbuilder-explanation {
+				font-size: 10px;
+				color: #999;
+			}
+			label {
+				float: none;
+				width: auto;
+			}
+		}
+		input,
+		textarea,
+		select {
+			width: 100%;
+		}
+		input[type='checkbox'],
+		input[type='radio'] {
+			width: auto;
+			margin-right: 3px;
+		}
+	}
+	.typo3-formbuilder-addValidator,
+	.typo3-formbuilder-addFinisher {
+		border-bottom: 1px solid #444;
+		select {
+			width: 100%;
+			background: $colorLightBackground;
+			font-size: 12px;
+			color: white;
+			font-weight: bold;
+			border: none;
+			option {
+				font-weight: normal;
+			}
+		}
+	}
+	.typo3-formbuilder-remove {
+		display: inline-block;
+		position: absolute;
+		right: 5px;
+		width: 14px;
+		height: 14px;
+		text-indent: -9999px;
+		vertical-align: text-top;
+		background: transparent url('../Images/glyphicons-halflings-white.png') -456px 0 no-repeat;
+		&:hover {
+			background-color: #666;
+		}
+	}
+}
+
+#typo3-formbuilder-footer {
+	background: $colorDarkBackground url('../Images/footer_background.png') 0 0 repeat-x;
+	height: $footerSize + 9px !important;
+	padding: 9px 5px 0 0;
+	font-size: 10px;
+	color: #777;
+	overflow: hidden;
+	text-align: right;
+}
+
+#typo3-formbuilder-stage {
+	background: $colorLightBackground;
+	overflow: auto;
+	.typo3-formbuilder-form-element-selected {
+		background: #ccc;
+	}
+}
+
+// TODO wrap?
+
+.ui-layout-resizer {
+	background: $colorLightBackground url('../Images/hgrabber.gif') 50% 50% no-repeat;
+	border: 1px solid #909090;
+}
+.ui-layout-resizer-north, .ui-layout-resizer-south {
+	border-style: solid none;
+}
+.ui-layout-resizer-east, .ui-layout-resizer-west {
+	border-color: black;
+	border-style: none solid none none;
+}
+.ui-layout-resizer-west {
+	border-style: none none none solid;
+}
+.ui-layout-resizer-dragging-limit {
+	background-color: #7f4949;
+}

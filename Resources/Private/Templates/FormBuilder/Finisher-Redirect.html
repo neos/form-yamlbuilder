@@ -1,15 +1,21 @@
-<div class="formBuilder-element">
+<div class="typo3-formbuilder-controlGroup">
 	<label>Package Key</label>
-	{{view Ember.TextField valueBinding="currentCollectionElement.options.package"}}
+	<div class="typo3-formbuilder-controls">
+		{{view Ember.TextField valueBinding="currentCollectionElement.options.package"}}
+	</div>
 </div>
 
-<div class="formBuilder-element">
+<div class="typo3-formbuilder-controlGroup">
 	<label>Controller</label>
-	{{view Ember.TextField valueBinding="currentCollectionElement.options.controller"}}
+	<div class="typo3-formbuilder-controls">
+		{{view Ember.TextField valueBinding="currentCollectionElement.options.controller"}}
+	</div>
 </div>
 
-<div class="formBuilder-element">
+<div class="typo3-formbuilder-controlGroup">
 	<label>Action</label>
-	{{view Ember.TextField valueBinding="currentCollectionElement.options.action"}}
+	<div class="typo3-formbuilder-controls">
+		{{view Ember.TextField valueBinding="currentCollectionElement.options.action"}}
+	</div>
 </div>
 {{#view Ember.Button target="parentView" action="remove" isVisibleBinding="notRequired"}}Remove{{/view}}

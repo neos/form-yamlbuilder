@@ -26,7 +26,7 @@ consoleOutput = (error, stdout, stderr) ->
 task 'build', 'Build single application file from source files (CoffeeScript and SASS)', ->
 	appContents = new Array
 	remaining = appFiles.length
-	exec 'sass --compass Resources/Private/Sass/Style.scss Resources/Public/style.css', consoleOutput
+	exec 'sass --compass Resources/Private/Sass/FormBuilder.scss Resources/Public/Css/FormBuilder.css', consoleOutput
 
 	for file, index in appFiles then do (file, index) ->
 		fs.readFile "Resources/Private/CoffeeScript/#{file}.coffee", 'utf8', (err, fileContents) ->
@@ -56,10 +56,8 @@ wrapCssFile = (filePath, beforeWrapper, afterWrapper = '}') ->
 
 
 task 'modifyExternalLibraryCss', 'Modify external library CSS by wrapping it and compiling it with SASS', ->
-	wrapCssFile('Resources/Public/Library/dynatree-1.2.0/src/skin/ui.dynatree', '#leftSidebar {')
-	wrapCssFile('Resources/Public/Library/SlickGrid/slick.grid', '#rightSidebar {')
-	wrapCssFile('Resources/Public/Library/jQuery-contextMenu/jquery.contextMenu', '#rightSidebar, #leftSidebar {')
-
+	wrapCssFile('Resources/Public/Library/SlickGrid/slick.grid', '#typo3-formbuilder-elementOptionsPanel {')
+	wrapCssFile('Resources/Public/Library/jQuery-contextMenu/jquery.contextMenu', '#typo3-formbuilder-elementSidebar, #typo3-formbuilder-elementOptionsPanel {')
 
 task 'buildDocumentation', 'build JS api documentation with docco-husky', ->
 	exec "docco-husky Resources/Private/CoffeeScript", consoleOutput

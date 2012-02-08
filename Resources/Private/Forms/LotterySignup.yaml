@@ -1,5 +1,6 @@
 type: 'TYPO3.Form:Form'
 identifier: LotterySignup
+label: 'Lottery Signup'
 renderables:
     -
         type: 'TYPO3.Form:Page'
@@ -36,4 +37,3 @@ renderables:
         type: 'TYPO3.Form:PreviewPage'
         identifier: previewpage1
         label: previewpage1
-label: ''

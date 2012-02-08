@@ -1,12 +1,14 @@
-<div class="formbuilder-element">
+<div class="typo3-formbuilder-controlGroup">
 	<label>Identifier:</label>
-	{{#if editMode}}
-		{{view TYPO3.FormBuilder.View.Editor.IdentifierEditor.TextField valueBinding="textFieldValue"}}
-		{{#if validationErrorMessage}}
-			<span class="error">{{validationErrorMessage}}</span>
+	<div class="typo3-formbuilder-controls">
+		{{#if editMode}}
+			{{view TYPO3.FormBuilder.View.Editor.IdentifierEditor.TextField valueBinding="textFieldValue"}}
+			{{#if validationErrorMessage}}
+				<span class="error">{{validationErrorMessage}}</span>
+			{{/if}}
 		{{/if}}
-	{{/if}}
-	{{#unless editMode}}
-		{{value}}
-	{{/unless}}
+		{{#unless editMode}}
+			{{value}}
+		{{/unless}}
+	</div>
 </div>

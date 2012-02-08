@@ -1,4 +1,4 @@
-#rightSidebar, #leftSidebar {
+#typo3-formbuilder-elementSidebar, #typo3-formbuilder-elementOptionsPanel {
   /*
    * jQuery contextMenu - Plugin for simple contextMenu handling
    *
@@ -15,12 +15,12 @@
   /* icons
       #protip:
       In case you want to use sprites for icons (which I would suggest you do) have a look at
-      http://css-tricks.com/13224-pseudo-spriting/ to get an idea of how to implement 
+      http://css-tricks.com/13224-pseudo-spriting/ to get an idea of how to implement
       .context-menu-item.icon:before {}
    */
   /* vertically align inside labels */
   /* position checkboxes and radios as icons */ }
-  #rightSidebar .context-menu-list, #leftSidebar .context-menu-list {
+  #typo3-formbuilder-elementSidebar .context-menu-list, #typo3-formbuilder-elementOptionsPanel .context-menu-list {
     margin: 0;
     padding: 0;
     min-width: 120px;
@@ -37,59 +37,59 @@
     box-shadow: 0 2px 5px rgba(0, 0, 0, 0.5);
     font-family: Verdana, Arial, Helvetica, sans-serif;
     font-size: 11px; }
-  #rightSidebar .context-menu-item, #leftSidebar .context-menu-item {
+  #typo3-formbuilder-elementSidebar .context-menu-item, #typo3-formbuilder-elementOptionsPanel .context-menu-item {
     padding: 2px 2px 2px 24px;
     background-color: #EEE;
     position: relative;
     -moz-user-select: -moz-none; }
-  #rightSidebar .context-menu-separator, #leftSidebar .context-menu-separator {
+  #typo3-formbuilder-elementSidebar .context-menu-separator, #typo3-formbuilder-elementOptionsPanel .context-menu-separator {
     padding-bottom: 0;
     border-bottom: 1px solid #DDD; }
-  #rightSidebar .context-menu-item > label, #leftSidebar .context-menu-item > label {
+  #typo3-formbuilder-elementSidebar .context-menu-item > label, #typo3-formbuilder-elementOptionsPanel .context-menu-item > label {
     -moz-user-select: text; }
-  #rightSidebar .context-menu-item.hover, #leftSidebar .context-menu-item.hover {
+  #typo3-formbuilder-elementSidebar .context-menu-item.hover, #typo3-formbuilder-elementOptionsPanel .context-menu-item.hover {
     cursor: pointer;
     background-color: #39F; }
-  #rightSidebar .context-menu-item.disabled, #leftSidebar .context-menu-item.disabled {
+  #typo3-formbuilder-elementSidebar .context-menu-item.disabled, #typo3-formbuilder-elementOptionsPanel .context-menu-item.disabled {
     color: #666; }
-  #rightSidebar .context-menu-input.hover,
-  #rightSidebar .context-menu-item.disabled.hover, #leftSidebar .context-menu-input.hover, #leftSidebar .context-menu-item.disabled.hover {
+  #typo3-formbuilder-elementSidebar .context-menu-input.hover,
+  #typo3-formbuilder-elementSidebar .context-menu-item.disabled.hover, #typo3-formbuilder-elementOptionsPanel .context-menu-input.hover, #typo3-formbuilder-elementOptionsPanel .context-menu-item.disabled.hover {
     cursor: default;
     background-color: #EEE; }
-  #rightSidebar .context-menu-submenu:after, #leftSidebar .context-menu-submenu:after {
+  #typo3-formbuilder-elementSidebar .context-menu-submenu:after, #typo3-formbuilder-elementOptionsPanel .context-menu-submenu:after {
     content: ">";
     color: #666;
     position: absolute;
     top: 0;
     right: 3px;
     z-index: 1; }
-  #rightSidebar .context-menu-item.icon, #leftSidebar .context-menu-item.icon {
+  #typo3-formbuilder-elementSidebar .context-menu-item.icon, #typo3-formbuilder-elementOptionsPanel .context-menu-item.icon {
     min-height: 18px;
     background-repeat: no-repeat;
     background-position: 4px 2px; }
-  #rightSidebar .context-menu-item.icon-edit, #leftSidebar .context-menu-item.icon-edit {
+  #typo3-formbuilder-elementSidebar .context-menu-item.icon-edit, #typo3-formbuilder-elementOptionsPanel .context-menu-item.icon-edit {
     background-image: url(images/page_white_edit.png); }
-  #rightSidebar .context-menu-item.icon-cut, #leftSidebar .context-menu-item.icon-cut {
+  #typo3-formbuilder-elementSidebar .context-menu-item.icon-cut, #typo3-formbuilder-elementOptionsPanel .context-menu-item.icon-cut {
     background-image: url(images/cut.png); }
-  #rightSidebar .context-menu-item.icon-copy, #leftSidebar .context-menu-item.icon-copy {
+  #typo3-formbuilder-elementSidebar .context-menu-item.icon-copy, #typo3-formbuilder-elementOptionsPanel .context-menu-item.icon-copy {
     background-image: url(images/page_white_copy.png); }
-  #rightSidebar .context-menu-item.icon-paste, #leftSidebar .context-menu-item.icon-paste {
+  #typo3-formbuilder-elementSidebar .context-menu-item.icon-paste, #typo3-formbuilder-elementOptionsPanel .context-menu-item.icon-paste {
     background-image: url(images/page_white_paste.png); }
-  #rightSidebar .context-menu-item.icon-delete, #leftSidebar .context-menu-item.icon-delete {
+  #typo3-formbuilder-elementSidebar .context-menu-item.icon-delete, #typo3-formbuilder-elementOptionsPanel .context-menu-item.icon-delete {
     background-image: url(images/page_white_delete.png); }
-  #rightSidebar .context-menu-item.icon-quit, #leftSidebar .context-menu-item.icon-quit {
+  #typo3-formbuilder-elementSidebar .context-menu-item.icon-quit, #typo3-formbuilder-elementOptionsPanel .context-menu-item.icon-quit {
     background-image: url(images/door.png); }
-  #rightSidebar .context-menu-input > label > *, #leftSidebar .context-menu-input > label > * {
+  #typo3-formbuilder-elementSidebar .context-menu-input > label > *, #typo3-formbuilder-elementOptionsPanel .context-menu-input > label > * {
     vertical-align: top; }
-  #rightSidebar .context-menu-input > label > input[type="checkbox"],
-  #rightSidebar .context-menu-input > label > input[type="radio"], #leftSidebar .context-menu-input > label > input[type="checkbox"], #leftSidebar .context-menu-input > label > input[type="radio"] {
+  #typo3-formbuilder-elementSidebar .context-menu-input > label > input[type="checkbox"],
+  #typo3-formbuilder-elementSidebar .context-menu-input > label > input[type="radio"], #typo3-formbuilder-elementOptionsPanel .context-menu-input > label > input[type="checkbox"], #typo3-formbuilder-elementOptionsPanel .context-menu-input > label > input[type="radio"] {
     margin-left: -17px; }
-  #rightSidebar .context-menu-input > label > span, #leftSidebar .context-menu-input > label > span {
+  #typo3-formbuilder-elementSidebar .context-menu-input > label > span, #typo3-formbuilder-elementOptionsPanel .context-menu-input > label > span {
     margin-left: 5px; }
-  #rightSidebar .context-menu-input > label,
-  #rightSidebar .context-menu-input > label > input[type="text"],
-  #rightSidebar .context-menu-input > label > textarea,
-  #rightSidebar .context-menu-input > label > select, #leftSidebar .context-menu-input > label, #leftSidebar .context-menu-input > label > input[type="text"], #leftSidebar .context-menu-input > label > textarea, #leftSidebar .context-menu-input > label > select {
+  #typo3-formbuilder-elementSidebar .context-menu-input > label,
+  #typo3-formbuilder-elementSidebar .context-menu-input > label > input[type="text"],
+  #typo3-formbuilder-elementSidebar .context-menu-input > label > textarea,
+  #typo3-formbuilder-elementSidebar .context-menu-input > label > select, #typo3-formbuilder-elementOptionsPanel .context-menu-input > label, #typo3-formbuilder-elementOptionsPanel .context-menu-input > label > input[type="text"], #typo3-formbuilder-elementOptionsPanel .context-menu-input > label > textarea, #typo3-formbuilder-elementOptionsPanel .context-menu-input > label > select {
     display: block;
     width: 100%;
     -webkit-box-sizing: border-box;
@@ -97,14 +97,14 @@
     -ms-box-sizing: border-box;
     -o-box-sizing: border-box;
     box-sizing: border-box; }
-  #rightSidebar .context-menu-input > label > textarea, #leftSidebar .context-menu-input > label > textarea {
+  #typo3-formbuilder-elementSidebar .context-menu-input > label > textarea, #typo3-formbuilder-elementOptionsPanel .context-menu-input > label > textarea {
     height: 100px; }
-  #rightSidebar .context-menu-item > .context-menu-list, #leftSidebar .context-menu-item > .context-menu-list {
+  #typo3-formbuilder-elementSidebar .context-menu-item > .context-menu-list, #typo3-formbuilder-elementOptionsPanel .context-menu-item > .context-menu-list {
     display: none;
     /* re-positioned by js */
     right: -5px;
     top: 5px; }
-  #rightSidebar .context-menu-item.hover > .context-menu-list, #leftSidebar .context-menu-item.hover > .context-menu-list {
+  #typo3-formbuilder-elementSidebar .context-menu-item.hover > .context-menu-list, #typo3-formbuilder-elementOptionsPanel .context-menu-item.hover > .context-menu-list {
     display: block; }
-  #rightSidebar .context-menu-accesskey, #leftSidebar .context-menu-accesskey {
+  #typo3-formbuilder-elementSidebar .context-menu-accesskey, #typo3-formbuilder-elementOptionsPanel .context-menu-accesskey {
     text-decoration: underline; }

@@ -7,15 +7,18 @@ TYPO3:
     javaScripts:
       jQuery:
         sorting: 10
-        files: ['resource://TYPO3.FormBuilder/Public/Library/jquery-1.7.1.min.js', 'http://ajax.googleapis.com/ajax/libs/jqueryui/1.8.16/jquery-ui.min.js']
-      ember:
+        files: ['resource://TYPO3.FormBuilder/Public/Library/jquery-1.7.1.min.js', 'resource://TYPO3.FormBuilder/Public/Library/jquery-ui.min.js']
+      jQueryLayout:
         sorting: 15
+        files: ['resource://TYPO3.FormBuilder/Public/Library/jquery.layout.js']
+      ember:
+        sorting: 20
         files: ['resource://TYPO3.FormBuilder/Public/Library/ember-0.9.4.js']
       dynatree:
-        sorting: 20
+        sorting: 25
         files: ['resource://TYPO3.FormBuilder/Public/Library/dynatree-1.2.0/src/jquery.dynatree.js']
       slickGrid:
-        sorting: 25
+        sorting: 30
         files:
           - 'resource://TYPO3.FormBuilder/Public/Library/SlickGrid/lib/jquery.event.drag-2.0.min.js'
           - 'resource://TYPO3.FormBuilder/Public/Library/SlickGrid/slick.core.js'
@@ -27,28 +30,22 @@ TYPO3:
           - 'resource://TYPO3.FormBuilder/Public/Library/SlickGrid/slick.editors.js'
           - 'resource://TYPO3.FormBuilder/Public/Library/SlickGrid/slick.grid.js'
       contextMenu:
-        sorting: 30
+        sorting: 35
         files: ['resource://TYPO3.FormBuilder/Public/Library/jQuery-contextMenu/jquery.contextMenu.js']
       application:
         files: ['resource://TYPO3.FormBuilder/Public/JavaScript/app.js']
         sorting: 100
 
     stylesheets:
-      jQuery:
-        sorting: 10
-        files: ['http://ajax.googleapis.com/ajax/libs/jqueryui/1.8/themes/smoothness/jquery-ui.css']
-      dynatree:
-        sorting: 20
-        files: ['resource://TYPO3.FormBuilder/Public/Library/dynatree-1.2.0/src/skin/ui.dynatree.wrapped.css']
       slickGrid:
-        sorting: 25
+        sorting: 10
         files: ['resource://TYPO3.FormBuilder/Public/Library/SlickGrid/slick.grid.wrapped.css']
       contextMenu:
-        sorting: 30
+        sorting: 15
         files: ['resource://TYPO3.FormBuilder/Public/Library/jQuery-contextMenu/jquery.contextMenu.wrapped.css']
       application:
         sorting: 100
-        files: ['resource://TYPO3.FormBuilder/Public/style.css']
+        files: ['resource://TYPO3.FormBuilder/Public/Css/FormBuilder.css']
 
     handlebarsTemplates:
       AvailableFormElements: resource://TYPO3.FormBuilder/Private/Templates/FormBuilder/AvailableFormElements.html
@@ -59,7 +56,7 @@ TYPO3:
       RequiredValidatorEditor: resource://TYPO3.FormBuilder/Private/Templates/FormBuilder/RequiredValidatorEditor.html
       TextEditor: resource://TYPO3.FormBuilder/Private/Templates/FormBuilder/TextEditor.html
       TextareaEditor: resource://TYPO3.FormBuilder/Private/Templates/FormBuilder/TextareaEditor.html
-      FinisherTitle: resource://TYPO3.FormBuilder/Private/Templates/FormBuilder/FinisherTitle.html
+      FinisherEditor: resource://TYPO3.FormBuilder/Private/Templates/FormBuilder/FinisherEditor.html
       Finisher-Email: resource://TYPO3.FormBuilder/Private/Templates/FormBuilder/Finisher-Email.html
       Finisher-Redirect: resource://TYPO3.FormBuilder/Private/Templates/FormBuilder/Finisher-Redirect.html
       ValidatorEditor-Default: resource://TYPO3.FormBuilder/Private/Templates/FormBuilder/ValidatorEditor-Default.html
@@ -130,15 +127,10 @@ TYPO3:
               editors:
                 submitButtonLabel:
                   sorting: 200
-                  label: 'Submit Button Label'
+                  label: 'Submit Label'
                   propertyPath: 'renderingOptions.submitButtonLabel'
                   viewName: 'TYPO3.FormBuilder.View.Editor.TextEditor'
 
-                finisherHeadline:
-                  sorting: 400
-                  viewName: 'TYPO3.FormBuilder.View.Editor.TextOutput'
-                  templateName: 'FinisherTitle'
-                  tagName: h2
                 finishers:
                   sorting: 410
                   viewName: 'TYPO3.FormBuilder.View.Editor.FinisherEditor'

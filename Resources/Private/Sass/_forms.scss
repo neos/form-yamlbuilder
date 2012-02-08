@@ -1,0 +1,46 @@
+@import "compass/css3/box-shadow";
+
+#typo3-formbuilder-elementSidebar,
+#typo3-formbuilder-elementOptionsPanel {
+
+	label {
+		color: white;
+	}
+	select,
+	textarea,
+	input {
+		color: $colorLighterBackground;
+		background: #ddd;
+		border: 1px solid #777;
+	}
+	select {
+		display: inline;
+		font-size: 12px;
+	}
+	input, textarea {
+		@include transition-property(none);
+		width: inherit;
+		height: inherit;
+		padding: 1px 2px;
+		font-size: 12px;
+
+		&:focus {
+			outline: 0;
+			border: 1px solid $colorHighlight;
+			background: white;
+			color: black;
+			@include box-shadow($colorHighlight 0 0 5px);
+		}
+	}
+
+	button {
+		cursor: pointer;
+		background: none;
+		color: white;
+		&:hover {
+			color: $colorHighlight;
+		}
+	}
+
+	line-height: normal;
+}

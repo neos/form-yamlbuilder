@@ -103,8 +103,8 @@ TYPO3.FormBuilder.View.FormTree = Ember.View.extend {
 
 	initializeContextMenu: ->
 		$.contextMenu {
-			selector: '#leftSidebar .tree a.dynatree-title'
-			appendTo: '#leftSidebar'
+			selector: '#typo3-formbuilder-structurePanel .tree a.dynatree-title'
+			appendTo: '#typo3-formbuilder-structurePanel'
 			items: {
 				'delete': {
 					name: 'Delete'
@@ -143,7 +143,7 @@ TYPO3.FormBuilder.View.FormTree = Ember.View.extend {
 		for subRenderable, i in currentListOfSubRenderables
 			nodeOptions = {
 				key: subRenderable.get('_path')
-				title: "#{if subRenderable.label then subRenderable.label else subRenderable.identifier} (#{subRenderable.getPath('typeDefinition.formBuilder.label')})"
+				title: "#{if subRenderable.label then subRenderable.label else subRenderable.identifier} <em>(#{subRenderable.getPath('typeDefinition.formBuilder.label')})</em>"
 				formRenderable: subRenderable
 				addClass: subRenderable.getPath('typeDefinition.__cssClassNames')
 			}

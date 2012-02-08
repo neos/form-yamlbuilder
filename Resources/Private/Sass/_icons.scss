@@ -1,0 +1,194 @@
+$icon-glass: 0 0;
+$icon-music: -24px 0;
+$icon-search: -48px 0;
+$icon-envelope: -72px 0;
+$icon-heart: -96px 0;
+$icon-star: -120px 0;
+$icon-star-empty: -144px 0;
+$icon-user: -168px 0;
+$icon-film: -192px 0;
+$icon-th-large: -216px 0;
+$icon-th: -240px 0;
+$icon-th-list: -264px 0;
+$icon-ok: -288px 0;
+$icon-remove: -312px 0;
+$icon-zoom-in: -336px 0;
+$icon-zoom-out: -360px 0;
+$icon-off: -384px 0;
+$icon-signal: -408px 0;
+$icon-cog: -432px 0;
+$icon-trash: -456px 0;
+
+$icon-home: 0 -24px;
+$icon-file: -24px -24px;
+$icon-time: -48px -24px;
+$icon-road: -72px -24px;
+$icon-download-alt: -96px -24px;
+$icon-download: -120px -24px;
+$icon-upload: -144px -24px;
+$icon-inbox: -168px -24px;
+$icon-play-circle: -192px -24px;
+$icon-repeat: -216px -24px;
+$icon-refresh: -240px -24px;
+$icon-list-alt: -264px -24px;
+$icon-lock: -287px -24px; // 1px off
+$icon-flag: -312px -24px;
+$icon-headphones: -336px -24px;
+$icon-volume-off: -360px -24px;
+$icon-volume-down: -384px -24px;
+$icon-volume-up: -408px -24px;
+$icon-qrcode: -432px -24px;
+$icon-barcode: -456px -24px;
+
+$icon-tag: 0 -48px;
+$icon-tags: -25px -48px; // 1px off
+$icon-book: -48px -48px;
+$icon-bookmark: -72px -48px;
+$icon-print: -96px -48px;
+$icon-camera: -120px -48px;
+$icon-font: -144px -48px;
+$icon-bold: -167px -48px; // 1px off
+$icon-italic: -192px -48px;
+$icon-text-height: -216px -48px;
+$icon-text-width: -240px -48px;
+$icon-align-left: -264px -48px;
+$icon-align-center: -288px -48px;
+$icon-align-right: -312px -48px;
+$icon-align-justify: -336px -48px;
+$icon-list: -360px -48px;
+$icon-indent-left: -384px -48px;
+$icon-indent-right: -408px -48px;
+$icon-facetime-video: -432px -48px;
+$icon-picture: -456px -48px;
+
+$icon-pencil: 0 -72px;
+$icon-map-marker: -24px -72px;
+$icon-adjust: -48px -72px;
+$icon-tint: -72px -72px;
+$icon-edit: -96px -72px;
+$icon-share: -120px -72px;
+$icon-check: -144px -72px;
+$icon-move: -168px -72px;
+$icon-step-backward: -192px -72px;
+$icon-fast-backward: -216px -72px;
+$icon-backward: -240px -72px;
+$icon-play: -264px -72px;
+$icon-pause: -288px -72px;
+$icon-stop: -312px -72px;
+$icon-forward: -336px -72px;
+$icon-fast-forward: -360px -72px;
+$icon-step-forward: -384px -72px;
+$icon-eject: -408px -72px;
+$icon-chevron-left: -432px -72px;
+$icon-chevron-right: -456px -72px;
+
+$icon-plus-sign: 0 -96px;
+$icon-minus-sign: -24px -96px;
+$icon-remove-sign: -48px -96px;
+$icon-ok-sign: -72px -96px;
+$icon-question-sign: -96px -96px;
+$icon-info-sign: -120px -96px;
+$icon-screenshot: -144px -96px;
+$icon-remove-circle: -168px -96px;
+$icon-ok-circle: -192px -96px;
+$icon-ban-circle: -216px -96px;
+$icon-arrow-left: -240px -96px;
+$icon-arrow-right: -264px -96px;
+$icon-arrow-up: -289px -96px; // 1px off
+$icon-arrow-down: -312px -96px;
+$icon-share-alt: -336px -96px;
+$icon-resize-full: -360px -96px;
+$icon-resize-small: -384px -96px;
+$icon-plus: -408px -96px;
+$icon-minus: -433px -96px;
+$icon-asterisk: -456px -96px;
+
+$icon-exclamation-sign: 0 -120px;
+$icon-gift: -24px -120px;
+$icon-leaf: -48px -120px;
+$icon-fire: -72px -120px;
+$icon-eye-open: -96px -120px;
+$icon-eye-close: -120px -120px;
+$icon-warning-sign: -144px -120px;
+$icon-plane: -168px -120px;
+$icon-calendar: -192px -120px;
+$icon-random: -216px -120px;
+$icon-comment: -240px -120px;
+$icon-magnet: -264px -120px;
+$icon-chevron-up: -288px -120px;
+$icon-chevron-down: -313px -119px; // 1px off
+$icon-retweet: -336px -120px;
+$icon-shopping-cart: -360px -120px;
+$icon-folder-close: -384px -120px;
+$icon-folder-open: -408px -120px;
+$icon-resize-vertical: -432px -119px;
+$icon-resize-horizontal: -456px -118px;
+
+@mixin icon($spriteOffset) {
+	&:before {
+		background: transparent url('../Images/glyphicons-halflings-white.png') $spriteOffset no-repeat;
+		content: ' ';
+		position: absolute;
+		margin: 2px 0 0 -17px;
+		height: 14px;
+		width: 14px;
+	}
+}
+
+@mixin iconDark($spriteOffset) {
+	@include icon($spriteOffset);
+	&:before {
+		background-image: url('../Images/glyphicons-halflings.png');
+	}
+}
+
+@mixin overrideIcon($spriteOffset) {
+	&:before {
+		background-position: $spriteOffset !important;
+	}
+}
+
+/** ELEMENT STRUCTURE DEFAULTS **/
+
+span.dynatree-icon {
+	@include icon($icon-file);
+}
+
+.dynatree-ico-cf span.dynatree-icon {
+	@include icon($icon-folder-close);
+}
+
+/** ELEMENT ICONS **/
+
+// INPUT
+.typo3-formbuilder-group-input * {
+	@include overrideIcon($icon-edit);
+}
+
+// SELECT
+.typo3-formbuilder-group-select * {
+	@include overrideIcon($icon-list-alt);
+}
+.typo3-formbuilder-type-typo3-form-checkbox * {
+	@include overrideIcon($icon-check);
+}
+
+// CUSTOM
+.typo3-formbuilder-group-custom * {
+	@include overrideIcon($icon-gift);
+}
+.typo3-formbuilder-type-typo3-form-datepicker * {
+	@include overrideIcon($icon-calendar);
+}
+.typo3-formbuilder-type-typo3-form-imageupload * {
+	@include overrideIcon($icon-picture);
+}
+
+// CONTAINER
+.typo3-formbuilder-group-container * {
+	@include overrideIcon($icon-folder-open);
+}
+.typo3-formbuilder-type-typo3-form-page,
+.typo3-formbuilder-type-typo3-form-previewpage * {
+	@include overrideIcon($icon-file);
+}

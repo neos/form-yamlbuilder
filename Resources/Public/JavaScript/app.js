@@ -280,7 +280,7 @@
   TYPO3.FormBuilder.Model.FormElementType = Ember.Object.extend({
     type: null,
     __cssClassNames: (function() {
-      return "formbuilder-group-" + (this.getPath('formBuilder.group')) + " formbuilder-type-" + (this.get('type').toLowerCase().replace(/[^a-z0-9]/g, '-'));
+      return "typo3-formbuilder-group-" + (this.getPath('formBuilder.group')) + " typo3-formbuilder-type-" + (this.get('type').toLowerCase().replace(/[^a-z0-9]/g, '-'));
     }).property('formBuilder.group', 'type').cacheable()
   });
 
@@ -396,12 +396,12 @@
       var identifierPath, renderable;
       renderable = TYPO3.FormBuilder.Model.Form.get('currentlySelectedRenderable');
       if (!renderable) return;
-      this.$().find('.formbuilder-form-element-selected').removeClass('formbuilder-form-element-selected');
+      this.$().find('.typo3-formbuilder-form-element-selected').removeClass('typo3-formbuilder-form-element-selected');
       identifierPath = renderable.identifier;
       while (renderable = renderable.parentRenderable) {
         identifierPath = renderable.identifier + '/' + identifierPath;
       }
-      return this.$().find('[data-element="' + identifierPath + '"]').addClass('formbuilder-form-element-selected');
+      return this.$().find('[data-element="' + identifierPath + '"]').addClass('typo3-formbuilder-form-element-selected');
     }).observes('TYPO3.FormBuilder.Model.Form.currentlySelectedRenderable'),
     click: function(e) {
       var pathToClickedElement;
@@ -495,11 +495,11 @@
     content: null,
     formElementTypeBinding: 'content',
     didInsertElement: function() {
-      this.$().html(this.getPath('formElementType.formBuilder.label'));
+      this.$().html('<span>' + this.getPath('formElementType.formBuilder.label') + '</span>');
       this.$().attr('title', this.getPath('formElementType.key'));
       return this.$().addClass(this.getPath('formElementType.__cssClassNames'));
     },
-    classNameBindings: ['enabled:formbuilder-enabled'],
+    classNameBindings: ['enabled:typo3-formbuilder-enabled'],
     enabled: (function() {
       var currentlySelectedRenderable;
       if (this.getPath('formElementType.formBuilder._isTopLevel')) return true;
@@ -642,8 +642,8 @@
     },
     initializeContextMenu: function() {
       return $.contextMenu({
-        selector: '#leftSidebar .tree a.dynatree-title',
-        appendTo: '#leftSidebar',
+        selector: '#typo3-formbuilder-structurePanel .tree a.dynatree-title',
+        appendTo: '#typo3-formbuilder-structurePanel',
         items: {
           'delete': {
             name: 'Delete',
@@ -690,7 +690,7 @@
         subRenderable = currentListOfSubRenderables[i];
         nodeOptions = {
           key: subRenderable.get('_path'),
-          title: "" + (subRenderable.label ? subRenderable.label : subRenderable.identifier) + " (" + (subRenderable.getPath('typeDefinition.formBuilder.label')) + ")",
+          title: "" + (subRenderable.label ? subRenderable.label : subRenderable.identifier) + " <em>(" + (subRenderable.getPath('typeDefinition.formBuilder.label')) + ")</em>",
           formRenderable: subRenderable,
           addClass: subRenderable.getPath('typeDefinition.__cssClassNames')
         };
@@ -1259,7 +1259,7 @@
   });
 
   TYPO3.FormBuilder.View.Editor.ValidatorEditor.DefaultValidatorEditor = Ember.View.extend({
-    classNames: ['formbuilder-validator-editor'],
+    classNames: ['typo3-formbuilder-validator-editor'],
     templateName: 'ValidatorEditor-Default',
     required: false,
     collection: null,
@@ -1321,7 +1321,7 @@
   TYPO3.FormBuilder.View.Editor.FinisherEditor = TYPO3.FormBuilder.View.Editor.AbstractCollectionEditor.extend({
     availableFinishers: null,
     availableCollectionElementsBinding: 'availableFinishers',
-    templateName: 'ValidatorEditor',
+    templateName: 'FinisherEditor',
     prompt: 'Select a finisher to add',
     propertyPath: 'finishers'
   });

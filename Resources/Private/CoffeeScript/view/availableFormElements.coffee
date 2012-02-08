@@ -87,11 +87,11 @@ TYPO3.FormBuilder.View.AvailableFormElementsElement = Ember.View.extend {
 
 	# set the label and title attributes after we are inserted into the DOM
 	didInsertElement: ->
-		@$().html(@getPath('formElementType.formBuilder.label'))
+		@$().html('<span>' + @getPath('formElementType.formBuilder.label') + '</span>')
 		@$().attr('title', @getPath('formElementType.key'))
 		@$().addClass(@getPath('formElementType.__cssClassNames'))
 
-	classNameBindings: ['enabled:formbuilder-enabled']
+	classNameBindings: ['enabled:typo3-formbuilder-enabled']
 
 	# the editable is disabled, if it is no top level element and if a page is selected which is not _compositeRenderable
 	enabled: (->
@@ -153,7 +153,7 @@ TYPO3.FormBuilder.View.AvailableFormElementsElement = Ember.View.extend {
 			label: identifier
 		}, defaultValues))
 
-		
+
 		if !@getPath('formElementType.formBuilder._isTopLevel') && currentlySelectedRenderable.getPath('typeDefinition.formBuilder._isCompositeRenderable')
 				# element to be inserted is no toplevel object (i.e. no page), but the selected renderable is a composite element (a page or section). Thus, we need to add the
 				# form element as child

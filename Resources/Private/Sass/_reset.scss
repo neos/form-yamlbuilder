@@ -1,0 +1,25 @@
+@import "compass/css3/box-shadow";
+
+#typo3-formbuilder-header,
+#typo3-formbuilder-elementSidebar,
+#typo3-formbuilder-elementOptionsPanel,
+#typo3-formbuilder-footer {
+	@include global-reset();
+
+	font-family: Arial, sans-serif;
+	h1, h2, h3, h4, h5, h6, li {
+		color: white;
+	}
+	label {
+		color: white;
+		text-align:left;
+		float: none;
+	}
+	input, textarea, select {
+		width: inherit;
+		height: inherit;
+		padding: 0;
+		box-shadow: none;
+		border-radius: 0;
+	}
+}

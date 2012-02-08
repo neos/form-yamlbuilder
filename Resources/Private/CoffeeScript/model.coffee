@@ -217,7 +217,7 @@ TYPO3.FormBuilder.Model.FormElementType = Ember.Object.extend {
 	type: null
 
 	__cssClassNames: ( ->
-		"formbuilder-group-#{@getPath('formBuilder.group')} formbuilder-type-#{@get('type').toLowerCase().replace(/[^a-z0-9]/g, '-')}"
+		"typo3-formbuilder-group-#{@getPath('formBuilder.group')} typo3-formbuilder-type-#{@get('type').toLowerCase().replace(/[^a-z0-9]/g, '-')}"
 	).property('formBuilder.group', 'type').cacheable()
 }
 

@@ -1,6 +1,4 @@
-<h2>Insert Elements</h2>
 {{#collection contentBinding="formElementsGrouped"}}
-	<h3>{{content.label}}</h3>
+	<h3><span class="typo3-formbuilder-group-todo">{{content.label}}</span></h3>
 	{{view TYPO3.FormBuilder.View.AvailableFormElementsCollection contentBinding="content.elements" tagName="ul"}}
-
 {{/collection}}
