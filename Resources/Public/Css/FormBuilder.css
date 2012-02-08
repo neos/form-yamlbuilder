@@ -411,6 +411,12 @@
     padding: 0;
     box-shadow: none;
     border-radius: 0; }
+  #typo3-formbuilder-header button,
+  #typo3-formbuilder-elementSidebar button,
+  #typo3-formbuilder-elementOptionsPanel button,
+  #typo3-formbuilder-footer button {
+    border: none;
+    background: none; }
 
 /** ELEMENT STRUCTURE DEFAULTS **/
 span.dynatree-icon:before {
