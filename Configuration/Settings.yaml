@@ -114,19 +114,26 @@ TYPO3:
                 validation:
                   sorting: 900
                   viewName: 'TYPO3.FormBuilder.View.Editor.ValidatorEditor'
+
           'TYPO3.Form:Form':
             formBuilder:
               label: 'Form'
               _isCompositeRenderable: false
               _isTopLevel: true
               editors:
+                submitButtonLabel:
+                  sorting: 200
+                  label: 'Submit Button Label'
+                  propertyPath: 'renderingOptions.submitButtonLabel'
+                  viewName: 'TYPO3.FormBuilder.View.Editor.TextEditor'
+
                 finisherHeadline:
-                  sorting: 300
+                  sorting: 400
                   viewName: 'TYPO3.FormBuilder.View.Editor.TextOutput'
                   templateName: 'FinisherTitle'
                   tagName: h2
                 finishers:
-                  sorting: 400
+                  sorting: 410
                   viewName: 'TYPO3.FormBuilder.View.Editor.FinisherEditor'
                   availableFinishers:
                     email:

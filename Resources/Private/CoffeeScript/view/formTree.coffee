@@ -126,14 +126,14 @@ TYPO3.FormBuilder.View.FormTree = Ember.View.extend {
 		expandedNodePaths = []
 		@_tree.dynatree('getTree').visit (node) -> expandedNodePaths.push(node.data.key) if node.isExpanded()
 
-		activeNodePath = @_tree.dynatree('getActiveNode')?.data.key
-
 		@_tree.dynatree('getRoot').removeChildren?()
 		@updateTreeStateFromModel(@_tree.dynatree('getRoot'), @getPath('formDefinition.renderables'), expandedNodePaths.length == 0)
 
 		for expandedNodePath in expandedNodePaths
 			@_tree.dynatree('getTree').getNodeByKey(expandedNodePath)?.expand(true)
-		@_tree.dynatree('getTree').getNodeByKey(activeNodePath)?.activate(true)
+
+		activeNodePath = TYPO3.FormBuilder.Model.Form.getPath('currentlySelectedRenderable._path')
+		@_tree.dynatree('getTree').getNodeByKey?(activeNodePath)?.activate(true)
 	).observes('formDefinition.__nestedPropertyChange')
 
 	# build Tree Nodes from the form
@@ -154,8 +154,7 @@ TYPO3.FormBuilder.View.FormTree = Ember.View.extend {
 
 	# the currently selected renderable should also be active inside the tree
 	updateCurrentlySelectedNode: ( ->
-		activeNodePath = TYPO3.FormBuilder.Model.Form.getPath('currentlySelectedRenderable._path')
-		@_tree.dynatree('getTree').getNodeByKey?(activeNodePath)?.activate(true)
+		@updateTree()
 	).observes('TYPO3.FormBuilder.Model.Form.currentlySelectedRenderable')
 
 	# callback which is triggered when the form options button is clicked.

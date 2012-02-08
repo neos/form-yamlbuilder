@@ -657,7 +657,7 @@
       });
     },
     updateTree: (function() {
-      var activeNodePath, expandedNodePath, expandedNodePaths, _base, _k, _len3, _ref10, _ref7, _ref8, _ref9;
+      var activeNodePath, expandedNodePath, expandedNodePaths, _base, _base2, _k, _len3, _ref7, _ref8, _ref9;
       if (!((_ref7 = this._tree) != null ? _ref7.dynatree('getTree').visit : void 0)) {
         return;
       }
@@ -665,18 +665,18 @@
       this._tree.dynatree('getTree').visit(function(node) {
         if (node.isExpanded()) return expandedNodePaths.push(node.data.key);
       });
-      activeNodePath = (_ref8 = this._tree.dynatree('getActiveNode')) != null ? _ref8.data.key : void 0;
       if (typeof (_base = this._tree.dynatree('getRoot')).removeChildren === "function") {
         _base.removeChildren();
       }
       this.updateTreeStateFromModel(this._tree.dynatree('getRoot'), this.getPath('formDefinition.renderables'), expandedNodePaths.length === 0);
       for (_k = 0, _len3 = expandedNodePaths.length; _k < _len3; _k++) {
         expandedNodePath = expandedNodePaths[_k];
-        if ((_ref9 = this._tree.dynatree('getTree').getNodeByKey(expandedNodePath)) != null) {
-          _ref9.expand(true);
+        if ((_ref8 = this._tree.dynatree('getTree').getNodeByKey(expandedNodePath)) != null) {
+          _ref8.expand(true);
         }
       }
-      return (_ref10 = this._tree.dynatree('getTree').getNodeByKey(activeNodePath)) != null ? _ref10.activate(true) : void 0;
+      activeNodePath = TYPO3.FormBuilder.Model.Form.getPath('currentlySelectedRenderable._path');
+      return typeof (_base2 = this._tree.dynatree('getTree')).getNodeByKey === "function" ? (_ref9 = _base2.getNodeByKey(activeNodePath)) != null ? _ref9.activate(true) : void 0 : void 0;
     }).observes('formDefinition.__nestedPropertyChange'),
     updateTreeStateFromModel: function(dynaTreeParentNode, currentListOfSubRenderables, expandFirstNode) {
       var i, newNode, nodeOptions, subRenderable, _len3, _results;
@@ -698,9 +698,7 @@
       return _results;
     },
     updateCurrentlySelectedNode: (function() {
-      var activeNodePath, _base, _ref7;
-      activeNodePath = TYPO3.FormBuilder.Model.Form.getPath('currentlySelectedRenderable._path');
-      return typeof (_base = this._tree.dynatree('getTree')).getNodeByKey === "function" ? (_ref7 = _base.getNodeByKey(activeNodePath)) != null ? _ref7.activate(true) : void 0 : void 0;
+      return this.updateTree();
     }).observes('TYPO3.FormBuilder.Model.Form.currentlySelectedRenderable'),
     showFormOptions: function() {
       return TYPO3.FormBuilder.Model.Form.set('currentlySelectedRenderable', TYPO3.FormBuilder.Model.Form.get('formDefinition'));
