@@ -1224,7 +1224,7 @@
     required: false,
     collection: null,
     elementIndex: null,
-    validator: (function() {
+    currentCollectionElement: (function() {
       return this.get('collection').get(this.get('elementIndex'));
     }).property('collection', 'elementIndex').cacheable(),
     valueChanged: Ember.K,
@@ -1241,8 +1241,8 @@
 
   TYPO3.FormBuilder.View.Editor.ValidatorEditor.MinimumMaximumValidatorEditor = TYPO3.FormBuilder.View.Editor.ValidatorEditor.DefaultValidatorEditor.extend({
     templateName: 'ValidatorEditor-MinimumMaximum',
-    pathToMinimumOption: 'validator.options.minimum',
-    pathToMaximumOption: 'validator.options.maximum',
+    pathToMinimumOption: 'currentCollectionElement.options.minimum',
+    pathToMaximumOption: 'currentCollectionElement.options.maximum',
     minimum: (function(k, v) {
       if (v !== void 0) {
         this.setPath(this.get('pathToMinimumOption'), v);
@@ -1265,7 +1265,7 @@
 
   TYPO3.FormBuilder.View.Editor.ValidatorEditor.SimpleValueValidatorEditor = TYPO3.FormBuilder.View.Editor.ValidatorEditor.DefaultValidatorEditor.extend({
     templateName: 'ValidatorEditor-SimpleValue',
-    pathToEditedValue: 'validator.options.TODO',
+    pathToEditedValue: 'currentCollectionElement.options.TODO',
     label: 'Label',
     value: (function(k, v) {
       if (v !== void 0) {
@@ -1291,8 +1291,10 @@
     availableFormats: null,
     format: (function(k, v) {
       var chosenFormatKey, format, _k, _len3, _ref7;
-      if (arguments.length >= 2) this.setPath('validator.options.format', v.key);
-      chosenFormatKey = this.getPath('validator.options.format');
+      if (arguments.length >= 2) {
+        this.setPath('currentCollectionElement.options.format', v.key);
+      }
+      chosenFormatKey = this.getPath('currentCollectionElement.options.format');
       _ref7 = this.get('availableFormats');
       for (_k = 0, _len3 = _ref7.length; _k < _len3; _k++) {
         format = _ref7[_k];

@@ -87,7 +87,7 @@ TYPO3.FormBuilder.View.Editor.ValidatorEditor.DefaultValidatorEditor = Ember.Vie
 	# index of this validator
 	elementIndex: null
 
-	validator: (->
+	currentCollectionElement: (->
 		@get('collection').get(@get('elementIndex'))
 	).property('collection', 'elementIndex').cacheable()
 
@@ -107,9 +107,9 @@ TYPO3.FormBuilder.View.Editor.ValidatorEditor.DefaultValidatorEditor = Ember.Vie
 TYPO3.FormBuilder.View.Editor.ValidatorEditor.MinimumMaximumValidatorEditor = TYPO3.FormBuilder.View.Editor.ValidatorEditor.DefaultValidatorEditor.extend {
 	templateName: 'ValidatorEditor-MinimumMaximum'
 
-	pathToMinimumOption: 'validator.options.minimum'
+	pathToMinimumOption: 'currentCollectionElement.options.minimum'
 
-	pathToMaximumOption: 'validator.options.maximum'
+	pathToMaximumOption: 'currentCollectionElement.options.maximum'
 
 	minimum: ((k, v) ->
 		if v != undefined
@@ -133,7 +133,7 @@ TYPO3.FormBuilder.View.Editor.ValidatorEditor.SimpleValueValidatorEditor = TYPO3
 	templateName: 'ValidatorEditor-SimpleValue'
 
 	# this needs to be filled by the parent
-	pathToEditedValue: 'validator.options.TODO'
+	pathToEditedValue: 'currentCollectionElement.options.TODO'
 
 	label: 'Label'
 

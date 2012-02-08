@@ -235,7 +235,7 @@ TYPO3:
                       sorting: 300
                       name: 'TYPO3\FLOW3\Validation\Validator\RegularExpressionValidator'
                       viewName: 'TYPO3.FormBuilder.View.Editor.ValidatorEditor.SimpleValueValidatorEditor'
-                      pathToEditedValue: 'validator.options.regularExpression'
+                      pathToEditedValue: 'currentCollectionElement.options.regularExpression'
 
           'TYPO3.Form:SelectionMixin':
             formBuilder:

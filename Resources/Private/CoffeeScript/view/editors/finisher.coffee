@@ -39,9 +39,9 @@ TYPO3.FormBuilder.View.Editor.FinisherEditor.EmailFinisherEditor = TYPO3.FormBui
 
 	format: ((k, v) ->
 		if arguments.length >= 2
-			@setPath('validator.options.format', v.key)
+			@setPath('currentCollectionElement.options.format', v.key)
 
-		chosenFormatKey = @getPath('validator.options.format')
+		chosenFormatKey = @getPath('currentCollectionElement.options.format')
 		for format in @get('availableFormats')
 			return format if format.key == chosenFormatKey
 		return null
