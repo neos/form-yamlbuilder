@@ -746,6 +746,123 @@
     }).property('propertyPath', 'formElement').cacheable()
   });
 
+  TYPO3.FormBuilder.View.Editor.AbstractCollectionEditor = TYPO3.FormBuilder.View.Editor.AbstractPropertyEditor.extend({
+    availableCollectionElements: null,
+    defaultValue: (function() {
+      return [];
+    }).property().cacheable(),
+    isVisible: (function() {
+      var collectionEditorViewsFound, collectionElementsAvailable;
+      collectionElementsAvailable = !this.get('noCollectionElementsAvailable');
+      collectionEditorViewsFound = this.get('collectionEditorViews').length > 0;
+      return collectionElementsAvailable || collectionEditorViewsFound;
+    }).property('collectionEditorViews', 'noCollectionElementsAvailable').cacheable(),
+    collectionEditorViews: null,
+    init: function() {
+      this._super();
+      this.set('collectionEditorViews', []);
+      return this.updateCollectionEditorViews();
+    },
+    sortedAvailableCollectionElements: (function() {
+      var collectionElementTemplate, key, sortedCollectionElements, _ref7;
+      sortedCollectionElements = [];
+      _ref7 = this.get('availableCollectionElements');
+      for (key in _ref7) {
+        collectionElementTemplate = _ref7[key];
+        if (this.isCollectionElementTemplateFoundInCollection(collectionElementTemplate)) {
+          continue;
+        }
+        sortedCollectionElements.push($.extend({
+          key: key
+        }, collectionElementTemplate));
+      }
+      sortedCollectionElements.sort(function(a, b) {
+        return a.sorting - b.sorting;
+      });
+      return sortedCollectionElements;
+    }).property('availableCollectionElements', 'formElement.__nestedPropertyChange').cacheable(),
+    noCollectionElementsAvailable: (function() {
+      return this.get('sortedAvailableCollectionElements').length === 0;
+    }).property('sortedAvailableCollectionElements').cacheable(),
+    addCollectionElementSelection: null,
+    addValidator: (function() {
+      var collectionElementToBeAdded;
+      collectionElementToBeAdded = this.get('addCollectionElementSelection');
+      if (!collectionElementToBeAdded) return;
+      this.get('value').push({
+        name: collectionElementToBeAdded.name,
+        options: collectionElementToBeAdded.options || {}
+      });
+      this.valueChanged();
+      this.updateCollectionEditorViews();
+      return this.set('addCollectionElementSelection', null);
+    }).observes('addCollectionElementSelection'),
+    updateCollectionEditorViews: (function() {
+      var availableCollectionElementTemplate, availableCollectionElements, collection, collectionEditorViews, collectionElement, collectionElementEditor, collectionElementEditorOptions, i, key, _len3,
+        _this = this;
+      this.addRequiredCollectionElementsIfNeeded();
+      collection = this.get('value');
+      availableCollectionElements = this.get('availableCollectionElements');
+      collectionEditorViews = [];
+      for (i = 0, _len3 = collection.length; i < _len3; i++) {
+        collectionElement = collection[i];
+        for (key in availableCollectionElements) {
+          availableCollectionElementTemplate = availableCollectionElements[key];
+          if (availableCollectionElementTemplate.name === collectionElement.name) {
+            collectionElementEditor = Ember.getPath(availableCollectionElementTemplate.viewName || 'TYPO3.FormBuilder.View.Editor.ValidatorEditor.DefaultValidatorEditor');
+            if (!collectionElementEditor) {
+              throw "Validator Editor class '" + availableCollectionElementTemplate.viewName + "' not found";
+            }
+            collectionElementEditorOptions = $.extend({
+              elementIndex: i,
+              valueChanged: function() {
+                return _this.valueChanged();
+              },
+              updateCollectionEditorViews: function() {
+                return _this.updateCollectionEditorViews();
+              },
+              collection: this.get('value')
+            }, availableCollectionElementTemplate);
+            collectionEditorViews.push(collectionElementEditor.create(collectionElementEditorOptions));
+            break;
+          }
+        }
+      }
+      return this.set('collectionEditorViews', collectionEditorViews);
+    }).observes('value'),
+    addRequiredCollectionElementsIfNeeded: function() {
+      var availableCollectionElementTemplate, availableCollectionElements, collection, collectionElementName, key, requiredAndMissingCollectionElements, _k, _len3, _results;
+      collection = this.get('value');
+      availableCollectionElements = this.get('availableCollectionElements');
+      requiredAndMissingCollectionElements = [];
+      for (key in availableCollectionElements) {
+        availableCollectionElementTemplate = availableCollectionElements[key];
+        if (!availableCollectionElementTemplate.required) continue;
+        if (!this.isCollectionElementTemplateFoundInCollection(availableCollectionElementTemplate)) {
+          requiredAndMissingCollectionElements.push(key);
+        }
+      }
+      _results = [];
+      for (_k = 0, _len3 = requiredAndMissingCollectionElements.length; _k < _len3; _k++) {
+        collectionElementName = requiredAndMissingCollectionElements[_k];
+        _results.push(collection.push({
+          name: availableCollectionElements[collectionElementName].name,
+          options: $.extend({}, availableCollectionElements[collectionElementName].options)
+        }));
+      }
+      return _results;
+    },
+    isCollectionElementTemplateFoundInCollection: function(collectionElementTemplate) {
+      var collection, collectionElement, _k, _len3;
+      collection = this.get('value');
+      for (_k = 0, _len3 = collection.length; _k < _len3; _k++) {
+        collectionElement = collection[_k];
+        if (collectionElementTemplate.name === collectionElement.name) return true;
+      }
+      return false;
+    }
+  });
+
   TYPO3.FormBuilder.View.Editor.TextOutput = TYPO3.FormBuilder.View.Editor.AbstractEditor.extend({});
 
   TYPO3.FormBuilder.View.Editor.IdentifierEditor = TYPO3.FormBuilder.View.Editor.AbstractPropertyEditor.extend({
@@ -1091,142 +1208,31 @@
     }).property('value').cacheable()
   });
 
-  TYPO3.FormBuilder.View.Editor.ValidatorEditor = TYPO3.FormBuilder.View.Editor.AbstractPropertyEditor.extend({
+  TYPO3.FormBuilder.View.Editor.ValidatorEditor = TYPO3.FormBuilder.View.Editor.AbstractCollectionEditor.extend({
     availableValidators: null,
+    availableCollectionElementsBinding: 'availableValidators',
     templateName: 'ValidatorEditor',
-    propertyPath: 'validators',
-    defaultValue: (function() {
-      return [];
-    }).property().cacheable(),
-    isVisible: (function() {
-      var validatorEditorViewsFound, validatorsAvailable;
-      validatorsAvailable = !this.get('noValidatorsAvailable');
-      validatorEditorViewsFound = this.get('validatorEditorViews').length > 0;
-      return validatorsAvailable || validatorEditorViewsFound;
-    }).property('validatorEditorViews', 'noValidatorsAvailable').cacheable(),
-    validatorEditorViews: null,
-    init: function() {
-      this._super();
-      this.set('validatorEditorViews', []);
-      return this.updateValidatorEditorViews();
-    },
-    sortedAvailableValidators: (function() {
-      var key, validatorTemplate, validatorsArray, _ref7;
-      validatorsArray = [];
-      _ref7 = this.get('availableValidators');
-      for (key in _ref7) {
-        validatorTemplate = _ref7[key];
-        if (this.isValidatorTemplateFoundInValidatorList(validatorTemplate)) {
-          continue;
-        }
-        validatorsArray.push($.extend({
-          key: key
-        }, validatorTemplate));
-      }
-      validatorsArray.sort(function(a, b) {
-        return a.sorting - b.sorting;
-      });
-      return validatorsArray;
-    }).property('availableValidators', 'formElement.__nestedPropertyChange').cacheable(),
-    noValidatorsAvailable: (function() {
-      return this.get('sortedAvailableValidators').length === 0;
-    }).property('sortedAvailableValidators').cacheable(),
-    addValidatorSelection: null,
-    addValidator: (function() {
-      var validatorToBeAdded;
-      validatorToBeAdded = this.get('addValidatorSelection');
-      if (!validatorToBeAdded) return;
-      this.get('value').push({
-        name: validatorToBeAdded.name,
-        options: validatorToBeAdded.options || {}
-      });
-      this.valueChanged();
-      this.updateValidatorEditorViews();
-      return this.set('addValidatorSelection', null);
-    }).observes('addValidatorSelection'),
-    updateValidatorEditorViews: (function() {
-      var availableValidators, i, key, validator, validatorEditor, validatorEditorOptions, validatorTemplate, validatorViews, validators, _len3,
-        _this = this;
-      this.addRequiredValidatorsIfNeededToValidatorList();
-      validators = this.get('value');
-      availableValidators = this.get('availableValidators');
-      validatorViews = [];
-      for (i = 0, _len3 = validators.length; i < _len3; i++) {
-        validator = validators[i];
-        for (key in availableValidators) {
-          validatorTemplate = availableValidators[key];
-          if (validatorTemplate.name === validator.name) {
-            validatorEditor = Ember.getPath(validatorTemplate.viewName || 'TYPO3.FormBuilder.View.Editor.ValidatorEditor.DefaultValidatorEditor');
-            if (!validatorEditor) {
-              throw "Validator Editor class '" + validatorTemplate.viewName + "' not found";
-            }
-            validatorEditorOptions = $.extend({
-              validatorIndex: i,
-              valueChanged: function() {
-                return _this.valueChanged();
-              },
-              updateValidatorEditorViews: function() {
-                return _this.updateValidatorEditorViews();
-              },
-              validators: this.get('value')
-            }, validatorTemplate);
-            validatorViews.push(validatorEditor.create(validatorEditorOptions));
-            break;
-          }
-        }
-      }
-      return this.set('validatorEditorViews', validatorViews);
-    }).observes('value'),
-    addRequiredValidatorsIfNeededToValidatorList: function() {
-      var availableValidators, key, requiredAndMissingValidators, validatorTemplate, validatorTemplateName, validators, _k, _len3, _results;
-      validators = this.get('value');
-      availableValidators = this.get('availableValidators');
-      requiredAndMissingValidators = [];
-      for (key in availableValidators) {
-        validatorTemplate = availableValidators[key];
-        if (!validatorTemplate.required) continue;
-        if (!this.isValidatorTemplateFoundInValidatorList(validatorTemplate)) {
-          requiredAndMissingValidators.push(key);
-        }
-      }
-      _results = [];
-      for (_k = 0, _len3 = requiredAndMissingValidators.length; _k < _len3; _k++) {
-        validatorTemplateName = requiredAndMissingValidators[_k];
-        _results.push(validators.push({
-          name: availableValidators[validatorTemplateName].name,
-          options: $.extend({}, availableValidators[validatorTemplateName].options)
-        }));
-      }
-      return _results;
-    },
-    isValidatorTemplateFoundInValidatorList: function(validatorTemplate) {
-      var validator, validators, _k, _len3;
-      validators = this.get('value');
-      for (_k = 0, _len3 = validators.length; _k < _len3; _k++) {
-        validator = validators[_k];
-        if (validatorTemplate.name === validator.name) return true;
-      }
-      return false;
-    }
+    propertyPath: 'validators'
   });
 
   TYPO3.FormBuilder.View.Editor.ValidatorEditor.DefaultValidatorEditor = Ember.View.extend({
     classNames: ['formbuilder-validator-editor'],
     templateName: 'ValidatorEditor-Default',
     required: false,
-    validators: null,
-    validatorIndex: null,
+    collection: null,
+    elementIndex: null,
     validator: (function() {
-      return this.get('validators').get(this.get('validatorIndex'));
-    }).property('validators', 'validatorIndex'),
+      return this.get('collection').get(this.get('elementIndex'));
+    }).property('collection', 'elementIndex').cacheable(),
     valueChanged: Ember.K,
+    updateCollectionEditorViews: Ember.K,
     notRequired: (function() {
       return !this.get('required');
     }).property('required').cacheable(),
     remove: function() {
-      this.get('validators').removeAt(this.get('validatorIndex'));
+      this.get('collection').removeAt(this.get('elementIndex'));
       this.valueChanged();
-      return this.updateValidatorEditorViews();
+      return this.updateCollectionEditorViews();
     }
   });
 
@@ -1267,6 +1273,11 @@
         return this.getPath(this.get('pathToEditedValue'));
       }
     }).property('pathToEditedValue').cacheable()
+  });
+
+  TYPO3.FormBuilder.View.Editor.FinisherEditor = TYPO3.FormBuilder.View.Editor.ValidatorEditor.extend({
+    templateName: 'ValidatorEditor',
+    propertyPath: 'finishers'
   });
 
 }).call(this);

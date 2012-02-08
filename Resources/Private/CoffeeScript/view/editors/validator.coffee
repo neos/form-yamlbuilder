@@ -48,7 +48,7 @@ TYPO3.FormBuilder.View.Editor.RequiredValidatorEditor = TYPO3.FormBuilder.View.E
 # ##Class Editor.ValidatorEditor##
 #
 # This is an editor for all validators. They are defined using the `availableValidators` property.
-TYPO3.FormBuilder.View.Editor.ValidatorEditor = TYPO3.FormBuilder.View.Editor.AbstractPropertyEditor.extend {
+TYPO3.FormBuilder.View.Editor.ValidatorEditor = TYPO3.FormBuilder.View.Editor.AbstractCollectionEditor.extend {
 	# ###Public Properties###
 	# * `availableValidators`: JSON object of available validators, where each validator has the following options:
 	#
@@ -61,122 +61,13 @@ TYPO3.FormBuilder.View.Editor.ValidatorEditor = TYPO3.FormBuilder.View.Editor.Ab
 
 	# ***
 	# ###Private###
+
+	availableCollectionElementsBinding: 'availableValidators'
 	templateName: 'ValidatorEditor'
+
 	propertyPath: 'validators'
-	defaultValue: (-> []).property().cacheable()
-
-	# we only show the validators view if there are validators available or already shown
-	isVisible: (->
-		validatorsAvailable = !@get('noValidatorsAvailable')
-		validatorEditorViewsFound = @get('validatorEditorViews').length > 0
-
-		return validatorsAvailable or validatorEditorViewsFound
-	).property('validatorEditorViews', 'noValidatorsAvailable').cacheable()
-
-
-	# list of initialized views, one for each validator editor
-	validatorEditorViews: null
-
-	# initializer.
-	init: ->
-		@_super()
-		@set('validatorEditorViews', [])
-		@updateValidatorEditorViews()
-
-	# sort the available validators based on their sorting
-	sortedAvailableValidators: (->
-		validatorsArray = []
-		for key, validatorTemplate of @get('availableValidators')
-			continue if @isValidatorTemplateFoundInValidatorList(validatorTemplate)
-			validatorsArray.push($.extend({key}, validatorTemplate))
-		validatorsArray.sort((a, b) -> a.sorting - b.sorting)
-		return validatorsArray
-	).property('availableValidators', 'formElement.__nestedPropertyChange').cacheable()
-
-	# if TRUE, no validators are available.
-	noValidatorsAvailable: ( ->
-		@get('sortedAvailableValidators').length == 0
-	).property('sortedAvailableValidators').cacheable()
-
-	# this property needs to be bound to the current selection, of the "add validator"
-	# select field, such that we can observe this value for changes.
-	addValidatorSelection: null
-
-	# helper function which adds a new validator
-	addValidator: (->
-		validatorToBeAdded = @get('addValidatorSelection')
-		return unless validatorToBeAdded
-
-		@get('value').push {
-			name: validatorToBeAdded.name
-			options: validatorToBeAdded.options || {}
-		}
-
-		@valueChanged()
-		@updateValidatorEditorViews()
-
-		# reset the "add validator" dropdown
-		@set('addValidatorSelection', null)
-	).observes('addValidatorSelection')
-
-	# helper function which updates the validator editor views.
-	updateValidatorEditorViews: (->
-		@addRequiredValidatorsIfNeededToValidatorList()
-
-		validators = @get('value')
-		availableValidators = @get('availableValidators')
-
-		validatorViews = []
-
-		for validator, i in validators
-			for key, validatorTemplate of availableValidators
-				if validatorTemplate.name == validator.name # TODO: also check options of validator!
-					# we found the correct validatorTemplate for the current validator,
-					# thus we can output label and determine the view to be used.
-					validatorEditor = Ember.getPath(validatorTemplate.viewName || 'TYPO3.FormBuilder.View.Editor.ValidatorEditor.DefaultValidatorEditor')
-					throw "Validator Editor class '#{validatorTemplate.viewName}' not found" if !validatorEditor
-					validatorEditorOptions = $.extend({
-						validatorIndex: i
-						valueChanged: =>
-							@valueChanged()
-						updateValidatorEditorViews: =>
-							@updateValidatorEditorViews()
-						validators: @get('value')
-					}, validatorTemplate)
-					validatorViews.push(validatorEditor.create(validatorEditorOptions))
-					break
-
-		@set('validatorEditorViews', validatorViews)
-	).observes('value')
-
-	# add the required validators if needed to the list of validators
-	addRequiredValidatorsIfNeededToValidatorList: ->
-		validators = @get('value')
-		availableValidators = @get('availableValidators')
-
-		requiredAndMissingValidators = []
-
-		for key, validatorTemplate of availableValidators
-			continue unless validatorTemplate.required # continue if validator template is not required
-
-			if !@isValidatorTemplateFoundInValidatorList(validatorTemplate)
-				requiredAndMissingValidators.push(key)
-
-		for validatorTemplateName in requiredAndMissingValidators
-			validators.push({
-				name: availableValidators[validatorTemplateName].name
-				options: $.extend({}, availableValidators[validatorTemplateName].options)
-			})
-
-	# is a validator template found in the list of validators?
-	isValidatorTemplateFoundInValidatorList: (validatorTemplate) ->
-		validators = @get('value')
-		for validator in validators
-			if validatorTemplate.name == validator.name # TODO: also check options of validator!
-				return true
-
-		return false
 }
+
 # ***
 # ##Class Editor.ValidatorEditor.DefaultValidatorEditor##
 #
@@ -189,25 +80,26 @@ TYPO3.FormBuilder.View.Editor.ValidatorEditor.DefaultValidatorEditor = Ember.Vie
 	required: false
 
 	# array of validators
-	validators: null
+	collection: null
 
 	# index of this validator
-	validatorIndex: null
+	elementIndex: null
 
 	validator: (->
-		@get('validators').get(@get('validatorIndex'))
-	).property('validators', 'validatorIndex')
+		@get('collection').get(@get('elementIndex'))
+	).property('collection', 'elementIndex').cacheable()
 
 	valueChanged: Ember.K
+	updateCollectionEditorViews: Ember.K
 
 	notRequired: (->
 		return !@get('required')
 	).property('required').cacheable()
 
 	remove: ->
-		@get('validators').removeAt(@get('validatorIndex'))
+		@get('collection').removeAt(@get('elementIndex'))
 		@valueChanged()
-		@updateValidatorEditorViews()
+		@updateCollectionEditorViews()
 }
 
 TYPO3.FormBuilder.View.Editor.ValidatorEditor.MinimumMaximumValidatorEditor = TYPO3.FormBuilder.View.Editor.ValidatorEditor.DefaultValidatorEditor.extend {

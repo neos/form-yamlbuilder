@@ -10,9 +10,11 @@ appFiles  = [
 	'view/availableFormElements'
 	'view/formTree'
 	'view/elementInspector'
+	'view/editors/collectionEditor'
 	'view/editors/basic'
 	'view/editors/grid'
 	'view/editors/validator'
+	'view/editors/finisher'
 ]
 
 consoleOutput = (error, stdout, stderr) ->

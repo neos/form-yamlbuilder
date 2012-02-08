@@ -13,6 +13,7 @@ TYPO3:
       PropertyPanelTitle: resource://TYPO3.FormBuilder/Private/Templates/FormBuilder/PropertyPanelTitle.html
       RequiredValidatorEditor: resource://TYPO3.FormBuilder/Private/Templates/FormBuilder/RequiredValidatorEditor.html
       TextEditor: resource://TYPO3.FormBuilder/Private/Templates/FormBuilder/TextEditor.html
+      FinisherTitle: resource://TYPO3.FormBuilder/Private/Templates/FormBuilder/FinisherTitle.html
       ValidatorEditor-Default: resource://TYPO3.FormBuilder/Private/Templates/FormBuilder/ValidatorEditor-Default.html
       ValidatorEditor-MinimumMaximum: resource://TYPO3.FormBuilder/Private/Templates/FormBuilder/ValidatorEditor-MinimumMaximum.html
       ValidatorEditor-SimpleValue: resource://TYPO3.FormBuilder/Private/Templates/FormBuilder/ValidatorEditor-SimpleValue.html
@@ -70,6 +71,15 @@ TYPO3:
               label: 'Form'
               _isCompositeRenderable: false
               _isTopLevel: true
+              editors:
+                finisherHeadline:
+                  sorting: 300
+                  viewName: 'TYPO3.FormBuilder.View.Editor.TextOutput'
+                  templateName: 'FinisherTitle'
+                  tagName: h2
+#                finishers:
+#                  sorting: 400
+#                  viewName: 'TYPO3.FormBuilder.View.Editor.FinisherEditor'
 
           # group INPUT
           'TYPO3.Form:SingleLineText':
