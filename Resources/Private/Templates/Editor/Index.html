@@ -27,11 +27,11 @@
 	<header id="typo3-formbuilder-header">
 		<script type="text/x-handlebars">
 			<h1>Form Builder - {{TYPO3.FormBuilder.Model.Form.formDefinition.label}}</h1>
-			{{#if TYPO3.FormBuilder.Model.Form.currentlyLoadingPreview}}<span style="width: 60px;height:15px;background:red;position:absolute">Loading..</span>{{/if}}
+			{{#if TYPO3.FormBuilder.Model.Form.currentlyLoadingPreview}}<span style="width: 60px;height:15px;background:red;position:absolute;z-index: 3000">Loading..</span>{{/if}}
 		</script>
 		<ul id="typo3-formbuilder-toolbar">
 			<li class="typo3-formbuilder-preset"><a href="#" target="_blank">Preset: xyz</a></li>
-			<li class="typo3-formbuilder-preview"><a href="#" target="_blank">Preview</a></li>
+			<li class="typo3-formbuilder-preview"><f:link.action controller="FormManager" action="show" target="_blank" arguments="{formPersistenceIdentifier: formPersistenceIdentifier}" title="Preview this form" class="icon-search preview">Preview</f:link.action></li>
 			<li class="typo3-formbuilder-save">
 				<script type="text/x-handlebars">{{#view TYPO3.FormBuilder.SaveButton}}Save{{/view}}</script>
 			</li>

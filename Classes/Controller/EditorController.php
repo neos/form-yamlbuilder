@@ -37,6 +37,7 @@ class EditorController extends \TYPO3\FLOW3\MVC\Controller\ActionController {
 
 		$this->view->assign('stylesheets', $this->filterAndSortArray($this->settings['stylesheets']));
 		$this->view->assign('javaScripts', $this->filterAndSortArray($this->settings['javaScripts']));
+		$this->view->assign('formPersistenceIdentifier', $formPersistenceIdentifier);
 	}
 
 	protected function filterAndSortArray($input) {
@@ -61,6 +62,7 @@ class EditorController extends \TYPO3\FLOW3\MVC\Controller\ActionController {
 	/**
 	 * @param string $formPersistenceIdentifier
 	 * @param array $formDefinition
+	 * @return string
 	 */
 	public function saveformAction($formPersistenceIdentifier, array $formDefinition) {
 		$this->formPersistenceManager->save($formPersistenceIdentifier, $formDefinition);
