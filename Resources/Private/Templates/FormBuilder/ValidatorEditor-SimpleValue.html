@@ -1,4 +1,9 @@
-{{label}}
-{{#view Ember.Button target="parentView" action="remove" isVisibleBinding="notRequired"}}Remove{{/view}}<br />
-<label>{{fieldLabel}}:</label>{{view Ember.TextField valueBinding="value"}}
-{{#if fieldExplanationText}}<div>{{fieldExplanationText}}</div>{{/if}}
+<h4>{{label}}{{#view Ember.Button target="parentView" action="remove" isVisibleBinding="notRequired"}}Remove{{/view}}</h4>
+
+<div class="typo3-formbuilder-controlGroup">
+	<label>{{fieldLabel}}:</label>
+	<div class="typo3-formbuilder-controls">
+		{{view Ember.TextField valueBinding="value"}}
+		{{#if fieldExplanationText}}<div class="typo3-formbuilder-explanation">{{fieldExplanationText}}</div>{{/if}}
+	</div>
+</div>

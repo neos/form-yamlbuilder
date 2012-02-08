@@ -76,7 +76,7 @@ TYPO3.FormBuilder.View.Editor.ValidatorEditor = TYPO3.FormBuilder.View.Editor.Ab
 # Base class for validator editors.
 # TODO: continue documentation here
 TYPO3.FormBuilder.View.Editor.ValidatorEditor.DefaultValidatorEditor = Ember.View.extend {
-	classNames: ['formbuilder-validator-editor']
+	classNames: ['typo3-formbuilder-validator-editor']
 	templateName: 'ValidatorEditor-Default'
 
 	required: false

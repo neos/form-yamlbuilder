@@ -1,37 +1,50 @@
-<div class="formBuilder-element">
+<div class="typo3-formbuilder-controlGroup">
 	<label>Subject</label>
-	{{view Ember.TextField valueBinding="currentCollectionElement.options.subject"}}
+	<div class="typo3-formbuilder-controls">
+		{{view Ember.TextField valueBinding="currentCollectionElement.options.subject"}}
+	</div>
 </div>
 
-<div class="formBuilder-element">
+<div class="typo3-formbuilder-controlGroup">
 	<label>Recipient Address</label>
-	{{view Ember.TextField valueBinding="currentCollectionElement.options.recipientAddress"}}
+	<div class="typo3-formbuilder-controls">
+		{{view Ember.TextField valueBinding="currentCollectionElement.options.recipientAddress"}}
+	</div>
 </div>
 
-<div class="formBuilder-element">
+<div class="typo3-formbuilder-controlGroup">
 	<label>Recipient Name</label>
-	{{view Ember.TextField valueBinding="currentCollectionElement.options.recipientName"}}
+	<div class="typo3-formbuilder-controls">
+		{{view Ember.TextField valueBinding="currentCollectionElement.options.recipientName"}}
+	</div>
 </div>
 
-
-<div class="formBuilder-element">
+<div class="typo3-formbuilder-controlGroup">
 	<label>Sender Address</label>
-	{{view Ember.TextField valueBinding="currentCollectionElement.options.senderAddress"}}
+	<div class="typo3-formbuilder-controls">
+		{{view Ember.TextField valueBinding="currentCollectionElement.options.senderAddress"}}
+	</div>
 </div>
 
-<div class="formBuilder-element">
+<div class="typo3-formbuilder-controlGroup">
 	<label>Sender Address</label>
-	{{view Ember.TextField valueBinding="currentCollectionElement.options.senderName"}}
+	<div class="typo3-formbuilder-controls">
+		{{view Ember.TextField valueBinding="currentCollectionElement.options.senderName"}}
+	</div>
 </div>
 
-<div class="formBuilder-element">
+<div class="typo3-formbuilder-controlGroup">
 	<label>Reply-To Address</label>
-	{{view Ember.TextField valueBinding="currentCollectionElement.options.replyToAddress"}}
+	<div class="typo3-formbuilder-controls">
+		{{view Ember.TextField valueBinding="currentCollectionElement.options.replyToAddress"}}
+	</div>
 </div>
 
-<div class="formBuilder-element">
+<div class="typo3-formbuilder-controlGroup">
 	<label>Format</label>
-	{{view Ember.Select contentBinding="availableFormats" optionValuePath="content.key" optionLabelPath="content.value" selectionBinding="format"}}
+	<div class="typo3-formbuilder-controls">
+		{{view Ember.Select contentBinding="availableFormats" optionValuePath="content.key" optionLabelPath="content.value" selectionBinding="format"}}
+	</div>
 </div>
 
 {{#view Ember.Button target="parentView" action="remove" isVisibleBinding="notRequired"}}Remove{{/view}}

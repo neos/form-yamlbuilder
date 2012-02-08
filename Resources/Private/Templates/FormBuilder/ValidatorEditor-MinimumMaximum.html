@@ -1,6 +1,15 @@
-{{label}}
-{{#view Ember.Button target="parentView" action="remove" isVisibleBinding="notRequired"}}Remove{{/view}}<br />
-<table><tr>
-	<td><label>Minimum:</label>{{view TYPO3.FormBuilder.TextField validatedValueBinding="minimum" validatorName="TYPO3.FormBuilder.Validators.isNumberOrBlank" }}</td>
-	<td><label>Maximum:</label>{{view TYPO3.FormBuilder.TextField validatedValueBinding="maximum" validatorName="TYPO3.FormBuilder.Validators.isNumberOrBlank" }}</td>
-</tr></table>
+<h4>{{label}}{{#view Ember.Button target="parentView" action="remove" isVisibleBinding="notRequired"}}Remove{{/view}}</h4>
+
+<div class="typo3-formbuilder-controlGroup">
+	<label>Minimum:</label>
+	<div class="typo3-formbuilder-controls">
+		{{view TYPO3.FormBuilder.TextField validatedValueBinding="minimum" validatorName="TYPO3.FormBuilder.Validators.isNumberOrBlank" }}
+	</div>
+</div>
+
+<div class="typo3-formbuilder-controlGroup">
+	<label>Maximum:</label>
+	<div class="typo3-formbuilder-controls">
+		{{view TYPO3.FormBuilder.TextField validatedValueBinding="maximum" validatorName="TYPO3.FormBuilder.Validators.isNumberOrBlank" }}
+	</div>
+</div>

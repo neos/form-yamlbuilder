@@ -110,12 +110,12 @@ TYPO3.FormBuilder.View.FormPageView = Ember.View.extend {
 		renderable = TYPO3.FormBuilder.Model.Form.get('currentlySelectedRenderable')
 		return unless renderable
 
-		@$().find('.formbuilder-form-element-selected').removeClass('formbuilder-form-element-selected');
+		@$().find('.typo3-formbuilder-form-element-selected').removeClass('typo3-formbuilder-form-element-selected');
 		identifierPath = renderable.identifier
 		while renderable = renderable.parentRenderable
 			identifierPath = renderable.identifier + '/' + identifierPath
 
-		@$().find('[data-element="' + identifierPath + '"]').addClass('formbuilder-form-element-selected')
+		@$().find('[data-element="' + identifierPath + '"]').addClass('typo3-formbuilder-form-element-selected')
 	).observes('TYPO3.FormBuilder.Model.Form.currentlySelectedRenderable')
 
 	# click handler, triggered if an element is clicked. We try to determine the path to the clicked element,

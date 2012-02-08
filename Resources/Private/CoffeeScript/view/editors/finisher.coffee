@@ -25,7 +25,7 @@ TYPO3.FormBuilder.View.Editor.FinisherEditor = TYPO3.FormBuilder.View.Editor.Abs
 	# ###Private###
 
 	availableCollectionElementsBinding: 'availableFinishers'
-	templateName: 'ValidatorEditor'
+	templateName: 'FinisherEditor'
 
 	prompt: 'Select a finisher to add'
 
