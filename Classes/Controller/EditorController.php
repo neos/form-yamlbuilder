@@ -34,6 +34,20 @@ class EditorController extends \TYPO3\FLOW3\MVC\Controller\ActionController {
 		}
 
 		$this->view->assign('handlebarsTemplates', implode("\n", $handlebarsTemplates));
+
+		$this->view->assign('stylesheets', $this->filterAndSortArray($this->settings['stylesheets']));
+		$this->view->assign('javaScripts', $this->filterAndSortArray($this->settings['javaScripts']));
+	}
+
+	protected function filterAndSortArray($input) {
+		$input = array_filter($input, function($element) {
+			return is_array($element) && isset($element['sorting']);
+		});
+
+		usort($input, function($a, $b) {
+			return $a['sorting'] - $b['sorting'];
+		});
+		return $input;
 	}
 
 	/**

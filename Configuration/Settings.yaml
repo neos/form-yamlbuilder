@@ -4,6 +4,51 @@ TYPO3:
       'resource://TYPO3.FormBuilder/Private/NewFormTemplates/Blank.yaml': Blank
     defaultFormPersistenceIdentifier: 'resource://TYPO3.FormBuilder/Private/Forms/{identifier}.yaml'
 
+    javaScripts:
+      jQuery:
+        sorting: 10
+        files: ['resource://TYPO3.FormBuilder/Public/Library/jquery-1.7.1.min.js', 'http://ajax.googleapis.com/ajax/libs/jqueryui/1.8.16/jquery-ui.min.js']
+      ember:
+        sorting: 15
+        files: ['resource://TYPO3.FormBuilder/Public/Library/ember-0.9.4.js']
+      dynatree:
+        sorting: 20
+        files: ['resource://TYPO3.FormBuilder/Public/Library/dynatree-1.2.0/src/jquery.dynatree.js']
+      slickGrid:
+        sorting: 25
+        files:
+          - 'resource://TYPO3.FormBuilder/Public/Library/SlickGrid/lib/jquery.event.drag-2.0.min.js'
+          - 'resource://TYPO3.FormBuilder/Public/Library/SlickGrid/slick.core.js'
+          - 'resource://TYPO3.FormBuilder/Public/Library/SlickGrid/plugins/slick.cellrangedecorator.js'
+          - 'resource://TYPO3.FormBuilder/Public/Library/SlickGrid/plugins/slick.cellrangeselector.js'
+          - 'resource://TYPO3.FormBuilder/Public/Library/SlickGrid/plugins/slick.cellselectionmodel.js'
+          - 'resource://TYPO3.FormBuilder/Public/Library/SlickGrid/plugins/slick.rowselectionmodel.js'
+          - 'resource://TYPO3.FormBuilder/Public/Library/SlickGrid/plugins/slick.rowmovemanager.js'
+          - 'resource://TYPO3.FormBuilder/Public/Library/SlickGrid/slick.editors.js'
+          - 'resource://TYPO3.FormBuilder/Public/Library/SlickGrid/slick.grid.js'
+      contextMenu:
+        sorting: 30
+        files: ['resource://TYPO3.FormBuilder/Public/Library/jQuery-contextMenu/jquery.contextMenu.js']
+      application:
+        files: ['resource://TYPO3.FormBuilder/Public/JavaScript/app.js']
+        sorting: 100
+
+    stylesheets:
+      jQuery:
+        sorting: 10
+        files: ['http://ajax.googleapis.com/ajax/libs/jqueryui/1.8/themes/smoothness/jquery-ui.css']
+      dynatree:
+        sorting: 20
+        files: ['resource://TYPO3.FormBuilder/Public/Library/dynatree-1.2.0/src/skin/ui.dynatree.wrapped.css']
+      slickGrid:
+        sorting: 25
+        files: ['resource://TYPO3.FormBuilder/Public/Library/SlickGrid/slick.grid.wrapped.css']
+      contextMenu:
+        sorting: 30
+        files: ['resource://TYPO3.FormBuilder/Public/Library/jQuery-contextMenu/jquery.contextMenu.wrapped.css']
+      application:
+        sorting: 100
+        files: ['resource://TYPO3.FormBuilder/Public/style.css']
 
     handlebarsTemplates:
       AvailableFormElements: resource://TYPO3.FormBuilder/Private/Templates/FormBuilder/AvailableFormElements.html

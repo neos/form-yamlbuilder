@@ -3,32 +3,22 @@
 	{namespace formbuilder=TYPO3\FormBuilder\ViewHelpers}
 	<head>
 		<f:base />
-		<script src="{f:uri.resource(path:'Library/jquery-1.7.1.min.js')}"></script>
-		<script src="http://ajax.googleapis.com/ajax/libs/jqueryui/1.8.16/jquery-ui.min.js"></script>
-		<script src="{f:uri.resource(path:'Library/ember-0.9.4.js')}"></script>
-		<script src="{f:uri.resource(path:'Library/dynatree-1.2.0/src/jquery.dynatree.js')}"></script>
-
-		<script src="{f:uri.resource(path:'Library/SlickGrid/lib/jquery.event.drag-2.0.min.js')}"></script>
-		<script src="{f:uri.resource(path:'Library/SlickGrid/slick.core.js')}"></script>
-		<script src="{f:uri.resource(path:'Library/SlickGrid/plugins/slick.cellrangedecorator.js')}"></script>
-		<script src="{f:uri.resource(path:'Library/SlickGrid/plugins/slick.cellrangeselector.js')}"></script>
-		<script src="{f:uri.resource(path:'Library/SlickGrid/plugins/slick.cellselectionmodel.js')}"></script>
-		<script src="{f:uri.resource(path:'Library/SlickGrid/plugins/slick.rowselectionmodel.js')}"></script>
-		<script src="{f:uri.resource(path:'Library/SlickGrid/plugins/slick.rowmovemanager.js')}"></script>
-		<script src="{f:uri.resource(path:'Library/SlickGrid/slick.editors.js')}"></script>
-		<script src="{f:uri.resource(path:'Library/SlickGrid/slick.grid.js')}"></script>
-
-		<script src="{f:uri.resource(path:'Library/jQuery-contextMenu/jquery.contextMenu.js')}"></script>
-
-		<link rel="stylesheet" href="{f:uri.resource(path:'style.css')}" />
-		<link rel="stylesheet" href="{f:uri.resource(path:'Library/dynatree-1.2.0/src/skin/ui.dynatree.wrapped.css')}" />
-		<link rel="stylesheet" href="http://ajax.googleapis.com/ajax/libs/jqueryui/1.8/themes/smoothness/jquery-ui.css" />
-		<link rel="stylesheet" href="{f:uri.resource(path:'Library/SlickGrid/slick.grid.wrapped.css')}" />
-		<link rel="stylesheet" href="{f:uri.resource(path:'Library/jQuery-contextMenu/jquery.contextMenu.wrapped.css')}" />
 
 		<script type="text/javascript">
 			FORMBUILDER_CONFIGURATION = {formbuilder:jsonConfiguration()};
 		</script>
+
+		<f:for each="{javaScripts}" as="script">
+			<f:for each="{script.files}" as="uri">
+				<script src="{f:uri.resource(uri:uri)}"></script>
+			</f:for>
+		</f:for>
+
+		<f:for each="{stylesheets}" as="stylesheet">
+			<f:for each="{stylesheet.files}" as="uri">
+				<link rel="stylesheet" href="{f:uri.resource(uri:uri)}"></script>
+			</f:for>
+		</f:for>
 
 		{handlebarsTemplates -> f:format.raw()}
 	</head>
@@ -68,6 +58,6 @@
 			</div>
 			<div id="contextMenuContainer"></div>
 		</div>
-		<script src="{f:uri.resource(path:'JavaScript/app.js')}"></script>
+
 	</body>
 </html>
