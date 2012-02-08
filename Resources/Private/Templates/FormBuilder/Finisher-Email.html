@@ -1,0 +1,37 @@
+<div class="formBuilder-element">
+	<label>Subject</label>
+	{{view Ember.TextField valueBinding="validator.options.subject"}}
+</div>
+
+<div class="formBuilder-element">
+	<label>recipientAddress</label>
+	{{view Ember.TextField valueBinding="validator.options.recipientAddress"}}
+</div>
+
+<div class="formBuilder-element">
+	<label>recipientName</label>
+	{{view Ember.TextField valueBinding="validator.options.recipientName"}}
+</div>
+
+
+<div class="formBuilder-element">
+	<label>senderAddress</label>
+	{{view Ember.TextField valueBinding="validator.options.senderAddress"}}
+</div>
+
+<div class="formBuilder-element">
+	<label>senderName</label>
+	{{view Ember.TextField valueBinding="validator.options.senderName"}}
+</div>
+
+<div class="formBuilder-element">
+	<label>replyToAddress</label>
+	{{view Ember.TextField valueBinding="validator.options.replyToAddress"}}
+</div>
+
+<div class="formBuilder-element">
+	<label>format</label>
+	{{view Ember.Select contentBinding="availableFormats" optionValuePath="content.key" optionLabelPath="content.value" selectionBinding="format"}}
+</div>
+
+{{#view Ember.Button target="parentView" action="remove" isVisibleBinding="notRequired"}}Remove{{/view}}

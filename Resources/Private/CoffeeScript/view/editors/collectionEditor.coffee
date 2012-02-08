@@ -9,6 +9,7 @@ TYPO3.FormBuilder.View.Editor.AbstractCollectionEditor = TYPO3.FormBuilder.View.
 	#    * `required`: (boolean) if TRUE; it is required validator which is not de-selectable
 	availableCollectionElements: null,
 
+
 	# ***
 	# ###Private###
 	defaultValue: (-> []).property().cacheable()
@@ -17,17 +18,19 @@ TYPO3.FormBuilder.View.Editor.AbstractCollectionEditor = TYPO3.FormBuilder.View.
 	isVisible: (->
 		collectionElementsAvailable = !@get('noCollectionElementsAvailable')
 		collectionEditorViewsFound = @get('collectionEditorViews').length > 0
-
 		return collectionElementsAvailable or collectionEditorViewsFound
 	).property('collectionEditorViews', 'noCollectionElementsAvailable').cacheable()
 
 	# list of initialized views, one for each collection editor
 	collectionEditorViews: null
 
+	prompt: Ember.required()
+
 	# initializer.
 	init: ->
 		@_super()
 		@set('collectionEditorViews', [])
+
 		@updateCollectionEditorViews()
 
 	# sort the available collection elements based on their sorting property
@@ -46,12 +49,12 @@ TYPO3.FormBuilder.View.Editor.AbstractCollectionEditor = TYPO3.FormBuilder.View.
 		@get('sortedAvailableCollectionElements').length == 0
 	).property('sortedAvailableCollectionElements').cacheable()
 
-	# this property needs to be bound to the current selection, of the "add validator"
+	# this property needs to be bound to the current selection, of the "collection element"
 	# select field, such that we can observe this value for changes.
 	addCollectionElementSelection: null
 
-	# helper function which adds a new validator
-	addValidator: (->
+	# helper function which adds a new collection element
+	addCollectionElement: (->
 		collectionElementToBeAdded = @get('addCollectionElementSelection')
 		return unless collectionElementToBeAdded
 
@@ -71,9 +74,10 @@ TYPO3.FormBuilder.View.Editor.AbstractCollectionEditor = TYPO3.FormBuilder.View.
 	updateCollectionEditorViews: (->
 		@addRequiredCollectionElementsIfNeeded()
 
-
 		collection = @get('value')
+
 		availableCollectionElements = @get('availableCollectionElements')
+		return unless availableCollectionElements
 
 		collectionEditorViews = []
 
@@ -96,7 +100,7 @@ TYPO3.FormBuilder.View.Editor.AbstractCollectionEditor = TYPO3.FormBuilder.View.
 					break
 
 		@set('collectionEditorViews', collectionEditorViews)
-	).observes('value')
+	).observes('value', 'availableCollectionElements')
 
 	# add the required validators if needed to the list of validators
 	addRequiredCollectionElementsIfNeeded: ->

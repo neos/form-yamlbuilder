@@ -14,6 +14,7 @@ TYPO3:
       RequiredValidatorEditor: resource://TYPO3.FormBuilder/Private/Templates/FormBuilder/RequiredValidatorEditor.html
       TextEditor: resource://TYPO3.FormBuilder/Private/Templates/FormBuilder/TextEditor.html
       FinisherTitle: resource://TYPO3.FormBuilder/Private/Templates/FormBuilder/FinisherTitle.html
+      Finisher-Email: resource://TYPO3.FormBuilder/Private/Templates/FormBuilder/Finisher-Email.html
       ValidatorEditor-Default: resource://TYPO3.FormBuilder/Private/Templates/FormBuilder/ValidatorEditor-Default.html
       ValidatorEditor-MinimumMaximum: resource://TYPO3.FormBuilder/Private/Templates/FormBuilder/ValidatorEditor-MinimumMaximum.html
       ValidatorEditor-SimpleValue: resource://TYPO3.FormBuilder/Private/Templates/FormBuilder/ValidatorEditor-SimpleValue.html
@@ -77,9 +78,17 @@ TYPO3:
                   viewName: 'TYPO3.FormBuilder.View.Editor.TextOutput'
                   templateName: 'FinisherTitle'
                   tagName: h2
-#                finishers:
-#                  sorting: 400
-#                  viewName: 'TYPO3.FormBuilder.View.Editor.FinisherEditor'
+                finishers:
+                  sorting: 400
+                  viewName: 'TYPO3.FormBuilder.View.Editor.FinisherEditor'
+                  availableFinishers:
+                    email:
+                      label: 'Send Email'
+                      name: 'TYPO3\Form\Finishers\EmailFinisher'
+                      viewName: 'TYPO3.FormBuilder.View.Editor.FinisherEditor.EmailFinisherEditor'
+                      availableFormats:
+                        0: {key: 'plaintext', value: 'Plain Text'}
+                        1: {key: 'html', value: 'HTML'}
 
           # group INPUT
           'TYPO3.Form:SingleLineText':

@@ -758,6 +758,7 @@
       return collectionElementsAvailable || collectionEditorViewsFound;
     }).property('collectionEditorViews', 'noCollectionElementsAvailable').cacheable(),
     collectionEditorViews: null,
+    prompt: Ember.required(),
     init: function() {
       this._super();
       this.set('collectionEditorViews', []);
@@ -785,7 +786,7 @@
       return this.get('sortedAvailableCollectionElements').length === 0;
     }).property('sortedAvailableCollectionElements').cacheable(),
     addCollectionElementSelection: null,
-    addValidator: (function() {
+    addCollectionElement: (function() {
       var collectionElementToBeAdded;
       collectionElementToBeAdded = this.get('addCollectionElementSelection');
       if (!collectionElementToBeAdded) return;
@@ -803,6 +804,7 @@
       this.addRequiredCollectionElementsIfNeeded();
       collection = this.get('value');
       availableCollectionElements = this.get('availableCollectionElements');
+      if (!availableCollectionElements) return;
       collectionEditorViews = [];
       for (i = 0, _len3 = collection.length; i < _len3; i++) {
         collectionElement = collection[i];
@@ -829,7 +831,7 @@
         }
       }
       return this.set('collectionEditorViews', collectionEditorViews);
-    }).observes('value'),
+    }).observes('value', 'availableCollectionElements'),
     addRequiredCollectionElementsIfNeeded: function() {
       var availableCollectionElementTemplate, availableCollectionElements, collection, collectionElementName, key, requiredAndMissingCollectionElements, _k, _len3, _results;
       collection = this.get('value');
@@ -1212,6 +1214,7 @@
     availableValidators: null,
     availableCollectionElementsBinding: 'availableValidators',
     templateName: 'ValidatorEditor',
+    prompt: 'Select a validator to add',
     propertyPath: 'validators'
   });
 
@@ -1275,9 +1278,28 @@
     }).property('pathToEditedValue').cacheable()
   });
 
-  TYPO3.FormBuilder.View.Editor.FinisherEditor = TYPO3.FormBuilder.View.Editor.ValidatorEditor.extend({
+  TYPO3.FormBuilder.View.Editor.FinisherEditor = TYPO3.FormBuilder.View.Editor.AbstractCollectionEditor.extend({
+    availableFinishers: null,
+    availableCollectionElementsBinding: 'availableFinishers',
     templateName: 'ValidatorEditor',
+    prompt: 'Select a finisher to add',
     propertyPath: 'finishers'
+  });
+
+  TYPO3.FormBuilder.View.Editor.FinisherEditor.EmailFinisherEditor = TYPO3.FormBuilder.View.Editor.ValidatorEditor.DefaultValidatorEditor.extend({
+    templateName: 'Finisher-Email',
+    availableFormats: null,
+    format: (function(k, v) {
+      var chosenFormatKey, format, _k, _len3, _ref7;
+      if (arguments.length >= 2) this.setPath('validator.options.format', v.key);
+      chosenFormatKey = this.getPath('validator.options.format');
+      _ref7 = this.get('availableFormats');
+      for (_k = 0, _len3 = _ref7.length; _k < _len3; _k++) {
+        format = _ref7[_k];
+        if (format.key === chosenFormatKey) return format;
+      }
+      return null;
+    }).property('availableFormats').cacheable()
   });
 
 }).call(this);

@@ -65,6 +65,8 @@ TYPO3.FormBuilder.View.Editor.ValidatorEditor = TYPO3.FormBuilder.View.Editor.Ab
 	availableCollectionElementsBinding: 'availableValidators'
 	templateName: 'ValidatorEditor'
 
+	prompt: 'Select a validator to add'
+
 	propertyPath: 'validators'
 }
 
