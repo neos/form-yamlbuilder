@@ -979,6 +979,10 @@
     templateName: 'TextEditor'
   });
 
+  TYPO3.FormBuilder.View.Editor.TextareaEditor = TYPO3.FormBuilder.View.Editor.TextEditor.extend({
+    templateName: 'TextareaEditor'
+  });
+
   TYPO3.FormBuilder.View.Editor.RemoveElementEditor = TYPO3.FormBuilder.View.Editor.AbstractEditor.extend({
     templateName: 'RemoveElementEditor',
     remove: function() {

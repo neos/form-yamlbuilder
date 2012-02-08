@@ -113,6 +113,20 @@ TYPO3.FormBuilder.View.Editor.TextEditor = TYPO3.FormBuilder.View.Editor.Abstrac
 }
 
 # ***
+# ##Class Editor.TextareaEditor##
+#
+# Edit a single property specified by `propertyPath` with a textarea field.
+#
+# ###Public API###
+#
+# - `label`: Label of the text field, which should be shown.
+TYPO3.FormBuilder.View.Editor.TextareaEditor = TYPO3.FormBuilder.View.Editor.TextEditor.extend {
+	templateName: 'TextareaEditor'
+}
+
+
+
+# ***
 # ##Class Editor.RemoveElementEditor##
 #
 # Displays button to remove this formElement.

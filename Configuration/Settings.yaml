@@ -58,6 +58,7 @@ TYPO3:
       PropertyPanelTitle: resource://TYPO3.FormBuilder/Private/Templates/FormBuilder/PropertyPanelTitle.html
       RequiredValidatorEditor: resource://TYPO3.FormBuilder/Private/Templates/FormBuilder/RequiredValidatorEditor.html
       TextEditor: resource://TYPO3.FormBuilder/Private/Templates/FormBuilder/TextEditor.html
+      TextareaEditor: resource://TYPO3.FormBuilder/Private/Templates/FormBuilder/TextareaEditor.html
       FinisherTitle: resource://TYPO3.FormBuilder/Private/Templates/FormBuilder/FinisherTitle.html
       Finisher-Email: resource://TYPO3.FormBuilder/Private/Templates/FormBuilder/Finisher-Email.html
       Finisher-Redirect: resource://TYPO3.FormBuilder/Private/Templates/FormBuilder/Finisher-Redirect.html
@@ -225,6 +226,17 @@ TYPO3:
               label: 'Image Upload'
               group: custom
               sorting: 110
+          'TYPO3.Form:StaticText':
+            formBuilder:
+              label: 'Static Text'
+              group: custom
+              sorting: 120
+              editors:
+                staticText:
+                  sorting: 150
+                  viewName: 'TYPO3.FormBuilder.View.Editor.TextareaEditor'
+                  label: 'Text'
+                  propertyPath: 'properties.text'
 
           # group CONTAINER
           'TYPO3.Form:Section':
