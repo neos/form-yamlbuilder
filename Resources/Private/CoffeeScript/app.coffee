@@ -23,35 +23,6 @@ TYPO3.FormBuilder = Ember.Application.create {
 	rootElement: 'body'
 }
 
-TYPO3.FormBuilder.SaveButton = Ember.Button.extend {
-	targetObject: (-> return this).property().cacheable()
-	action: ->
-		@save()
-
-	classNames: ['typo3-formbuilder-savebutton']
-	classNameBindings: ['isActive', 'currentStatus'],
-
-	currentStatus: ''
-
-	save: ->
-		@set('currentStatus', 'currently-saving')
-		formDefinition = TYPO3.FormBuilder.Utility.convertToSimpleObject(TYPO3.FormBuilder.Model.Form.get('formDefinition'))
-
-		$.post(
-			TYPO3.FormBuilder.Configuration.endpoints.saveForm,
-			{
-				formPersistenceIdentifier: TYPO3.FormBuilder.Configuration?.formPersistenceIdentifier
-				formDefinition
-			},
-			(data, textStatus, jqXHR) =>
-				if data == 'success'
-					@set('currentStatus', 'saved')
-					TYPO3.FormBuilder.Model.Form.set('unsavedContent', false)
-				else
-					@set('currentStatus', 'save-error')
-		)
-}
-
 # `TYPO3.FormBuilder.Configuration` contains the server-side generated config array.
 TYPO3.FormBuilder.Configuration = window.FORMBUILDER_CONFIGURATION
 
@@ -76,27 +47,3 @@ TYPO3.FormBuilder.Validators.isNumberOrBlank = (n) ->
 	return true if n == '' or n == null or n == undefined
 	return !isNaN(parseFloat(n)) && isFinite(n);
 
-
-TYPO3.FormBuilder.TextField = Ember.TextField.extend {
-	_lastValidValue: false
-	validatorName: null
-
-	validate: (v) ->
-		if @get('validatorName')
-			validator = Ember.getPath(@get('validatorName'))
-			return validator.call(this, v)
-		return true
-
-	validatedValue: ((k, v) ->
-		if arguments.length >= 2
-			if @validate(v)
-				this._lastValidValue = v
-
-			return this._lastValidValue
-		else
-			return this._lastValidValue
-	).property().cacheable()
-
-
-	valueBinding: 'validatedValue'
-}

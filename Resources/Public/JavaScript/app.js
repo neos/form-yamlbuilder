@@ -25,35 +25,6 @@
     rootElement: 'body'
   });
 
-  TYPO3.FormBuilder.SaveButton = Ember.Button.extend({
-    targetObject: (function() {
-      return this;
-    }).property().cacheable(),
-    action: function() {
-      return this.save();
-    },
-    classNames: ['typo3-formbuilder-savebutton'],
-    classNameBindings: ['isActive', 'currentStatus'],
-    currentStatus: '',
-    save: function() {
-      var formDefinition, _ref,
-        _this = this;
-      this.set('currentStatus', 'currently-saving');
-      formDefinition = TYPO3.FormBuilder.Utility.convertToSimpleObject(TYPO3.FormBuilder.Model.Form.get('formDefinition'));
-      return $.post(TYPO3.FormBuilder.Configuration.endpoints.saveForm, {
-        formPersistenceIdentifier: (_ref = TYPO3.FormBuilder.Configuration) != null ? _ref.formPersistenceIdentifier : void 0,
-        formDefinition: formDefinition
-      }, function(data, textStatus, jqXHR) {
-        if (data === 'success') {
-          _this.set('currentStatus', 'saved');
-          return TYPO3.FormBuilder.Model.Form.set('unsavedContent', false);
-        } else {
-          return _this.set('currentStatus', 'save-error');
-        }
-      });
-    }
-  });
-
   TYPO3.FormBuilder.Configuration = window.FORMBUILDER_CONFIGURATION;
 
   if ((_ref = TYPO3.FormBuilder.Configuration) != null ? _ref.stylesheets : void 0) {
@@ -86,28 +57,6 @@
     if (n === '' || n === null || n === void 0) return true;
     return !isNaN(parseFloat(n)) && isFinite(n);
   };
-
-  TYPO3.FormBuilder.TextField = Ember.TextField.extend({
-    _lastValidValue: false,
-    validatorName: null,
-    validate: function(v) {
-      var validator;
-      if (this.get('validatorName')) {
-        validator = Ember.getPath(this.get('validatorName'));
-        return validator.call(this, v);
-      }
-      return true;
-    },
-    validatedValue: (function(k, v) {
-      if (arguments.length >= 2) {
-        if (this.validate(v)) this._lastValidValue = v;
-        return this._lastValidValue;
-      } else {
-        return this._lastValidValue;
-      }
-    }).property().cacheable(),
-    valueBinding: 'validatedValue'
-  });
 
   TYPO3.FormBuilder.Utility = {};
 
@@ -455,6 +404,57 @@
 
   TYPO3.FormBuilder.View.Select = Ember.Select.extend({
     attributeBindings: ['disabled']
+  });
+
+  TYPO3.FormBuilder.View.SaveButton = Ember.Button.extend({
+    targetObject: (function() {
+      return this;
+    }).property().cacheable(),
+    action: function() {
+      return this.save();
+    },
+    classNames: ['typo3-formbuilder-savebutton'],
+    classNameBindings: ['isActive', 'currentStatus'],
+    currentStatus: '',
+    save: function() {
+      var formDefinition, _ref7,
+        _this = this;
+      this.set('currentStatus', 'currently-saving');
+      formDefinition = TYPO3.FormBuilder.Utility.convertToSimpleObject(TYPO3.FormBuilder.Model.Form.get('formDefinition'));
+      return $.post(TYPO3.FormBuilder.Configuration.endpoints.saveForm, {
+        formPersistenceIdentifier: (_ref7 = TYPO3.FormBuilder.Configuration) != null ? _ref7.formPersistenceIdentifier : void 0,
+        formDefinition: formDefinition
+      }, function(data, textStatus, jqXHR) {
+        if (data === 'success') {
+          _this.set('currentStatus', 'saved');
+          return TYPO3.FormBuilder.Model.Form.set('unsavedContent', false);
+        } else {
+          return _this.set('currentStatus', 'save-error');
+        }
+      });
+    }
+  });
+
+  TYPO3.FormBuilder.View.TextField = Ember.TextField.extend({
+    _lastValidValue: false,
+    validatorName: null,
+    validate: function(v) {
+      var validator;
+      if (this.get('validatorName')) {
+        validator = Ember.getPath(this.get('validatorName'));
+        return validator.call(this, v);
+      }
+      return true;
+    },
+    validatedValue: (function(k, v) {
+      if (arguments.length >= 2) {
+        if (this.validate(v)) this._lastValidValue = v;
+        return this._lastValidValue;
+      } else {
+        return this._lastValidValue;
+      }
+    }).property().cacheable(),
+    valueBinding: 'validatedValue'
   });
 
   TYPO3.FormBuilder.View.AvailableFormElementsView = Ember.View.extend({
