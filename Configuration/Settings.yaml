@@ -50,9 +50,11 @@ TYPO3:
     handlebarsTemplates:
       Application: resource://TYPO3.FormBuilder/Private/Templates/FormBuilder/Application.html
       Header: resource://TYPO3.FormBuilder/Private/Templates/FormBuilder/Header.html
+      StructurePanel: resource://TYPO3.FormBuilder/Private/Templates/FormBuilder/StructurePanel.html
+
 
       AvailableFormElements: resource://TYPO3.FormBuilder/Private/Templates/FormBuilder/AvailableFormElements.html
-      FormTree: resource://TYPO3.FormBuilder/Private/Templates/FormBuilder/FormTree.html
+
       IdentifierEditor: resource://TYPO3.FormBuilder/Private/Templates/FormBuilder/IdentifierEditor.html
       PropertyGridEditor: resource://TYPO3.FormBuilder/Private/Templates/FormBuilder/PropertyGridEditor.html
       PropertyPanelTitle: resource://TYPO3.FormBuilder/Private/Templates/FormBuilder/PropertyPanelTitle.html

@@ -1,4 +1,4 @@
-# #Class `TYPO3.FormBuilder.View.FormTree`#
+# #Class `TYPO3.FormBuilder.View.StructurePanel`#
 #
 # This class renders the hierarchical structure of the form inside a Tree View, displayed
 # on top-left of the Form Builder.
@@ -18,7 +18,7 @@
 # - form elements are only droppable inside other pages, before and after other form elements
 # - additionally, form elements are droppable *inside* other form elements, if these target
 #   form elements are composite form elements (like sections)
-TYPO3.FormBuilder.View.FormTree = Ember.View.extend {
+TYPO3.FormBuilder.View.StructurePanel = Ember.View.extend {
 	# ***
 	# ###Private###
 
@@ -26,7 +26,7 @@ TYPO3.FormBuilder.View.FormTree = Ember.View.extend {
 	formDefinitionBinding: 'TYPO3.FormBuilder.Model.Form.formDefinition'
 
 	# template name to use
-	templateName: 'FormTree'
+	templateName: 'StructurePanel'
 
 	# reference to the jQuery object containing the tree widget.
 	_tree: null

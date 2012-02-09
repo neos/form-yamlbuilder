@@ -531,137 +531,9 @@
     }
   });
 
-  TYPO3.FormBuilder.View.AvailableFormElementsView = Ember.View.extend({
-    classNames: ['availableFormElements'],
-    templateName: 'AvailableFormElements',
-    allFormElementTypesBinding: 'TYPO3.FormBuilder.Model.FormElementTypes.allTypeNames',
-    formElementsGrouped: (function() {
-      var formElementType, formElementTypeName, formElementsByGroup, formGroup, formGroupName, formGroups, _k, _l, _len3, _len4, _ref10, _ref7, _ref8, _ref9;
-      formElementsByGroup = {};
-      _ref7 = this.get('allFormElementTypes');
-      for (_k = 0, _len3 = _ref7.length; _k < _len3; _k++) {
-        formElementTypeName = _ref7[_k];
-        formElementType = TYPO3.FormBuilder.Model.FormElementTypes.get(formElementTypeName);
-        if (((_ref8 = formElementType.formBuilder) != null ? _ref8.group : void 0) == null) {
-          continue;
-        }
-        if (!formElementsByGroup[formElementType.formBuilder.group]) {
-          formElementsByGroup[formElementType.formBuilder.group] = [];
-        }
-        formElementType.set('key', formElementTypeName);
-        formElementsByGroup[formElementType.formBuilder.group].push(formElementType);
-      }
-      formGroups = [];
-      _ref9 = TYPO3.FormBuilder.Model.FormElementGroups.get('allGroupNames');
-      for (_l = 0, _len4 = _ref9.length; _l < _len4; _l++) {
-        formGroupName = _ref9[_l];
-        formGroup = TYPO3.FormBuilder.Model.FormElementGroups.get(formGroupName);
-        formGroup.set('key', formGroupName);
-        if ((_ref10 = formElementsByGroup[formGroupName]) != null) {
-          _ref10.sort(function(a, b) {
-            return a.formBuilder.sorting - b.formBuilder.sorting;
-          });
-        }
-        formGroup.set('elements', formElementsByGroup[formGroupName]);
-        formGroups.push(formGroup);
-      }
-      formGroups.sort(function(a, b) {
-        return a.sorting - b.sorting;
-      });
-      return formGroups;
-    }).property('allFormElementTypes').cacheable()
-  });
-
-  TYPO3.FormBuilder.View.AvailableFormElementsElement = Ember.View.extend({
-    currentlySelectedElementBinding: 'TYPO3.FormBuilder.Model.Form.currentlySelectedRenderable',
-    content: null,
-    formElementTypeBinding: 'content',
-    didInsertElement: function() {
-      this.$().html('<span>' + this.getPath('formElementType.formBuilder.label') + '</span>');
-      this.$().attr('title', this.getPath('formElementType.key'));
-      return this.$().addClass(this.getPath('formElementType.__cssClassNames'));
-    },
-    classNameBindings: ['enabled:typo3-formbuilder-enabled'],
-    enabled: (function() {
-      var currentlySelectedRenderable;
-      if (this.getPath('formElementType.formBuilder._isTopLevel')) return true;
-      currentlySelectedRenderable = this.get('currentlySelectedElement');
-      if (!currentlySelectedRenderable) return false;
-      if (currentlySelectedRenderable.getPath('typeDefinition.formBuilder._isTopLevel') && !currentlySelectedRenderable.getPath('typeDefinition.formBuilder._isCompositeRenderable')) {
-        return false;
-      }
-      return true;
-    }).property('formElementType', 'currentlySelectedElement').cacheable(),
-    getNextFreeIdentifier: function() {
-      var i, isIdentifierUsed, prefix, type;
-      type = this.getPath('formElementType.key');
-      prefix = type.split(':')[1];
-      prefix = prefix.toLowerCase();
-      isIdentifierUsed = function(identifier) {
-        var checkIdentifier, identifierFound;
-        identifierFound = false;
-        checkIdentifier = function(renderable) {
-          var childRenderable, _k, _len3, _ref7, _results;
-          if (renderable.get('identifier') === identifier) identifierFound = true;
-          if (!identifierFound) {
-            _ref7 = renderable.get('renderables');
-            _results = [];
-            for (_k = 0, _len3 = _ref7.length; _k < _len3; _k++) {
-              childRenderable = _ref7[_k];
-              _results.push(checkIdentifier(childRenderable));
-            }
-            return _results;
-          }
-        };
-        checkIdentifier(TYPO3.FormBuilder.Model.Form.get('formDefinition'));
-        return identifierFound;
-      };
-      i = 1;
-      while (isIdentifierUsed(prefix + i)) {
-        i++;
-      }
-      return prefix + i;
-    },
-    click: function() {
-      var currentlySelectedRenderable, defaultValues, identifier, indexInParent, newRenderable, parentRenderablesArray, referenceRenderable;
-      currentlySelectedRenderable = this.get('currentlySelectedElement');
-      if (!currentlySelectedRenderable) return;
-      if (!this.get('enabled')) return;
-      defaultValues = this.getPath('formElementType.formBuilder.predefinedDefaults') || {};
-      identifier = this.getNextFreeIdentifier();
-      newRenderable = TYPO3.FormBuilder.Model.Renderable.create($.extend({
-        type: this.getPath('formElementType.key'),
-        identifier: identifier,
-        label: identifier
-      }, defaultValues));
-      if (!this.getPath('formElementType.formBuilder._isTopLevel') && currentlySelectedRenderable.getPath('typeDefinition.formBuilder._isCompositeRenderable')) {
-        currentlySelectedRenderable.get('renderables').pushObject(newRenderable);
-      } else {
-        referenceRenderable = currentlySelectedRenderable;
-        if (referenceRenderable === TYPO3.FormBuilder.Model.Form.get('formDefinition')) {
-          referenceRenderable = referenceRenderable.getPath('renderables.0');
-        } else if (this.getPath('formElementType.formBuilder._isTopLevel') && !currentlySelectedRenderable.getPath('typeDefinition.formBuilder._isTopLevel')) {
-          referenceRenderable = referenceRenderable.findEnclosingPage();
-        } else if (this.getPath('formElementType.formBuilder._isCompositeRenderable')) {
-          if (referenceRenderable.findEnclosingCompositeRenderableWhichIsNotOnTopLevel()) {
-            referenceRenderable = referenceRenderable.findEnclosingCompositeRenderableWhichIsNotOnTopLevel();
-          }
-        }
-        parentRenderablesArray = referenceRenderable.getPath('parentRenderable.renderables');
-        indexInParent = parentRenderablesArray.indexOf(referenceRenderable);
-        parentRenderablesArray.replace(indexInParent + 1, 0, [newRenderable]);
-      }
-      return this.set('currentlySelectedElement', newRenderable);
-    }
-  });
-
-  TYPO3.FormBuilder.View.AvailableFormElementsCollection = Ember.CollectionView.extend({
-    itemViewClass: TYPO3.FormBuilder.View.AvailableFormElementsElement
-  });
-
-  TYPO3.FormBuilder.View.FormTree = Ember.View.extend({
+  TYPO3.FormBuilder.View.StructurePanel = Ember.View.extend({
     formDefinitionBinding: 'TYPO3.FormBuilder.Model.Form.formDefinition',
-    templateName: 'FormTree',
+    templateName: 'StructurePanel',
     _tree: null,
     didInsertElement: function() {
       this._tree = this.$().find('.tree');
@@ -788,6 +660,134 @@
     showFormOptions: function() {
       return TYPO3.FormBuilder.Model.Form.set('currentlySelectedRenderable', TYPO3.FormBuilder.Model.Form.get('formDefinition'));
     }
+  });
+
+  TYPO3.FormBuilder.View.AvailableFormElementsView = Ember.View.extend({
+    classNames: ['availableFormElements'],
+    templateName: 'AvailableFormElements',
+    allFormElementTypesBinding: 'TYPO3.FormBuilder.Model.FormElementTypes.allTypeNames',
+    formElementsGrouped: (function() {
+      var formElementType, formElementTypeName, formElementsByGroup, formGroup, formGroupName, formGroups, _k, _l, _len3, _len4, _ref10, _ref7, _ref8, _ref9;
+      formElementsByGroup = {};
+      _ref7 = this.get('allFormElementTypes');
+      for (_k = 0, _len3 = _ref7.length; _k < _len3; _k++) {
+        formElementTypeName = _ref7[_k];
+        formElementType = TYPO3.FormBuilder.Model.FormElementTypes.get(formElementTypeName);
+        if (((_ref8 = formElementType.formBuilder) != null ? _ref8.group : void 0) == null) {
+          continue;
+        }
+        if (!formElementsByGroup[formElementType.formBuilder.group]) {
+          formElementsByGroup[formElementType.formBuilder.group] = [];
+        }
+        formElementType.set('key', formElementTypeName);
+        formElementsByGroup[formElementType.formBuilder.group].push(formElementType);
+      }
+      formGroups = [];
+      _ref9 = TYPO3.FormBuilder.Model.FormElementGroups.get('allGroupNames');
+      for (_l = 0, _len4 = _ref9.length; _l < _len4; _l++) {
+        formGroupName = _ref9[_l];
+        formGroup = TYPO3.FormBuilder.Model.FormElementGroups.get(formGroupName);
+        formGroup.set('key', formGroupName);
+        if ((_ref10 = formElementsByGroup[formGroupName]) != null) {
+          _ref10.sort(function(a, b) {
+            return a.formBuilder.sorting - b.formBuilder.sorting;
+          });
+        }
+        formGroup.set('elements', formElementsByGroup[formGroupName]);
+        formGroups.push(formGroup);
+      }
+      formGroups.sort(function(a, b) {
+        return a.sorting - b.sorting;
+      });
+      return formGroups;
+    }).property('allFormElementTypes').cacheable()
+  });
+
+  TYPO3.FormBuilder.View.AvailableFormElementsElement = Ember.View.extend({
+    currentlySelectedElementBinding: 'TYPO3.FormBuilder.Model.Form.currentlySelectedRenderable',
+    content: null,
+    formElementTypeBinding: 'content',
+    didInsertElement: function() {
+      this.$().html('<span>' + this.getPath('formElementType.formBuilder.label') + '</span>');
+      this.$().attr('title', this.getPath('formElementType.key'));
+      return this.$().addClass(this.getPath('formElementType.__cssClassNames'));
+    },
+    classNameBindings: ['enabled:typo3-formbuilder-enabled'],
+    enabled: (function() {
+      var currentlySelectedRenderable;
+      if (this.getPath('formElementType.formBuilder._isTopLevel')) return true;
+      currentlySelectedRenderable = this.get('currentlySelectedElement');
+      if (!currentlySelectedRenderable) return false;
+      if (currentlySelectedRenderable.getPath('typeDefinition.formBuilder._isTopLevel') && !currentlySelectedRenderable.getPath('typeDefinition.formBuilder._isCompositeRenderable')) {
+        return false;
+      }
+      return true;
+    }).property('formElementType', 'currentlySelectedElement').cacheable(),
+    getNextFreeIdentifier: function() {
+      var i, isIdentifierUsed, prefix, type;
+      type = this.getPath('formElementType.key');
+      prefix = type.split(':')[1];
+      prefix = prefix.toLowerCase();
+      isIdentifierUsed = function(identifier) {
+        var checkIdentifier, identifierFound;
+        identifierFound = false;
+        checkIdentifier = function(renderable) {
+          var childRenderable, _k, _len3, _ref7, _results;
+          if (renderable.get('identifier') === identifier) identifierFound = true;
+          if (!identifierFound) {
+            _ref7 = renderable.get('renderables');
+            _results = [];
+            for (_k = 0, _len3 = _ref7.length; _k < _len3; _k++) {
+              childRenderable = _ref7[_k];
+              _results.push(checkIdentifier(childRenderable));
+            }
+            return _results;
+          }
+        };
+        checkIdentifier(TYPO3.FormBuilder.Model.Form.get('formDefinition'));
+        return identifierFound;
+      };
+      i = 1;
+      while (isIdentifierUsed(prefix + i)) {
+        i++;
+      }
+      return prefix + i;
+    },
+    click: function() {
+      var currentlySelectedRenderable, defaultValues, identifier, indexInParent, newRenderable, parentRenderablesArray, referenceRenderable;
+      currentlySelectedRenderable = this.get('currentlySelectedElement');
+      if (!currentlySelectedRenderable) return;
+      if (!this.get('enabled')) return;
+      defaultValues = this.getPath('formElementType.formBuilder.predefinedDefaults') || {};
+      identifier = this.getNextFreeIdentifier();
+      newRenderable = TYPO3.FormBuilder.Model.Renderable.create($.extend({
+        type: this.getPath('formElementType.key'),
+        identifier: identifier,
+        label: identifier
+      }, defaultValues));
+      if (!this.getPath('formElementType.formBuilder._isTopLevel') && currentlySelectedRenderable.getPath('typeDefinition.formBuilder._isCompositeRenderable')) {
+        currentlySelectedRenderable.get('renderables').pushObject(newRenderable);
+      } else {
+        referenceRenderable = currentlySelectedRenderable;
+        if (referenceRenderable === TYPO3.FormBuilder.Model.Form.get('formDefinition')) {
+          referenceRenderable = referenceRenderable.getPath('renderables.0');
+        } else if (this.getPath('formElementType.formBuilder._isTopLevel') && !currentlySelectedRenderable.getPath('typeDefinition.formBuilder._isTopLevel')) {
+          referenceRenderable = referenceRenderable.findEnclosingPage();
+        } else if (this.getPath('formElementType.formBuilder._isCompositeRenderable')) {
+          if (referenceRenderable.findEnclosingCompositeRenderableWhichIsNotOnTopLevel()) {
+            referenceRenderable = referenceRenderable.findEnclosingCompositeRenderableWhichIsNotOnTopLevel();
+          }
+        }
+        parentRenderablesArray = referenceRenderable.getPath('parentRenderable.renderables');
+        indexInParent = parentRenderablesArray.indexOf(referenceRenderable);
+        parentRenderablesArray.replace(indexInParent + 1, 0, [newRenderable]);
+      }
+      return this.set('currentlySelectedElement', newRenderable);
+    }
+  });
+
+  TYPO3.FormBuilder.View.AvailableFormElementsCollection = Ember.CollectionView.extend({
+    itemViewClass: TYPO3.FormBuilder.View.AvailableFormElementsElement
   });
 
   TYPO3.FormBuilder.View.FormElementInspector = Ember.ContainerView.extend({
