@@ -69,6 +69,12 @@
 				margin-top: 0;
 			}
 		}
+		&.danger {
+			@include background-image(linear-gradient(#7a4848, #634444));
+			&:hover {
+				@include background-image(linear-gradient(#9b3939, #634444));
+			}
+		}
 	}
 
 	line-height: normal;
