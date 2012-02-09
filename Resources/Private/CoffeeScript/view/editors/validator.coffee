@@ -13,7 +13,7 @@
 # ##Class Editor.RequiredValidatorEditor##
 #
 # This view adds a `required` checkbox which selects or deselects the NotEmpty validator from the list of validators.
-TYPO3.FormBuilder.View.Editor.RequiredValidatorEditor = TYPO3.FormBuilder.View.Editor.AbstractPropertyEditor.extend {
+TYPO3.FormBuilder.View.ElementOptionsPanel.Editor.RequiredValidatorEditor = TYPO3.FormBuilder.View.ElementOptionsPanel.Editor.AbstractPropertyEditor.extend {
 	# ***
 	# ###Private###
 	templateName: 'RequiredValidatorEditor'
@@ -48,13 +48,13 @@ TYPO3.FormBuilder.View.Editor.RequiredValidatorEditor = TYPO3.FormBuilder.View.E
 # ##Class Editor.ValidatorEditor##
 #
 # This is an editor for all validators. They are defined using the `availableValidators` property.
-TYPO3.FormBuilder.View.Editor.ValidatorEditor = TYPO3.FormBuilder.View.Editor.AbstractCollectionEditor.extend {
+TYPO3.FormBuilder.View.ElementOptionsPanel.Editor.ValidatorEditor = TYPO3.FormBuilder.View.ElementOptionsPanel.Editor.AbstractCollectionEditor.extend {
 	# ###Public Properties###
 	# * `availableValidators`: JSON object of available validators, where each validator has the following options:
 	#
 	#    * `label`: human-readable label of the validator
 	#    * `sorting`: sorting index to be used for the validator
-	#    * `name`: Validator class name, if not specified the `TYPO3.FormBuilder.View.Editor.ValidatorEditor.DefaultValidatorEditor` is used.
+	#    * `name`: Validator class name, if not specified the `TYPO3.FormBuilder.View.ElementOptionsPanel.Editor.ValidatorEditor.DefaultValidatorEditor` is used.
 	#    * `options`: Validator options to be set (JSON object)
 	#    * `required`: (boolean) if TRUE; it is required validator which is not de-selectable
 	availableValidators: null,
@@ -75,7 +75,7 @@ TYPO3.FormBuilder.View.Editor.ValidatorEditor = TYPO3.FormBuilder.View.Editor.Ab
 #
 # Base class for validator editors.
 # TODO: continue documentation here
-TYPO3.FormBuilder.View.Editor.ValidatorEditor.DefaultValidatorEditor = Ember.View.extend {
+TYPO3.FormBuilder.View.ElementOptionsPanel.Editor.ValidatorEditor.DefaultValidatorEditor = Ember.View.extend {
 	classNames: ['typo3-formbuilder-validator-editor']
 	templateName: 'ValidatorEditor-Default'
 
@@ -104,7 +104,7 @@ TYPO3.FormBuilder.View.Editor.ValidatorEditor.DefaultValidatorEditor = Ember.Vie
 		@updateCollectionEditorViews()
 }
 
-TYPO3.FormBuilder.View.Editor.ValidatorEditor.MinimumMaximumValidatorEditor = TYPO3.FormBuilder.View.Editor.ValidatorEditor.DefaultValidatorEditor.extend {
+TYPO3.FormBuilder.View.ElementOptionsPanel.Editor.ValidatorEditor.MinimumMaximumValidatorEditor = TYPO3.FormBuilder.View.ElementOptionsPanel.Editor.ValidatorEditor.DefaultValidatorEditor.extend {
 	templateName: 'ValidatorEditor-MinimumMaximum'
 
 	pathToMinimumOption: 'currentCollectionElement.options.minimum'
@@ -129,7 +129,7 @@ TYPO3.FormBuilder.View.Editor.ValidatorEditor.MinimumMaximumValidatorEditor = TY
 	).property('pathToMaximumOption').cacheable()
 }
 
-TYPO3.FormBuilder.View.Editor.ValidatorEditor.SimpleValueValidatorEditor = TYPO3.FormBuilder.View.Editor.ValidatorEditor.DefaultValidatorEditor.extend {
+TYPO3.FormBuilder.View.ElementOptionsPanel.Editor.ValidatorEditor.SimpleValueValidatorEditor = TYPO3.FormBuilder.View.ElementOptionsPanel.Editor.ValidatorEditor.DefaultValidatorEditor.extend {
 	templateName: 'ValidatorEditor-SimpleValue'
 
 	# this needs to be filled by the parent

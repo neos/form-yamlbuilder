@@ -5,9 +5,9 @@
 #
 # Contains the following classes:
 #
-# * Editor.TextOutput
-# * Editor.LabelEditor
-# * Editor.TextEditor
+# * ElementOptionsPanel.Editor.TextOutput
+# * ElementOptionsPanel.Editor.LabelEditor
+# * ElementOptionsPanel.Editor.TextEditor
 #
 # ***
 # ##Class Editor.TextOutput##
@@ -15,7 +15,7 @@
 # This editor can be used to output static text, such as the label of the current form element.
 #
 # Just make sure to set the `templateName` property and access `formObject` as required.
-TYPO3.FormBuilder.View.Editor.TextOutput = TYPO3.FormBuilder.View.Editor.AbstractEditor.extend {
+TYPO3.FormBuilder.View.ElementOptionsPanel.Editor.TextOutput = TYPO3.FormBuilder.View.ElementOptionsPanel.Editor.AbstractEditor.extend {
 }
 
 # ***
@@ -23,7 +23,7 @@ TYPO3.FormBuilder.View.Editor.TextOutput = TYPO3.FormBuilder.View.Editor.Abstrac
 #
 # This editor makes the `identifier` of a form element editable.
 #
-TYPO3.FormBuilder.View.Editor.IdentifierEditor = TYPO3.FormBuilder.View.Editor.AbstractPropertyEditor.extend {
+TYPO3.FormBuilder.View.ElementOptionsPanel.Editor.IdentifierEditor = TYPO3.FormBuilder.View.ElementOptionsPanel.Editor.AbstractPropertyEditor.extend {
 	templateName: 'IdentifierEditor'
 
 	propertyPath: 'identifier'
@@ -83,7 +83,7 @@ TYPO3.FormBuilder.View.Editor.IdentifierEditor = TYPO3.FormBuilder.View.Editor.A
 }
 
 # special text field which selects its contents when being clicked upon
-TYPO3.FormBuilder.View.Editor.IdentifierEditor.TextField = Ember.TextField.extend {
+TYPO3.FormBuilder.View.ElementOptionsPanel.Editor.IdentifierEditor.TextField = Ember.TextField.extend {
 	insertNewline: ->
 		@get('parentView').commit()
 	cancel: ->
@@ -94,6 +94,7 @@ TYPO3.FormBuilder.View.Editor.IdentifierEditor.TextField = Ember.TextField.exten
 		@$().select()
 }
 
+
 # ***
 # ##Class Editor.TextEditor##
 #
@@ -102,7 +103,7 @@ TYPO3.FormBuilder.View.Editor.IdentifierEditor.TextField = Ember.TextField.exten
 # ###Public API###
 #
 # - `label`: Label of the text field, which should be shown.
-TYPO3.FormBuilder.View.Editor.TextEditor = TYPO3.FormBuilder.View.Editor.AbstractPropertyEditor.extend {
+TYPO3.FormBuilder.View.ElementOptionsPanel.Editor.TextEditor = TYPO3.FormBuilder.View.ElementOptionsPanel.Editor.AbstractPropertyEditor.extend {
 	label: null
 
 	onValueChange: (->
@@ -120,7 +121,7 @@ TYPO3.FormBuilder.View.Editor.TextEditor = TYPO3.FormBuilder.View.Editor.Abstrac
 # ###Public API###
 #
 # - `label`: Label of the text field, which should be shown.
-TYPO3.FormBuilder.View.Editor.TextareaEditor = TYPO3.FormBuilder.View.Editor.TextEditor.extend {
+TYPO3.FormBuilder.View.ElementOptionsPanel.Editor.TextareaEditor = TYPO3.FormBuilder.View.ElementOptionsPanel.Editor.TextEditor.extend {
 	templateName: 'TextareaEditor'
 }
 
@@ -130,7 +131,7 @@ TYPO3.FormBuilder.View.Editor.TextareaEditor = TYPO3.FormBuilder.View.Editor.Tex
 # ##Class Editor.RemoveElementEditor##
 #
 # Displays button to remove this formElement.
-TYPO3.FormBuilder.View.Editor.RemoveElementEditor = TYPO3.FormBuilder.View.Editor.AbstractEditor.extend {
+TYPO3.FormBuilder.View.ElementOptionsPanel.Editor.RemoveElementEditor = TYPO3.FormBuilder.View.ElementOptionsPanel.Editor.AbstractEditor.extend {
 	templateName: 'RemoveElementEditor'
 	remove: ->
 		@get('formElement').removeWithConfirmationDialog()

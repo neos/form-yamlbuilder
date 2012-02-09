@@ -10,13 +10,13 @@
 # ##Class Editor.FinisherEditor##
 #
 # TODO
-TYPO3.FormBuilder.View.Editor.FinisherEditor = TYPO3.FormBuilder.View.Editor.AbstractCollectionEditor.extend {
+TYPO3.FormBuilder.View.ElementOptionsPanel.Editor.FinisherEditor = TYPO3.FormBuilder.View.ElementOptionsPanel.Editor.AbstractCollectionEditor.extend {
 	# ###Public Properties###
 	# * `availableFinishers`: JSON object of available validators, where each validator has the following options:
 	#
 	#    * `label`: human-readable label of the validator
 	#    * `sorting`: sorting index to be used for the validator
-	#    * `name`: Validator class name, if not specified the `TYPO3.FormBuilder.View.Editor.ValidatorEditor.DefaultValidatorEditor` is used.
+	#    * `name`: Validator class name, if not specified the `TYPO3.FormBuilder.View.ElementOptionsPanel.Editor.ValidatorEditor.DefaultValidatorEditor` is used.
 	#    * `options`: Validator options to be set (JSON object)
 	#    * `required`: (boolean) if TRUE; it is required validator which is not de-selectable
 	availableFinishers: null,
@@ -32,7 +32,7 @@ TYPO3.FormBuilder.View.Editor.FinisherEditor = TYPO3.FormBuilder.View.Editor.Abs
 	propertyPath: 'finishers'
 }
 
-TYPO3.FormBuilder.View.Editor.FinisherEditor.EmailFinisherEditor = TYPO3.FormBuilder.View.Editor.ValidatorEditor.DefaultValidatorEditor.extend {
+TYPO3.FormBuilder.View.ElementOptionsPanel.Editor.FinisherEditor.EmailFinisherEditor = TYPO3.FormBuilder.View.ElementOptionsPanel.Editor.ValidatorEditor.DefaultValidatorEditor.extend {
 	templateName: 'Finisher-Email'
 
 	availableFormats: null,

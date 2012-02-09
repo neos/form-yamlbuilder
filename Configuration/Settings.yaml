@@ -101,26 +101,26 @@ TYPO3:
               editors:
                 elementType:
                   sorting: 100
-                  viewName: 'TYPO3.FormBuilder.View.Editor.TextOutput'
+                  viewName: 'TYPO3.FormBuilder.View.ElementOptionsPanel.Editor.TextOutput'
                   templateName: 'PropertyPanelTitle'
                 identifier:
                   sorting: 110
-                  viewName: 'TYPO3.FormBuilder.View.Editor.IdentifierEditor'
+                  viewName: 'TYPO3.FormBuilder.View.ElementOptionsPanel.Editor.IdentifierEditor'
                 label:
                   label: 'Label'
                   propertyPath: 'label'
                   sorting: 120
-                  viewName: 'TYPO3.FormBuilder.View.Editor.TextEditor'
+                  viewName: 'TYPO3.FormBuilder.View.ElementOptionsPanel.Editor.TextEditor'
           'TYPO3.Form:FormElement':
             formBuilder:
               editors:
                 requiredValidator:
                   sorting: 800
-                  viewName: 'TYPO3.FormBuilder.View.Editor.RequiredValidatorEditor'
+                  viewName: 'TYPO3.FormBuilder.View.ElementOptionsPanel.Editor.RequiredValidatorEditor'
 
                 validation:
                   sorting: 900
-                  viewName: 'TYPO3.FormBuilder.View.Editor.ValidatorEditor'
+                  viewName: 'TYPO3.FormBuilder.View.ElementOptionsPanel.Editor.ValidatorEditor'
 
           'TYPO3.Form:Form':
             formBuilder:
@@ -132,16 +132,16 @@ TYPO3:
                   sorting: 200
                   label: 'Submit Label'
                   propertyPath: 'renderingOptions.submitButtonLabel'
-                  viewName: 'TYPO3.FormBuilder.View.Editor.TextEditor'
+                  viewName: 'TYPO3.FormBuilder.View.ElementOptionsPanel.Editor.TextEditor'
 
                 finishers:
                   sorting: 410
-                  viewName: 'TYPO3.FormBuilder.View.Editor.FinisherEditor'
+                  viewName: 'TYPO3.FormBuilder.View.ElementOptionsPanel.Editor.FinisherEditor'
                   availableFinishers:
                     'TYPO3.Form:Email':
                       label: 'Send Email'
                       name: 'TYPO3\Form\Finishers\EmailFinisher'
-                      viewName: 'TYPO3.FormBuilder.View.Editor.FinisherEditor.EmailFinisherEditor'
+                      viewName: 'TYPO3.FormBuilder.View.ElementOptionsPanel.Editor.FinisherEditor.EmailFinisherEditor'
                       availableFormats:
                         0: {key: 'plaintext', value: 'Plain Text'}
                         1: {key: 'html', value: 'HTML'}
@@ -155,7 +155,7 @@ TYPO3:
               editors:
                 removeButton:
                   sorting: 999
-                  viewName: 'TYPO3.FormBuilder.View.Editor.RemoveElementEditor'
+                  viewName: 'TYPO3.FormBuilder.View.ElementOptionsPanel.Editor.RemoveElementEditor'
 
           # group INPUT
           'TYPO3.Form:SingleLineText':
@@ -212,7 +212,7 @@ TYPO3:
                   availableValidators:
                     'TYPO3.FLOW3:DateTimeRange':
                       label: 'Date/Time Range'
-                      viewName: 'TYPO3.FormBuilder.View.Editor.ValidatorEditor.MinimumMaximumValidatorEditor'
+                      viewName: 'TYPO3.FormBuilder.View.ElementOptionsPanel.Editor.ValidatorEditor.MinimumMaximumValidatorEditor'
                       pathToMinimumOption: 'currentCollectionElement.options.earliestDate'
                       pathToMaximumOption: 'currentCollectionElement.options.latestDate'
 
@@ -229,7 +229,7 @@ TYPO3:
               editors:
                 staticText:
                   sorting: 150
-                  viewName: 'TYPO3.FormBuilder.View.Editor.TextareaEditor'
+                  viewName: 'TYPO3.FormBuilder.View.ElementOptionsPanel.Editor.TextareaEditor'
                   label: 'Text'
                   propertyPath: 'properties.text'
 
@@ -263,12 +263,12 @@ TYPO3:
               editors:
                 placeholder:
                   sorting: 150
-                  viewName: 'TYPO3.FormBuilder.View.Editor.TextEditor'
+                  viewName: 'TYPO3.FormBuilder.View.ElementOptionsPanel.Editor.TextEditor'
                   label: 'Placeholder'
                   propertyPath: 'properties.placeholder'
                 defaultValue:
                   sorting: 160
-                  viewName: 'TYPO3.FormBuilder.View.Editor.TextEditor'
+                  viewName: 'TYPO3.FormBuilder.View.ElementOptionsPanel.Editor.TextEditor'
                   label: 'Default Value'
                   propertyPath: 'defaultValue'
                 validation:
@@ -282,7 +282,7 @@ TYPO3:
                     'TYPO3.FLOW3:StringLength':
                       label: 'String Length'
                       sorting: 120
-                      viewName: 'TYPO3.FormBuilder.View.Editor.ValidatorEditor.MinimumMaximumValidatorEditor'
+                      viewName: 'TYPO3.FormBuilder.View.ElementOptionsPanel.Editor.ValidatorEditor.MinimumMaximumValidatorEditor'
                       required: false
                     'TYPO3.FLOW3:EmailAddress':
                       label: 'EMail'
@@ -298,14 +298,14 @@ TYPO3:
                     'TYPO3.FLOW3:NumberRange':
                       label: 'Number Range'
                       sorting: 220
-                      viewName: 'TYPO3.FormBuilder.View.Editor.ValidatorEditor.MinimumMaximumValidatorEditor'
+                      viewName: 'TYPO3.FormBuilder.View.ElementOptionsPanel.Editor.ValidatorEditor.MinimumMaximumValidatorEditor'
 
                     'TYPO3.FLOW3:RegularExpression':
                       label: 'Regular Expression'
                       fieldLabel: 'Regular Expression'
                       fieldExplanationText: 'Enter a valid PHP PCRE Regular Expression here.'
                       sorting: 300
-                      viewName: 'TYPO3.FormBuilder.View.Editor.ValidatorEditor.SimpleValueValidatorEditor'
+                      viewName: 'TYPO3.FormBuilder.View.ElementOptionsPanel.Editor.ValidatorEditor.SimpleValueValidatorEditor'
                       pathToEditedValue: 'currentCollectionElement.options.regularExpression'
 
                     # Example of creating a custom "ZipCode" validator preset,
@@ -319,7 +319,7 @@ TYPO3:
               editors:
                 options:
                   sorting: 200
-                  viewName: 'TYPO3.FormBuilder.View.Editor.PropertyGrid'
+                  viewName: 'TYPO3.FormBuilder.View.ElementOptionsPanel.Editor.PropertyGrid'
                   # TODO: rename to "optionListPath"?
                   propertyPath: 'properties.options'
                   isSortable: true
@@ -329,11 +329,11 @@ TYPO3:
                     0:
                       field: '_value'
                       name: 'Label'
-                      editor: 'TYPO3.FormBuilder.View.Editor.PropertyGrid.TextCellEditor'
+                      editor: 'TYPO3.FormBuilder.View.ElementOptionsPanel.Editor.PropertyGrid.TextCellEditor'
                     1:
                       field: '_key'
                       name: 'Value'
-                      editor: 'TYPO3.FormBuilder.View.Editor.PropertyGrid.TextCellEditor'
+                      editor: 'TYPO3.FormBuilder.View.ElementOptionsPanel.Editor.PropertyGrid.TextCellEditor'
           'TYPO3.Form:SingleSelectionMixin':
             formBuilder:
               editors:
@@ -349,4 +349,4 @@ TYPO3:
                     'TYPO3.FLOW3:Count':
                       label: 'Number of submitted values'
                       sorting: 100
-                      viewName: 'TYPO3.FormBuilder.View.Editor.ValidatorEditor.MinimumMaximumValidatorEditor'
+                      viewName: 'TYPO3.FormBuilder.View.ElementOptionsPanel.Editor.ValidatorEditor.MinimumMaximumValidatorEditor'

@@ -5,14 +5,14 @@
 #
 # Contains the following classes:
 #
-# * FormElementInspector
-# * Editor.AbstractEditor
-# * Editor.AbstractPropertyEditor
+# * ElementOptionsPanel
+# * ElementOptionsPanel.Editor.AbstractEditor
+# * ElementOptionsPanel.Editor.AbstractPropertyEditor
 #
 # Especially the last-mentioned editor class is often subclassed.
 #
 # ***
-# ##Class View.FormElementInspector##
+# ##Class View.ElementOptionsPanel##
 #
 # This view renders the configured editors for the currently selected renderable.
 #
@@ -23,10 +23,10 @@
 #
 # - sorting: numerical sorting index determining the order of the editor
 # - viewName: name of a view used to render this Form Element. The specified view name
-#   should be a subclass of `TYPO3.FormBuilder.View.Editor.AbstractEditor`.
+#   should be a subclass of `TYPO3.FormBuilder.View.ElementOptionsPanel.Editor.AbstractEditor`.
 # - [view-specific-options]: all of the above properties are made available on
 #   the view, so view-specific properties can also be specified.
-TYPO3.FormBuilder.View.FormElementInspector = Ember.ContainerView.extend {
+TYPO3.FormBuilder.View.ElementOptionsPanel = Ember.ContainerView.extend {
 	# ***
 	# ###Private###
 
@@ -67,18 +67,18 @@ TYPO3.FormBuilder.View.FormElementInspector = Ember.ContainerView.extend {
 }
 
 # ***
-# ##Namespace TYPO3.FormBuilder.View.Editor##
+# ##Namespace TYPO3.FormBuilder.View.ElementOptionsPanel.Editor##
 #
 # This namespace contains all the editors displayed inside the element inspector on
 # the right side.
-TYPO3.FormBuilder.View.Editor = {}
+TYPO3.FormBuilder.View.ElementOptionsPanel.Editor = {}
 
 # ***
-# ##Class View.Editor.AbstractEditor##
+# ##Class View.ElementOptionsPanel.Editor.AbstractEditor##
 #
 # Base class for custom editors. This is an extension point of the framework.
 # You often will want to subclass `AbstractPropertyEditor` instead.
-TYPO3.FormBuilder.View.Editor.AbstractEditor = Ember.View.extend {
+TYPO3.FormBuilder.View.ElementOptionsPanel.Editor.AbstractEditor = Ember.View.extend {
 	classNames: ['form-editor']
 
 	# ###Public Properties###
@@ -88,7 +88,7 @@ TYPO3.FormBuilder.View.Editor.AbstractEditor = Ember.View.extend {
 }
 
 # ***
-# ##Class View.Editor.AbstractPropertyEditor##
+# ##Class View.ElementOptionsPanel.Editor.AbstractPropertyEditor##
 #
 # Most-often used base class for custom editors. This is an extension point of the framework.
 #
@@ -101,7 +101,7 @@ TYPO3.FormBuilder.View.Editor.AbstractEditor = Ember.View.extend {
 #   use @get and @set.
 # - `valueChanged()`: You should call this API method every time you changed `value` or a sub property of `value`.
 #   This triggers the event listeners in the rest of the UI.
-TYPO3.FormBuilder.View.Editor.AbstractPropertyEditor = TYPO3.FormBuilder.View.Editor.AbstractEditor.extend {
+TYPO3.FormBuilder.View.ElementOptionsPanel.Editor.AbstractPropertyEditor = TYPO3.FormBuilder.View.ElementOptionsPanel.Editor.AbstractEditor.extend {
 	# ###Public Properties###
 	#
 	# - `propertyPath`: the property path at which the current value resides, relative to the current @formElement.
@@ -132,6 +132,4 @@ TYPO3.FormBuilder.View.Editor.AbstractPropertyEditor = TYPO3.FormBuilder.View.Ed
 				value = @formElement.getPath(@get('propertyPath'))
 			return value
 	).property('propertyPath', 'formElement').cacheable()
-
-
 }

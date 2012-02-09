@@ -789,7 +789,7 @@
     }
   });
 
-  TYPO3.FormBuilder.View.FormElementInspector = Ember.ContainerView.extend({
+  TYPO3.FormBuilder.View.ElementOptionsPanel = Ember.ContainerView.extend({
     formElement: null,
     orderedFormFieldEditors: (function() {
       var formFieldEditors, k, orderedFormFieldEditors, v;
@@ -828,14 +828,14 @@
     }).observes('formElement')
   });
 
-  TYPO3.FormBuilder.View.Editor = {};
+  TYPO3.FormBuilder.View.ElementOptionsPanel.Editor = {};
 
-  TYPO3.FormBuilder.View.Editor.AbstractEditor = Ember.View.extend({
+  TYPO3.FormBuilder.View.ElementOptionsPanel.Editor.AbstractEditor = Ember.View.extend({
     classNames: ['form-editor'],
     formElement: null
   });
 
-  TYPO3.FormBuilder.View.Editor.AbstractPropertyEditor = TYPO3.FormBuilder.View.Editor.AbstractEditor.extend({
+  TYPO3.FormBuilder.View.ElementOptionsPanel.Editor.AbstractPropertyEditor = TYPO3.FormBuilder.View.ElementOptionsPanel.Editor.AbstractEditor.extend({
     propertyPath: null,
     defaultValue: '',
     valueChanged: function() {
@@ -858,7 +858,7 @@
     }).property('propertyPath', 'formElement').cacheable()
   });
 
-  TYPO3.FormBuilder.View.Editor.AbstractCollectionEditor = TYPO3.FormBuilder.View.Editor.AbstractPropertyEditor.extend({
+  TYPO3.FormBuilder.View.ElementOptionsPanel.Editor.AbstractCollectionEditor = TYPO3.FormBuilder.View.ElementOptionsPanel.Editor.AbstractPropertyEditor.extend({
     availableCollectionElements: null,
     defaultValue: (function() {
       return [];
@@ -922,7 +922,7 @@
         collectionElement = collection[i];
         collectionElementTemplate = availableCollectionElements[collectionElement.identifier];
         if (!collectionElementTemplate) continue;
-        collectionElementEditor = Ember.getPath(collectionElementTemplate.viewName || 'TYPO3.FormBuilder.View.Editor.ValidatorEditor.DefaultValidatorEditor');
+        collectionElementEditor = Ember.getPath(collectionElementTemplate.viewName || 'TYPO3.FormBuilder.View.ElementOptionsPanel.Editor.ValidatorEditor.DefaultValidatorEditor');
         if (!collectionElementEditor) {
           throw "Validator Editor class '" + collectionElementTemplate.viewName + "' not found";
         }
@@ -975,9 +975,9 @@
     }
   });
 
-  TYPO3.FormBuilder.View.Editor.TextOutput = TYPO3.FormBuilder.View.Editor.AbstractEditor.extend({});
+  TYPO3.FormBuilder.View.ElementOptionsPanel.Editor.TextOutput = TYPO3.FormBuilder.View.ElementOptionsPanel.Editor.AbstractEditor.extend({});
 
-  TYPO3.FormBuilder.View.Editor.IdentifierEditor = TYPO3.FormBuilder.View.Editor.AbstractPropertyEditor.extend({
+  TYPO3.FormBuilder.View.ElementOptionsPanel.Editor.IdentifierEditor = TYPO3.FormBuilder.View.ElementOptionsPanel.Editor.AbstractPropertyEditor.extend({
     templateName: 'IdentifierEditor',
     propertyPath: 'identifier',
     editMode: false,
@@ -1040,7 +1040,7 @@
     }
   });
 
-  TYPO3.FormBuilder.View.Editor.IdentifierEditor.TextField = Ember.TextField.extend({
+  TYPO3.FormBuilder.View.ElementOptionsPanel.Editor.IdentifierEditor.TextField = Ember.TextField.extend({
     insertNewline: function() {
       return this.get('parentView').commit();
     },
@@ -1055,7 +1055,7 @@
     }
   });
 
-  TYPO3.FormBuilder.View.Editor.TextEditor = TYPO3.FormBuilder.View.Editor.AbstractPropertyEditor.extend({
+  TYPO3.FormBuilder.View.ElementOptionsPanel.Editor.TextEditor = TYPO3.FormBuilder.View.ElementOptionsPanel.Editor.AbstractPropertyEditor.extend({
     label: null,
     onValueChange: (function() {
       return this.valueChanged();
@@ -1063,18 +1063,18 @@
     templateName: 'TextEditor'
   });
 
-  TYPO3.FormBuilder.View.Editor.TextareaEditor = TYPO3.FormBuilder.View.Editor.TextEditor.extend({
+  TYPO3.FormBuilder.View.ElementOptionsPanel.Editor.TextareaEditor = TYPO3.FormBuilder.View.ElementOptionsPanel.Editor.TextEditor.extend({
     templateName: 'TextareaEditor'
   });
 
-  TYPO3.FormBuilder.View.Editor.RemoveElementEditor = TYPO3.FormBuilder.View.Editor.AbstractEditor.extend({
+  TYPO3.FormBuilder.View.ElementOptionsPanel.Editor.RemoveElementEditor = TYPO3.FormBuilder.View.ElementOptionsPanel.Editor.AbstractEditor.extend({
     templateName: 'RemoveElementEditor',
     remove: function() {
       return this.get('formElement').removeWithConfirmationDialog();
     }
   });
 
-  TYPO3.FormBuilder.View.Editor.PropertyGrid = TYPO3.FormBuilder.View.Editor.AbstractPropertyEditor.extend({
+  TYPO3.FormBuilder.View.ElementOptionsPanel.Editor.PropertyGrid = TYPO3.FormBuilder.View.ElementOptionsPanel.Editor.AbstractPropertyEditor.extend({
     columns: null,
     isSortable: false,
     enableAddRow: false,
@@ -1292,7 +1292,7 @@
     }
   });
 
-  TYPO3.FormBuilder.View.Editor.PropertyGrid.TextCellEditor = function(args) {
+  TYPO3.FormBuilder.View.ElementOptionsPanel.Editor.PropertyGrid.TextCellEditor = function(args) {
     var retVal;
     retVal = window.TextCellEditor.apply(this, arguments);
     $(args.container).children('.editor-text').focusout(function() {
@@ -1301,7 +1301,7 @@
     return retVal;
   };
 
-  TYPO3.FormBuilder.View.Editor.RequiredValidatorEditor = TYPO3.FormBuilder.View.Editor.AbstractPropertyEditor.extend({
+  TYPO3.FormBuilder.View.ElementOptionsPanel.Editor.RequiredValidatorEditor = TYPO3.FormBuilder.View.ElementOptionsPanel.Editor.AbstractPropertyEditor.extend({
     templateName: 'RequiredValidatorEditor',
     propertyPath: 'validators',
     defaultValue: (function() {
@@ -1331,7 +1331,7 @@
     }).property('value').cacheable()
   });
 
-  TYPO3.FormBuilder.View.Editor.ValidatorEditor = TYPO3.FormBuilder.View.Editor.AbstractCollectionEditor.extend({
+  TYPO3.FormBuilder.View.ElementOptionsPanel.Editor.ValidatorEditor = TYPO3.FormBuilder.View.ElementOptionsPanel.Editor.AbstractCollectionEditor.extend({
     availableValidators: null,
     availableCollectionElementsBinding: 'availableValidators',
     templateName: 'ValidatorEditor',
@@ -1339,7 +1339,7 @@
     propertyPath: 'validators'
   });
 
-  TYPO3.FormBuilder.View.Editor.ValidatorEditor.DefaultValidatorEditor = Ember.View.extend({
+  TYPO3.FormBuilder.View.ElementOptionsPanel.Editor.ValidatorEditor.DefaultValidatorEditor = Ember.View.extend({
     classNames: ['typo3-formbuilder-validator-editor'],
     templateName: 'ValidatorEditor-Default',
     required: false,
@@ -1360,7 +1360,7 @@
     }
   });
 
-  TYPO3.FormBuilder.View.Editor.ValidatorEditor.MinimumMaximumValidatorEditor = TYPO3.FormBuilder.View.Editor.ValidatorEditor.DefaultValidatorEditor.extend({
+  TYPO3.FormBuilder.View.ElementOptionsPanel.Editor.ValidatorEditor.MinimumMaximumValidatorEditor = TYPO3.FormBuilder.View.ElementOptionsPanel.Editor.ValidatorEditor.DefaultValidatorEditor.extend({
     templateName: 'ValidatorEditor-MinimumMaximum',
     pathToMinimumOption: 'currentCollectionElement.options.minimum',
     pathToMaximumOption: 'currentCollectionElement.options.maximum',
@@ -1384,7 +1384,7 @@
     }).property('pathToMaximumOption').cacheable()
   });
 
-  TYPO3.FormBuilder.View.Editor.ValidatorEditor.SimpleValueValidatorEditor = TYPO3.FormBuilder.View.Editor.ValidatorEditor.DefaultValidatorEditor.extend({
+  TYPO3.FormBuilder.View.ElementOptionsPanel.Editor.ValidatorEditor.SimpleValueValidatorEditor = TYPO3.FormBuilder.View.ElementOptionsPanel.Editor.ValidatorEditor.DefaultValidatorEditor.extend({
     templateName: 'ValidatorEditor-SimpleValue',
     pathToEditedValue: 'currentCollectionElement.options.TODO',
     fieldLabel: Ember.required(),
@@ -1399,7 +1399,7 @@
     }).property('pathToEditedValue').cacheable()
   });
 
-  TYPO3.FormBuilder.View.Editor.FinisherEditor = TYPO3.FormBuilder.View.Editor.AbstractCollectionEditor.extend({
+  TYPO3.FormBuilder.View.ElementOptionsPanel.Editor.FinisherEditor = TYPO3.FormBuilder.View.ElementOptionsPanel.Editor.AbstractCollectionEditor.extend({
     availableFinishers: null,
     availableCollectionElementsBinding: 'availableFinishers',
     templateName: 'FinisherEditor',
@@ -1407,7 +1407,7 @@
     propertyPath: 'finishers'
   });
 
-  TYPO3.FormBuilder.View.Editor.FinisherEditor.EmailFinisherEditor = TYPO3.FormBuilder.View.Editor.ValidatorEditor.DefaultValidatorEditor.extend({
+  TYPO3.FormBuilder.View.ElementOptionsPanel.Editor.FinisherEditor.EmailFinisherEditor = TYPO3.FormBuilder.View.ElementOptionsPanel.Editor.ValidatorEditor.DefaultValidatorEditor.extend({
     templateName: 'Finisher-Email',
     availableFormats: null,
     format: (function(k, v) {

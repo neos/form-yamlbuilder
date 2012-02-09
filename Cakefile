@@ -12,10 +12,10 @@ appFiles  = [
 	'view/stage'
 	'view/structurePanel'
 	'view/insertElementsPanel'
+	'view/elementOptionsPanel'
 
 
 
-	'view/elementInspector'
 	'view/editors/collectionEditor'
 	'view/editors/basic'
 	'view/editors/grid'

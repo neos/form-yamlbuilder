@@ -1,10 +1,10 @@
-TYPO3.FormBuilder.View.Editor.AbstractCollectionEditor = TYPO3.FormBuilder.View.Editor.AbstractPropertyEditor.extend {
+TYPO3.FormBuilder.View.ElementOptionsPanel.Editor.AbstractCollectionEditor = TYPO3.FormBuilder.View.ElementOptionsPanel.Editor.AbstractPropertyEditor.extend {
 	# ###Public Properties###
 	# * `availableCollectionElements`: JSON object of available sub elements, where each element has the following options:
 	#
 	#    * `label`: human-readable label of the validator
 	#    * `sorting`: sorting index to be used for the validator
-	#    * `name`: Validator class name, if not specified the `TYPO3.FormBuilder.View.Editor.ValidatorEditor.DefaultValidatorEditor` is used.
+	#    * `name`: Validator class name, if not specified the `TYPO3.FormBuilder.View.ElementOptionsPanel.Editor.ValidatorEditor.DefaultValidatorEditor` is used.
 	#    * `options`: Validator options to be set (JSON object)
 	#    * `required`: (boolean) if TRUE; it is required validator which is not de-selectable
 	availableCollectionElements: null,
@@ -87,7 +87,7 @@ TYPO3.FormBuilder.View.Editor.AbstractCollectionEditor = TYPO3.FormBuilder.View.
 
 			# we found the correct validatorTemplate for the current validator,
 			# thus we can output label and determine the view to be used.
-			collectionElementEditor = Ember.getPath(collectionElementTemplate.viewName || 'TYPO3.FormBuilder.View.Editor.ValidatorEditor.DefaultValidatorEditor')
+			collectionElementEditor = Ember.getPath(collectionElementTemplate.viewName || 'TYPO3.FormBuilder.View.ElementOptionsPanel.Editor.ValidatorEditor.DefaultValidatorEditor')
 			throw "Validator Editor class '#{collectionElementTemplate.viewName}' not found" if !collectionElementEditor
 			collectionElementEditorOptions = $.extend({
 				elementIndex: i

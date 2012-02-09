@@ -9,7 +9,7 @@
 # - arbitrary number of columns
 # - columns are made sortable if wanted
 # - a new column is added at the bottom to insert a new element
-TYPO3.FormBuilder.View.Editor.PropertyGrid = TYPO3.FormBuilder.View.Editor.AbstractPropertyEditor.extend {
+TYPO3.FormBuilder.View.ElementOptionsPanel.Editor.PropertyGrid = TYPO3.FormBuilder.View.ElementOptionsPanel.Editor.AbstractPropertyEditor.extend {
 
 	# ###Public API###
 	#
@@ -266,7 +266,7 @@ TYPO3.FormBuilder.View.Editor.PropertyGrid = TYPO3.FormBuilder.View.Editor.Abstr
 
 # This is just a standard TextCellEditor of SlickGrid; extended in a way that when
 # defocussing the text field, the edit is committed / saved.
-TYPO3.FormBuilder.View.Editor.PropertyGrid.TextCellEditor = (args) ->
+TYPO3.FormBuilder.View.ElementOptionsPanel.Editor.PropertyGrid.TextCellEditor = (args) ->
 	retVal = window.TextCellEditor.apply(this, arguments)
 
 	$(args.container).children('.editor-text').focusout ->
