@@ -1021,6 +1021,17 @@ span.dynatree-icon:before {
   #typo3-formbuilder-footer .typo3-formbuilder-error {
     color: #aa6666; }
 
+#typo3-formbuilder-loading {
+  position: absolute;
+  top: 11px;
+  left: 10px;
+  width: 20px;
+  height: 20px;
+  background: #262626 url("../Images/spinner.gif") center center no-repeat;
+  z-index: 3000;
+  text-indent: -9999px;
+  overflow: hidden; }
+
 #typo3-formbuilder-header {
   margin: 0;
   padding: 0;
@@ -1028,10 +1039,12 @@ span.dynatree-icon:before {
   height: 46px !important;
   overflow: hidden; }
   #typo3-formbuilder-header h1 {
-    margin: 5px 0 0 10px;
+    margin: 5px 0 0 12px;
     font-size: 25px;
     color: #fff;
-    text-shadow: 0 -1px 0 #777777; }
+    text-shadow: 0 -1px 0 #777777;
+    background: transparent url("../Images/flow3Logo.png") 2px center no-repeat;
+    padding-left: 23px; }
   #typo3-formbuilder-header #typo3-formbuilder-toolbar {
     position: absolute;
     top: 14px;
@@ -1238,7 +1251,6 @@ span.dynatree-icon:before {
   text-align: right; }
 
 #typo3-formbuilder-stage {
-  background: gray;
   overflow: auto; }
   #typo3-formbuilder-stage .typo3-formbuilder-form-element-selected {
     background: #ccc; }

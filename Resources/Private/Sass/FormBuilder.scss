@@ -70,6 +70,18 @@ $colorHighlight: #ff8700;
 	}
 }
 
+#typo3-formbuilder-loading {
+	position: absolute;
+	top: 11px;
+	left: 10px;
+	width: 20px;
+	height: 20px;
+	background: #262626 url("../Images/spinner.gif") center center no-repeat;
+	z-index: 3000;
+	text-indent: -9999px;
+	overflow: hidden;
+}
+
 #typo3-formbuilder-header {
 	margin: 0;
 	padding: 0;
@@ -77,10 +89,12 @@ $colorHighlight: #ff8700;
 	height: $headerSize !important;
 	overflow: hidden;
 	h1 {
-		margin: 5px 0 0 10px;
+		margin: 5px 0 0 12px;
 		font-size: 25px;
 		color: #fff;
 		text-shadow: 0 -1px 0 #777;
+		background: transparent url('../Images/flow3Logo.png') 2px center no-repeat;
+		padding-left: 23px;
 	}
 	#typo3-formbuilder-toolbar {
 		position: absolute;
@@ -307,7 +321,6 @@ $colorHighlight: #ff8700;
 }
 
 #typo3-formbuilder-stage {
-	background: $colorLightBackground;
 	overflow: auto;
 	.typo3-formbuilder-form-element-selected {
 		background: #ccc;
