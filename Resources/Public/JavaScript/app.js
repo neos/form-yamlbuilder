@@ -152,10 +152,12 @@
       while (path.indexOf('.') > 0) {
         firstPartOfPath = path.slice(0, path.indexOf('.'));
         path = path.slice(firstPartOfPath.length + 1);
-        if (!currentObject[firstPartOfPath]) currentObject[firstPartOfPath] = {};
-        currentObject = currentObject[firstPartOfPath];
+        if (!Ember.get(currentObject, firstPartOfPath)) {
+          Ember.set(currentObject, firstPartOfPath, {});
+        }
+        currentObject = Ember.get(currentObject, firstPartOfPath);
       }
-      return currentObject[path] = v;
+      return Ember.set(currentObject, path, v);
     },
     somePropertyChanged: function(theInstance, propertyName) {
       this.set('__nestedPropertyChange', this.get('__nestedPropertyChange') + 1);

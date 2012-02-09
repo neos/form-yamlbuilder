@@ -134,11 +134,11 @@ TYPO3.FormBuilder.Model.Renderable = Ember.Object.extend {
 		while path.indexOf('.') > 0
 			firstPartOfPath = path.slice(0, path.indexOf('.'))
 			path = path.slice(firstPartOfPath.length + 1)
-			if !currentObject[firstPartOfPath]
-				currentObject[firstPartOfPath] = {}
-			currentObject = currentObject[firstPartOfPath]
+			if !Ember.get(currentObject, firstPartOfPath)
+				Ember.set(currentObject, firstPartOfPath, {})
+			currentObject = Ember.get(currentObject, firstPartOfPath)
 
-		currentObject[path] = v
+		Ember.set(currentObject, path, v)
 
 	# Callback which should be triggered when a nested property changes. Implements
 	# the event bubbling.
