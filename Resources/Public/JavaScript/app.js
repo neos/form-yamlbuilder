@@ -553,6 +553,11 @@
       });
       return this.$().find('[data-element]').parent().addClass('typo3-form-sortable').sortable({
         revert: 'true',
+        start: function(e, o) {
+          if (_this.currentAjaxRequest) _this.currentAjaxRequest.abort();
+          if (_this.timeout) window.clearTimeout(_this.timeout);
+          return _this.set('isLoading', false);
+        },
         update: function(e, o) {
           var movedRenderable, nextElement, nextElementPath, pathOfMovedElement, previousElement, previousElementPath, referenceElementIndex;
           pathOfMovedElement = $(o.item.context).attr('data-element');
