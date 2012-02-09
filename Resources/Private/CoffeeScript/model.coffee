@@ -28,6 +28,32 @@ TYPO3.FormBuilder.Model.Form = Ember.Object.create {
 	# * `currentlySelectedRenderable`: Reference to the currently selected `Renderable` object.
 	currentlySelectedRenderable: null
 
+	# * `saveStatus`: one of "" (never saved before), "currently-saving" (save currently being done), "saved" (last save successful) and "save-error" (last save error). Read-only!
+	saveStatus: ''
+
+	# * `save(callback)`: Save this form; and when save is complete, trigger callback
+	save: (callback = null) ->
+		@set('saveStatus', 'currently-saving')
+		formDefinition = TYPO3.FormBuilder.Utility.convertToSimpleObject(@get('formDefinition'))
+
+		$.post(
+			TYPO3.FormBuilder.Configuration.endpoints.saveForm,
+			{
+				formPersistenceIdentifier: TYPO3.FormBuilder.Configuration?.formPersistenceIdentifier
+				formDefinition
+			},
+			(data, textStatus, jqXHR) =>
+				if data == 'success'
+					@set('saveStatus', 'saved')
+					@set('unsavedContent', false)
+					if callback
+						callback(true)
+				else
+					@set('saveStatus', 'save-error')
+					if callback
+						callback(false)
+		)
+
 	# ***
 	# ###Private###
 	# When the form definition is set anew, we select the form definition itself.
@@ -44,8 +70,6 @@ TYPO3.FormBuilder.Model.Form = Ember.Object.create {
 	contentChanged: ( ->
 		@set('unsavedContent', true)
 	).observes('formDefinition.__nestedPropertyChange')
-
-
 }
 
 # ***
