@@ -404,7 +404,10 @@
           paneSelector: '#typo3-formbuilder-insertElementsPanel'
         }
       });
-    }
+    },
+    updatePageTitle: (function() {
+      return document.title = 'Form Builder - ' + Ember.getPath('TYPO3.FormBuilder.Model.Form.formDefinition.label');
+    }).observes('TYPO3.FormBuilder.Model.Form.formDefinition.label')
   });
 
   TYPO3.FormBuilder.View.Header = Ember.View.extend({
