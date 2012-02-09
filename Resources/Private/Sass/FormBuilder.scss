@@ -88,18 +88,18 @@ $colorHighlight: #ff8700;
 			div {
 				display: inline;
 			}
-			a, button {
-				@include icon($icon-cog);
-				padding-left: 17px;
-				background: none;
-				font-size: 11px;
-				color: #eee;
-				&:hover {
-					color: #ff8700;
-				}
+			select {
+				background: $colorLighterBackground;
+				width: 119px;
+				color: white;
 			}
 		}
-		.typo3-formbuilder-preview a {
+		.typo3-formbuilder-preset {
+			position: relative;
+			top: -2px;
+			height: 20px;
+		}
+		.typo3-formbuilder-preview button {
 			@include overrideIcon($icon-search);
 		}
 		.typo3-formbuilder-save button {
@@ -112,13 +112,16 @@ $colorHighlight: #ff8700;
 	overflow: auto;
 	button {
 		@include icon($icon-cog);
-		color: white;
-		background: none;
-		padding-left: 19px;
+		padding: 0 0 0 19px;
 		font-size: 10px;
+		line-height: 16px;
 		font-weight: bold;
+		&:before {
+			margin-top: 1px;
+		}
 		&:hover {
 			background: #383838;
+			color: $colorHighlight;
 		}
 		&.typo3-formbuilder-form-selected {
 			color: $colorHighlight;

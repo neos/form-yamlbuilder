@@ -415,8 +415,11 @@
   #typo3-formbuilder-elementSidebar button,
   #typo3-formbuilder-elementOptionsPanel button,
   #typo3-formbuilder-footer button {
+    padding: 2px 0;
+    color: white;
     border: none;
-    background: none; }
+    background: none;
+    text-align: left; }
 
 /** ELEMENT STRUCTURE DEFAULTS **/
 span.dynatree-icon:before {
@@ -461,28 +464,44 @@ span.dynatree-icon:before {
 .typo3-formbuilder-type-typo3-form-previewpage *:before {
   background-position: -24px -24px !important; }
 
+#typo3-formbuilder-header,
 #typo3-formbuilder-elementSidebar,
-#typo3-formbuilder-elementOptionsPanel {
+#typo3-formbuilder-elementOptionsPanel,
+#typo3-formbuilder-footer {
   line-height: normal; }
+  #typo3-formbuilder-header label,
   #typo3-formbuilder-elementSidebar label,
-  #typo3-formbuilder-elementOptionsPanel label {
+  #typo3-formbuilder-elementOptionsPanel label,
+  #typo3-formbuilder-footer label {
     color: white; }
+  #typo3-formbuilder-header select,
+  #typo3-formbuilder-header textarea,
+  #typo3-formbuilder-header input,
   #typo3-formbuilder-elementSidebar select,
   #typo3-formbuilder-elementSidebar textarea,
   #typo3-formbuilder-elementSidebar input,
   #typo3-formbuilder-elementOptionsPanel select,
   #typo3-formbuilder-elementOptionsPanel textarea,
-  #typo3-formbuilder-elementOptionsPanel input {
+  #typo3-formbuilder-elementOptionsPanel input,
+  #typo3-formbuilder-footer select,
+  #typo3-formbuilder-footer textarea,
+  #typo3-formbuilder-footer input {
     color: #474747;
     background: #ddd;
     border: 1px solid #777; }
+  #typo3-formbuilder-header select,
   #typo3-formbuilder-elementSidebar select,
-  #typo3-formbuilder-elementOptionsPanel select {
+  #typo3-formbuilder-elementOptionsPanel select,
+  #typo3-formbuilder-footer select {
     display: inline;
     font-size: 12px; }
-  #typo3-formbuilder-elementSidebar input, #typo3-formbuilder-elementSidebar textarea,
+  #typo3-formbuilder-header input, #typo3-formbuilder-header textarea,
+  #typo3-formbuilder-elementSidebar input,
+  #typo3-formbuilder-elementSidebar textarea,
   #typo3-formbuilder-elementOptionsPanel input,
-  #typo3-formbuilder-elementOptionsPanel textarea {
+  #typo3-formbuilder-elementOptionsPanel textarea,
+  #typo3-formbuilder-footer input,
+  #typo3-formbuilder-footer textarea {
     -moz-transition-property: none;
     -webkit-transition-property: none;
     -o-transition-property: none;
@@ -491,9 +510,13 @@ span.dynatree-icon:before {
     height: inherit;
     padding: 1px 2px;
     font-size: 12px; }
-    #typo3-formbuilder-elementSidebar input:focus, #typo3-formbuilder-elementSidebar textarea:focus,
+    #typo3-formbuilder-header input:focus, #typo3-formbuilder-header textarea:focus,
+    #typo3-formbuilder-elementSidebar input:focus,
+    #typo3-formbuilder-elementSidebar textarea:focus,
     #typo3-formbuilder-elementOptionsPanel input:focus,
-    #typo3-formbuilder-elementOptionsPanel textarea:focus {
+    #typo3-formbuilder-elementOptionsPanel textarea:focus,
+    #typo3-formbuilder-footer input:focus,
+    #typo3-formbuilder-footer textarea:focus {
       outline: 0;
       border: 1px solid #ff8700;
       background: white;
@@ -502,14 +525,71 @@ span.dynatree-icon:before {
       -webkit-box-shadow: #ff8700 0 0 5px;
       -o-box-shadow: #ff8700 0 0 5px;
       box-shadow: #ff8700 0 0 5px; }
-  #typo3-formbuilder-elementSidebar button,
-  #typo3-formbuilder-elementOptionsPanel button {
-    cursor: pointer;
-    background: none;
-    color: white; }
-    #typo3-formbuilder-elementSidebar button:hover,
-    #typo3-formbuilder-elementOptionsPanel button:hover {
-      color: #ff8700; }
+  #typo3-formbuilder-header .typo3-formbuilder-button,
+  #typo3-formbuilder-elementSidebar .typo3-formbuilder-button,
+  #typo3-formbuilder-elementOptionsPanel .typo3-formbuilder-button,
+  #typo3-formbuilder-footer .typo3-formbuilder-button {
+    display: inline-block;
+    padding: 4px 5px;
+    font-size: 12px;
+    line-height: 12px;
+    color: white;
+    background-image: -webkit-gradient(linear, 50% 0%, 50% 100%, color-stop(0%, #555555), color-stop(100%, #333333));
+    background-image: -webkit-linear-gradient(#555555, #333333);
+    background-image: -moz-linear-gradient(#555555, #333333);
+    background-image: -o-linear-gradient(#555555, #333333);
+    background-image: -ms-linear-gradient(#555555, #333333);
+    background-image: linear-gradient(#555555, #333333);
+    text-align: center;
+    text-shadow: 0 1px 1px rgba(15, 15, 15, 0.95);
+    border: none;
+    border-radius: 3px;
+    box-shadow: inset 0 1px 0 rgba(255, 255, 255, 0.2), 0 1px 2px rgba(0, 0, 0, 0.05);
+    cursor: pointer; }
+    #typo3-formbuilder-header .typo3-formbuilder-button:hover,
+    #typo3-formbuilder-elementSidebar .typo3-formbuilder-button:hover,
+    #typo3-formbuilder-elementOptionsPanel .typo3-formbuilder-button:hover,
+    #typo3-formbuilder-footer .typo3-formbuilder-button:hover {
+      text-shadow: 0 0 1px rgba(155, 155, 155, 0.75);
+      background-image: -webkit-gradient(linear, 50% 0%, 50% 100%, color-stop(0%, #666666), color-stop(100%, #333333));
+      background-image: -webkit-linear-gradient(#666666, #333333);
+      background-image: -moz-linear-gradient(#666666, #333333);
+      background-image: -o-linear-gradient(#666666, #333333);
+      background-image: -ms-linear-gradient(#666666, #333333);
+      background-image: linear-gradient(#666666, #333333); }
+    #typo3-formbuilder-header .typo3-formbuilder-button.active, #typo3-formbuilder-header .typo3-formbuilder-button:active,
+    #typo3-formbuilder-elementSidebar .typo3-formbuilder-button.active,
+    #typo3-formbuilder-elementSidebar .typo3-formbuilder-button:active,
+    #typo3-formbuilder-elementOptionsPanel .typo3-formbuilder-button.active,
+    #typo3-formbuilder-elementOptionsPanel .typo3-formbuilder-button:active,
+    #typo3-formbuilder-footer .typo3-formbuilder-button.active,
+    #typo3-formbuilder-footer .typo3-formbuilder-button:active {
+      background-image: none;
+      box-shadow: inset 0 2px 4px rgba(0, 0, 0, 0.45), 0 1px 2px rgba(0, 0, 0, 0.05);
+      background-color: #555;
+      text-shadow: none;
+      color: rgba(0, 0, 0, 0.5);
+      outline: 0; }
+    #typo3-formbuilder-header .typo3-formbuilder-button.icon,
+    #typo3-formbuilder-elementSidebar .typo3-formbuilder-button.icon,
+    #typo3-formbuilder-elementOptionsPanel .typo3-formbuilder-button.icon,
+    #typo3-formbuilder-footer .typo3-formbuilder-button.icon {
+      padding-left: 21px; }
+      #typo3-formbuilder-header .typo3-formbuilder-button.icon:before,
+      #typo3-formbuilder-elementSidebar .typo3-formbuilder-button.icon:before,
+      #typo3-formbuilder-elementOptionsPanel .typo3-formbuilder-button.icon:before,
+      #typo3-formbuilder-footer .typo3-formbuilder-button.icon:before {
+        background: transparent url("../Images/glyphicons-halflings-white.png") -432px 0 no-repeat;
+        content: ' ';
+        position: absolute;
+        margin: 2px 0 0 -17px;
+        height: 14px;
+        width: 14px; }
+      #typo3-formbuilder-header .typo3-formbuilder-button.icon:before,
+      #typo3-formbuilder-elementSidebar .typo3-formbuilder-button.icon:before,
+      #typo3-formbuilder-elementOptionsPanel .typo3-formbuilder-button.icon:before,
+      #typo3-formbuilder-footer .typo3-formbuilder-button.icon:before {
+        margin-top: 0; }
 
 #typo3-formbuilder-structurePanel {
   /* Suppress lines for last child node */
@@ -743,21 +823,15 @@ span.dynatree-icon:before {
       margin: 0 0 0 10px; }
       #typo3-formbuilder-header #typo3-formbuilder-toolbar li div {
         display: inline; }
-      #typo3-formbuilder-header #typo3-formbuilder-toolbar li a, #typo3-formbuilder-header #typo3-formbuilder-toolbar li button {
-        padding-left: 17px;
-        background: none;
-        font-size: 11px;
-        color: #eee; }
-        #typo3-formbuilder-header #typo3-formbuilder-toolbar li a:before, #typo3-formbuilder-header #typo3-formbuilder-toolbar li button:before {
-          background: transparent url("../Images/glyphicons-halflings-white.png") -432px 0 no-repeat;
-          content: ' ';
-          position: absolute;
-          margin: 2px 0 0 -17px;
-          height: 14px;
-          width: 14px; }
-        #typo3-formbuilder-header #typo3-formbuilder-toolbar li a:hover, #typo3-formbuilder-header #typo3-formbuilder-toolbar li button:hover {
-          color: #ff8700; }
-    #typo3-formbuilder-header #typo3-formbuilder-toolbar .typo3-formbuilder-preview a:before {
+      #typo3-formbuilder-header #typo3-formbuilder-toolbar li select {
+        background: #474747;
+        width: 119px;
+        color: white; }
+    #typo3-formbuilder-header #typo3-formbuilder-toolbar .typo3-formbuilder-preset {
+      position: relative;
+      top: -2px;
+      height: 20px; }
+    #typo3-formbuilder-header #typo3-formbuilder-toolbar .typo3-formbuilder-preview button:before {
       background-position: -48px 0 !important; }
     #typo3-formbuilder-header #typo3-formbuilder-toolbar .typo3-formbuilder-save button:before {
       background-position: -96px -24px !important; }
@@ -765,10 +839,9 @@ span.dynatree-icon:before {
 #typo3-formbuilder-structurePanel {
   overflow: auto; }
   #typo3-formbuilder-structurePanel button {
-    color: white;
-    background: none;
-    padding-left: 19px;
+    padding: 0 0 0 19px;
     font-size: 10px;
+    line-height: 16px;
     font-weight: bold; }
     #typo3-formbuilder-structurePanel button:before {
       background: transparent url("../Images/glyphicons-halflings-white.png") -432px 0 no-repeat;
@@ -777,8 +850,11 @@ span.dynatree-icon:before {
       margin: 2px 0 0 -17px;
       height: 14px;
       width: 14px; }
+    #typo3-formbuilder-structurePanel button:before {
+      margin-top: 1px; }
     #typo3-formbuilder-structurePanel button:hover {
-      background: #383838; }
+      background: #383838;
+      color: #ff8700; }
     #typo3-formbuilder-structurePanel button.typo3-formbuilder-form-selected {
       color: #ff8700; }
 
