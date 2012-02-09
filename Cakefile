@@ -11,9 +11,9 @@ appFiles  = [
 	'view/header'
 	'view/stage'
 	'view/structurePanel'
+	'view/insertElementsPanel'
 
 
-	'view/availableFormElements'
 
 	'view/elementInspector'
 	'view/editors/collectionEditor'

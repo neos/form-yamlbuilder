@@ -51,9 +51,7 @@ TYPO3:
       Application: resource://TYPO3.FormBuilder/Private/Templates/FormBuilder/Application.html
       Header: resource://TYPO3.FormBuilder/Private/Templates/FormBuilder/Header.html
       StructurePanel: resource://TYPO3.FormBuilder/Private/Templates/FormBuilder/StructurePanel.html
-
-
-      AvailableFormElements: resource://TYPO3.FormBuilder/Private/Templates/FormBuilder/AvailableFormElements.html
+      InsertElementsPanel: resource://TYPO3.FormBuilder/Private/Templates/FormBuilder/InsertElementsPanel.html
 
       IdentifierEditor: resource://TYPO3.FormBuilder/Private/Templates/FormBuilder/IdentifierEditor.html
       PropertyGridEditor: resource://TYPO3.FormBuilder/Private/Templates/FormBuilder/PropertyGridEditor.html

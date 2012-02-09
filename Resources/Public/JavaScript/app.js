@@ -662,9 +662,8 @@
     }
   });
 
-  TYPO3.FormBuilder.View.AvailableFormElementsView = Ember.View.extend({
-    classNames: ['availableFormElements'],
-    templateName: 'AvailableFormElements',
+  TYPO3.FormBuilder.View.InsertElementsPanel = Ember.View.extend({
+    templateName: 'InsertElementsPanel',
     allFormElementTypesBinding: 'TYPO3.FormBuilder.Model.FormElementTypes.allTypeNames',
     formElementsGrouped: (function() {
       var formElementType, formElementTypeName, formElementsByGroup, formGroup, formGroupName, formGroups, _k, _l, _len3, _len4, _ref10, _ref7, _ref8, _ref9;
@@ -703,7 +702,11 @@
     }).property('allFormElementTypes').cacheable()
   });
 
-  TYPO3.FormBuilder.View.AvailableFormElementsElement = Ember.View.extend({
+  TYPO3.FormBuilder.View.InsertElementsPanel.ElementsCollection = Ember.CollectionView.extend({
+    itemViewClass: 'TYPO3.FormBuilder.View.InsertElementsPanel.Element'
+  });
+
+  TYPO3.FormBuilder.View.InsertElementsPanel.Element = Ember.View.extend({
     currentlySelectedElementBinding: 'TYPO3.FormBuilder.Model.Form.currentlySelectedRenderable',
     content: null,
     formElementTypeBinding: 'content',
@@ -784,10 +787,6 @@
       }
       return this.set('currentlySelectedElement', newRenderable);
     }
-  });
-
-  TYPO3.FormBuilder.View.AvailableFormElementsCollection = Ember.CollectionView.extend({
-    itemViewClass: TYPO3.FormBuilder.View.AvailableFormElementsElement
   });
 
   TYPO3.FormBuilder.View.FormElementInspector = Ember.ContainerView.extend({

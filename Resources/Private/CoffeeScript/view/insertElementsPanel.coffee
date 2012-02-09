@@ -5,11 +5,12 @@
 #
 # Contains the following classes:
 #
-# * AvailableFormElementsView
-# * AvailableFormElementsElement
+# * InsertElementsPanel
+# * InsertElementsPanel.ElementsCollection
+# * InsertElementsPanel.Element
 #
 # ***
-# ##Class View.AvailableFormElementsView##
+# ##Class View.InsertElementsPanel##
 #
 # Outer view which renders the available form elements. It especially groups the
 # form elements by the specified "group", converting the flat array into a hierarchy,
@@ -18,11 +19,10 @@
 #
 # This also evaluates the *sorting* property and orders the form elements and groups
 # in the respective order.
-TYPO3.FormBuilder.View.AvailableFormElementsView = Ember.View.extend {
+TYPO3.FormBuilder.View.InsertElementsPanel = Ember.View.extend {
 	# ***
 	# ###Private###
-	classNames: ['availableFormElements']
-	templateName: 'AvailableFormElements'
+	templateName: 'InsertElementsPanel'
 	allFormElementTypesBinding: 'TYPO3.FormBuilder.Model.FormElementTypes.allTypeNames'
 
 	formElementsGrouped: (->
@@ -51,8 +51,13 @@ TYPO3.FormBuilder.View.AvailableFormElementsView = Ember.View.extend {
 	).property('allFormElementTypes').cacheable()
 }
 
+
+TYPO3.FormBuilder.View.InsertElementsPanel.ElementsCollection = Ember.CollectionView.extend {
+	itemViewClass: 'TYPO3.FormBuilder.View.InsertElementsPanel.Element'
+}
+
 # ***
-# ##Class View.AvailableFormElementsElement##
+# ##Class View.InsertPanel.Element##
 #
 # This view class implements a single `<li>` element for a specific form element
 # type, and actually adds the element to the form when clicking on it.
@@ -76,7 +81,7 @@ TYPO3.FormBuilder.View.AvailableFormElementsView = Ember.View.extend {
 #   page after it.
 # - Normal form elements are, by default, added *after* the currently selected form element.
 #   However, if a *page* is selected, it is added as the *child* of this page.
-TYPO3.FormBuilder.View.AvailableFormElementsElement = Ember.View.extend {
+TYPO3.FormBuilder.View.InsertElementsPanel.Element = Ember.View.extend {
 	# ***
 	# ###Private###
 	currentlySelectedElementBinding: 'TYPO3.FormBuilder.Model.Form.currentlySelectedRenderable'
@@ -178,8 +183,4 @@ TYPO3.FormBuilder.View.AvailableFormElementsElement = Ember.View.extend {
 			parentRenderablesArray.replace(indexInParent+1, 0, [newRenderable])
 
 		@set('currentlySelectedElement', newRenderable)
-}
-
-TYPO3.FormBuilder.View.AvailableFormElementsCollection = Ember.CollectionView.extend {
-	itemViewClass: TYPO3.FormBuilder.View.AvailableFormElementsElement
 }
