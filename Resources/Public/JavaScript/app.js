@@ -292,8 +292,8 @@
   });
 
   TYPO3.FormBuilder.View.TextField = Ember.TextField.extend({
-    _lastValidValue: false,
     validatorName: null,
+    _lastValidValue: false,
     validate: function(v) {
       var validator;
       if (this.get('validatorName')) {
@@ -924,7 +924,7 @@
         if (!collectionElementTemplate) continue;
         collectionElementEditor = Ember.getPath(collectionElementTemplate.viewName || 'TYPO3.FormBuilder.View.ElementOptionsPanel.Editor.ValidatorEditor.DefaultValidatorEditor');
         if (!collectionElementEditor) {
-          throw "Validator Editor class '" + collectionElementTemplate.viewName + "' not found";
+          throw "Collection Editor class '" + collectionElementTemplate.viewName + "' not found";
         }
         collectionElementEditorOptions = $.extend({
           elementIndex: i,
@@ -1350,14 +1350,14 @@
     }).property('collection', 'elementIndex').cacheable(),
     valueChanged: Ember.K,
     updateCollectionEditorViews: Ember.K,
-    notRequired: (function() {
-      return !this.get('required');
-    }).property('required').cacheable(),
     remove: function() {
       this.get('collection').removeAt(this.get('elementIndex'));
       this.valueChanged();
       return this.updateCollectionEditorViews();
-    }
+    },
+    notRequired: (function() {
+      return !this.get('required');
+    }).property('required').cacheable()
   });
 
   TYPO3.FormBuilder.View.ElementOptionsPanel.Editor.ValidatorEditor.MinimumMaximumValidatorEditor = TYPO3.FormBuilder.View.ElementOptionsPanel.Editor.ValidatorEditor.DefaultValidatorEditor.extend({
