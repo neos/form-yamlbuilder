@@ -272,121 +272,6 @@
 
   TYPO3.FormBuilder.View = {};
 
-  TYPO3.FormBuilder.View.FormPageView = Ember.View.extend({
-    formPagesBinding: 'TYPO3.FormBuilder.Model.Form.formDefinition.renderables',
-    presetName: null,
-    currentPageIndex: (function() {
-      var currentlySelectedRenderable, enclosingPage;
-      currentlySelectedRenderable = TYPO3.FormBuilder.Model.Form.get('currentlySelectedRenderable');
-      if (!currentlySelectedRenderable) return 0;
-      enclosingPage = currentlySelectedRenderable.findEnclosingPage();
-      if (!enclosingPage) return 0;
-      if (!enclosingPage.getPath('parentRenderable.renderables')) return 0;
-      return enclosingPage.getPath('parentRenderable.renderables').indexOf(enclosingPage);
-    }).property('TYPO3.FormBuilder.Model.Form.currentlySelectedRenderable').cacheable(),
-    page: Ember.computed(function() {
-      var _ref7;
-      return (_ref7 = this.get('formPages')) != null ? _ref7.get(this.get('currentPageIndex')) : void 0;
-    }).property('formPages', 'currentPageIndex').cacheable(),
-    currentAjaxRequest: null,
-    isLoadingBinding: 'TYPO3.FormBuilder.Model.Form.currentlyLoadingPreview',
-    renderPageIfPageObjectChanges: (function() {
-      var _this = this;
-      if (!TYPO3.FormBuilder.Model.Form.getPath('formDefinition.identifier')) {
-        return;
-      }
-      if (this.currentAjaxRequest) this.currentAjaxRequest.abort();
-      if (this.timeout) window.clearTimeout(this.timeout);
-      return this.timeout = window.setTimeout(function() {
-        var formDefinition;
-        formDefinition = TYPO3.FormBuilder.Utility.convertToSimpleObject(TYPO3.FormBuilder.Model.Form.get('formDefinition'));
-        _this.set('isLoading', true);
-        return _this.currentAjaxRequest = $.post(TYPO3.FormBuilder.Configuration.endpoints.formPageRenderer, {
-          formDefinition: formDefinition,
-          currentPageIndex: _this.get('currentPageIndex'),
-          presetName: _this.get('presetName')
-        }, function(data, textStatus, jqXHR) {
-          if (_this.currentAjaxRequest !== jqXHR) return;
-          _this.$().html(data);
-          _this.set('isLoading', false);
-          return _this.postProcessRenderedPage();
-        });
-      }, 300);
-    }).observes('page', 'page.__nestedPropertyChange'),
-    postProcessRenderedPage: function() {
-      var _this = this;
-      this.onCurrentElementChanges();
-      this.$().find('[data-element]').on('click dblclick select focus keydown keypress keyup mousedown mouseup', function(e) {
-        return e.preventDefault();
-      });
-      this.$().find('form').submit(function(e) {
-        return e.preventDefault();
-      });
-      return this.$().find('[data-element]').parent().addClass('typo3-form-sortable').sortable({
-        revert: 'true',
-        update: function(e, o) {
-          var movedRenderable, nextElement, nextElementPath, pathOfMovedElement, previousElement, previousElementPath, referenceElementIndex;
-          pathOfMovedElement = $(o.item.context).attr('data-element');
-          movedRenderable = _this.findRenderableForPath(pathOfMovedElement);
-          movedRenderable.getPath('parentRenderable.renderables').removeObject(movedRenderable);
-          nextElementPath = $(o.item.context).nextAll('[data-element]').first().attr('data-element');
-          if (nextElementPath) {
-            nextElement = _this.findRenderableForPath(nextElementPath);
-          }
-          previousElementPath = $(o.item.context).prevAll('[data-element]').first().attr('data-element');
-          if (previousElementPath) {
-            previousElement = _this.findRenderableForPath(previousElementPath);
-          }
-          if (nextElement) {
-            referenceElementIndex = nextElement.getPath('parentRenderable.renderables').indexOf(nextElement);
-            return nextElement.getPath('parentRenderable.renderables').insertAt(referenceElementIndex, movedRenderable);
-          } else if (previousElement) {
-            referenceElementIndex = previousElement.getPath('parentRenderable.renderables').indexOf(previousElement);
-            return previousElement.getPath('parentRenderable.renderables').insertAt(referenceElementIndex + 1, movedRenderable);
-          } else {
-            throw 'Next Element or Previous Element need to be set. Should not happen...';
-          }
-        }
-      });
-    },
-    onCurrentElementChanges: (function() {
-      var identifierPath, renderable;
-      renderable = TYPO3.FormBuilder.Model.Form.get('currentlySelectedRenderable');
-      if (!renderable) return;
-      this.$().find('.typo3-formbuilder-form-element-selected').removeClass('typo3-formbuilder-form-element-selected');
-      identifierPath = renderable.identifier;
-      while (renderable = renderable.parentRenderable) {
-        identifierPath = renderable.identifier + '/' + identifierPath;
-      }
-      return this.$().find('[data-element="' + identifierPath + '"]').addClass('typo3-formbuilder-form-element-selected');
-    }).observes('TYPO3.FormBuilder.Model.Form.currentlySelectedRenderable'),
-    click: function(e) {
-      var pathToClickedElement;
-      pathToClickedElement = $(e.target).closest('[data-element]').attr('data-element');
-      if (!pathToClickedElement) return;
-      return TYPO3.FormBuilder.Model.Form.set('currentlySelectedRenderable', this.findRenderableForPath(pathToClickedElement));
-    },
-    findRenderableForPath: function(path) {
-      var currentRenderable, expandedPathToClickedElement, pathPart, renderable, _k, _l, _len3, _len4, _ref7;
-      expandedPathToClickedElement = path.split('/');
-      expandedPathToClickedElement.shift();
-      expandedPathToClickedElement.shift();
-      currentRenderable = this.get('page');
-      for (_k = 0, _len3 = expandedPathToClickedElement.length; _k < _len3; _k++) {
-        pathPart = expandedPathToClickedElement[_k];
-        _ref7 = currentRenderable.get('renderables');
-        for (_l = 0, _len4 = _ref7.length; _l < _len4; _l++) {
-          renderable = _ref7[_l];
-          if (renderable.identifier === pathPart) {
-            currentRenderable = renderable;
-            break;
-          }
-        }
-      }
-      return currentRenderable;
-    }
-  });
-
   TYPO3.FormBuilder.View.ContainerView = Ember.ContainerView.extend({
     instanciatedViews: null,
     onInstanciatedViewsChange: (function() {
@@ -528,6 +413,121 @@
           return _this.set('currentStatus', 'save-error');
         }
       });
+    }
+  });
+
+  TYPO3.FormBuilder.View.Stage = Ember.View.extend({
+    formPagesBinding: 'TYPO3.FormBuilder.Model.Form.formDefinition.renderables',
+    presetName: null,
+    currentPageIndex: (function() {
+      var currentlySelectedRenderable, enclosingPage;
+      currentlySelectedRenderable = TYPO3.FormBuilder.Model.Form.get('currentlySelectedRenderable');
+      if (!currentlySelectedRenderable) return 0;
+      enclosingPage = currentlySelectedRenderable.findEnclosingPage();
+      if (!enclosingPage) return 0;
+      if (!enclosingPage.getPath('parentRenderable.renderables')) return 0;
+      return enclosingPage.getPath('parentRenderable.renderables').indexOf(enclosingPage);
+    }).property('TYPO3.FormBuilder.Model.Form.currentlySelectedRenderable').cacheable(),
+    page: Ember.computed(function() {
+      var _ref7;
+      return (_ref7 = this.get('formPages')) != null ? _ref7.get(this.get('currentPageIndex')) : void 0;
+    }).property('formPages', 'currentPageIndex').cacheable(),
+    currentAjaxRequest: null,
+    isLoadingBinding: 'TYPO3.FormBuilder.Model.Form.currentlyLoadingPreview',
+    renderPageIfPageObjectChanges: (function() {
+      var _this = this;
+      if (!TYPO3.FormBuilder.Model.Form.getPath('formDefinition.identifier')) {
+        return;
+      }
+      if (this.currentAjaxRequest) this.currentAjaxRequest.abort();
+      if (this.timeout) window.clearTimeout(this.timeout);
+      return this.timeout = window.setTimeout(function() {
+        var formDefinition;
+        formDefinition = TYPO3.FormBuilder.Utility.convertToSimpleObject(TYPO3.FormBuilder.Model.Form.get('formDefinition'));
+        _this.set('isLoading', true);
+        return _this.currentAjaxRequest = $.post(TYPO3.FormBuilder.Configuration.endpoints.formPageRenderer, {
+          formDefinition: formDefinition,
+          currentPageIndex: _this.get('currentPageIndex'),
+          presetName: _this.get('presetName')
+        }, function(data, textStatus, jqXHR) {
+          if (_this.currentAjaxRequest !== jqXHR) return;
+          _this.$().html(data);
+          _this.set('isLoading', false);
+          return _this.postProcessRenderedPage();
+        });
+      }, 300);
+    }).observes('page', 'page.__nestedPropertyChange'),
+    postProcessRenderedPage: function() {
+      var _this = this;
+      this.onCurrentElementChanges();
+      this.$().find('[data-element]').on('click dblclick select focus keydown keypress keyup mousedown mouseup', function(e) {
+        return e.preventDefault();
+      });
+      this.$().find('form').submit(function(e) {
+        return e.preventDefault();
+      });
+      return this.$().find('[data-element]').parent().addClass('typo3-form-sortable').sortable({
+        revert: 'true',
+        update: function(e, o) {
+          var movedRenderable, nextElement, nextElementPath, pathOfMovedElement, previousElement, previousElementPath, referenceElementIndex;
+          pathOfMovedElement = $(o.item.context).attr('data-element');
+          movedRenderable = _this.findRenderableForPath(pathOfMovedElement);
+          movedRenderable.getPath('parentRenderable.renderables').removeObject(movedRenderable);
+          nextElementPath = $(o.item.context).nextAll('[data-element]').first().attr('data-element');
+          if (nextElementPath) {
+            nextElement = _this.findRenderableForPath(nextElementPath);
+          }
+          previousElementPath = $(o.item.context).prevAll('[data-element]').first().attr('data-element');
+          if (previousElementPath) {
+            previousElement = _this.findRenderableForPath(previousElementPath);
+          }
+          if (nextElement) {
+            referenceElementIndex = nextElement.getPath('parentRenderable.renderables').indexOf(nextElement);
+            return nextElement.getPath('parentRenderable.renderables').insertAt(referenceElementIndex, movedRenderable);
+          } else if (previousElement) {
+            referenceElementIndex = previousElement.getPath('parentRenderable.renderables').indexOf(previousElement);
+            return previousElement.getPath('parentRenderable.renderables').insertAt(referenceElementIndex + 1, movedRenderable);
+          } else {
+            throw 'Next Element or Previous Element need to be set. Should not happen...';
+          }
+        }
+      });
+    },
+    onCurrentElementChanges: (function() {
+      var identifierPath, renderable;
+      renderable = TYPO3.FormBuilder.Model.Form.get('currentlySelectedRenderable');
+      if (!renderable) return;
+      this.$().find('.typo3-formbuilder-form-element-selected').removeClass('typo3-formbuilder-form-element-selected');
+      identifierPath = renderable.identifier;
+      while (renderable = renderable.parentRenderable) {
+        identifierPath = renderable.identifier + '/' + identifierPath;
+      }
+      return this.$().find('[data-element="' + identifierPath + '"]').addClass('typo3-formbuilder-form-element-selected');
+    }).observes('TYPO3.FormBuilder.Model.Form.currentlySelectedRenderable'),
+    click: function(e) {
+      var pathToClickedElement;
+      pathToClickedElement = $(e.target).closest('[data-element]').attr('data-element');
+      if (!pathToClickedElement) return;
+      return TYPO3.FormBuilder.Model.Form.set('currentlySelectedRenderable', this.findRenderableForPath(pathToClickedElement));
+    },
+    findRenderableForPath: function(path) {
+      var currentRenderable, expandedPathToClickedElement, pathPart, renderable, _k, _l, _len3, _len4, _ref7;
+      expandedPathToClickedElement = path.split('/');
+      expandedPathToClickedElement.shift();
+      expandedPathToClickedElement.shift();
+      currentRenderable = this.get('page');
+      for (_k = 0, _len3 = expandedPathToClickedElement.length; _k < _len3; _k++) {
+        pathPart = expandedPathToClickedElement[_k];
+        _ref7 = currentRenderable.get('renderables');
+        for (_l = 0, _len4 = _ref7.length; _l < _len4; _l++) {
+          renderable = _ref7[_l];
+          if (renderable.identifier === pathPart) {
+            currentRenderable = renderable;
+            break;
+          }
+        }
+      }
+      return currentRenderable;
     }
   });
 

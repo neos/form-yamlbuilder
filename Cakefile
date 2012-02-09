@@ -9,6 +9,8 @@ appFiles  = [
 	'view'
 	'view/application'
 	'view/header'
+	'view/stage'
+
 	'view/availableFormElements'
 	'view/formTree'
 	'view/elementInspector'
