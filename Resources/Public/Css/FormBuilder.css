@@ -1015,6 +1015,11 @@ span.dynatree-icon:before {
     border-top: 1px solid #999;
     border-bottom: 1px solid #383838;
     height: 14px; }
+  #typo3-formbuilder-header .typo3-formbuilder-error,
+  #typo3-formbuilder-elementSidebar .typo3-formbuilder-error,
+  #typo3-formbuilder-elementOptionsPanel .typo3-formbuilder-error,
+  #typo3-formbuilder-footer .typo3-formbuilder-error {
+    color: #aa6666; }
 
 #typo3-formbuilder-header {
   margin: 0;
@@ -1127,6 +1132,10 @@ span.dynatree-icon:before {
     display: block;
     font-weight: normal;
     text-transform: none; }
+#typo3-formbuilder-elementOptionsPanel .typo3-formbuilder-identifier {
+  cursor: pointer; }
+  #typo3-formbuilder-elementOptionsPanel .typo3-formbuilder-identifier:hover {
+    color: #ff8700; }
 #typo3-formbuilder-elementOptionsPanel .typo3-formbuilder-controlGroup {
   margin: 7px 5px 7px 5px;
   clear: both; }

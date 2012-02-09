@@ -65,6 +65,9 @@ $colorHighlight: #ff8700;
 		border-bottom: 1px solid #383838;
 		height: 14px;
 	}
+	.typo3-formbuilder-error {
+		color: #aa6666;
+	}
 }
 
 #typo3-formbuilder-header {
@@ -173,6 +176,12 @@ $colorHighlight: #ff8700;
 			display: block;
 			font-weight: normal;
 			text-transform: none;
+		}
+	}
+	.typo3-formbuilder-identifier {
+		cursor: pointer;
+		&:hover {
+			color: $colorHighlight;
 		}
 	}
 	.typo3-formbuilder-controlGroup {
