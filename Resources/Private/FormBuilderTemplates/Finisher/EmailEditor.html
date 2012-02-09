@@ -1,3 +1,5 @@
+<h4>{{label}}{{#view Ember.Button target="parentView" action="remove" isVisibleBinding="notRequired" class="typo3-formbuilder-remove"}}Remove{{/view}}</h4>
+
 <div class="typo3-formbuilder-controlGroup">
 	<label>Subject</label>
 	<div class="typo3-formbuilder-controls">
@@ -46,5 +48,3 @@
 		{{view Ember.Select contentBinding="availableFormats" optionValuePath="content.key" optionLabelPath="content.value" selectionBinding="format"}}
 	</div>
 </div>
-
-{{#view Ember.Button target="parentView" action="remove" isVisibleBinding="notRequired"}}Remove{{/view}}
