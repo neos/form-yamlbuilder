@@ -109,6 +109,17 @@ TYPO3:
                   sorting: 100
                   viewName: 'TYPO3.FormBuilder.View.ElementOptionsPanel.Editor.TextOutput'
                   templateName: 'ElementOptionsPanel-PropertyPanelTitle'
+          'TYPO3.Form:ReadOnlyFormElement':
+            formBuilder:
+              editors:
+                label:
+                  label: 'Title'
+                  propertyPath: 'label'
+                  sorting: 120
+                  viewName: 'TYPO3.FormBuilder.View.ElementOptionsPanel.Editor.TextEditor'
+          'TYPO3.Form:FormElement':
+            formBuilder:
+              editors:
                 identifier:
                   sorting: 110
                   viewName: 'TYPO3.FormBuilder.View.ElementOptionsPanel.Editor.IdentifierEditor'
@@ -117,9 +128,6 @@ TYPO3:
                   propertyPath: 'label'
                   sorting: 120
                   viewName: 'TYPO3.FormBuilder.View.ElementOptionsPanel.Editor.TextEditor'
-          'TYPO3.Form:FormElement':
-            formBuilder:
-              editors:
                 requiredValidator:
                   sorting: 800
                   viewName: 'TYPO3.FormBuilder.View.ElementOptionsPanel.Editor.RequiredValidatorEditor'
@@ -134,6 +142,14 @@ TYPO3:
               _isCompositeRenderable: false
               _isTopLevel: true
               editors:
+                identifier:
+                  sorting: 110
+                  viewName: 'TYPO3.FormBuilder.View.ElementOptionsPanel.Editor.IdentifierEditor'
+                label:
+                  label: 'Form Name'
+                  propertyPath: 'label'
+                  sorting: 120
+                  viewName: 'TYPO3.FormBuilder.View.ElementOptionsPanel.Editor.TextEditor'
                 submitButtonLabel:
                   sorting: 200
                   label: 'Submit Label'
@@ -220,12 +236,18 @@ TYPO3:
                       viewName: 'TYPO3.FormBuilder.View.ElementOptionsPanel.Editor.ValidatorEditor.MinimumMaximumValidatorEditor'
                       pathToMinimumOption: 'currentCollectionElement.options.earliestDate'
                       pathToMaximumOption: 'currentCollectionElement.options.latestDate'
+          'TYPO3.Form:FileUpload':
+            formBuilder:
+              label: 'File Upload'
+              group: custom
+              sorting: 110
 
           'TYPO3.Form:ImageUpload':
             formBuilder:
               label: 'Image Upload'
               group: custom
-              sorting: 110
+              sorting: 115
+
           'TYPO3.Form:StaticText':
             formBuilder:
               label: 'Static Text'
