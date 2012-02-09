@@ -8,7 +8,6 @@
 # ###Private###
 TYPO3.FormBuilder.View.Stage = Ember.View.extend {
 	formPagesBinding: 'TYPO3.FormBuilder.Model.Form.formDefinition.renderables',
-	presetName: null,
 
 	# find the current page index based on the currently selected renderable; by traversing
 	# up the renderable hierarchy.
@@ -53,7 +52,7 @@ TYPO3.FormBuilder.View.Stage = Ember.View.extend {
 				{
 					formDefinition,
 					currentPageIndex: @get('currentPageIndex'),
-					presetName: @get('presetName')
+					presetName: TYPO3.FormBuilder.Configuration.presetName
 				},
 				(data, textStatus, jqXHR) =>
 					return unless @currentAjaxRequest == jqXHR
