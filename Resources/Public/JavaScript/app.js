@@ -1206,7 +1206,7 @@
       var moveRowsPlugin,
         _this = this;
       this.buildTableRowModel();
-      this.grid = new Slick.Grid(this.$().find('.grid'), this.get('tableRowModel'), this.get('columnDefinition'), this.get('options'));
+      this.grid = new Slick.Grid(this.$().find('.typo3-formbuilder-grid'), this.get('tableRowModel'), this.get('columnDefinition'), this.get('options'));
       this.$().find('.slick-viewport').css('overflow-x', 'hidden');
       this.$().find('.slick-viewport').css('overflow-y', 'hidden');
       this.grid.setSelectionModel(new Slick.RowSelectionModel());

@@ -217,6 +217,48 @@ $colorHighlight: #ff8700;
 			background-color: #666;
 		}
 	}
+	.typo3-formbuilder-grid {
+		clear: both;
+		padding-top: 5px;
+		.slick-header-columns {
+			background: $colorLightBackground;
+			color: $colorLighterBackground;
+			text-align: center;
+			font-weight: bold;
+			border-bottom: 1px solid $colorDarkBackground;
+		}
+		.slick-viewport {
+			background: white;
+			color: $colorDarkBackground;
+			.slick-row {
+				border: none;
+				.slick-cell {
+					border-color: transparent silver silver transparent;
+					background: #ddd;
+					padding: 3px 2px 2px 1px;
+					height: 18px;
+					&.editable {
+						padding: 0 2px 2px 0;
+						height: 21px;
+					}
+				}
+				.editor-text {
+					width: 97%;
+					height: 100%;
+					border: none;;
+					box-shadow: none;
+					color: black;
+				}
+				.cell-reorder {
+					cursor: move;
+					background: #ddd url('../Images/drag-handle.png') no-repeat center center;
+				}
+			}
+			.slick-reorder-proxy, .slick-reorder-guide {
+				background: $colorDarkBackground;
+			}
+		}
+	}
 }
 
 #typo3-formbuilder-footer {

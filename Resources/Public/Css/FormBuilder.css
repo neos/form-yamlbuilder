@@ -878,6 +878,39 @@ span.dynatree-icon:before {
   background: transparent url("../Images/glyphicons-halflings-white.png") -456px 0 no-repeat; }
   #typo3-formbuilder-elementOptionsPanel .typo3-formbuilder-remove:hover {
     background-color: #666; }
+#typo3-formbuilder-elementOptionsPanel .typo3-formbuilder-grid {
+  clear: both;
+  padding-top: 5px; }
+  #typo3-formbuilder-elementOptionsPanel .typo3-formbuilder-grid .slick-header-columns {
+    background: gray;
+    color: #474747;
+    text-align: center;
+    font-weight: bold;
+    border-bottom: 1px solid #282828; }
+  #typo3-formbuilder-elementOptionsPanel .typo3-formbuilder-grid .slick-viewport {
+    background: white;
+    color: #282828; }
+    #typo3-formbuilder-elementOptionsPanel .typo3-formbuilder-grid .slick-viewport .slick-row {
+      border: none; }
+      #typo3-formbuilder-elementOptionsPanel .typo3-formbuilder-grid .slick-viewport .slick-row .slick-cell {
+        border-color: transparent silver silver transparent;
+        background: #ddd;
+        padding: 3px 2px 2px 1px;
+        height: 18px; }
+        #typo3-formbuilder-elementOptionsPanel .typo3-formbuilder-grid .slick-viewport .slick-row .slick-cell.editable {
+          padding: 0 2px 2px 0;
+          height: 21px; }
+      #typo3-formbuilder-elementOptionsPanel .typo3-formbuilder-grid .slick-viewport .slick-row .editor-text {
+        width: 97%;
+        height: 100%;
+        border: none;
+        box-shadow: none;
+        color: black; }
+      #typo3-formbuilder-elementOptionsPanel .typo3-formbuilder-grid .slick-viewport .slick-row .cell-reorder {
+        cursor: move;
+        background: #dddddd url("../Images/drag-handle.png") no-repeat center center; }
+    #typo3-formbuilder-elementOptionsPanel .typo3-formbuilder-grid .slick-viewport .slick-reorder-proxy, #typo3-formbuilder-elementOptionsPanel .typo3-formbuilder-grid .slick-viewport .slick-reorder-guide {
+      background: #282828; }
 
 #typo3-formbuilder-footer {
   background: #282828 url("../Images/footer_background.png") 0 0 repeat-x;

@@ -174,7 +174,7 @@ TYPO3.FormBuilder.View.ElementOptionsPanel.Editor.PropertyGrid = TYPO3.FormBuild
 	# Initialize Grid
 	didInsertElement: ->
 		@buildTableRowModel()
-		@grid = new Slick.Grid(@$().find('.grid'), @get('tableRowModel'), @get('columnDefinition'), @get('options'));
+		@grid = new Slick.Grid(@$().find('.typo3-formbuilder-grid'), @get('tableRowModel'), @get('columnDefinition'), @get('options'));
 
 		# make autoHeight really work
 		@$().find('.slick-viewport').css('overflow-x', 'hidden');
