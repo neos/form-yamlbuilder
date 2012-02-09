@@ -3,10 +3,12 @@
 # This namespace contains view classes, mostly subclassing `Ember.View`, containing
 # output-related logic.
 #
-# This file contains the following classes:
+# This file contains some generic classes which are useful at many points in the
+# application:
 #
 # * ContainerView
 # * Select
+# * TextField
 #
 # several other classes inside this namespace are added inside the "view" folder.
 
@@ -17,7 +19,7 @@ TYPO3.FormBuilder.View = {}
 # ##View.ContainerView##
 #
 # An extension of `Ember.ContainerView` which gets the fully instanciated child-views
-# passed from the outside in the "instanciatedViews" property, and renders them.
+# passed from the outside in the `instanciatedViews` property, and renders them.
 #
 # This is a low-level class which you typically do not need to use directly.
 #
@@ -44,12 +46,28 @@ TYPO3.FormBuilder.View.Select = Ember.Select.extend {
 	attributeBindings: ['disabled']
 }
 
-
-
-
+# ***
+# ##View.TextField
+#
+# A special text field which contains some validation logic, i.e. which
+# accepts only values of a special type.
+#
+# When using this text field, you should not bind the `value` property
+# like when using a normal text field, but instead the `validatedValue` property
+# which is only updated when the text field contents are valid according
+# to the validator specified with `validatorName`.
+#
+# ###Usage
+#
+# Example: `{{view TYPO3.FormBuilder.View.TextField validatedValueBinding="maximum" validatorName="TYPO3.FormBuilder.Validators.isNumberOrBlank" }}`
+#
+# ###Public Properties
 TYPO3.FormBuilder.View.TextField = Ember.TextField.extend {
-	_lastValidValue: false
+	# * `validatorName`: Path to a validate-function which should return `true`
+	#   in case the validation is successful, `false` otherwise.
 	validatorName: null
+
+	_lastValidValue: false
 
 	validate: (v) ->
 		if @get('validatorName')
@@ -57,6 +75,7 @@ TYPO3.FormBuilder.View.TextField = Ember.TextField.extend {
 			return validator.call(this, v)
 		return true
 
+	# * `validatedValue`: Make sure to bind to `validatedValue` instead of `value`.
 	validatedValue: ((k, v) ->
 		if arguments.length >= 2
 			if @validate(v)

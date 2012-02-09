@@ -21,10 +21,10 @@
 #
 # Each form editor is configured with at least the following properties:
 #
-# - sorting: numerical sorting index determining the order of the editor
-# - viewName: name of a view used to render this Form Element. The specified view name
+# - `sorting`: numerical sorting index determining the order of the editor
+# - `viewName`: name of a view used to render this Form Element. The specified view name
 #   should be a subclass of `TYPO3.FormBuilder.View.ElementOptionsPanel.Editor.AbstractEditor`.
-# - [view-specific-options]: all of the above properties are made available on
+# - `[view-specific-options]`: all of the above properties are made available on
 #   the view, so view-specific properties can also be specified.
 TYPO3.FormBuilder.View.ElementOptionsPanel = Ember.ContainerView.extend {
 	# ***
@@ -67,14 +67,14 @@ TYPO3.FormBuilder.View.ElementOptionsPanel = Ember.ContainerView.extend {
 }
 
 # ***
-# ##Namespace TYPO3.FormBuilder.View.ElementOptionsPanel.Editor##
+# ##Namespace View.ElementOptionsPanel.Editor##
 #
 # This namespace contains all the editors displayed inside the element inspector on
 # the right side.
 TYPO3.FormBuilder.View.ElementOptionsPanel.Editor = {}
 
 # ***
-# ##Class View.ElementOptionsPanel.Editor.AbstractEditor##
+# ##Class Editor.AbstractEditor##
 #
 # Base class for custom editors. This is an extension point of the framework.
 # You often will want to subclass `AbstractPropertyEditor` instead.
@@ -88,7 +88,7 @@ TYPO3.FormBuilder.View.ElementOptionsPanel.Editor.AbstractEditor = Ember.View.ex
 }
 
 # ***
-# ##Class View.ElementOptionsPanel.Editor.AbstractPropertyEditor##
+# ##Class Editor.AbstractPropertyEditor##
 #
 # Most-often used base class for custom editors. This is an extension point of the framework.
 #

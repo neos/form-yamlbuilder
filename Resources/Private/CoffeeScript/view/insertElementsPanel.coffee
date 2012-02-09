@@ -51,7 +51,11 @@ TYPO3.FormBuilder.View.InsertElementsPanel = Ember.View.extend {
 	).property('allFormElementTypes').cacheable()
 }
 
-
+# ***
+# ## Class View.InsertPanel.ElementsCollection
+#
+# This class is a collection of multiple elements, responsible for rendering the collection
+# of elements.
 TYPO3.FormBuilder.View.InsertElementsPanel.ElementsCollection = Ember.CollectionView.extend {
 	itemViewClass: 'TYPO3.FormBuilder.View.InsertElementsPanel.Element'
 }

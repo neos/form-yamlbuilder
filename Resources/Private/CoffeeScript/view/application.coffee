@@ -1,8 +1,18 @@
+# ***
+# ##Class View.Application##
+#
+# This view is the main *application*, controlling the overal layout of the
+# form builder.
+#
+# It mainly uses the jQuery layout() plugin for this.
+# ***
+# ###Private###
 TYPO3.FormBuilder.View.Application = Ember.View.extend {
 	templateName: 'Application'
 	didInsertElement: ->
 		@addLayout()
 	addLayout: ->
+		# Build the layout as stated
 		$('body').layout({
 			defaults: {
 				minSize: 100,
@@ -58,8 +68,7 @@ TYPO3.FormBuilder.View.Application = Ember.View.extend {
 				paneSelector: '#typo3-formbuilder-insertElementsPanel'
 			}
 		});
-#		$('.typo3-formbuilder').scrollbars({
-#			scrollbarAutohide: false
-#		});
-
+		#$('.typo3-formbuilder').scrollbars({
+		#	scrollbarAutohide: false
+		#});
 }

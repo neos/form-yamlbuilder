@@ -1,3 +1,12 @@
+# #Namespace `TYPO3.FormBuilder.View.ElementOptionsPanel.Editor`#
+#
+# This file contains a generic collection editor, which is used as common
+# base class for Validator and Finisher editors.
+#
+# **Internal**.
+
+# ## Class AbstractCollectionEditor
+#
 TYPO3.FormBuilder.View.ElementOptionsPanel.Editor.AbstractCollectionEditor = TYPO3.FormBuilder.View.ElementOptionsPanel.Editor.AbstractPropertyEditor.extend {
 	# ###Public Properties###
 	# * `availableCollectionElements`: JSON object of available sub elements, where each element has the following options:
@@ -70,7 +79,7 @@ TYPO3.FormBuilder.View.ElementOptionsPanel.Editor.AbstractCollectionEditor = TYP
 		@set('addCollectionElementSelection', null)
 	).observes('addCollectionElementSelection')
 
-	# helper function which updates the validator editor views.
+	# helper function which updates the collection editor views.
 	updateCollectionEditorViews: (->
 		@addRequiredCollectionElementsIfNeeded()
 
@@ -85,10 +94,10 @@ TYPO3.FormBuilder.View.ElementOptionsPanel.Editor.AbstractCollectionEditor = TYP
 			collectionElementTemplate = availableCollectionElements[collectionElement.identifier]
 			continue if !collectionElementTemplate # not every collection element has view settings (f.e. NotEmpty validator)
 
-			# we found the correct validatorTemplate for the current validator,
+			# we found the correct collectionElementTemplate for the current collectionElement
 			# thus we can output label and determine the view to be used.
 			collectionElementEditor = Ember.getPath(collectionElementTemplate.viewName || 'TYPO3.FormBuilder.View.ElementOptionsPanel.Editor.ValidatorEditor.DefaultValidatorEditor')
-			throw "Validator Editor class '#{collectionElementTemplate.viewName}' not found" if !collectionElementEditor
+			throw "Collection Editor class '#{collectionElementTemplate.viewName}' not found" if !collectionElementEditor
 			collectionElementEditorOptions = $.extend({
 				elementIndex: i
 				valueChanged: =>
@@ -102,7 +111,7 @@ TYPO3.FormBuilder.View.ElementOptionsPanel.Editor.AbstractCollectionEditor = TYP
 		@set('collectionEditorViews', collectionEditorViews)
 	).observes('value', 'availableCollectionElements')
 
-	# add the required validators if needed to the list of validators
+	# add the required collection elements if needed to the collection
 	addRequiredCollectionElementsIfNeeded: ->
 		collection = @get('value')
 		availableCollectionElements = @get('availableCollectionElements')
@@ -120,7 +129,7 @@ TYPO3.FormBuilder.View.ElementOptionsPanel.Editor.AbstractCollectionEditor = TYP
 				options: $.extend({}, availableCollectionElements[collectionElementName].options)
 			})
 
-	# is a validator template found in the list of validators?
+	# is a collection element template found in the list of validators?
 	isCollectionElementTemplateFoundInCollection: (collectionElementTemplateIdentifier) ->
 		collection = @get('value')
 		for collectionElement in collection

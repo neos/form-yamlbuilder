@@ -9,7 +9,7 @@
 # ***
 # ##Class Editor.FinisherEditor##
 #
-# TODO
+# This is an editor for all finishers. They are defined using the `availableFinishers` property.
 TYPO3.FormBuilder.View.ElementOptionsPanel.Editor.FinisherEditor = TYPO3.FormBuilder.View.ElementOptionsPanel.Editor.AbstractCollectionEditor.extend {
 	# ###Public Properties###
 	# * `availableFinishers`: JSON object of available validators, where each validator has the following options:
@@ -32,6 +32,11 @@ TYPO3.FormBuilder.View.ElementOptionsPanel.Editor.FinisherEditor = TYPO3.FormBui
 	propertyPath: 'finishers'
 }
 
+# ***
+# ##Class FinisherEditor.EmailFinisherEditor
+#
+# view with extra logic for the email finisher; handling the "format" option
+# of the email correctly.
 TYPO3.FormBuilder.View.ElementOptionsPanel.Editor.FinisherEditor.EmailFinisherEditor = TYPO3.FormBuilder.View.ElementOptionsPanel.Editor.ValidatorEditor.DefaultValidatorEditor.extend {
 	templateName: 'Finisher-EmailEditor'
 

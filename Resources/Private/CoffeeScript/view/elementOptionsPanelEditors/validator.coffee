@@ -71,46 +71,68 @@ TYPO3.FormBuilder.View.ElementOptionsPanel.Editor.ValidatorEditor = TYPO3.FormBu
 }
 
 # ***
-# ##Class Editor.ValidatorEditor.DefaultValidatorEditor##
+# ##Class DefaultValidatorEditor##
 #
-# Base class for validator editors.
-# TODO: continue documentation here
+# Base class for validator editors or finisher editors; contains some helper
+# methods to be used by subclasses and does not render any editing options.
+#
+# ###Public API
 TYPO3.FormBuilder.View.ElementOptionsPanel.Editor.ValidatorEditor.DefaultValidatorEditor = Ember.View.extend {
 	classNames: ['typo3-formbuilder-validator-editor']
+
 	templateName: 'Validator-Default'
 
+	# - `required`: if `true` the editor is automatically added, i.e. we won't show options to remove
+	#   the element in this case
 	required: false
 
-	# array of validators
+	# - `collection`: Pointer to the collection which is edited (i.e. the list of validator)
 	collection: null
 
-	# index of this validator
+	# - `elementIndex`: index of this validator / finisher
 	elementIndex: null
 
+	# - `currentCollectionElement`: Reference to this validator / finisher.
 	currentCollectionElement: (->
 		@get('collection').get(@get('elementIndex'))
 	).property('collection', 'elementIndex').cacheable()
 
+	# - `valueChanged()`: function which needs to be triggered every time the value changed
 	valueChanged: Ember.K
+
+	# - `updateCollectionEditorViews()`: function which needs to be triggered when a collection element is added / removed
 	updateCollectionEditorViews: Ember.K
 
-	notRequired: (->
-		return !@get('required')
-	).property('required').cacheable()
-
+	# - `remove()`: call this function to remove this element
 	remove: ->
 		@get('collection').removeAt(@get('elementIndex'))
 		@valueChanged()
 		@updateCollectionEditorViews()
+
+	# - `notRequired`: inverse of `required` computed property
+	notRequired: (->
+		return !@get('required')
+	).property('required').cacheable()
 }
 
+# ***
+# ##Class MinimumMaximumValidatorEditor##
+#
+# Validator editor which shows a "minimum" and a "maximum field which need
+# to be integers.
+#
+# ###Public API
 TYPO3.FormBuilder.View.ElementOptionsPanel.Editor.ValidatorEditor.MinimumMaximumValidatorEditor = TYPO3.FormBuilder.View.ElementOptionsPanel.Editor.ValidatorEditor.DefaultValidatorEditor.extend {
 	templateName: 'Validator-MinimumMaximumEditor'
 
+	# - `pathToMinimumOption`: Path to minimum option
 	pathToMinimumOption: 'currentCollectionElement.options.minimum'
 
+	# - `pathToMaximumOption`: Path to maximum option
 	pathToMaximumOption: 'currentCollectionElement.options.maximum'
 
+	# ***
+	# ###Private
 	minimum: ((k, v) ->
 		if v != undefined
 			@setPath(@get('pathToMinimumOption'), v)
@@ -119,6 +141,7 @@ TYPO3.FormBuilder.View.ElementOptionsPanel.Editor.ValidatorEditor.MinimumMaximum
 		else
 			return @getPath(@get('pathToMinimumOption'))
 	).property('pathToMinimumOption').cacheable()
+
 	maximum: ((k, v) ->
 		if v != undefined
 			@setPath(@get('pathToMaximumOption'), v)
@@ -129,14 +152,24 @@ TYPO3.FormBuilder.View.ElementOptionsPanel.Editor.ValidatorEditor.MinimumMaximum
 	).property('pathToMaximumOption').cacheable()
 }
 
+# ***
+# ##Class SimpleValueValidatorEditor##
+#
+# Validator editor which shows a simple input field, by default without
+# validations
+#
+# ###Public API
 TYPO3.FormBuilder.View.ElementOptionsPanel.Editor.ValidatorEditor.SimpleValueValidatorEditor = TYPO3.FormBuilder.View.ElementOptionsPanel.Editor.ValidatorEditor.DefaultValidatorEditor.extend {
 	templateName: 'Validator-SimpleValueEditor'
 
-	# this needs to be filled by the parent
+	# - `pathToEditedValue`: Path to the edited value of this validator.
 	pathToEditedValue: 'currentCollectionElement.options.TODO'
 
+	# - `fieldLabel`: The field label to be shown next to the input field
 	fieldLabel: Ember.required()
 
+	# ***
+	# ###Private
 	value: ((k, v) ->
 		if v != undefined
 			@setPath(@get('pathToEditedValue'), v)

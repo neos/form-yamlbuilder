@@ -1,4 +1,4 @@
-# #Namespace `TYPO3.FormBuilder.View.Editor`#
+# #Namespace `TYPO3.FormBuilder.View.ElementOptionsPanel.Editor`#
 #
 # All views in this file render parts of the inspector for a single form element on the right side
 # of the Form Builder.
@@ -21,21 +21,30 @@ TYPO3.FormBuilder.View.ElementOptionsPanel.Editor.TextOutput = TYPO3.FormBuilder
 # ***
 # ##Class Editor.IdentifierEditor##
 #
-# This editor makes the `identifier` of a form element editable.
+# This editor makes the `identifier` of a form element editable, and
+# also validates that the identifier is valid.
 #
 TYPO3.FormBuilder.View.ElementOptionsPanel.Editor.IdentifierEditor = TYPO3.FormBuilder.View.ElementOptionsPanel.Editor.AbstractPropertyEditor.extend {
 	templateName: 'ElementOptionsPanel-IdentifierEditor'
 
-	propertyPath: 'identifier'
-
 	# ###Private###
 
+	propertyPath: 'identifier'
+
+	# are we currently in edit mode?
 	editMode: false
 
+	# current text field value; read when committing etc
 	textFieldValue: null
 
+	# valdiation error message which is displayed in the view, if any
 	validationErrorMessage: null
 
+	# validate the element:
+	#
+	# - the identifier must not be empty
+	# - it must be valid according to RegEx
+	# - it should not exist inside the form yet
 	validate: (v) ->
 		if v == ''
 			@set('validationErrorMessage', 'You need to set an identifier!')
@@ -64,6 +73,7 @@ TYPO3.FormBuilder.View.ElementOptionsPanel.Editor.IdentifierEditor = TYPO3.FormB
 			@set('validationErrorMessage', 'The identifier is already used')
 			return false
 
+	# commit the value if it is valid
 	commit: ->
 		if @validate(@get('textFieldValue'))
 			@set('value', @get('textFieldValue'))
@@ -71,18 +81,25 @@ TYPO3.FormBuilder.View.ElementOptionsPanel.Editor.IdentifierEditor = TYPO3.FormB
 			return true
 		else
 			return false
+
+	# try to commit; and abort if committing did not work
 	tryToCommit: ->
 		if !@commit()
 			@abort()
+
+	# discard the currently edited value
 	abort: ->
 		@set('editMode', false)
+
+	# switch on edit mode if clicking on the element
 	click: ->
 		if !@get('editMode')
 			@set('textFieldValue', @get('value'))
 			@set('editMode', true)
 }
 
-# special text field which selects its contents when being clicked upon
+# special text field which selects its contents when being clicked upon,
+# and triggers `commit(), abort()`, and `tryToCommit()` on the respective events.
 TYPO3.FormBuilder.View.ElementOptionsPanel.Editor.IdentifierEditor.TextField = Ember.TextField.extend {
 	insertNewline: ->
 		@get('parentView').commit()
