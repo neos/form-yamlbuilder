@@ -978,7 +978,7 @@
   TYPO3.FormBuilder.View.ElementOptionsPanel.Editor.TextOutput = TYPO3.FormBuilder.View.ElementOptionsPanel.Editor.AbstractEditor.extend({});
 
   TYPO3.FormBuilder.View.ElementOptionsPanel.Editor.IdentifierEditor = TYPO3.FormBuilder.View.ElementOptionsPanel.Editor.AbstractPropertyEditor.extend({
-    templateName: 'IdentifierEditor',
+    templateName: 'ElementOptionsPanel-IdentifierEditor',
     propertyPath: 'identifier',
     editMode: false,
     textFieldValue: null,
@@ -1060,15 +1060,15 @@
     onValueChange: (function() {
       return this.valueChanged();
     }).observes('value'),
-    templateName: 'TextEditor'
+    templateName: 'ElementOptionsPanel-TextEditor'
   });
 
   TYPO3.FormBuilder.View.ElementOptionsPanel.Editor.TextareaEditor = TYPO3.FormBuilder.View.ElementOptionsPanel.Editor.TextEditor.extend({
-    templateName: 'TextareaEditor'
+    templateName: 'ElementOptionsPanel-TextareaEditor'
   });
 
   TYPO3.FormBuilder.View.ElementOptionsPanel.Editor.RemoveElementEditor = TYPO3.FormBuilder.View.ElementOptionsPanel.Editor.AbstractEditor.extend({
-    templateName: 'RemoveElementEditor',
+    templateName: 'ElementOptionsPanel-RemoveElement',
     remove: function() {
       return this.get('formElement').removeWithConfirmationDialog();
     }
@@ -1080,7 +1080,7 @@
     enableAddRow: false,
     enableContextMenu: false,
     shouldShowPreselectedValueColumn: false,
-    templateName: 'PropertyGridEditor',
+    templateName: 'ElementOptionsPanel-PropertyGridEditor',
     defaultValue: (function() {
       return [];
     }).property().cacheable(),
@@ -1302,7 +1302,7 @@
   };
 
   TYPO3.FormBuilder.View.ElementOptionsPanel.Editor.RequiredValidatorEditor = TYPO3.FormBuilder.View.ElementOptionsPanel.Editor.AbstractPropertyEditor.extend({
-    templateName: 'RequiredValidatorEditor',
+    templateName: 'ElementOptionsPanel-RequiredValidatorEditor',
     propertyPath: 'validators',
     defaultValue: (function() {
       return [];
@@ -1334,14 +1334,14 @@
   TYPO3.FormBuilder.View.ElementOptionsPanel.Editor.ValidatorEditor = TYPO3.FormBuilder.View.ElementOptionsPanel.Editor.AbstractCollectionEditor.extend({
     availableValidators: null,
     availableCollectionElementsBinding: 'availableValidators',
-    templateName: 'ValidatorEditor',
+    templateName: 'ElementOptionsPanel-ValidatorEditor',
     prompt: 'Select a validator to add',
     propertyPath: 'validators'
   });
 
   TYPO3.FormBuilder.View.ElementOptionsPanel.Editor.ValidatorEditor.DefaultValidatorEditor = Ember.View.extend({
     classNames: ['typo3-formbuilder-validator-editor'],
-    templateName: 'ValidatorEditor-Default',
+    templateName: 'Validator-Default',
     required: false,
     collection: null,
     elementIndex: null,
@@ -1361,7 +1361,7 @@
   });
 
   TYPO3.FormBuilder.View.ElementOptionsPanel.Editor.ValidatorEditor.MinimumMaximumValidatorEditor = TYPO3.FormBuilder.View.ElementOptionsPanel.Editor.ValidatorEditor.DefaultValidatorEditor.extend({
-    templateName: 'ValidatorEditor-MinimumMaximum',
+    templateName: 'Validator-MinimumMaximumEditor',
     pathToMinimumOption: 'currentCollectionElement.options.minimum',
     pathToMaximumOption: 'currentCollectionElement.options.maximum',
     minimum: (function(k, v) {
@@ -1385,7 +1385,7 @@
   });
 
   TYPO3.FormBuilder.View.ElementOptionsPanel.Editor.ValidatorEditor.SimpleValueValidatorEditor = TYPO3.FormBuilder.View.ElementOptionsPanel.Editor.ValidatorEditor.DefaultValidatorEditor.extend({
-    templateName: 'ValidatorEditor-SimpleValue',
+    templateName: 'Validator-SimpleValueEditor',
     pathToEditedValue: 'currentCollectionElement.options.TODO',
     fieldLabel: Ember.required(),
     value: (function(k, v) {
@@ -1402,13 +1402,13 @@
   TYPO3.FormBuilder.View.ElementOptionsPanel.Editor.FinisherEditor = TYPO3.FormBuilder.View.ElementOptionsPanel.Editor.AbstractCollectionEditor.extend({
     availableFinishers: null,
     availableCollectionElementsBinding: 'availableFinishers',
-    templateName: 'FinisherEditor',
+    templateName: 'ElementOptionsPanel-FinisherEditor',
     prompt: 'Select a finisher to add',
     propertyPath: 'finishers'
   });
 
   TYPO3.FormBuilder.View.ElementOptionsPanel.Editor.FinisherEditor.EmailFinisherEditor = TYPO3.FormBuilder.View.ElementOptionsPanel.Editor.ValidatorEditor.DefaultValidatorEditor.extend({
-    templateName: 'Finisher-Email',
+    templateName: 'Finisher-EmailEditor',
     availableFormats: null,
     format: (function(k, v) {
       var chosenFormatKey, format, _k, _len3, _ref7;

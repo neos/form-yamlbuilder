@@ -48,25 +48,31 @@ TYPO3:
         files: ['resource://TYPO3.FormBuilder/Public/Css/FormBuilder.css']
 
     handlebarsTemplates:
-      Application: resource://TYPO3.FormBuilder/Private/Templates/FormBuilder/Application.html
-      Header: resource://TYPO3.FormBuilder/Private/Templates/FormBuilder/Header.html
-      StructurePanel: resource://TYPO3.FormBuilder/Private/Templates/FormBuilder/StructurePanel.html
-      InsertElementsPanel: resource://TYPO3.FormBuilder/Private/Templates/FormBuilder/InsertElementsPanel.html
+      # Main application layout
+      Application: resource://TYPO3.FormBuilder/Private/FormBuilderTemplates/Application.html
+      Header: resource://TYPO3.FormBuilder/Private/FormBuilderTemplates/Header.html
+      StructurePanel: resource://TYPO3.FormBuilder/Private/FormBuilderTemplates/StructurePanel.html
+      InsertElementsPanel: resource://TYPO3.FormBuilder/Private/FormBuilderTemplates/InsertElementsPanel.html
 
-      IdentifierEditor: resource://TYPO3.FormBuilder/Private/Templates/FormBuilder/IdentifierEditor.html
-      PropertyGridEditor: resource://TYPO3.FormBuilder/Private/Templates/FormBuilder/PropertyGridEditor.html
-      PropertyPanelTitle: resource://TYPO3.FormBuilder/Private/Templates/FormBuilder/PropertyPanelTitle.html
-      RequiredValidatorEditor: resource://TYPO3.FormBuilder/Private/Templates/FormBuilder/RequiredValidatorEditor.html
-      TextEditor: resource://TYPO3.FormBuilder/Private/Templates/FormBuilder/TextEditor.html
-      TextareaEditor: resource://TYPO3.FormBuilder/Private/Templates/FormBuilder/TextareaEditor.html
-      FinisherEditor: resource://TYPO3.FormBuilder/Private/Templates/FormBuilder/FinisherEditor.html
-      Finisher-Email: resource://TYPO3.FormBuilder/Private/Templates/FormBuilder/Finisher-Email.html
-      Finisher-Redirect: resource://TYPO3.FormBuilder/Private/Templates/FormBuilder/Finisher-Redirect.html
-      ValidatorEditor-Default: resource://TYPO3.FormBuilder/Private/Templates/FormBuilder/ValidatorEditor-Default.html
-      ValidatorEditor-MinimumMaximum: resource://TYPO3.FormBuilder/Private/Templates/FormBuilder/ValidatorEditor-MinimumMaximum.html
-      ValidatorEditor-SimpleValue: resource://TYPO3.FormBuilder/Private/Templates/FormBuilder/ValidatorEditor-SimpleValue.html
-      ValidatorEditor: resource://TYPO3.FormBuilder/Private/Templates/FormBuilder/ValidatorEditor.html
-      RemoveElementEditor: resource://TYPO3.FormBuilder/Private/Templates/FormBuilder/RemoveElementEditor.html
+      # Element options panel parts
+      ElementOptionsPanel-FinisherEditor:  resource://TYPO3.FormBuilder/Private/FormBuilderTemplates/ElementOptionsPanel/FinisherEditor.html
+      ElementOptionsPanel-IdentifierEditor:  resource://TYPO3.FormBuilder/Private/FormBuilderTemplates/ElementOptionsPanel/IdentifierEditor.html
+      ElementOptionsPanel-PropertyGridEditor:  resource://TYPO3.FormBuilder/Private/FormBuilderTemplates/ElementOptionsPanel/PropertyGridEditor.html
+      ElementOptionsPanel-PropertyPanelTitle:  resource://TYPO3.FormBuilder/Private/FormBuilderTemplates/ElementOptionsPanel/PropertyPanelTitle.html
+      ElementOptionsPanel-RemoveElement:  resource://TYPO3.FormBuilder/Private/FormBuilderTemplates/ElementOptionsPanel/RemoveElement.html
+      ElementOptionsPanel-RequiredValidatorEditor:  resource://TYPO3.FormBuilder/Private/FormBuilderTemplates/ElementOptionsPanel/RequiredValidatorEditor.html
+      ElementOptionsPanel-TextEditor:  resource://TYPO3.FormBuilder/Private/FormBuilderTemplates/ElementOptionsPanel/TextEditor.html
+      ElementOptionsPanel-TextareaEditor:  resource://TYPO3.FormBuilder/Private/FormBuilderTemplates/ElementOptionsPanel/TextareaEditor.html
+      ElementOptionsPanel-ValidatorEditor:  resource://TYPO3.FormBuilder/Private/FormBuilderTemplates/ElementOptionsPanel/ValidatorEditor.html
+
+      # Validator Editors
+      Validator-Default: resource://TYPO3.FormBuilder/Private/FormBuilderTemplates/Validator/Default.html
+      Validator-MinimumMaximumEditor: resource://TYPO3.FormBuilder/Private/FormBuilderTemplates/Validator/MinimumMaximumEditor.html
+      Validator-SimpleValueEditor: resource://TYPO3.FormBuilder/Private/FormBuilderTemplates/Validator/SimpleValueEditor.html
+
+      # Finisher Editors
+      Finisher-EmailEditor: resource://TYPO3.FormBuilder/Private/FormBuilderTemplates/Finisher/EmailEditor.html
+      Finisher-RedirectEditor: resource://TYPO3.FormBuilder/Private/FormBuilderTemplates/Finisher/RedirectEditor.html
 
   Form:
     supertypeResolver:
@@ -102,7 +108,7 @@ TYPO3:
                 elementType:
                   sorting: 100
                   viewName: 'TYPO3.FormBuilder.View.ElementOptionsPanel.Editor.TextOutput'
-                  templateName: 'PropertyPanelTitle'
+                  templateName: 'ElementOptionsPanel-PropertyPanelTitle'
                 identifier:
                   sorting: 110
                   viewName: 'TYPO3.FormBuilder.View.ElementOptionsPanel.Editor.IdentifierEditor'
@@ -140,14 +146,13 @@ TYPO3:
                   availableFinishers:
                     'TYPO3.Form:Email':
                       label: 'Send Email'
-                      name: 'TYPO3\Form\Finishers\EmailFinisher'
                       viewName: 'TYPO3.FormBuilder.View.ElementOptionsPanel.Editor.FinisherEditor.EmailFinisherEditor'
                       availableFormats:
                         0: {key: 'plaintext', value: 'Plain Text'}
                         1: {key: 'html', value: 'HTML'}
                     'TYPO3.Form:Redirect':
                       label: 'Redirect to controller/action'
-                      templateName: 'Finisher-Redirect'
+                      templateName: 'Finisher-RedirectEditor'
 
 
           'TYPO3.Form:RemovableMixin':

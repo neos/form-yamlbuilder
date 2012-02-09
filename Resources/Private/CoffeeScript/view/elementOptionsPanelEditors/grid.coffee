@@ -41,7 +41,7 @@ TYPO3.FormBuilder.View.ElementOptionsPanel.Editor.PropertyGrid = TYPO3.FormBuild
 
 	# ***
 	# ###Private###
-	templateName: 'PropertyGridEditor'
+	templateName: 'ElementOptionsPanel-PropertyGridEditor'
 	defaultValue: (-> []).property().cacheable()
 
 	# slick grid options

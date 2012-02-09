@@ -16,7 +16,7 @@
 TYPO3.FormBuilder.View.ElementOptionsPanel.Editor.RequiredValidatorEditor = TYPO3.FormBuilder.View.ElementOptionsPanel.Editor.AbstractPropertyEditor.extend {
 	# ***
 	# ###Private###
-	templateName: 'RequiredValidatorEditor'
+	templateName: 'ElementOptionsPanel-RequiredValidatorEditor'
 	propertyPath: 'validators'
 	defaultValue: (-> []).property().cacheable()
 
@@ -63,7 +63,7 @@ TYPO3.FormBuilder.View.ElementOptionsPanel.Editor.ValidatorEditor = TYPO3.FormBu
 	# ###Private###
 
 	availableCollectionElementsBinding: 'availableValidators'
-	templateName: 'ValidatorEditor'
+	templateName: 'ElementOptionsPanel-ValidatorEditor'
 
 	prompt: 'Select a validator to add'
 
@@ -77,7 +77,7 @@ TYPO3.FormBuilder.View.ElementOptionsPanel.Editor.ValidatorEditor = TYPO3.FormBu
 # TODO: continue documentation here
 TYPO3.FormBuilder.View.ElementOptionsPanel.Editor.ValidatorEditor.DefaultValidatorEditor = Ember.View.extend {
 	classNames: ['typo3-formbuilder-validator-editor']
-	templateName: 'ValidatorEditor-Default'
+	templateName: 'Validator-Default'
 
 	required: false
 
@@ -105,7 +105,7 @@ TYPO3.FormBuilder.View.ElementOptionsPanel.Editor.ValidatorEditor.DefaultValidat
 }
 
 TYPO3.FormBuilder.View.ElementOptionsPanel.Editor.ValidatorEditor.MinimumMaximumValidatorEditor = TYPO3.FormBuilder.View.ElementOptionsPanel.Editor.ValidatorEditor.DefaultValidatorEditor.extend {
-	templateName: 'ValidatorEditor-MinimumMaximum'
+	templateName: 'Validator-MinimumMaximumEditor'
 
 	pathToMinimumOption: 'currentCollectionElement.options.minimum'
 
@@ -130,7 +130,7 @@ TYPO3.FormBuilder.View.ElementOptionsPanel.Editor.ValidatorEditor.MinimumMaximum
 }
 
 TYPO3.FormBuilder.View.ElementOptionsPanel.Editor.ValidatorEditor.SimpleValueValidatorEditor = TYPO3.FormBuilder.View.ElementOptionsPanel.Editor.ValidatorEditor.DefaultValidatorEditor.extend {
-	templateName: 'ValidatorEditor-SimpleValue'
+	templateName: 'Validator-SimpleValueEditor'
 
 	# this needs to be filled by the parent
 	pathToEditedValue: 'currentCollectionElement.options.TODO'

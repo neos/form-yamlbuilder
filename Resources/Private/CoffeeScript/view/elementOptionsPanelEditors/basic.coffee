@@ -24,7 +24,7 @@ TYPO3.FormBuilder.View.ElementOptionsPanel.Editor.TextOutput = TYPO3.FormBuilder
 # This editor makes the `identifier` of a form element editable.
 #
 TYPO3.FormBuilder.View.ElementOptionsPanel.Editor.IdentifierEditor = TYPO3.FormBuilder.View.ElementOptionsPanel.Editor.AbstractPropertyEditor.extend {
-	templateName: 'IdentifierEditor'
+	templateName: 'ElementOptionsPanel-IdentifierEditor'
 
 	propertyPath: 'identifier'
 
@@ -110,7 +110,7 @@ TYPO3.FormBuilder.View.ElementOptionsPanel.Editor.TextEditor = TYPO3.FormBuilder
 		@valueChanged()
 	).observes('value')
 
-	templateName: 'TextEditor'
+	templateName: 'ElementOptionsPanel-TextEditor'
 }
 
 # ***
@@ -122,7 +122,7 @@ TYPO3.FormBuilder.View.ElementOptionsPanel.Editor.TextEditor = TYPO3.FormBuilder
 #
 # - `label`: Label of the text field, which should be shown.
 TYPO3.FormBuilder.View.ElementOptionsPanel.Editor.TextareaEditor = TYPO3.FormBuilder.View.ElementOptionsPanel.Editor.TextEditor.extend {
-	templateName: 'TextareaEditor'
+	templateName: 'ElementOptionsPanel-TextareaEditor'
 }
 
 
@@ -132,7 +132,7 @@ TYPO3.FormBuilder.View.ElementOptionsPanel.Editor.TextareaEditor = TYPO3.FormBui
 #
 # Displays button to remove this formElement.
 TYPO3.FormBuilder.View.ElementOptionsPanel.Editor.RemoveElementEditor = TYPO3.FormBuilder.View.ElementOptionsPanel.Editor.AbstractEditor.extend {
-	templateName: 'RemoveElementEditor'
+	templateName: 'ElementOptionsPanel-RemoveElement'
 	remove: ->
 		@get('formElement').removeWithConfirmationDialog()
 }

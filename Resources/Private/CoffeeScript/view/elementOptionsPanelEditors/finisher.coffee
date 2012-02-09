@@ -25,7 +25,7 @@ TYPO3.FormBuilder.View.ElementOptionsPanel.Editor.FinisherEditor = TYPO3.FormBui
 	# ###Private###
 
 	availableCollectionElementsBinding: 'availableFinishers'
-	templateName: 'FinisherEditor'
+	templateName: 'ElementOptionsPanel-FinisherEditor'
 
 	prompt: 'Select a finisher to add'
 
@@ -33,7 +33,7 @@ TYPO3.FormBuilder.View.ElementOptionsPanel.Editor.FinisherEditor = TYPO3.FormBui
 }
 
 TYPO3.FormBuilder.View.ElementOptionsPanel.Editor.FinisherEditor.EmailFinisherEditor = TYPO3.FormBuilder.View.ElementOptionsPanel.Editor.ValidatorEditor.DefaultValidatorEditor.extend {
-	templateName: 'Finisher-Email'
+	templateName: 'Finisher-EmailEditor'
 
 	availableFormats: null,
 

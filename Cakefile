@@ -13,14 +13,11 @@ appFiles  = [
 	'view/structurePanel'
 	'view/insertElementsPanel'
 	'view/elementOptionsPanel'
-
-
-
-	'view/editors/collectionEditor'
-	'view/editors/basic'
-	'view/editors/grid'
-	'view/editors/validator'
-	'view/editors/finisher'
+	'view/elementOptionsPanelEditors/collectionEditor'
+	'view/elementOptionsPanelEditors/basic'
+	'view/elementOptionsPanelEditors/grid'
+	'view/elementOptionsPanelEditors/validator'
+	'view/elementOptionsPanelEditors/finisher'
 ]
 
 consoleOutput = (error, stdout, stderr) ->
