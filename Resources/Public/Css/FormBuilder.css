@@ -454,8 +454,14 @@ span.dynatree-icon:before {
 .typo3-formbuilder-type-typo3-form-datepicker *:before {
   background-position: -192px -120px !important; }
 
+.typo3-formbuilder-type-typo3-form-fileupload *:before {
+  background-position: -144px -24px !important; }
+
 .typo3-formbuilder-type-typo3-form-imageupload *:before {
   background-position: -456px -48px !important; }
+
+.typo3-formbuilder-type-typo3-form-statictext *:before {
+  background-position: -264px -48px !important; }
 
 .typo3-formbuilder-group-container *:before {
   background-position: -408px -120px !important; }

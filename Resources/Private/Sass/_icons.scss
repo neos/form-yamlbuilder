@@ -180,8 +180,14 @@ span.dynatree-icon {
 .typo3-formbuilder-type-typo3-form-datepicker * {
 	@include overrideIcon($icon-calendar);
 }
+.typo3-formbuilder-type-typo3-form-fileupload * {
+	@include overrideIcon($icon-upload);
+}
 .typo3-formbuilder-type-typo3-form-imageupload * {
 	@include overrideIcon($icon-picture);
+}
+.typo3-formbuilder-type-typo3-form-statictext * {
+	@include overrideIcon($icon-align-left);
 }
 
 // CONTAINER
