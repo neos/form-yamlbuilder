@@ -367,6 +367,12 @@
     postProcessRenderedPage: function() {
       var _this = this;
       this.onCurrentElementChanges();
+      this.$().find('[data-element]').on('click dblclick select focus keydown keypress keyup mousedown mouseup', function(e) {
+        return e.preventDefault();
+      });
+      this.$().find('form').submit(function(e) {
+        return e.preventDefault();
+      });
       return this.$().find('[data-element]').parent().addClass('typo3-form-sortable').sortable({
         revert: 'true',
         update: function(e, o) {

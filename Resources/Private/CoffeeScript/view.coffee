@@ -80,10 +80,19 @@ TYPO3.FormBuilder.View.FormPageView = Ember.View.extend {
 
 	# Post process the rendered page:
 	#
+	# - disable all form elements such that they are not clickable
 	# - update the element selection
 	# - making the elements sortable and handling drag/drop.
 	postProcessRenderedPage: ->
 		@onCurrentElementChanges()
+
+		# - disable all form elements such that they are not clickable
+		this.$().find('[data-element]').on('click dblclick select focus keydown keypress keyup mousedown mouseup', (e)->
+			e.preventDefault()
+		)
+		this.$().find('form').submit (e) ->
+			e.preventDefault()
+
 		this.$().find('[data-element]').parent().addClass('typo3-form-sortable').sortable {
 			revert: 'true'
 			update: (e, o) =>
