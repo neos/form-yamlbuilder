@@ -1,6 +1,47 @@
 @import "compass/css3/box-shadow";
 @import "compass/css3/images";
 
+@mixin typo3-formbuilder-button {
+	display: inline-block;
+	padding: 4px 5px;
+	font-size: 12px;
+	line-height: 12px;
+	color: white;
+	@include background-image(linear-gradient(#555, #333));
+	text-align: center;
+	text-shadow: 0 1px 1px rgba(15, 15, 15, .95);
+	border: none;
+	border-radius: 3px;
+	box-shadow: inset 0 1px 0 rgba(255, 255, 255, .2), 0 1px 2px rgba(0, 0, 0, .05);
+	cursor: pointer;
+	&:hover {
+		text-shadow: 0 0 1px rgba(155, 155, 155, .75);
+		@include background-image(linear-gradient(#666, #333));
+	}
+	&.active,
+	&:active {
+		background-image: none;
+		box-shadow: inset 0 2px 4px rgba(0, 0, 0, .45), 0 1px 2px rgba(0, 0, 0, .05);
+		background-color: #555;
+		text-shadow: none;
+		color: rgba(0,0,0,.5);
+		outline: 0;
+	}
+	&.icon {
+		@include icon($icon-cog);
+		padding-left: 21px;
+		&:before {
+			margin-top: 0;
+		}
+	}
+	&.danger {
+		@include background-image(linear-gradient(#7a4848, #634444));
+		&:hover {
+			@include background-image(linear-gradient(#9b3939, #634444));
+		}
+	}
+}
+
 #typo3-formbuilder-header,
 #typo3-formbuilder-elementSidebar,
 #typo3-formbuilder-elementOptionsPanel,
@@ -37,44 +78,7 @@
 	}
 
 	.typo3-formbuilder-button {
-		display: inline-block;
-		padding: 4px 5px;
-		font-size: 12px;
-		line-height: 12px;
-		color: white;
-		@include background-image(linear-gradient(#555, #333));
-		text-align: center;
-		text-shadow: 0 1px 1px rgba(15, 15, 15, .95);
-		border: none;
-		border-radius: 3px;
-		box-shadow: inset 0 1px 0 rgba(255, 255, 255, .2), 0 1px 2px rgba(0, 0, 0, .05);
-		cursor: pointer;
-		&:hover {
-			text-shadow: 0 0 1px rgba(155, 155, 155, .75);
-			@include background-image(linear-gradient(#666, #333));
-		}
-		&.active,
-		&:active {
-			background-image: none;
-			box-shadow: inset 0 2px 4px rgba(0, 0, 0, .45), 0 1px 2px rgba(0, 0, 0, .05);
-			background-color: #555;
-			text-shadow: none;
-			color: rgba(0,0,0,.5);
-			outline: 0;
-		}
-		&.icon {
-			@include icon($icon-cog);
-			padding-left: 21px;
-			&:before {
-				margin-top: 0;
-			}
-		}
-		&.danger {
-			@include background-image(linear-gradient(#7a4848, #634444));
-			&:hover {
-				@include background-image(linear-gradient(#9b3939, #634444));
-			}
-		}
+		@include typo3-formbuilder-button;
 	}
 
 	line-height: normal;

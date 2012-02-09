@@ -15,6 +15,7 @@ $colorHighlight: #ff8700;
 @import 'reset';
 @import 'icons';
 @import 'forms';
+@import 'dialogs';
 @import 'elementStructure';
 
 #typo3-formbuilder-header,
@@ -261,6 +262,19 @@ $colorHighlight: #ff8700;
 			.slick-reorder-proxy, .slick-reorder-guide {
 				background: $colorDarkBackground;
 			}
+		}
+	}
+	.typo3-formbuilder-removeButton {
+		display: inline-block;
+		position: absolute;
+		right: 5px;
+		width: 14px;
+		height: 14px;
+		text-indent: -9999px;
+		vertical-align: text-top;
+		background: transparent url('../Images/glyphicons-halflings-white.png') -456px 0 no-repeat;
+		&:hover {
+			background-color: #666;
 		}
 	}
 	.typo3-formbuilder-removeElementButton {

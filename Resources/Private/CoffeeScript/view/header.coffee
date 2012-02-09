@@ -31,6 +31,8 @@ TYPO3.FormBuilder.View.Header.PresetSelector = Ember.Select.extend {
 		if TYPO3.FormBuilder.Model.Form.get('unsavedContent')
 			that = this
 			$('<div>There are unsaved changes, but you need to save before changing the preset. Do you want to save now?</div>').dialog {
+				dialogClass: 'typo3-formbuilder-dialog',
+				title: 'Save changes?',
 				modal: true
 				resizable: false
 				buttons: {

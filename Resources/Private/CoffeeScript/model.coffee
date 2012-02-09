@@ -199,7 +199,9 @@ TYPO3.FormBuilder.Model.Renderable = Ember.Object.extend {
 	# display a confirmation dialog for removing this renderable
 	removeWithConfirmationDialog: ->
 		thisRenderable = this
-		$('<div>Remove Element?</div>').dialog {
+		$('<div>Are you sure that you want to remove this Element?</div>').dialog {
+			dialogClass: 'typo3-formbuilder-dialog',
+			title: 'Remove Element?',
 			modal: true
 			resizable: false
 			buttons: {

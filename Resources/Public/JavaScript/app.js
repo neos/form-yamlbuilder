@@ -215,7 +215,9 @@
     removeWithConfirmationDialog: function() {
       var thisRenderable;
       thisRenderable = this;
-      return $('<div>Remove Element?</div>').dialog({
+      return $('<div>Are you sure that you want to remove this Element?</div>').dialog({
+        dialogClass: 'typo3-formbuilder-dialog',
+        title: 'Remove Element?',
         modal: true,
         resizable: false,
         buttons: {
@@ -433,6 +435,8 @@
       if (TYPO3.FormBuilder.Model.Form.get('unsavedContent')) {
         that = this;
         return $('<div>There are unsaved changes, but you need to save before changing the preset. Do you want to save now?</div>').dialog({
+          dialogClass: 'typo3-formbuilder-dialog',
+          title: 'Save changes?',
           modal: true,
           resizable: false,
           buttons: {
