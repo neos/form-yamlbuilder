@@ -1,0 +1,21 @@
+{{view TYPO3.FormBuilder.View.Header id="typo3-formbuilder-header" tagName="header"}}
+<section id="typo3-formbuilder-stage">
+	{{view TYPO3.FormBuilder.View.FormPageView presetName="default"}}
+</section>
+<section id="typo3-formbuilder-elementSidebar">
+	<section id="typo3-formbuilder-structurePanel">
+		<h2>Structure</h2>
+		{{view TYPO3.FormBuilder.View.FormTree}}
+	</section>
+	<section id="typo3-formbuilder-insertElementsPanel">
+		<h2>Insert elements</h2>
+		{{view TYPO3.FormBuilder.View.AvailableFormElementsView}}
+	</section>
+</section>
+<section id="typo3-formbuilder-elementOptionsPanel">
+	<h2>Element Options</h2>
+	{{view TYPO3.FormBuilder.View.FormElementInspector formElementBinding="TYPO3.FormBuilder.Model.Form.currentlySelectedRenderable"}}
+</section>
+<footer id="typo3-formbuilder-footer">
+	<p>Powered by FLOW3</p>
+</footer>

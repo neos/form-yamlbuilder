@@ -186,34 +186,6 @@ TYPO3.FormBuilder.View.Select = Ember.Select.extend {
 	attributeBindings: ['disabled']
 }
 
-TYPO3.FormBuilder.View.SaveButton = Ember.Button.extend {
-	targetObject: (-> return this).property().cacheable()
-	action: ->
-		@save()
-
-	classNames: ['typo3-formbuilder-savebutton']
-	classNameBindings: ['isActive', 'currentStatus'],
-
-	currentStatus: ''
-
-	save: ->
-		@set('currentStatus', 'currently-saving')
-		formDefinition = TYPO3.FormBuilder.Utility.convertToSimpleObject(TYPO3.FormBuilder.Model.Form.get('formDefinition'))
-
-		$.post(
-			TYPO3.FormBuilder.Configuration.endpoints.saveForm,
-			{
-				formPersistenceIdentifier: TYPO3.FormBuilder.Configuration?.formPersistenceIdentifier
-				formDefinition
-			},
-			(data, textStatus, jqXHR) =>
-				if data == 'success'
-					@set('currentStatus', 'saved')
-					TYPO3.FormBuilder.Model.Form.set('unsavedContent', false)
-				else
-					@set('currentStatus', 'save-error')
-		)
-}
 
 
 

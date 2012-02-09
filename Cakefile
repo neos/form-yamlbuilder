@@ -7,6 +7,8 @@ appFiles  = [
 	'utility'
 	'model'
 	'view'
+	'view/application'
+	'view/header'
 	'view/availableFormElements'
 	'view/formTree'
 	'view/elementInspector'

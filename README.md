@@ -120,3 +120,31 @@ of build targets you can execute. The following targets exist:
 
 The Form Builder has JavaScript unit tests for the model, which can be run by opening
 `Tests/JavaScript/SpecRunner.html` in your browser.
+
+###Names and Conventions###
+
+The FormBuilder is structured as follows, and the following
+names are used for it:
+
+	+------------------------------------------------------------+
+	|                                                            |
+	|   Header                                                   |
+	+-------------------+----------------------+-----------------+
+	|                   |                      |                 |
+	|                   |                      |                 |
+	|                   |                      |                 |
+	|      Structure    |                      |                 |
+	|      Panel        |                      |                 |
+	|                   |                      |                 |
+	|                   |                      |                 |
+	+-------------------+      Stage           |  Element Options|
+	|                   |                      |  Panel          |
+	|                   |                      |                 |
+	|                   |                      |                 |
+	|      Insert       |                      |                 |
+	|      Element      |                      |                 |
+	|      Panel        |                      |                 |
+	|                   |                      |                 |
+	|                   |                      |                 |
+	|                   |                      |                 |
+	+-------------------+----------------------+-----------------+

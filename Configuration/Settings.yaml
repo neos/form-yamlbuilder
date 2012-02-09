@@ -48,6 +48,9 @@ TYPO3:
         files: ['resource://TYPO3.FormBuilder/Public/Css/FormBuilder.css']
 
     handlebarsTemplates:
+      Application: resource://TYPO3.FormBuilder/Private/Templates/FormBuilder/Application.html
+      Header: resource://TYPO3.FormBuilder/Private/Templates/FormBuilder/Header.html
+
       AvailableFormElements: resource://TYPO3.FormBuilder/Private/Templates/FormBuilder/AvailableFormElements.html
       FormTree: resource://TYPO3.FormBuilder/Private/Templates/FormBuilder/FormTree.html
       IdentifierEditor: resource://TYPO3.FormBuilder/Private/Templates/FormBuilder/IdentifierEditor.html

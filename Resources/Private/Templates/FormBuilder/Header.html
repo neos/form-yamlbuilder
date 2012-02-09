@@ -1,0 +1,15 @@
+<h1>Form Builder - {{TYPO3.FormBuilder.Model.Form.formDefinition.label}}</h1>
+{{#if TYPO3.FormBuilder.Model.Form.currentlyLoadingPreview}}<span style="width: 60px;height:15px;background:red;position:absolute;z-index: 3000">Loading..</span>{{/if}}
+
+<ul id="typo3-formbuilder-toolbar">
+	<li class="typo3-formbuilder-preset">
+		{{view TYPO3.FormBuilder.View.Header.PresetSelector}}
+	</li>
+	<li class="typo3-formbuilder-preview">
+		{{#view TYPO3.FormBuilder.View.Header.PreviewButton}}Preview{{/view}}
+	</li>
+	<li class="typo3-formbuilder-save">
+		{{#view TYPO3.FormBuilder.View.Header.SaveButton}}Save{{/view}}
+	</li>
+</ul>
+</header>
