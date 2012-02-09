@@ -80,6 +80,17 @@ TYPO3.FormBuilder.View.Stage = Ember.View.extend {
 
 		this.$().find('[data-element]').parent().addClass('typo3-form-sortable').sortable {
 			revert: 'true'
+			start: (e, o) =>
+				# starting drag/drop will disable the current AJAX request and clear the timeout
+				# in order to prevent refreshes when the page loads
+				if @currentAjaxRequest
+					@currentAjaxRequest.abort()
+
+				if @timeout
+					window.clearTimeout(@timeout)
+
+				@set('isLoading', false)
+
 			update: (e, o) =>
 
 				# remove the to-be-moved object from its parent renderable
