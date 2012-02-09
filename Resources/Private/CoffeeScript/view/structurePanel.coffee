@@ -161,3 +161,17 @@ TYPO3.FormBuilder.View.StructurePanel = Ember.View.extend {
 	showFormOptions: ->
 		TYPO3.FormBuilder.Model.Form.set('currentlySelectedRenderable', TYPO3.FormBuilder.Model.Form.get('formDefinition'));
 }
+
+# button above the structure element which is styled as the top-level form element
+TYPO3.FormBuilder.View.StructurePanel.FormButton = Ember.Button.extend {
+	target: 'parentView'
+	action: 'showFormOptions'
+	classNameBindings: ['isFormDefinitionCurrentlySelected:typo3-formbuilder-form-selected']
+
+	# Computed property which is TRUE if the form definition is currently selected
+	isFormDefinitionCurrentlySelected: (->
+		return (Ember.getPath('TYPO3.FormBuilder.Model.Form.currentlySelectedRenderable') == Ember.getPath('TYPO3.FormBuilder.Model.Form.formDefinition'))
+	).property('TYPO3.FormBuilder.Model.Form.formDefinition', 'TYPO3.FormBuilder.Model.Form.currentlySelectedRenderable').cacheable()
+
+
+}
