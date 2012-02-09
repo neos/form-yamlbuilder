@@ -30,3 +30,10 @@ convertToSimpleObject = (input) ->
 	return simpleObject
 
 TYPO3.FormBuilder.Utility.convertToSimpleObject = convertToSimpleObject
+
+# ##getUri(baseUri, [presetName])
+#
+# Get an URI which is comprised of base URI, form persistence identifier and passed preset.
+TYPO3.FormBuilder.Utility.getUri = (baseUri, presetName = TYPO3.FormBuilder.Configuration.presetName) ->
+	 uri = baseUri + "?formPersistenceIdentifier=#{encodeURIComponent(TYPO3.FormBuilder.Configuration.formPersistenceIdentifier)}&presetName=#{encodeURIComponent(presetName)}"
+	 return uri

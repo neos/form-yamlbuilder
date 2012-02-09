@@ -777,6 +777,10 @@ span.dynatree-icon:before {
       margin: 2px 0 0 -17px;
       height: 14px;
       width: 14px; }
+    #typo3-formbuilder-structurePanel button:hover {
+      background: #383838; }
+    #typo3-formbuilder-structurePanel button.typo3-formbuilder-form-selected {
+      color: #ff8700; }
 
 #typo3-formbuilder-insertElementsPanel {
   overflow: auto; }

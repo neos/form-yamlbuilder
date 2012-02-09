@@ -117,6 +117,12 @@ $colorHighlight: #ff8700;
 		padding-left: 19px;
 		font-size: 10px;
 		font-weight: bold;
+		&:hover {
+			background: #383838;
+		}
+		&.typo3-formbuilder-form-selected {
+			color: $colorHighlight;
+		}
 	}
 }
 #typo3-formbuilder-insertElementsPanel {

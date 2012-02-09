@@ -78,6 +78,15 @@
 
   TYPO3.FormBuilder.Utility.convertToSimpleObject = convertToSimpleObject;
 
+  TYPO3.FormBuilder.Utility.getUri = function(baseUri, presetName) {
+    var uri;
+    if (presetName == null) {
+      presetName = TYPO3.FormBuilder.Configuration.presetName;
+    }
+    uri = baseUri + ("?formPersistenceIdentifier=" + (encodeURIComponent(TYPO3.FormBuilder.Configuration.formPersistenceIdentifier)) + "&presetName=" + (encodeURIComponent(presetName)));
+    return uri;
+  };
+
   TYPO3.FormBuilder.Model = {};
 
   TYPO3.FormBuilder.Model.Form = Ember.Object.create({
@@ -395,7 +404,10 @@
           paneSelector: '#typo3-formbuilder-insertElementsPanel'
         }
       });
-    }
+    },
+    updatePageTitle: (function() {
+      return document.title = 'Form Builder - ' + Ember.getPath('TYPO3.FormBuilder.Model.Form.formDefinition.label');
+    }).observes('TYPO3.FormBuilder.Model.Form.formDefinition.label')
   });
 
   TYPO3.FormBuilder.View.Header = Ember.View.extend({
@@ -457,11 +469,23 @@
       });
     },
     redirect: function() {
-      return window.location.href = TYPO3.FormBuilder.Configuration.endpoints.editForm + ("?formPersistenceIdentifier=" + (encodeURIComponent(TYPO3.FormBuilder.Configuration.formPersistenceIdentifier)) + "&presetName=" + (encodeURIComponent(this.getPath('selection.name'))));
+      return window.location.href = TYPO3.FormBuilder.Utility.getUri(TYPO3.FormBuilder.Configuration.endpoints.editForm, this.getPath('selection.name'));
     }
   });
 
-  TYPO3.FormBuilder.View.Header.PreviewButton = Ember.Button.extend({});
+  TYPO3.FormBuilder.View.Header.PreviewButton = Ember.Button.extend({
+    targetObject: (function() {
+      return this;
+    }).property().cacheable(),
+    action: function() {
+      return this.preview();
+    },
+    preview: function() {
+      var windowIdentifier;
+      windowIdentifier = 'preview_' + TYPO3.FormBuilder.Model.Form.getPath('formDefinition.identifier');
+      return window.open(TYPO3.FormBuilder.Utility.getUri(TYPO3.FormBuilder.Configuration.endpoints.previewForm), windowIdentifier);
+    }
+  });
 
   TYPO3.FormBuilder.View.Header.SaveButton = Ember.Button.extend({
     targetObject: (function() {
@@ -721,6 +745,15 @@
     showFormOptions: function() {
       return TYPO3.FormBuilder.Model.Form.set('currentlySelectedRenderable', TYPO3.FormBuilder.Model.Form.get('formDefinition'));
     }
+  });
+
+  TYPO3.FormBuilder.View.StructurePanel.FormButton = Ember.Button.extend({
+    target: 'parentView',
+    action: 'showFormOptions',
+    classNameBindings: ['isFormDefinitionCurrentlySelected:typo3-formbuilder-form-selected'],
+    isFormDefinitionCurrentlySelected: (function() {
+      return Ember.getPath('TYPO3.FormBuilder.Model.Form.currentlySelectedRenderable') === Ember.getPath('TYPO3.FormBuilder.Model.Form.formDefinition');
+    }).property('TYPO3.FormBuilder.Model.Form.formDefinition', 'TYPO3.FormBuilder.Model.Form.currentlySelectedRenderable').cacheable()
   });
 
   TYPO3.FormBuilder.View.InsertElementsPanel = Ember.View.extend({

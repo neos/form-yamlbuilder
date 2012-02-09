@@ -1,4 +1,4 @@
 {{#collection contentBinding="formElementsGrouped"}}
-	<h3><span class="typo3-formbuilder-group-todo">{{content.label}}</span></h3>
+	<h3><span class="typo3-formbuilder-group-{{unbound content.key}}">{{content.label}}</span></h3>
 	{{view TYPO3.FormBuilder.View.InsertElementsPanel.ElementsCollection contentBinding="content.elements" tagName="ul"}}
 {{/collection}}
