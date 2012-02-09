@@ -26,11 +26,12 @@ TYPO3.FormBuilder.View.Application = Ember.View.extend {
 				paneSelector: '#typo3-formbuilder-header',
 				resizable: false,
 				spacing_open: 0,
+				size: 46,
 				minSize: 0
 			},
 			east: {
 				paneSelector:'#typo3-formbuilder-elementOptionsPanel',
-				size: 270,
+				size: 290,
 				minSize: 200,
 				maxSize: 350
 			},
@@ -38,11 +39,12 @@ TYPO3.FormBuilder.View.Application = Ember.View.extend {
 				paneSelector: '#typo3-formbuilder-footer',
 				resizable: false,
 				spacing_open: 0,
+				size: 20,
 				minSize: 0
 			},
 			west: {
 				paneSelector: '#typo3-formbuilder-elementSidebar',
-				size: 250,
+				size: 240,
 				minSize: 200,
 				maxSize: 350
 			},
