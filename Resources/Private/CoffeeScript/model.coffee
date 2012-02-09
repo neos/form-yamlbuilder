@@ -104,7 +104,7 @@ TYPO3.FormBuilder.Model.Renderable = Ember.Object.extend {
 
 	# Set the path `path` to `v` initializing empty objects as the intermediate parts
 	# of the path. *You still need to trigger the `somePropertyChanged` event listener if a property
-	# changed.
+	# changed.*
 	setPathRecursively: (path, v) ->
 		currentObject = this
 		while path.indexOf('.') > 0
@@ -149,13 +149,19 @@ TYPO3.FormBuilder.Model.Renderable = Ember.Object.extend {
 			''
 	).property()
 
-	# the *page* is everything which is added as direct child to the form, i.e. which does not have a grandparent
+	# Find the enclosing page of the current element, by traversing
+	# up the tree until the level underneath the root-level is reached (which, by
+	# definition, contains PAGEs)
 	findEnclosingPage: ->
 		referenceRenderable = this
 		while referenceRenderable.getPath('parentRenderable.parentRenderable') != null
 			referenceRenderable = referenceRenderable.get('parentRenderable')
 		return referenceRenderable
 
+	# Find an enclosing composite renderable (like a section) if it exists
+	# for the current element. Otherwise, returns `null`.
+	#
+	# *Pages are not returned by this function*
 	findEnclosingCompositeRenderableWhichIsNotOnTopLevel: ->
 		referenceRenderable = this
 		while !referenceRenderable.getPath('typeDefinition.formBuilder._isCompositeRenderable')
@@ -180,14 +186,14 @@ TYPO3.FormBuilder.Model.Renderable = Ember.Object.extend {
 					$(this).dialog('close')
 			}
 		}
-	# remove this renderable
+	# remove this renderable and mark the parent renderable as active
 	remove: (updateCurrentRenderable = true) ->
 		TYPO3.FormBuilder.Model.Form.set('currentlySelectedRenderable', @get('parentRenderable')) if updateCurrentRenderable
 		@getPath('parentRenderable.renderables').removeObject(this)
 }
 
 # We override the `create` function of Ember.JS to add observers for all properties,
-# and convert the child objects inside `renderables` into nested Renderable classes.
+# and convert the child objects inside `renderables` into nested `Renderable` classes.
 TYPO3.FormBuilder.Model.Renderable.reopenClass {
 	create: (obj) ->
 		childRenderables = obj.renderables
@@ -211,11 +217,12 @@ TYPO3.FormBuilder.Model.Renderable.reopenClass {
 # It especially contains the following structure:
 TYPO3.FormBuilder.Model.FormElementType = Ember.Object.extend {
 	# * formBuilder
-	#    * `_isCompositeRenderable`: if TRUE, it is a composite renderable like a section or a fieldset or a page, i.e. it is allowed to insert SIMPLE FORM ELEMENTS INSIDE this element. Form and Page have this set to FALSE.
+	#    * `_isCompositeRenderable`: if TRUE, it is a composite renderable like a section or a fieldset or a page, i.e. it is allowed to insert SIMPLE FORM ELEMENTS INSIDE this element. The Form, however, has set it to FALSE
 	#    * `_isTopLevel`: if TRUE, is a "Page" or a "Form", i.e. appears in the first level directly underneath the form object
 	# * type
 	type: null
 
+	# list of CSS class names which should be used to represent this form element type
 	__cssClassNames: ( ->
 		"typo3-formbuilder-group-#{@getPath('formBuilder.group')} typo3-formbuilder-type-#{@get('type').toLowerCase().replace(/[^a-z0-9]/g, '-')}"
 	).property('formBuilder.group', 'type').cacheable()
@@ -228,7 +235,8 @@ TYPO3.FormBuilder.Model.FormElementType = Ember.Object.extend {
 #
 # Contains references to all form element types currently registered,
 # and a list of all type names.
-# ***
+#
+# You can fetch a specific type by doing `get('YourTypeIdentifier')` on this object.
 TYPO3.FormBuilder.Model.FormElementTypes = Ember.Object.create {
 
 	# * `allTypeNames`: list of all form element type names which are set on this object
@@ -249,7 +257,9 @@ TYPO3.FormBuilder.Model.FormElementTypes = Ember.Object.create {
 # **Singleton**
 #
 # Contains references to all *form element groups*, which are shown as groups
-# in the "create new element" panel, and also a property containing all group names:
+# in the "create new element" panel, and also a property containing all group names.
+#
+# You can fetch a group by doing `get('YourGroupIdentifier')` on this object.
 TYPO3.FormBuilder.Model.FormElementGroups = Ember.Object.create {
 	# * `allGroupNames`: list of all form element group names
 	allGroupNames: []
@@ -258,5 +268,4 @@ TYPO3.FormBuilder.Model.FormElementGroups = Ember.Object.create {
 		for groupName, groupConfiguration of TYPO3.FormBuilder.Configuration.formElementGroups
 			@allGroupNames.push(groupName)
 			@set(groupName, Ember.Object.create(groupConfiguration))
-
 }

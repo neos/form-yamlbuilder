@@ -1,5 +1,5 @@
 # #Namespace `TYPO3.FormBuilder.Utility`#
-# Contains helper functions to be used directly.
+# Contains helper functions to be used directly (without object instanciations).
 TYPO3.FormBuilder.Utility = {}
 
 # ##convertToSimpleObject(Renderable)##
@@ -17,10 +17,11 @@ convertToSimpleObject = (input) ->
 
 	for own key, value of input
 		if (key.match(/^__/) || key == 'parentRenderable')
+			# skip private properties and circular references
 			continue
 
 		if (typeof value == 'function')
-			# skip
+			# skip function references
 		else if (typeof value == 'object')
 			simpleObject[key] = convertToSimpleObject value
 		else

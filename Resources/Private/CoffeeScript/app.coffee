@@ -1,5 +1,5 @@
 # #Main Base Class#
-# Main Entry for the form builder, setting up the environment and initializing
+# Main Entry point for the form builder, setting up the environment and initializing
 # `TYPO3.FormBuilder` namespace.
 #
 
@@ -34,6 +34,8 @@ if TYPO3.FormBuilder.Configuration?.javaScripts
 	for javaScript in TYPO3.FormBuilder.Configuration.javaScripts
 		$.getScript(javaScript);
 
+# if the form persistence identifier was configured, we load it using
+# the loadForm endpoint
 if TYPO3.FormBuilder.Configuration?.formPersistenceIdentifier
 	$.getJSON(
 		TYPO3.FormBuilder.Configuration.endpoints.loadForm,
@@ -42,6 +44,9 @@ if TYPO3.FormBuilder.Configuration?.formPersistenceIdentifier
 			TYPO3.FormBuilder.Model.Form.set('formDefinition', TYPO3.FormBuilder.Model.Renderable.create(data))
 	)
 
+
+# Definition of some validators which can be used together
+# with TYPO3.FormBuilder.View.TextField
 TYPO3.FormBuilder.Validators = {}
 TYPO3.FormBuilder.Validators.isNumberOrBlank = (n) ->
 	return true if n == '' or n == null or n == undefined
