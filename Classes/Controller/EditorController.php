@@ -38,7 +38,7 @@ class EditorController extends \TYPO3\FLOW3\MVC\Controller\ActionController {
 
 		$this->view->assign('stylesheets', $this->filterAndSortArray($this->settings['stylesheets']));
 		$this->view->assign('javaScripts', $this->filterAndSortArray($this->settings['javaScripts']));
-		$this->view->assign('formPersistenceIdentifier', $formPersistenceIdentifier);
+
 		$this->view->assign('presetName', $presetName);
 	}
 

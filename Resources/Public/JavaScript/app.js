@@ -84,6 +84,27 @@
     formDefinition: null,
     unsavedContent: false,
     currentlySelectedRenderable: null,
+    saveStatus: '',
+    save: function(callback) {
+      var formDefinition, _ref7,
+        _this = this;
+      if (callback == null) callback = null;
+      this.set('saveStatus', 'currently-saving');
+      formDefinition = TYPO3.FormBuilder.Utility.convertToSimpleObject(this.get('formDefinition'));
+      return $.post(TYPO3.FormBuilder.Configuration.endpoints.saveForm, {
+        formPersistenceIdentifier: (_ref7 = TYPO3.FormBuilder.Configuration) != null ? _ref7.formPersistenceIdentifier : void 0,
+        formDefinition: formDefinition
+      }, function(data, textStatus, jqXHR) {
+        if (data === 'success') {
+          _this.set('saveStatus', 'saved');
+          _this.set('unsavedContent', false);
+          if (callback) return callback(true);
+        } else {
+          _this.set('saveStatus', 'save-error');
+          if (callback) return callback(false);
+        }
+      });
+    },
     onFormDefinitionChange: (function() {
       if (!this.get('formDefinition')) return;
       return this.set('currentlySelectedRenderable', this.get('formDefinition'));
@@ -381,8 +402,63 @@
     templateName: 'Header'
   });
 
-  TYPO3.FormBuilder.View.Header.PresetSelector = Ember.View.extend({
-    tagName: 'a'
+  TYPO3.FormBuilder.View.Header.PresetSelector = Ember.Select.extend({
+    contentBinding: 'TYPO3.FormBuilder.Configuration.availablePresets',
+    optionLabelPath: 'content.title',
+    init: function() {
+      this.resetSelection();
+      return this._super.apply(this, arguments);
+    },
+    reloadIfPresetChanged: (function() {
+      var that;
+      if (this.getPath('selection.name') === TYPO3.FormBuilder.Configuration.presetName) {
+        return;
+      }
+      if (TYPO3.FormBuilder.Model.Form.get('unsavedContent')) {
+        that = this;
+        return $('<div>There are unsaved changes, but you need to save before changing the preset. Do you want to save now?</div>').dialog({
+          modal: true,
+          resizable: false,
+          buttons: {
+            'Save and redirect': function() {
+              that.saveAndRedirect();
+              return $(this).dialog('close');
+            },
+            'Cancel': function() {
+              that.resetSelection();
+              return $(this).dialog('close');
+            }
+          }
+        });
+      } else {
+        return this.redirect();
+      }
+    }).observes('selection'),
+    resetSelection: (function() {
+      var val, _k, _len3, _ref7, _results;
+      if (!this.get('content')) return;
+      _ref7 = this.get('content');
+      _results = [];
+      for (_k = 0, _len3 = _ref7.length; _k < _len3; _k++) {
+        val = _ref7[_k];
+        if (val.name === TYPO3.FormBuilder.Configuration.presetName) {
+          this.set('selection', val);
+          break;
+        } else {
+          _results.push(void 0);
+        }
+      }
+      return _results;
+    }).observes('content'),
+    saveAndRedirect: function() {
+      var _this = this;
+      return TYPO3.FormBuilder.Model.Form.save(function(success) {
+        if (success) return _this.redirect();
+      });
+    },
+    redirect: function() {
+      return window.location.href = TYPO3.FormBuilder.Configuration.endpoints.editForm + ("?formPersistenceIdentifier=" + (encodeURIComponent(TYPO3.FormBuilder.Configuration.formPersistenceIdentifier)) + "&presetName=" + (encodeURIComponent(this.getPath('selection.name'))));
+    }
   });
 
   TYPO3.FormBuilder.View.Header.PreviewButton = Ember.Button.extend({});
@@ -396,29 +472,14 @@
     },
     classNames: ['typo3-formbuilder-savebutton'],
     classNameBindings: ['isActive', 'currentStatus'],
-    currentStatus: '',
+    currentStatusBinding: 'TYPO3.FormBuilder.Model.Form.saveStatus',
     save: function() {
-      var formDefinition, _ref7,
-        _this = this;
-      this.set('currentStatus', 'currently-saving');
-      formDefinition = TYPO3.FormBuilder.Utility.convertToSimpleObject(TYPO3.FormBuilder.Model.Form.get('formDefinition'));
-      return $.post(TYPO3.FormBuilder.Configuration.endpoints.saveForm, {
-        formPersistenceIdentifier: (_ref7 = TYPO3.FormBuilder.Configuration) != null ? _ref7.formPersistenceIdentifier : void 0,
-        formDefinition: formDefinition
-      }, function(data, textStatus, jqXHR) {
-        if (data === 'success') {
-          _this.set('currentStatus', 'saved');
-          return TYPO3.FormBuilder.Model.Form.set('unsavedContent', false);
-        } else {
-          return _this.set('currentStatus', 'save-error');
-        }
-      });
+      return TYPO3.FormBuilder.Model.Form.save();
     }
   });
 
   TYPO3.FormBuilder.View.Stage = Ember.View.extend({
     formPagesBinding: 'TYPO3.FormBuilder.Model.Form.formDefinition.renderables',
-    presetName: null,
     currentPageIndex: (function() {
       var currentlySelectedRenderable, enclosingPage;
       currentlySelectedRenderable = TYPO3.FormBuilder.Model.Form.get('currentlySelectedRenderable');
@@ -448,7 +509,7 @@
         return _this.currentAjaxRequest = $.post(TYPO3.FormBuilder.Configuration.endpoints.formPageRenderer, {
           formDefinition: formDefinition,
           currentPageIndex: _this.get('currentPageIndex'),
-          presetName: _this.get('presetName')
+          presetName: TYPO3.FormBuilder.Configuration.presetName
         }, function(data, textStatus, jqXHR) {
           if (_this.currentAjaxRequest !== jqXHR) return;
           _this.$().html(data);

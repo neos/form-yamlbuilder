@@ -59,8 +59,22 @@ class JsonConfigurationViewHelper extends \TYPO3\Fluid\Core\ViewHelper\AbstractV
 		$mergedConfiguration['endpoints']['formPageRenderer'] = $this->controllerContext->getUriBuilder()->uriFor('renderformpage');
 		$mergedConfiguration['endpoints']['loadForm'] = $this->controllerContext->getUriBuilder()->uriFor('loadform');
 		$mergedConfiguration['endpoints']['saveForm'] = $this->controllerContext->getUriBuilder()->uriFor('saveform');
+		$mergedConfiguration['endpoints']['editForm'] = $this->controllerContext->getUriBuilder()->uriFor('index');
 
 		$mergedConfiguration['formPersistenceIdentifier'] = $this->controllerContext->getArguments()->getArgument('formPersistenceIdentifier')->getValue();
+
+		$mergedConfiguration['presetName'] = $presetName;
+
+		$availablePresets = array();
+		foreach ($this->formBuilderFactory->getPresetNames() as $presetName) {
+			$presetConfiguration = $this->formBuilderFactory->getPresetConfiguration($presetName);
+			$availablePresets[] = array(
+				'name' => $presetName,
+				'title' => (isset($presetConfiguration['title']) ? $presetConfiguration['title'] : $presetName)
+			);
+		}
+		$mergedConfiguration['availablePresets'] = $availablePresets;
+
 
 		return json_encode($mergedConfiguration);
 	}
