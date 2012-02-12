@@ -148,6 +148,13 @@ $icon-resize-horizontal: -456px -118px;
 	}
 }
 
+@mixin overrideIconDark($spriteOffset) {
+	&:before {
+		background-image: url('../Images/glyphicons-halflings.png');
+		background-position: $spriteOffset !important;
+	}
+}
+
 /** ELEMENT STRUCTURE DEFAULTS **/
 
 span.dynatree-icon {

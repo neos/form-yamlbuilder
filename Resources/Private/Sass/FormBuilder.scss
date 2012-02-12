@@ -122,6 +122,18 @@ $colorHighlight: #ff8700;
 		}
 		.typo3-formbuilder-save button {
 			@include overrideIcon($icon-download-alt);
+			&.saved {
+				color: #444;
+				@include overrideIconDark($icon-download-alt);
+			}
+			&.currently-saving:before {
+				background-image: url('../Images/saving.gif');
+				background-position: 1px 1px !important;
+			}
+			&.save-error:before {
+				background-image: url('../Images/saving_error.gif');
+				background-position: 1px 1px !important;
+			}
 		}
 	}
 }
