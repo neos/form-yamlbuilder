@@ -631,6 +631,7 @@ span.dynatree-icon:before {
   filter: Alpha(Opacity=70); }
 
 .typo3-formbuilder-dialog {
+  font: 11px Verdana, Arial, Helvetica, sans-serif;
   position: absolute;
   width: 300px;
   overflow: hidden;
