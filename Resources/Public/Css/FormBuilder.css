@@ -1067,9 +1067,9 @@ span.dynatree-icon:before {
       background-position: -48px 0 !important; }
     #typo3-formbuilder-header #typo3-formbuilder-toolbar .typo3-formbuilder-save button:before {
       background-position: -96px -24px !important; }
-    #typo3-formbuilder-header #typo3-formbuilder-toolbar .typo3-formbuilder-save button.saved, #typo3-formbuilder-header #typo3-formbuilder-toolbar .typo3-formbuilder-save button[disabled] {
+    #typo3-formbuilder-header #typo3-formbuilder-toolbar .typo3-formbuilder-save button[disabled] {
       color: #444; }
-      #typo3-formbuilder-header #typo3-formbuilder-toolbar .typo3-formbuilder-save button.saved:before, #typo3-formbuilder-header #typo3-formbuilder-toolbar .typo3-formbuilder-save button[disabled]:before {
+      #typo3-formbuilder-header #typo3-formbuilder-toolbar .typo3-formbuilder-save button[disabled]:before {
         background-image: url("../Images/glyphicons-halflings.png");
         background-position: -96px -24px !important; }
     #typo3-formbuilder-header #typo3-formbuilder-toolbar .typo3-formbuilder-save button.currently-saving:before {
