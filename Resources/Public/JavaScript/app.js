@@ -690,27 +690,7 @@
           }
         }
       });
-      this.updateTreeStateFromModel(this._tree.dynatree('getRoot'), this.getPath('formDefinition.renderables'));
-      return this.initializeContextMenu();
-    },
-    initializeContextMenu: function() {
-      return $.contextMenu({
-        selector: '#typo3-formbuilder-structurePanel .tree a.dynatree-title',
-        appendTo: '#typo3-formbuilder-structurePanel',
-        items: {
-          'delete': {
-            name: 'Delete',
-            callback: function() {
-              var dynaTreeNode, renderableToRemove;
-              dynaTreeNode = $(this).closest('li')[0].dtnode;
-              if (!dynaTreeNode) return;
-              renderableToRemove = dynaTreeNode.data.formRenderable;
-              if (!renderableToRemove) return;
-              return renderableToRemove.removeWithConfirmationDialog();
-            }
-          }
-        }
-      });
+      return this.updateTreeStateFromModel(this._tree.dynatree('getRoot'), this.getPath('formDefinition.renderables'));
     },
     updateTree: (function() {
       var activeNodePath, expandedNodePath, expandedNodePaths, _base, _base2, _k, _len3, _ref7, _ref8, _ref9;
@@ -1186,7 +1166,6 @@
     columns: null,
     isSortable: false,
     enableAddRow: false,
-    enableContextMenu: false,
     shouldShowPreselectedValueColumn: false,
     templateName: 'ElementOptionsPanel-PropertyGridEditor',
     defaultValue: (function() {
@@ -1352,7 +1331,7 @@
         }
         return true;
       });
-      moveRowsPlugin.onMoveRows.subscribe(function(e, args) {
+      return moveRowsPlugin.onMoveRows.subscribe(function(e, args) {
         var arrayRowToBeMoved, movedRowIndex;
         movedRowIndex = args.rows[0];
         arrayRowToBeMoved = _this.get('tableRowModel').objectAt(movedRowIndex);
@@ -1362,40 +1341,6 @@
         _this.valueChanged();
         _this.grid.invalidateAllRows();
         return _this.grid.render();
-      });
-      if (this.get('enableContextMenu')) return this.initializeContextMenu();
-    },
-    initializeContextMenu: function() {
-      var that;
-      that = this;
-      return $.contextMenu({
-        selector: '#rightSidebar .slick-row',
-        appendTo: '#rightSidebarInner',
-        items: {
-          'delete': {
-            name: 'Delete',
-            callback: function() {
-              var rowToBeDeletedIndex;
-              rowToBeDeletedIndex = $(this).attr('row');
-              if (rowToBeDeletedIndex >= that.getPath('tableRowModel.length')) {
-                return;
-              }
-              that.get('tableRowModel').removeAt(parseInt(rowToBeDeletedIndex), 1);
-              that.grid.invalidateAllRows();
-              that.grid.render();
-              return that.valueChanged();
-            }
-          }
-        },
-        position: function(opt) {
-          return opt.$menu.css('display', 'block').position({
-            my: "center top",
-            at: "center bottom",
-            of: this,
-            offset: "0 5",
-            collision: "fit"
-          }).css('display', 'none');
-        }
       });
     }
   });

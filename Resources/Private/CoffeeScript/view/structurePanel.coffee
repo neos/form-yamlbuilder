@@ -99,25 +99,6 @@ TYPO3.FormBuilder.View.StructurePanel = Ember.View.extend {
 
 		# we initialize the tree from the model
 		@updateTreeStateFromModel(@_tree.dynatree('getRoot'), @getPath('formDefinition.renderables'))
-		@initializeContextMenu()
-
-	initializeContextMenu: ->
-		$.contextMenu {
-			selector: '#typo3-formbuilder-structurePanel .tree a.dynatree-title'
-			appendTo: '#typo3-formbuilder-structurePanel'
-			items: {
-				'delete': {
-					name: 'Delete'
-					callback: ->
-						dynaTreeNode = $(this).closest('li')[0].dtnode;
-						return unless dynaTreeNode
-						renderableToRemove = dynaTreeNode.data.formRenderable
-						return unless renderableToRemove
-
-						renderableToRemove.removeWithConfirmationDialog()
-				}
-			}
-		}
 
 	# if a property changes, we re-draw the tree, and save the current selection on the tree and expansion state as needed.
 	updateTree: (->

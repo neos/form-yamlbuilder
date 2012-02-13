@@ -29,9 +29,6 @@ TYPO3:
           - 'resource://TYPO3.FormBuilder/Public/Library/SlickGrid/plugins/slick.rowmovemanager.js'
           - 'resource://TYPO3.FormBuilder/Public/Library/SlickGrid/slick.editors.js'
           - 'resource://TYPO3.FormBuilder/Public/Library/SlickGrid/slick.grid.js'
-      contextMenu:
-        sorting: 35
-        files: ['resource://TYPO3.FormBuilder/Public/Library/jQuery-contextMenu/jquery.contextMenu.js']
       application:
         files: ['resource://TYPO3.FormBuilder/Public/JavaScript/app.js']
         sorting: 100
@@ -40,9 +37,6 @@ TYPO3:
       slickGrid:
         sorting: 10
         files: ['resource://TYPO3.FormBuilder/Public/Library/SlickGrid/slick.grid.wrapped.css']
-      contextMenu:
-        sorting: 15
-        files: ['resource://TYPO3.FormBuilder/Public/Library/jQuery-contextMenu/jquery.contextMenu.wrapped.css']
       application:
         sorting: 100
         files: ['resource://TYPO3.FormBuilder/Public/Css/FormBuilder.css']
@@ -351,7 +345,6 @@ TYPO3:
                   propertyPath: 'properties.options'
                   isSortable: true
                   enableAddRow: true
-                  enableContextMenu: true
                   columns:
                     0:
                       field: '_value'
