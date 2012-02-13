@@ -4,7 +4,7 @@
 		{{#if editMode}}
 			{{view TYPO3.FormBuilder.View.ElementOptionsPanel.Editor.IdentifierEditor.TextField valueBinding="textFieldValue"}}
 			{{#if validationErrorMessage}}
-				<span class="typo3-formbuilder-error">{{validationErrorMessage}}</span>
+				<div class="typo3-formbuilder-error">{{validationErrorMessage}}</div>
 			{{/if}}
 		{{/if}}
 		{{#unless editMode}}

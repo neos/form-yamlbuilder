@@ -1098,13 +1098,13 @@
         return false;
       }
       if (!v.match(/^[a-z][a-zA-Z0-9-_]*$/)) {
-        this.set('validationErrorMessage', 'This is no valid identifier');
+        this.set('validationErrorMessage', 'This is no valid identifier. Only lowerCamelCase allowed.');
         return false;
       }
       elementsWithIdentifier = [];
       findFormElementsWithIdentifiers = function(el) {
         var subRenderable, _k, _len3, _ref7, _results;
-        if (el.get('identifier') === v) elementsWithIdentifier.push(v);
+        if (el.get('identifier') === v) elementsWithIdentifier.push(el);
         _ref7 = el.get('renderables');
         _results = [];
         for (_k = 0, _len3 = _ref7.length; _k < _len3; _k++) {

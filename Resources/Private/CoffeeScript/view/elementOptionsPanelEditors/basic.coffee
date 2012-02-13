@@ -50,13 +50,13 @@ TYPO3.FormBuilder.View.ElementOptionsPanel.Editor.IdentifierEditor = TYPO3.FormB
 			@set('validationErrorMessage', 'You need to set an identifier!')
 			return false
 		if !v.match(/^[a-z][a-zA-Z0-9-_]*$/)
-			@set('validationErrorMessage', 'This is no valid identifier')
+			@set('validationErrorMessage', 'This is no valid identifier. Only lowerCamelCase allowed.')
 			return false
 
 		elementsWithIdentifier = []
 		findFormElementsWithIdentifiers = (el) ->
 			if el.get('identifier') == v
-				elementsWithIdentifier.push(v)
+				elementsWithIdentifier.push(el)
 
 			for subRenderable in el.get('renderables')
 				findFormElementsWithIdentifiers(subRenderable)
