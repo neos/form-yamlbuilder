@@ -83,8 +83,8 @@ class FormManagerController extends \TYPO3\FLOW3\MVC\Controller\ActionController
 		}
 		$form = \Symfony\Component\Yaml\Yaml::parse(file_get_contents($templatePath));
 
-		// TODO transform to valid identifier (no spaces etc). Maybe identifier & name should be stored separately!
-		$formIdentifier = $formName;
+		$form['label'] = $formName;
+		$formIdentifier = $this->convertFormNameToIdentifier($formName);;
 		$form['identifier'] = $formIdentifier;
 		$formPersistenceIdentifier = str_replace('{identifier}', $formIdentifier, $this->settings['defaultFormPersistenceIdentifier']);
 		$this->formPersistenceManager->save($formPersistenceIdentifier, $form);
@@ -102,13 +102,25 @@ class FormManagerController extends \TYPO3\FLOW3\MVC\Controller\ActionController
 	public function duplicateAction($formName, $formPersistenceIdentifier) {
 		$formToDuplicate = $this->formPersistenceManager->load($formPersistenceIdentifier);
 
-		// TODO transform to valid identifier (no spaces etc). Maybe identifier & name should be stored separately!
-		$formIdentifier = $formName;
-		$formToDuplicate['identifier'] = $formIdentifier;
-		$formPersistenceIdentifier = str_replace('{identifier}', $formIdentifier, $this->settings['defaultFormPersistenceIdentifier']);
+		$formToDuplicate['label'] = $formName;
+		$formToDuplicate['identifier'] = $this->convertFormNameToIdentifier($formName);
+		$formPersistenceIdentifier = str_replace('{identifier}', $formToDuplicate['identifier'], $this->settings['defaultFormPersistenceIdentifier']);
 		$this->formPersistenceManager->save($formPersistenceIdentifier, $formToDuplicate);
 
 		$this->redirect('index', 'Editor', NULL, array('formPersistenceIdentifier' => $formPersistenceIdentifier));
+	}
+
+	/**
+	 * @param string $formName
+	 * @return string the form identifier which is the lowerCamelCased form name
+	 */
+	protected function convertFormNameToIdentifier($formName) {
+		$formIdentifier = preg_replace('/[^a-zA-Z0-9-_]/', '', lcfirst($formName));
+		if (preg_match(\TYPO3\Form\Core\Model\FormElementInterface::PATTERN_IDENTIFIER, $formIdentifier) !== 1) {
+			$this->addFlashMessage('The form name "%s" is not allowed', 'Invalid form name', \TYPO3\FLOW3\Error\Message::SEVERITY_ERROR, array($formName));
+			$this->redirect('index');
+		}
+		return $formIdentifier;
 	}
 }
 ?>

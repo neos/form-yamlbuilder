@@ -1,5 +1,6 @@
 type: 'TYPO3.Form:Form'
-identifier: '[new form]'
+identifier: 'blankForm'
+label: '[Blank Form]'
 renderables:
     -
         type: 'TYPO3.Form:Page'
