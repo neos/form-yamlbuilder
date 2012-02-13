@@ -845,7 +845,8 @@
       return prefix + i;
     },
     click: function() {
-      var currentlySelectedRenderable, defaultValues, identifier, indexInParent, newRenderable, parentRenderablesArray, referenceRenderable;
+      var currentlySelectedRenderable, defaultValues, identifier, indexInParent, newRenderable, parentRenderablesArray, referenceRenderable,
+        _this = this;
       currentlySelectedRenderable = this.get('currentlySelectedElement');
       if (!currentlySelectedRenderable) return;
       if (!this.get('enabled')) return;
@@ -873,7 +874,9 @@
         indexInParent = parentRenderablesArray.indexOf(referenceRenderable);
         parentRenderablesArray.replace(indexInParent + 1, 0, [newRenderable]);
       }
-      return this.set('currentlySelectedElement', newRenderable);
+      return window.setTimeout(function() {
+        return _this.set('currentlySelectedElement', newRenderable);
+      }, 10);
     }
   });
 

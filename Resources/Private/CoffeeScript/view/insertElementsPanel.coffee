@@ -186,5 +186,9 @@ TYPO3.FormBuilder.View.InsertElementsPanel.Element = Ember.View.extend {
 			indexInParent = parentRenderablesArray.indexOf(referenceRenderable)
 			parentRenderablesArray.replace(indexInParent+1, 0, [newRenderable])
 
-		@set('currentlySelectedElement', newRenderable)
+		# using the timeout here is a workaround: Else, a DOM error is thrown somewhere in ember.js
+		# when having the *form* selected and inserting a new page.
+		window.setTimeout(=>
+			@set('currentlySelectedElement', newRenderable)
+		, 10)
 }
