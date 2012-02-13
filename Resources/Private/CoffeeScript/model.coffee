@@ -63,10 +63,6 @@ TYPO3.FormBuilder.Model.Form = Ember.Object.create {
 		@set('currentlySelectedRenderable', @get('formDefinition'))
 	).observes('formDefinition')
 
-	setUnsavedContentFalseWhenLoadingFormDefinition: (->
-		@set('unsavedContent', false)
-	).observes('formDefinition')
-
 	contentChanged: ( ->
 		@set('unsavedContent', true)
 	).observes('formDefinition.__nestedPropertyChange')

@@ -87,6 +87,9 @@ TYPO3.FormBuilder.View.Header.SaveButton = Ember.Button.extend {
 	classNameBindings: ['isActive', 'currentStatus'],
 
 	currentStatusBinding: 'TYPO3.FormBuilder.Model.Form.saveStatus'
+	disabled: (->
+		return !Ember.getPath('TYPO3.FormBuilder.Model.Form.unsavedContent')
+	).property('TYPO3.FormBuilder.Model.Form.unsavedContent').cacheable()
 
 	save: ->
 		TYPO3.FormBuilder.Model.Form.save()

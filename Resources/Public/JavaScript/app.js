@@ -47,7 +47,8 @@
     $.getJSON(TYPO3.FormBuilder.Configuration.endpoints.loadForm, {
       formPersistenceIdentifier: (_ref6 = TYPO3.FormBuilder.Configuration) != null ? _ref6.formPersistenceIdentifier : void 0
     }, function(data, textStatus, jqXHR) {
-      return TYPO3.FormBuilder.Model.Form.set('formDefinition', TYPO3.FormBuilder.Model.Renderable.create(data));
+      TYPO3.FormBuilder.Model.Form.set('formDefinition', TYPO3.FormBuilder.Model.Renderable.create(data));
+      return TYPO3.FormBuilder.Model.Form.set('unsavedContent', false);
     });
   }
 
@@ -117,9 +118,6 @@
     onFormDefinitionChange: (function() {
       if (!this.get('formDefinition')) return;
       return this.set('currentlySelectedRenderable', this.get('formDefinition'));
-    }).observes('formDefinition'),
-    setUnsavedContentFalseWhenLoadingFormDefinition: (function() {
-      return this.set('unsavedContent', false);
     }).observes('formDefinition'),
     contentChanged: (function() {
       return this.set('unsavedContent', true);
@@ -505,6 +503,9 @@
     classNames: ['typo3-formbuilder-savebutton'],
     classNameBindings: ['isActive', 'currentStatus'],
     currentStatusBinding: 'TYPO3.FormBuilder.Model.Form.saveStatus',
+    disabled: (function() {
+      return !Ember.getPath('TYPO3.FormBuilder.Model.Form.unsavedContent');
+    }).property('TYPO3.FormBuilder.Model.Form.unsavedContent').cacheable(),
     save: function() {
       return TYPO3.FormBuilder.Model.Form.save();
     }

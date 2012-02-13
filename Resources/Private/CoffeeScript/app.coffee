@@ -42,6 +42,7 @@ if TYPO3.FormBuilder.Configuration?.formPersistenceIdentifier
 		{ formPersistenceIdentifier: TYPO3.FormBuilder.Configuration?.formPersistenceIdentifier },
 		(data, textStatus, jqXHR) =>
 			TYPO3.FormBuilder.Model.Form.set('formDefinition', TYPO3.FormBuilder.Model.Renderable.create(data))
+			TYPO3.FormBuilder.Model.Form.set('unsavedContent', false)
 	)
 
 
