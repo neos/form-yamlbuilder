@@ -345,6 +345,7 @@ TYPO3:
                   propertyPath: 'properties.options'
                   isSortable: true
                   enableAddRow: true
+                  enableDeleteRow: true
                   columns:
                     0:
                       field: '_value'

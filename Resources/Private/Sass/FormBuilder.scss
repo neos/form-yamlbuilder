@@ -293,6 +293,11 @@ $colorHighlight: #ff8700;
 					cursor: move;
 					background: #ddd url('../Images/drag-handle.png') no-repeat center center;
 				}
+
+				.slick-cell.typo3-formbuilder-grid-deleteRow {
+					cursor: pointer;
+					background: url('../Images/glyphicons-halflings.png') $icon-trash no-repeat;
+				}
 			}
 			.slick-reorder-proxy, .slick-reorder-guide {
 				background: $colorDarkBackground;

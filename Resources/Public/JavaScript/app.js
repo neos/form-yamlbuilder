@@ -1166,6 +1166,7 @@
     columns: null,
     isSortable: false,
     enableAddRow: false,
+    enableDeleteRow: false,
     shouldShowPreselectedValueColumn: false,
     templateName: 'ElementOptionsPanel-PropertyGridEditor',
     defaultValue: (function() {
@@ -1214,6 +1215,17 @@
           resizable: false,
           formatter: YesNoCellFormatter,
           editor: YesNoCheckboxCellEditor
+        });
+      }
+      if (this.get('enableDeleteRow')) {
+        columns.push({
+          id: '__delete',
+          name: '',
+          width: 16,
+          selectable: false,
+          resizable: false,
+          focusable: false,
+          cssClass: "typo3-formbuilder-grid-deleteRow"
         });
       }
       return columns;
@@ -1331,7 +1343,7 @@
         }
         return true;
       });
-      return moveRowsPlugin.onMoveRows.subscribe(function(e, args) {
+      moveRowsPlugin.onMoveRows.subscribe(function(e, args) {
         var arrayRowToBeMoved, movedRowIndex;
         movedRowIndex = args.rows[0];
         arrayRowToBeMoved = _this.get('tableRowModel').objectAt(movedRowIndex);
@@ -1342,6 +1354,18 @@
         _this.grid.invalidateAllRows();
         return _this.grid.render();
       });
+      if (this.get('enableDeleteRow')) {
+        return this.grid.onClick.subscribe(function(e, args) {
+          if (_this.get('enableDeleteRow') && args.cell === _this.get('columnDefinition').length - 1) {
+            if (args.row >= _this.getPath('tableRowModel.length')) return;
+            _this.get('tableRowModel').removeAt(args.row);
+            _this.grid.invalidateAllRows();
+            _this.grid.render();
+            _this.grid.resizeCanvas();
+            return _this.valueChanged();
+          }
+        });
+      }
     }
   });
 

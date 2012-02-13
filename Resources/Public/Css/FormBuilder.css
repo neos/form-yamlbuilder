@@ -1231,6 +1231,9 @@ span.dynatree-icon:before {
       #typo3-formbuilder-elementOptionsPanel .typo3-formbuilder-grid .slick-viewport .slick-row .cell-reorder {
         cursor: move;
         background: #dddddd url("../Images/drag-handle.png") no-repeat center center; }
+      #typo3-formbuilder-elementOptionsPanel .typo3-formbuilder-grid .slick-viewport .slick-row .slick-cell.typo3-formbuilder-grid-deleteRow {
+        cursor: pointer;
+        background: url("../Images/glyphicons-halflings.png") -456px 0 no-repeat; }
     #typo3-formbuilder-elementOptionsPanel .typo3-formbuilder-grid .slick-viewport .slick-reorder-proxy, #typo3-formbuilder-elementOptionsPanel .typo3-formbuilder-grid .slick-viewport .slick-reorder-guide {
       background: #282828; }
 #typo3-formbuilder-elementOptionsPanel .typo3-formbuilder-removeButton {

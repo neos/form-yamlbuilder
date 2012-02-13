@@ -25,6 +25,8 @@ TYPO3.FormBuilder.View.ElementOptionsPanel.Editor.PropertyGrid = TYPO3.FormBuild
 	# - `enableAddRow`: if TRUE, there is always one row more inside the table which can be used to create new elements
 	enableAddRow: false
 
+	# - `enableDeleteRow`: if TRUE, the last row with a delete icon is added
+	enableDeleteRow: false
 
 	# - `shouldShowPreselectedValueColumn`: (false|'single'|'multiple'). If set, then a column for setting the defaultValue
 	#   on the Form Element is shown.
@@ -88,6 +90,17 @@ TYPO3.FormBuilder.View.ElementOptionsPanel.Editor.PropertyGrid = TYPO3.FormBuild
 				resizable: false
 				formatter: YesNoCellFormatter
 				editor: YesNoCheckboxCellEditor
+			}
+
+		if @get('enableDeleteRow')
+			columns.push {
+				id: '__delete'
+				name: '',
+				width: 16
+				selectable: false
+				resizable: false
+				focusable: false
+				cssClass: "typo3-formbuilder-grid-deleteRow"
 			}
 
 		return columns
@@ -228,6 +241,21 @@ TYPO3.FormBuilder.View.ElementOptionsPanel.Editor.PropertyGrid = TYPO3.FormBuild
 
 			@grid.invalidateAllRows();
 			@grid.render()
+
+		# delete row handling
+		if @get('enableDeleteRow')
+			@grid.onClick.subscribe( (e, args) =>
+				if @get('enableDeleteRow') && args.cell == @get('columnDefinition').length - 1
+					# delete row is enabled, and by convention, it is the last row...
+					# and the user clicked onto the last row, i.e. we need to remove it.
+					return if args.row >= @getPath('tableRowModel.length') # user clicked on the "add row"
+
+					@get('tableRowModel').removeAt(args.row)
+					@grid.invalidateAllRows()
+					@grid.render()
+					@grid.resizeCanvas()
+					@valueChanged()
+			)
 }
 
 # This is just a standard TextCellEditor of SlickGrid; extended in a way that when
