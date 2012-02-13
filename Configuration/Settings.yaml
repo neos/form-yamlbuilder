@@ -269,6 +269,15 @@ TYPO3:
               sorting: 110
               _isTopLevel: true
               _isCompositeRenderable: true
+              editors:
+                identifier:
+                  sorting: 110
+                  viewName: 'TYPO3.FormBuilder.View.ElementOptionsPanel.Editor.IdentifierEditor'
+                label:
+                  label: 'Label'
+                  propertyPath: 'label'
+                  sorting: 120
+                  viewName: 'TYPO3.FormBuilder.View.ElementOptionsPanel.Editor.TextEditor'
 
           'TYPO3.Form:PreviewPage':
             formBuilder:
