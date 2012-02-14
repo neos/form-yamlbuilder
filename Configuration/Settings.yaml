@@ -57,6 +57,7 @@ TYPO3:
       ElementOptionsPanel-RequiredValidatorEditor:  resource://TYPO3.FormBuilder/Private/FormBuilderTemplates/ElementOptionsPanel/RequiredValidatorEditor.html
       ElementOptionsPanel-TextEditor:  resource://TYPO3.FormBuilder/Private/FormBuilderTemplates/ElementOptionsPanel/TextEditor.html
       ElementOptionsPanel-TextareaEditor:  resource://TYPO3.FormBuilder/Private/FormBuilderTemplates/ElementOptionsPanel/TextareaEditor.html
+      ElementOptionsPanel-SelectEditor:  resource://TYPO3.FormBuilder/Private/FormBuilderTemplates/ElementOptionsPanel/SelectEditor.html
       ElementOptionsPanel-ValidatorEditor:  resource://TYPO3.FormBuilder/Private/FormBuilderTemplates/ElementOptionsPanel/ValidatorEditor.html
 
       # Validator Editors
@@ -235,7 +236,19 @@ TYPO3:
               label: 'File Upload'
               group: custom
               sorting: 110
-
+              editors:
+                allowedExtensions:
+                  sorting: 200
+                  label: 'Allowed File Types'
+                  propertyPath: 'properties.allowedExtensions'
+                  viewName: 'TYPO3.FormBuilder.View.ElementOptionsPanel.Editor.SelectEditor'
+                  availableElements:
+                    0:
+                      value: ['doc', 'docx', 'odt', 'pdf']
+                      label: 'Documents (doc, docx, odt, pdf)'
+                    1:
+                      value: ['xls']
+                      label: 'Spreadsheet documents (xls)'
           'TYPO3.Form:ImageUpload':
             formBuilder:
               label: 'Image Upload'

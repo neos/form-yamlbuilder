@@ -142,7 +142,36 @@ TYPO3.FormBuilder.View.ElementOptionsPanel.Editor.TextareaEditor = TYPO3.FormBui
 	templateName: 'ElementOptionsPanel-TextareaEditor'
 }
 
+# ***
+# ##Class Editor.SelectEditor##
+#
+# Edit a single property specified at `propertyPath` with a select drop down field.
+#
+# ###Public API###
+#
+# - `label`: Label of the select box, which should be shown.
+TYPO3.FormBuilder.View.ElementOptionsPanel.Editor.SelectEditor = TYPO3.FormBuilder.View.ElementOptionsPanel.Editor.AbstractPropertyEditor.extend {
+	templateName: 'ElementOptionsPanel-SelectEditor'
 
+	# - `availableElements`: Array of elements which are shown in the select box. Each element is a JavaScript object which should have a "label" and a "value" property.
+	availableElements: null
+
+	# ***
+	# ###Private###
+	selectedValue: ((k, v) ->
+		if arguments.length >= 2
+			# we need to set the value
+			@set('value', v.value)
+			@valueChanged()
+
+		# get the current value
+		for element in @get('availableElements')
+			return element if element.value == @get('value')
+
+		# fallback if value not found
+		return null
+	).property('availableElements', 'value').cacheable()
+}
 
 # ***
 # ##Class Editor.RemoveElementEditor##

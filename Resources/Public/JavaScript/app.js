@@ -1158,6 +1158,24 @@
     templateName: 'ElementOptionsPanel-TextareaEditor'
   });
 
+  TYPO3.FormBuilder.View.ElementOptionsPanel.Editor.SelectEditor = TYPO3.FormBuilder.View.ElementOptionsPanel.Editor.AbstractPropertyEditor.extend({
+    templateName: 'ElementOptionsPanel-SelectEditor',
+    availableElements: null,
+    selectedValue: (function(k, v) {
+      var element, _k, _len3, _ref7;
+      if (arguments.length >= 2) {
+        this.set('value', v.value);
+        this.valueChanged();
+      }
+      _ref7 = this.get('availableElements');
+      for (_k = 0, _len3 = _ref7.length; _k < _len3; _k++) {
+        element = _ref7[_k];
+        if (element.value === this.get('value')) return element;
+      }
+      return null;
+    }).property('availableElements', 'value').cacheable()
+  });
+
   TYPO3.FormBuilder.View.ElementOptionsPanel.Editor.RemoveElementEditor = TYPO3.FormBuilder.View.ElementOptionsPanel.Editor.AbstractEditor.extend({
     templateName: 'ElementOptionsPanel-RemoveElement',
     remove: function() {
