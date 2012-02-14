@@ -79,7 +79,7 @@ class FormManagerController extends \TYPO3\FLOW3\MVC\Controller\ActionController
 	 */
 	public function createAction($formName, $templatePath) {
 		if (!isset($this->settings['newFormTemplates'][$templatePath])) {
-			throw new \TYPO3\FLOW3\Exception('TODO: the template "' . $templatePath . '" was not allowed');
+			throw new \TYPO3\FLOW3\Exception(sprintf('The template path "%s" is not allowed', $templatePath), 1329233410);
 		}
 		$form = \Symfony\Component\Yaml\Yaml::parse(file_get_contents($templatePath));
 
