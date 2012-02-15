@@ -74,7 +74,8 @@ TYPO3.FormBuilder.View.Header.PreviewButton = Ember.Button.extend {
 
 	preview: ->
 		windowIdentifier = 'preview_' + TYPO3.FormBuilder.Model.Form.getPath('formDefinition.identifier')
-		window.open(TYPO3.FormBuilder.Utility.getUri(TYPO3.FormBuilder.Configuration.endpoints.previewForm), windowIdentifier)
+		# IE HACK: to make the preview work in IE8, we need to prepend a "/" in front of the URI
+		window.open('/' + TYPO3.FormBuilder.Utility.getUri(TYPO3.FormBuilder.Configuration.endpoints.previewForm), windowIdentifier)
 }
 
 # ####Save Button

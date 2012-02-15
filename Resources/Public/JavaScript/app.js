@@ -489,7 +489,7 @@
     preview: function() {
       var windowIdentifier;
       windowIdentifier = 'preview_' + TYPO3.FormBuilder.Model.Form.getPath('formDefinition.identifier');
-      return window.open(TYPO3.FormBuilder.Utility.getUri(TYPO3.FormBuilder.Configuration.endpoints.previewForm), windowIdentifier);
+      return window.open('/' + TYPO3.FormBuilder.Utility.getUri(TYPO3.FormBuilder.Configuration.endpoints.previewForm), windowIdentifier);
     }
   });
 
@@ -990,15 +990,23 @@
     }).property('sortedAvailableCollectionElements').cacheable(),
     addCollectionElementSelection: null,
     addCollectionElement: (function() {
-      var collectionElementToBeAdded;
+      var collectionElementToBeAdded,
+        _this = this;
       collectionElementToBeAdded = this.get('addCollectionElementSelection');
       if (!collectionElementToBeAdded) return;
       this.get('value').push({
         identifier: collectionElementToBeAdded.identifier,
         options: collectionElementToBeAdded.options || {}
       });
-      this.valueChanged();
       this.updateCollectionEditorViews();
+      this.valueChanged();
+      if (jQuery.browser.msie) {
+        window.setTimeout(function() {
+          var viewId;
+          viewId = _this.$().find('.typo3-formbuilder-addFinisher select, .typo3-formbuilder-addValidator select').attr('id');
+          return Ember.View.views[viewId].rerender();
+        }, 100);
+      }
       return this.set('addCollectionElementSelection', null);
     }).observes('addCollectionElementSelection'),
     updateCollectionEditorViews: (function() {

@@ -72,8 +72,18 @@ TYPO3.FormBuilder.View.ElementOptionsPanel.Editor.AbstractCollectionEditor = TYP
 			options: collectionElementToBeAdded.options || {}
 		}
 
-		@valueChanged()
 		@updateCollectionEditorViews()
+		@valueChanged()
+
+		if jQuery.browser.msie
+			# HACK for IE8: Somehow, it seems that IE8 messes up the select
+			# dropdown ("Select a validator / finisher to add..."), adding
+			# sometimes double entries etc.
+			# Thus, we have to redraw the *complete* dropdown.
+			window.setTimeout(=>
+				viewId = @$().find('.typo3-formbuilder-addFinisher select, .typo3-formbuilder-addValidator select').attr('id')
+				Ember.View.views[viewId].rerender()
+			, 100)
 
 		# reset the "addCollectionElement" dropdown
 		@set('addCollectionElementSelection', null)
