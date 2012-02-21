@@ -1136,6 +1136,8 @@ span.dynatree-icon:before {
             margin: 2px 0 0 -17px;
             height: 14px;
             width: 14px; }
+          #typo3-formbuilder-insertElementsPanel ul li.typo3-formbuilder-enabled span:before {
+            margin-top: 0; }
       #typo3-formbuilder-insertElementsPanel ul li span {
         cursor: disabled;
         display: block;
@@ -1150,6 +1152,8 @@ span.dynatree-icon:before {
           width: 14px; }
         #typo3-formbuilder-insertElementsPanel ul li span:before {
           background-image: url("../Images/glyphicons-halflings.png"); }
+        #typo3-formbuilder-insertElementsPanel ul li span:before {
+          margin-top: 0; }
 
 #typo3-formbuilder-elementOptionsPanel .typo3-formbuilder-propertyPanelTitle {
   height: 28px; }

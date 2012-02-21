@@ -182,6 +182,9 @@ $colorHighlight: #ff8700;
 				span {
 					cursor: pointer;
 					@include icon($icon-file);
+					&:before {
+						margin-top: 0;
+					}
 				}
 			}
 			span {
@@ -190,6 +193,9 @@ $colorHighlight: #ff8700;
 				display: block;
 				padding: 4px 0 3px 2px;
 				font-size: 10px;
+				&:before {
+					margin-top: 0;
+				}
 			}
 		}
 	}
