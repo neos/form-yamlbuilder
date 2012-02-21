@@ -3,6 +3,11 @@ body {
 	padding-bottom: 40px;
 }
 
+small {
+	font-size: 11px;
+	color: #999;
+}
+
 footer p {
 	text-align: center; /* center align it with the container */
 }
