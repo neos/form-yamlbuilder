@@ -82,11 +82,11 @@ class FormManagerController extends \TYPO3\FLOW3\MVC\Controller\ActionController
 			throw new \TYPO3\FLOW3\Exception(sprintf('The template path "%s" is not allowed', $templatePath), 1329233410);
 		}
 		$form = \Symfony\Component\Yaml\Yaml::parse(file_get_contents($templatePath));
-
 		$form['label'] = $formName;
 		$formIdentifier = $this->convertFormNameToIdentifier($formName);;
 		$form['identifier'] = $formIdentifier;
-		$formPersistenceIdentifier = str_replace('{identifier}', $formIdentifier, $this->settings['defaultFormPersistenceIdentifier']);
+
+		$formPersistenceIdentifier = $this->findUniquePersistenceIdentifier($formIdentifier);
 		$this->formPersistenceManager->save($formPersistenceIdentifier, $form);
 
 		$this->redirect('index', 'Editor', NULL, array('formPersistenceIdentifier' => $formPersistenceIdentifier));
@@ -101,10 +101,10 @@ class FormManagerController extends \TYPO3\FLOW3\MVC\Controller\ActionController
 	 */
 	public function duplicateAction($formName, $formPersistenceIdentifier) {
 		$formToDuplicate = $this->formPersistenceManager->load($formPersistenceIdentifier);
-
 		$formToDuplicate['label'] = $formName;
 		$formToDuplicate['identifier'] = $this->convertFormNameToIdentifier($formName);
-		$formPersistenceIdentifier = str_replace('{identifier}', $formToDuplicate['identifier'], $this->settings['defaultFormPersistenceIdentifier']);
+
+		$formPersistenceIdentifier = $this->findUniquePersistenceIdentifier($formToDuplicate['identifier']);
 		$this->formPersistenceManager->save($formPersistenceIdentifier, $formToDuplicate);
 
 		$this->redirect('index', 'Editor', NULL, array('formPersistenceIdentifier' => $formPersistenceIdentifier));
@@ -121,6 +121,27 @@ class FormManagerController extends \TYPO3\FLOW3\MVC\Controller\ActionController
 			$this->redirect('index');
 		}
 		return $formIdentifier;
+	}
+
+	/**
+	 * This takes a form identifier and returns a unique persistence identifier for it.
+	 * By default this is just similar to the identifier. But if a form with the same persistence identifier already
+	 * exists a suffix is appended until the persistence identifier is unique.
+	 *
+	 * @param string $formIdentifier lowerCamelCased form identifier
+	 * @return string unique form persistence identifier
+	 */
+	protected function findUniquePersistenceIdentifier($formIdentifier) {
+		if (!$this->formPersistenceManager->exists($formIdentifier)) {
+			return $formIdentifier;
+		}
+		for ($attempts = 1; $attempts < 100; $attempts ++) {
+			$formPersistenceIdentifier = sprintf('%s_%d', $formIdentifier, $attempts);
+			if (!$this->formPersistenceManager->exists($formPersistenceIdentifier)) {
+				return $formPersistenceIdentifier;
+			}
+		}
+		throw new \TYPO3\FLOW3\Exception(sprintf('Could not find a unique persistence identifier for form identifier "%s" after %d attempts', $formIdentifier, $attempts), 1329842768);
 	}
 }
 ?>
