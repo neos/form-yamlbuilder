@@ -18,7 +18,7 @@ use TYPO3\FLOW3\Annotations as FLOW3;
  *
  * @FLOW3\Scope("singleton")
  */
-class StandardController extends \TYPO3\FLOW3\MVC\Controller\ActionController {
+class StandardController extends \TYPO3\FLOW3\Mvc\Controller\ActionController {
 
 	/**
 	 * Standard controller
