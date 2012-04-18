@@ -185,6 +185,12 @@ TYPO3:
               group: input
               sorting: 110
 
+          'TYPO3.Form:Password':
+            formBuilder:
+              label: 'Password field'
+              group: input
+              sorting: 120
+
           # group SELECT
           'TYPO3.Form:Checkbox':
             formBuilder:
