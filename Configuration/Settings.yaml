@@ -191,6 +191,19 @@ TYPO3:
               group: input
               sorting: 120
 
+          'TYPO3.Form:PasswordWithConfirmation':
+            formBuilder:
+              label: 'Password with confirmation'
+              group: input
+              sorting: 130
+              editors:
+                confirmationLabel:
+                  sorting: 125
+                  viewName: 'TYPO3.FormBuilder.View.ElementOptionsPanel.Editor.TextEditor'
+                  label: 'Conf. Label'
+                  defaultValue: 'Confirmation'
+                  propertyPath: 'properties.confirmationLabel'
+
           # group SELECT
           'TYPO3.Form:Checkbox':
             formBuilder:
