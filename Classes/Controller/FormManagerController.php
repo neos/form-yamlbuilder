@@ -120,11 +120,8 @@ class FormManagerController extends \TYPO3\FLOW3\Mvc\Controller\ActionController
 	 * @return string the form identifier which is the lowerCamelCased form name
 	 */
 	protected function convertFormNameToIdentifier($formName) {
-		$formIdentifier = preg_replace('/[^a-zA-Z0-9-_]/', '', lcfirst($formName));
-		if (preg_match(\TYPO3\Form\Core\Model\FormElementInterface::PATTERN_IDENTIFIER, $formIdentifier) !== 1) {
-			$this->addFlashMessage('The form name "%s" is not allowed', 'Invalid form name', \TYPO3\FLOW3\Error\Message::SEVERITY_ERROR, array($formName));
-			$this->redirect('index');
-		}
+		$formIdentifier = preg_replace('/[^a-zA-Z0-9-_]/', '', $formName);
+		$formIdentifier = lcfirst($formIdentifier);
 		return $formIdentifier;
 	}
 
