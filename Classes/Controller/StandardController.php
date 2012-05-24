@@ -21,11 +21,6 @@ use TYPO3\FLOW3\Annotations as FLOW3;
 class StandardController extends \TYPO3\FLOW3\Mvc\Controller\ActionController {
 
 	/**
-	 * @var string
-	 */
-	protected $defaultViewObjectName = 'Amadeus\Somea\Suite\Common\Mvc\View\SomeaTemplateView';
-
-	/**
 	 * Standard controller
 	 */
 	public function indexAction() {

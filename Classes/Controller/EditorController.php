@@ -21,11 +21,6 @@ use TYPO3\FLOW3\Annotations as FLOW3;
 class EditorController extends \TYPO3\FLOW3\Mvc\Controller\ActionController {
 
 	/**
-	 * @var string
-	 */
-	protected $defaultViewObjectName = 'Amadeus\Somea\Suite\Common\Mvc\View\SomeaTemplateView';
-
-	/**
 	 * @FLOW3\Inject
 	 * @var \TYPO3\Form\Persistence\FormPersistenceManagerInterface
 	 */
