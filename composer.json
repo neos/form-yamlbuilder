@@ -1,0 +1,15 @@
+{
+	"name": "typo3/formbuilder",
+	"type": "flow3-package",
+	"description": "Graphical User Interface for creating and editing Forms based on the TYPO3 Flow Form Framework",
+	"version": "",
+	"require": {
+		"typo3/flow3": "*",
+		"typo3/form": "*"
+	},
+	"autoload": {
+		"psr-0": {
+			"TYPO3\\FormBuilder": "Classes"
+		}
+	}
+}
