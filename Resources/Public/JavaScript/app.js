@@ -1415,7 +1415,7 @@
     }).property().cacheable(),
     isRequiredValidatorConfigured: (function(k, v) {
       var a, notEmptyValidatorIdentifier, val;
-      notEmptyValidatorIdentifier = 'TYPO3.FLOW3:NotEmpty';
+      notEmptyValidatorIdentifier = 'TYPO3.Flow:NotEmpty';
       if (v !== void 0) {
         a = this.get('value').filter(function(validatorConfiguration) {
           return validatorConfiguration.identifier !== notEmptyValidatorIdentifier;
