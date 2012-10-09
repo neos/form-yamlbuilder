@@ -11,7 +11,7 @@ namespace TYPO3\FormBuilder\ViewHelpers;
  * The TYPO3 project - inspiring people to share!                         *
  *                                                                        */
 
-use TYPO3\FLOW3\Annotations as FLOW3;
+use TYPO3\Flow\Annotations as Flow;
 
 /**
  * @todo rename
@@ -19,13 +19,13 @@ use TYPO3\FLOW3\Annotations as FLOW3;
 class JsonConfigurationViewHelper extends \TYPO3\Fluid\Core\ViewHelper\AbstractViewHelper {
 
 	/**
-	 * @FLOW3\Inject
-	 * @var \TYPO3\FLOW3\Resource\Publishing\ResourcePublisher
+	 * @Flow\Inject
+	 * @var \TYPO3\Flow\Resource\Publishing\ResourcePublisher
 	 */
 	protected $resourcePublisher;
 
 	/**
-	 * @FLOW3\Inject
+	 * @Flow\Inject
 	 * @var \TYPO3\Form\Factory\ArrayFormFactory
 	 */
 	protected $formBuilderFactory;

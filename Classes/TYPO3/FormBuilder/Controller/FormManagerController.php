@@ -11,17 +11,17 @@ namespace TYPO3\FormBuilder\Controller;
  * The TYPO3 project - inspiring people to share!                         *
  *                                                                        */
 
-use TYPO3\FLOW3\Annotations as FLOW3;
+use TYPO3\Flow\Annotations as Flow;
 
 /**
  * Form Manager controller for the TYPO3.FormBuilder package
  *
- * @FLOW3\Scope("singleton")
+ * @Flow\Scope("singleton")
  */
-class FormManagerController extends \TYPO3\FLOW3\Mvc\Controller\ActionController {
+class FormManagerController extends \TYPO3\Flow\Mvc\Controller\ActionController {
 
 	/**
-	 * @FLOW3\Inject
+	 * @Flow\Inject
 	 * @var \TYPO3\Form\Persistence\FormPersistenceManagerInterface
 	 */
 	protected $formPersistenceManager;
@@ -35,8 +35,8 @@ class FormManagerController extends \TYPO3\FLOW3\Mvc\Controller\ActionController
 	protected $formSettings;
 
 	/**
-	 * @FLOW3\Inject
-	 * @var \TYPO3\FLOW3\Configuration\ConfigurationManager
+	 * @Flow\Inject
+	 * @var \TYPO3\Flow\Configuration\ConfigurationManager
 	 * @internal
 	 */
 	protected $configurationManager;
@@ -45,7 +45,7 @@ class FormManagerController extends \TYPO3\FLOW3\Mvc\Controller\ActionController
 	 * @internal
 	 */
 	public function initializeObject() {
-		$this->formSettings = $this->configurationManager->getConfiguration(\TYPO3\FLOW3\Configuration\ConfigurationManager::CONFIGURATION_TYPE_SETTINGS, 'TYPO3.Form');
+		$this->formSettings = $this->configurationManager->getConfiguration(\TYPO3\Flow\Configuration\ConfigurationManager::CONFIGURATION_TYPE_SETTINGS, 'TYPO3.Form');
 	}
 
 	/**
@@ -84,7 +84,7 @@ class FormManagerController extends \TYPO3\FLOW3\Mvc\Controller\ActionController
 	 */
 	public function createAction($formName, $templatePath) {
 		if (!isset($this->settings['newFormTemplates'][$templatePath])) {
-			throw new \TYPO3\FLOW3\Exception(sprintf('The template path "%s" is not allowed', $templatePath), 1329233410);
+			throw new \TYPO3\Flow\Exception(sprintf('The template path "%s" is not allowed', $templatePath), 1329233410);
 		}
 		$form = \Symfony\Component\Yaml\Yaml::parse(file_get_contents($templatePath));
 		$form['label'] = $formName;
@@ -143,7 +143,7 @@ class FormManagerController extends \TYPO3\FLOW3\Mvc\Controller\ActionController
 				return $formPersistenceIdentifier;
 			}
 		}
-		throw new \TYPO3\FLOW3\Exception(sprintf('Could not find a unique persistence identifier for form identifier "%s" after %d attempts', $formIdentifier, $attempts), 1329842768);
+		throw new \TYPO3\Flow\Exception(sprintf('Could not find a unique persistence identifier for form identifier "%s" after %d attempts', $formIdentifier, $attempts), 1329842768);
 	}
 }
 ?>

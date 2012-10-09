@@ -11,17 +11,17 @@ namespace TYPO3\FormBuilder\Controller;
  * The TYPO3 project - inspiring people to share!                         *
  *                                                                        */
 
-use TYPO3\FLOW3\Annotations as FLOW3;
+use TYPO3\Flow\Annotations as Flow;
 
 /**
  * Standard controller for the TYPO3.FormBuilder package
  *
- * @FLOW3\Scope("singleton")
+ * @Flow\Scope("singleton")
  */
-class EditorController extends \TYPO3\FLOW3\Mvc\Controller\ActionController {
+class EditorController extends \TYPO3\Flow\Mvc\Controller\ActionController {
 
 	/**
-	 * @FLOW3\Inject
+	 * @Flow\Inject
 	 * @var \TYPO3\Form\Persistence\FormPersistenceManagerInterface
 	 */
 	protected $formPersistenceManager;
