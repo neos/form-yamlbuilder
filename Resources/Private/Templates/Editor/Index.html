@@ -11,13 +11,13 @@
 
 	<f:for each="{javaScripts}" as="script">
 		<f:for each="{script.files}" as="uri">
-			<script src="{f:uri.resource(uri:uri)}"></script>
+			<script src="{f:uri.resource(path: uri)}"></script>
 		</f:for>
 	</f:for>
 
 	<f:for each="{stylesheets}" as="stylesheet">
 		<f:for each="{stylesheet.files}" as="uri">
-			<link rel="stylesheet" href="{f:uri.resource(uri:uri)}" />
+			<link rel="stylesheet" href="{f:uri.resource(path: uri)}" />
 		</f:for>
 	</f:for>
 
