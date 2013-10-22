@@ -265,13 +265,13 @@
     margin: 0;
     padding: 0;
     border: 0;
-    font-size: 100%;
     font: inherit;
+    font-size: 100%;
     vertical-align: baseline; }
-  #typo3-formbuilder-header body,
-  #typo3-formbuilder-elementSidebar body,
-  #typo3-formbuilder-elementOptionsPanel body,
-  #typo3-formbuilder-footer body {
+  #typo3-formbuilder-header html,
+  #typo3-formbuilder-elementSidebar html,
+  #typo3-formbuilder-elementOptionsPanel html,
+  #typo3-formbuilder-footer html {
     line-height: 1; }
   #typo3-formbuilder-header ol, #typo3-formbuilder-header ul,
   #typo3-formbuilder-elementSidebar ol,
@@ -508,8 +508,8 @@ span.dynatree-icon:before {
   #typo3-formbuilder-elementOptionsPanel textarea,
   #typo3-formbuilder-footer input,
   #typo3-formbuilder-footer textarea {
-    -moz-transition-property: none;
     -webkit-transition-property: none;
+    -moz-transition-property: none;
     -o-transition-property: none;
     transition-property: none;
     width: inherit;
@@ -527,9 +527,8 @@ span.dynatree-icon:before {
       border: 1px solid #ff8700;
       background: white;
       color: black;
-      -moz-box-shadow: #ff8700 0 0 5px;
       -webkit-box-shadow: #ff8700 0 0 5px;
-      -o-box-shadow: #ff8700 0 0 5px;
+      -moz-box-shadow: #ff8700 0 0 5px;
       box-shadow: #ff8700 0 0 5px; }
   #typo3-formbuilder-header .typo3-formbuilder-button,
   #typo3-formbuilder-elementSidebar .typo3-formbuilder-button,
@@ -544,7 +543,6 @@ span.dynatree-icon:before {
     background-image: -webkit-linear-gradient(#555555, #333333);
     background-image: -moz-linear-gradient(#555555, #333333);
     background-image: -o-linear-gradient(#555555, #333333);
-    background-image: -ms-linear-gradient(#555555, #333333);
     background-image: linear-gradient(#555555, #333333);
     text-align: center;
     text-shadow: 0 1px 1px rgba(15, 15, 15, 0.95);
@@ -561,7 +559,6 @@ span.dynatree-icon:before {
       background-image: -webkit-linear-gradient(#666666, #333333);
       background-image: -moz-linear-gradient(#666666, #333333);
       background-image: -o-linear-gradient(#666666, #333333);
-      background-image: -ms-linear-gradient(#666666, #333333);
       background-image: linear-gradient(#666666, #333333); }
     #typo3-formbuilder-header .typo3-formbuilder-button.active, #typo3-formbuilder-header .typo3-formbuilder-button:active,
     #typo3-formbuilder-elementSidebar .typo3-formbuilder-button.active,
@@ -604,7 +601,6 @@ span.dynatree-icon:before {
       background-image: -webkit-linear-gradient(#7a4848, #634444);
       background-image: -moz-linear-gradient(#7a4848, #634444);
       background-image: -o-linear-gradient(#7a4848, #634444);
-      background-image: -ms-linear-gradient(#7a4848, #634444);
       background-image: linear-gradient(#7a4848, #634444); }
       #typo3-formbuilder-header .typo3-formbuilder-button.danger:hover,
       #typo3-formbuilder-elementSidebar .typo3-formbuilder-button.danger:hover,
@@ -614,7 +610,6 @@ span.dynatree-icon:before {
         background-image: -webkit-linear-gradient(#9b3939, #634444);
         background-image: -moz-linear-gradient(#9b3939, #634444);
         background-image: -o-linear-gradient(#9b3939, #634444);
-        background-image: -ms-linear-gradient(#9b3939, #634444);
         background-image: linear-gradient(#9b3939, #634444); }
 
 /*
@@ -701,7 +696,6 @@ span.dynatree-icon:before {
     background-image: -webkit-linear-gradient(#555555, #333333);
     background-image: -moz-linear-gradient(#555555, #333333);
     background-image: -o-linear-gradient(#555555, #333333);
-    background-image: -ms-linear-gradient(#555555, #333333);
     background-image: linear-gradient(#555555, #333333);
     text-align: center;
     text-shadow: 0 1px 1px rgba(15, 15, 15, 0.95);
@@ -715,7 +709,6 @@ span.dynatree-icon:before {
       background-image: -webkit-linear-gradient(#666666, #333333);
       background-image: -moz-linear-gradient(#666666, #333333);
       background-image: -o-linear-gradient(#666666, #333333);
-      background-image: -ms-linear-gradient(#666666, #333333);
       background-image: linear-gradient(#666666, #333333); }
     .typo3-formbuilder-dialog button.active, .typo3-formbuilder-dialog button:active {
       background-image: none;
@@ -740,14 +733,12 @@ span.dynatree-icon:before {
       background-image: -webkit-linear-gradient(#7a4848, #634444);
       background-image: -moz-linear-gradient(#7a4848, #634444);
       background-image: -o-linear-gradient(#7a4848, #634444);
-      background-image: -ms-linear-gradient(#7a4848, #634444);
       background-image: linear-gradient(#7a4848, #634444); }
       .typo3-formbuilder-dialog button.danger:hover {
         background-image: -webkit-gradient(linear, 50% 0%, 50% 100%, color-stop(0%, #9b3939), color-stop(100%, #634444));
         background-image: -webkit-linear-gradient(#9b3939, #634444);
         background-image: -moz-linear-gradient(#9b3939, #634444);
         background-image: -o-linear-gradient(#9b3939, #634444);
-        background-image: -ms-linear-gradient(#9b3939, #634444);
         background-image: linear-gradient(#9b3939, #634444); }
   .typo3-formbuilder-dialog a {
     color: #333333; }
@@ -1043,7 +1034,7 @@ span.dynatree-icon:before {
     margin: 5px 0 0 12px;
     font-size: 25px;
     color: #fff;
-    text-shadow: 0 -1px 0 #777777;
+    text-shadow: 0 -1px 0 #777;
     background: transparent url("../Images/flowLogo.png") 2px center no-repeat;
     padding-left: 23px; }
   #typo3-formbuilder-header #typo3-formbuilder-toolbar {

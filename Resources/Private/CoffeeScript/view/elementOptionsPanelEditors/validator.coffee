@@ -33,7 +33,7 @@ TYPO3.FormBuilder.View.ElementOptionsPanel.Editor.RequiredValidatorEditor = TYPO
 
 	# returns TRUE if the required validator is currently configured, FALSE otherwise.
 	isRequiredValidatorConfigured: ((k, v) ->
-		notEmptyValidatorIdentifier = 'TYPO3.FLOW3:NotEmpty'
+		notEmptyValidatorIdentifier = 'TYPO3.Flow:NotEmpty'
 		if v != undefined
 			# set case
 			# remove all NotEmptyValidators first
