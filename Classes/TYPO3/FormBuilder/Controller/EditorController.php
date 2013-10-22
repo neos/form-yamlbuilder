@@ -33,7 +33,10 @@ class EditorController extends \TYPO3\Flow\Mvc\Controller\ActionController {
 	 * @param string $presetName
 	 * @return void
 	 */
-	public function indexAction($formPersistenceIdentifier, $presetName = 'default') {
+	public function indexAction($formPersistenceIdentifier, $presetName = NULL) {
+		if ($presetName === NULL) {
+			$presetName = $this->settings['defaultPreset'];
+		}
 		$handlebarsTemplates = array();
 		foreach ($this->settings['handlebarsTemplates'] as $templateName => $filePath) {
 			$handlebarsTemplates[] = '<script type="text/x-handlebars" data-template-name="' . $templateName . '">' . file_get_contents($filePath) . '</script>';
@@ -83,7 +86,10 @@ class EditorController extends \TYPO3\Flow\Mvc\Controller\ActionController {
 	 * @param string $presetName
 	 * @return string
 	 */
-	public function renderformpageAction($formDefinition, $currentPageIndex, $presetName = 'default') {
+	public function renderformpageAction($formDefinition, $currentPageIndex, $presetName = NULL) {
+		if ($presetName === NULL) {
+			$presetName = $this->settings['defaultPreset'];
+		}
 		$formFactory = new \TYPO3\Form\Factory\ArrayFormFactory();
 		$formDefinition = $formFactory->build($formDefinition, $presetName);
 		$formDefinition->setRenderingOption('previewMode', TRUE);

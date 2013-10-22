@@ -1,5 +1,6 @@
 TYPO3:
   FormBuilder:
+    defaultPreset: 'default'
     newFormTemplates:
       'resource://TYPO3.FormBuilder/Private/NewFormTemplates/Blank.yaml': Blank
 
