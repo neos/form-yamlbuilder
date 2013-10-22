@@ -31,8 +31,14 @@ class JsonConfigurationViewHelper extends \TYPO3\Fluid\Core\ViewHelper\AbstractV
 	protected $formBuilderFactory;
 
 	/**
+	 * @Flow\Inject
+	 * @var \TYPO3\Flow\Security\Context
+	 */
+	protected $securityContext;
+
+	/**
 	 * @param string $presetName
-	 * @return type
+	 * @return string
 	 */
 	public function render($presetName = 'default') {
 		$mergedConfiguration = array();
@@ -66,6 +72,8 @@ class JsonConfigurationViewHelper extends \TYPO3\Fluid\Core\ViewHelper\AbstractV
 		$mergedConfiguration['endpoints']['saveForm'] = $this->controllerContext->getUriBuilder()->uriFor('saveform');
 		$mergedConfiguration['endpoints']['editForm'] = $this->controllerContext->getUriBuilder()->uriFor('index');
 		$mergedConfiguration['endpoints']['previewForm'] = $this->controllerContext->getUriBuilder()->uriFor('show', array(), 'FormManager');
+
+		$mergedConfiguration['csrfToken'] = $this->securityContext->getCsrfProtectionToken();
 
 		$mergedConfiguration['formPersistenceIdentifier'] = $this->controllerContext->getArguments()->getArgument('formPersistenceIdentifier')->getValue();
 

@@ -116,7 +116,8 @@
       formDefinition = TYPO3.FormBuilder.Utility.convertToSimpleObject(this.get('formDefinition'));
       return $.post(TYPO3.FormBuilder.Configuration.endpoints.saveForm, {
         formPersistenceIdentifier: (_ref6 = TYPO3.FormBuilder.Configuration) != null ? _ref6.formPersistenceIdentifier : void 0,
-        formDefinition: formDefinition
+        formDefinition: formDefinition,
+        __csrfToken: TYPO3.FormBuilder.Configuration.csrfToken
       }, function(data, textStatus, jqXHR) {
         if (data === 'success') {
           _this.set('saveStatus', 'saved');
@@ -581,7 +582,8 @@
         return _this.currentAjaxRequest = $.post(TYPO3.FormBuilder.Configuration.endpoints.formPageRenderer, {
           formDefinition: formDefinition,
           currentPageIndex: _this.get('currentPageIndex'),
-          presetName: TYPO3.FormBuilder.Configuration.presetName
+          presetName: TYPO3.FormBuilder.Configuration.presetName,
+          __csrfToken: TYPO3.FormBuilder.Configuration.csrfToken
         }, function(data, textStatus, jqXHR) {
           if (_this.currentAjaxRequest !== jqXHR) {
             return;

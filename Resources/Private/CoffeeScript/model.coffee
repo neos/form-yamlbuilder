@@ -51,7 +51,8 @@ TYPO3.FormBuilder.Model.Form = Ember.Object.create {
 			TYPO3.FormBuilder.Configuration.endpoints.saveForm,
 			{
 				formPersistenceIdentifier: TYPO3.FormBuilder.Configuration?.formPersistenceIdentifier
-				formDefinition
+				formDefinition,
+				__csrfToken: TYPO3.FormBuilder.Configuration.csrfToken
 			},
 			(data, textStatus, jqXHR) =>
 				if data == 'success'

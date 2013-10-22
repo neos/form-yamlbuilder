@@ -62,7 +62,8 @@ TYPO3.FormBuilder.View.Stage = Ember.View.extend {
 				{
 					formDefinition,
 					currentPageIndex: @get('currentPageIndex'),
-					presetName: TYPO3.FormBuilder.Configuration.presetName
+					presetName: TYPO3.FormBuilder.Configuration.presetName,
+					__csrfToken: TYPO3.FormBuilder.Configuration.csrfToken
 				},
 				(data, textStatus, jqXHR) =>
 					return unless @currentAjaxRequest == jqXHR
