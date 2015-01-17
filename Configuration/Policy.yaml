@@ -1,5 +1,0 @@
-resources:
-  methods:
-    'TYPO3_FormBuilder_Standard': 'method(TYPO3\FormBuilder\Controller\StandardController->.*Action())'
-    'TYPO3_FormBuilder_FormManager': 'method(TYPO3\FormBuilder\Controller\FormManagerController->.*Action())'
-    'TYPO3_FormBuilder_Editor': 'method(TYPO3\FormBuilder\Controller\EditorController->.*Action())'
