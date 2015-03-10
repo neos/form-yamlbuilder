@@ -18,6 +18,12 @@ use TYPO3\Flow\Annotations as Flow;
  */
 class JsonConfigurationViewHelper extends \TYPO3\Fluid\Core\ViewHelper\AbstractViewHelper {
 
+
+	/**
+	 * @var boolean
+	 */
+	protected $escapeOutput = FALSE;
+
 	/**
 	 * @Flow\Inject
 	 * @var \TYPO3\Flow\Resource\Publishing\ResourcePublisher
