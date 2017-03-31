@@ -4,7 +4,7 @@
 	"description": "Graphical User Interface for creating and editing Forms based on the TYPO3 Flow Form Framework",
 	"version": "",
 	"require": {
-		"typo3/flow": "*",
+		"typo3/flow": "~4.0.0",
 		"typo3/form": "*"
 	},
 	"autoload": {

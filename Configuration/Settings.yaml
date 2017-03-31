@@ -78,7 +78,7 @@ TYPO3:
       default:
         validatorPresets:
           'TYPO3.FormBuilder:ZipCode':
-            implementationClassName: 'TYPO3\Flow\Validation\Validator\RegularExpressionValidator'
+            implementationClassName: 'Neos\Flow\Validation\Validator\RegularExpressionValidator'
             options:
               regularExpression: '/^[0-9]{5}$/'
 

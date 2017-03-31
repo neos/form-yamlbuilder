@@ -11,91 +11,98 @@ namespace TYPO3\FormBuilder\Controller;
  * The TYPO3 project - inspiring people to share!                         *
  *                                                                        */
 
-use TYPO3\Flow\Annotations as Flow;
+use Neos\Flow\Mvc\Controller\ActionController;
+use Neos\Form\Factory\ArrayFormFactory;
+use Neos\Flow\Annotations as Flow;
 
 /**
  * Standard controller for the TYPO3.FormBuilder package
  *
  * @Flow\Scope("singleton")
  */
-class EditorController extends \TYPO3\Flow\Mvc\Controller\ActionController {
+class EditorController extends ActionController
+{
 
-	/**
-	 * @Flow\Inject
-	 * @var \TYPO3\Form\Persistence\FormPersistenceManagerInterface
-	 */
-	protected $formPersistenceManager;
+    /**
+     * @Flow\Inject
+     * @var \Neos\Form\Persistence\FormPersistenceManagerInterface
+     */
+    protected $formPersistenceManager;
 
-	/**
-	 * Displays the example form
-	 *
-	 * @param string $formPersistenceIdentifier
-	 * @param string $presetName
-	 * @return void
-	 */
-	public function indexAction($formPersistenceIdentifier, $presetName = NULL) {
-		if ($presetName === NULL) {
-			$presetName = $this->settings['defaultPreset'];
-		}
-		$handlebarsTemplates = array();
-		foreach ($this->settings['handlebarsTemplates'] as $templateName => $filePath) {
-			$handlebarsTemplates[] = '<script type="text/x-handlebars" data-template-name="' . $templateName . '">' . file_get_contents($filePath) . '</script>';
-		}
+    /**
+     * Displays the example form
+     *
+     * @param string $formPersistenceIdentifier
+     * @param string $presetName
+     * @return void
+     */
+    public function indexAction($formPersistenceIdentifier, $presetName = null)
+    {
+        if ($presetName === null) {
+            $presetName = $this->settings['defaultPreset'];
+        }
+        $handlebarsTemplates = [];
+        foreach ($this->settings['handlebarsTemplates'] as $templateName => $filePath) {
+            $handlebarsTemplates[] = '<script type="text/x-handlebars" data-template-name="' . $templateName . '">' . file_get_contents($filePath) . '</script>';
+        }
 
-		$this->view->assign('handlebarsTemplates', implode("\n", $handlebarsTemplates));
+        $this->view->assign('handlebarsTemplates', implode("\n", $handlebarsTemplates));
 
-		$this->view->assign('stylesheets', $this->filterAndSortArray($this->settings['stylesheets']));
-		$this->view->assign('javaScripts', $this->filterAndSortArray($this->settings['javaScripts']));
+        $this->view->assign('stylesheets', $this->filterAndSortArray($this->settings['stylesheets']));
+        $this->view->assign('javaScripts', $this->filterAndSortArray($this->settings['javaScripts']));
 
-		$this->view->assign('presetName', $presetName);
-	}
+        $this->view->assign('presetName', $presetName);
+    }
 
-	protected function filterAndSortArray($input) {
-		$input = array_filter($input, function($element) {
-			return is_array($element) && isset($element['sorting']);
-		});
+    protected function filterAndSortArray($input)
+    {
+        $input = array_filter($input, function ($element) {
+            return is_array($element) && isset($element['sorting']);
+        });
 
-		usort($input, function($a, $b) {
-			return $a['sorting'] - $b['sorting'];
-		});
-		return $input;
-	}
+        usort($input, function ($a, $b) {
+            return $a['sorting'] - $b['sorting'];
+        });
+        return $input;
+    }
 
-	/**
-	 * @param string $formPersistenceIdentifier
-	 * @return array
-	 */
-	public function loadformAction($formPersistenceIdentifier) {
-		return json_encode($this->formPersistenceManager->load($formPersistenceIdentifier));
-	}
+    /**
+     * @param string $formPersistenceIdentifier
+     * @return array
+     */
+    public function loadformAction($formPersistenceIdentifier)
+    {
+        return json_encode($this->formPersistenceManager->load($formPersistenceIdentifier));
+    }
 
-	/**
-	 * @param string $formPersistenceIdentifier
-	 * @param array $formDefinition
-	 * @return string
-	 */
-	public function saveformAction($formPersistenceIdentifier, array $formDefinition) {
-		$this->formPersistenceManager->save($formPersistenceIdentifier, $formDefinition);
+    /**
+     * @param string $formPersistenceIdentifier
+     * @param array $formDefinition
+     * @return string
+     */
+    public function saveformAction($formPersistenceIdentifier, array $formDefinition)
+    {
+        $this->formPersistenceManager->save($formPersistenceIdentifier, $formDefinition);
 
-		return 'success';
-	}
+        return 'success';
+    }
 
-	/**
-	 * @param array $formDefinition
-	 * @param integer $currentPageIndex
-	 * @param string $presetName
-	 * @return string
-	 */
-	public function renderformpageAction($formDefinition, $currentPageIndex, $presetName = NULL) {
-		if ($presetName === NULL) {
-			$presetName = $this->settings['defaultPreset'];
-		}
-		$formFactory = new \TYPO3\Form\Factory\ArrayFormFactory();
-		$formDefinition = $formFactory->build($formDefinition, $presetName);
-		$formDefinition->setRenderingOption('previewMode', TRUE);
-		$form = $formDefinition->bind($this->request, $this->response);
-		$form->overrideCurrentPage($currentPageIndex);
-		return $form->render();
-	}
+    /**
+     * @param array $formDefinition
+     * @param integer $currentPageIndex
+     * @param string $presetName
+     * @return string
+     */
+    public function renderformpageAction($formDefinition, $currentPageIndex, $presetName = null)
+    {
+        if ($presetName === null) {
+            $presetName = $this->settings['defaultPreset'];
+        }
+        $formFactory = new ArrayFormFactory();
+        $formDefinition = $formFactory->build($formDefinition, $presetName);
+        $formDefinition->setRenderingOption('previewMode', true);
+        $form = $formDefinition->bind($this->request, $this->response);
+        $form->overrideCurrentPage($currentPageIndex);
+        return $form->render();
+    }
 }
-?>

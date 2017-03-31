@@ -11,108 +11,114 @@ namespace TYPO3\FormBuilder\ViewHelpers;
  * The TYPO3 project - inspiring people to share!                         *
  *                                                                        */
 
-use TYPO3\Flow\Annotations as Flow;
+use Neos\Flow\Annotations as Flow;
+use Neos\FluidAdaptor\Core\ViewHelper\AbstractViewHelper;
+use Neos\FluidAdaptor\Core\ViewHelper\Exception;
+use Neos\Form\Utility\SupertypeResolver;
 
 /**
  * @todo rename
  */
-class JsonConfigurationViewHelper extends \TYPO3\Fluid\Core\ViewHelper\AbstractViewHelper {
+class JsonConfigurationViewHelper extends AbstractViewHelper
+{
 
 
-	/**
-	 * @var boolean
-	 */
-	protected $escapeOutput = FALSE;
+    /**
+     * @var boolean
+     */
+    protected $escapeOutput = false;
 
-	/**
-	 * @Flow\Inject
-	 * @var \TYPO3\Flow\Resource\Publishing\ResourcePublisher
-	 */
-	protected $resourcePublisher;
+    /**
+     * @Flow\Inject
+     * @var \Neos\Flow\ResourceManagement\ResourceManager
+     */
+    protected $resourceManager;
 
-	/**
-	 * @Flow\Inject
-	 * @var \TYPO3\Form\Factory\ArrayFormFactory
-	 */
-	protected $formBuilderFactory;
+    /**
+     * @Flow\Inject
+     * @var \Neos\Form\Factory\ArrayFormFactory
+     */
+    protected $formBuilderFactory;
 
-	/**
-	 * @Flow\Inject
-	 * @var \TYPO3\Flow\Security\Context
-	 */
-	protected $securityContext;
+    /**
+     * @Flow\Inject
+     * @var \Neos\Flow\Security\Context
+     */
+    protected $securityContext;
 
-	/**
-	 * @param string $presetName
-	 * @return string
-	 */
-	public function render($presetName = 'default') {
-		$mergedConfiguration = array();
+    /**
+     * @param string $presetName
+     * @return string
+     */
+    public function render($presetName = 'default')
+    {
+        $mergedConfiguration = [];
 
-		$presetConfiguration = $this->formBuilderFactory->getPresetConfiguration($presetName);
-		$supertypeResolver = new \TYPO3\Form\Utility\SupertypeResolver($presetConfiguration['formElementTypes']);
-		$mergedConfiguration['formElementTypes'] = $supertypeResolver->getCompleteMergedTypeDefinition(TRUE);
+        $presetConfiguration = $this->formBuilderFactory->getPresetConfiguration($presetName);
+        $supertypeResolver = new SupertypeResolver($presetConfiguration['formElementTypes']);
+        $mergedConfiguration['formElementTypes'] = $supertypeResolver->getCompleteMergedTypeDefinition(true);
 
-		$mergedConfiguration['formElementGroups'] = isset($presetConfiguration['formElementGroups']) ? $presetConfiguration['formElementGroups'] : array();
+        $mergedConfiguration['formElementGroups'] = isset($presetConfiguration['formElementGroups']) ? $presetConfiguration['formElementGroups'] : [];
 
-		$stylesheets = isset($presetConfiguration['stylesheets']) ? $presetConfiguration['stylesheets'] : array();
-		$mergedConfiguration['stylesheets'] = array();
-		foreach ($stylesheets as $stylesheet) {
-			if (isset($stylesheet['skipInFormBuilder']) && $stylesheet['skipInFormBuilder'] === TRUE) {
-				continue;
-			}
-			$mergedConfiguration['stylesheets'][] = $this->resolveResourcePath($stylesheet['source']);
-		}
+        $stylesheets = isset($presetConfiguration['stylesheets']) ? $presetConfiguration['stylesheets'] : [];
+        $mergedConfiguration['stylesheets'] = [];
+        foreach ($stylesheets as $stylesheet) {
+            if (isset($stylesheet['skipInFormBuilder']) && $stylesheet['skipInFormBuilder'] === true) {
+                continue;
+            }
+            $mergedConfiguration['stylesheets'][] = $this->resolveResourcePath($stylesheet['source']);
+        }
 
-		$javaScripts = isset($presetConfiguration['javaScripts']) ? $presetConfiguration['javaScripts'] : array();
-		$mergedConfiguration['javaScripts'] = array();
-		foreach ($javaScripts as $javaScript) {
-			if (isset($javaScript['skipInFormBuilder']) && $javaScript['skipInFormBuilder'] === TRUE) {
-				continue;
-			}
-			$mergedConfiguration['javaScripts'][] = $this->resolveResourcePath($javaScript['source']);
-		}
+        $javaScripts = isset($presetConfiguration['javaScripts']) ? $presetConfiguration['javaScripts'] : [];
+        $mergedConfiguration['javaScripts'] = [];
+        foreach ($javaScripts as $javaScript) {
+            if (isset($javaScript['skipInFormBuilder']) && $javaScript['skipInFormBuilder'] === true) {
+                continue;
+            }
+            $mergedConfiguration['javaScripts'][] = $this->resolveResourcePath($javaScript['source']);
+        }
 
-		$mergedConfiguration['endpoints']['formPageRenderer'] = $this->controllerContext->getUriBuilder()->uriFor('renderformpage');
-		$mergedConfiguration['endpoints']['loadForm'] = $this->controllerContext->getUriBuilder()->uriFor('loadform');
-		$mergedConfiguration['endpoints']['saveForm'] = $this->controllerContext->getUriBuilder()->uriFor('saveform');
-		$mergedConfiguration['endpoints']['editForm'] = $this->controllerContext->getUriBuilder()->uriFor('index');
-		$mergedConfiguration['endpoints']['previewForm'] = $this->controllerContext->getUriBuilder()->uriFor('show', array(), 'FormManager');
+        $mergedConfiguration['endpoints']['formPageRenderer'] = $this->controllerContext->getUriBuilder()->uriFor('renderformpage');
+        $mergedConfiguration['endpoints']['loadForm'] = $this->controllerContext->getUriBuilder()->uriFor('loadform');
+        $mergedConfiguration['endpoints']['saveForm'] = $this->controllerContext->getUriBuilder()->uriFor('saveform');
+        $mergedConfiguration['endpoints']['editForm'] = $this->controllerContext->getUriBuilder()->uriFor('index');
+        $mergedConfiguration['endpoints']['previewForm'] = $this->controllerContext->getUriBuilder()->uriFor('show', [], 'FormManager');
 
-		$mergedConfiguration['csrfToken'] = $this->securityContext->getCsrfProtectionToken();
+        $mergedConfiguration['csrfToken'] = $this->securityContext->getCsrfProtectionToken();
 
-		$mergedConfiguration['formPersistenceIdentifier'] = $this->controllerContext->getArguments()->getArgument('formPersistenceIdentifier')->getValue();
+        $mergedConfiguration['formPersistenceIdentifier'] = $this->controllerContext->getArguments()->getArgument('formPersistenceIdentifier')->getValue();
 
-		$mergedConfiguration['presetName'] = $presetName;
+        $mergedConfiguration['presetName'] = $presetName;
 
-		$availablePresets = array();
-		foreach ($this->formBuilderFactory->getPresetNames() as $presetName) {
-			$presetConfiguration = $this->formBuilderFactory->getPresetConfiguration($presetName);
-			$availablePresets[] = array(
-				'name' => $presetName,
-				'title' => (isset($presetConfiguration['title']) ? $presetConfiguration['title'] : $presetName)
-			);
-		}
-		$mergedConfiguration['availablePresets'] = $availablePresets;
+        $availablePresets = [];
+        foreach ($this->formBuilderFactory->getPresetNames() as $presetName) {
+            $presetConfiguration = $this->formBuilderFactory->getPresetConfiguration($presetName);
+            $availablePresets[] = [
+                'name' => $presetName,
+                'title' => (isset($presetConfiguration['title']) ? $presetConfiguration['title'] : $presetName)
+            ];
+        }
+        $mergedConfiguration['availablePresets'] = $availablePresets;
 
 
-		return json_encode($mergedConfiguration);
-	}
+        return json_encode($mergedConfiguration);
+    }
 
-	/**
-	 * @param string $resourcePath
-	 * @return string
-	 */
-	protected function resolveResourcePath($resourcePath) {
-		// TODO: This method should be somewhere in the resource manager probably?
-		$matches = array();
-		preg_match('#resource://([^/]*)/Public/(.*)#', $resourcePath, $matches);
-		if ($matches === array()) {
-			throw new \TYPO3\Fluid\Core\ViewHelper\Exception('Resource path "' . $resourcePath . '" can\'t be resolved.', 1328543327);
-		}
-		$package = $matches[1];
-		$path = $matches[2];
-		return $this->resourcePublisher->getStaticResourcesWebBaseUri() . 'Packages/' . $package . '/' . $path;
-	}
+    /**
+     * @param string $resourcePath
+     * @return string
+     * @throws \Neos\FluidAdaptor\Core\ViewHelper\Exception
+     */
+    protected function resolveResourcePath($resourcePath)
+    {
+        // TODO: This method should be somewhere in the resource manager probably?
+        $matches = [];
+        preg_match('#resource://([^/]*)/Public/(.*)#', $resourcePath, $matches);
+        if ($matches === []) {
+            throw new Exception('Resource path "' . $resourcePath . '" can\'t be resolved.', 1328543327);
+        }
+        $package = $matches[1];
+        $path = $matches[2];
+        return $this->resourceManager->getPublicPackageResourceUri($package, 'Packages/' . $package . '/' . $path);
+    }
 }
-?>

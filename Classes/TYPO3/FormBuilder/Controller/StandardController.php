@@ -11,21 +11,22 @@ namespace TYPO3\FormBuilder\Controller;
  * The TYPO3 project - inspiring people to share!                         *
  *                                                                        */
 
-use TYPO3\Flow\Annotations as Flow;
+use Neos\Flow\Annotations as Flow;
+use Neos\Flow\Mvc\Controller\ActionController;
 
 /**
  * Standard controller for the TYPO3.FormBuilder package
  *
  * @Flow\Scope("singleton")
  */
-class StandardController extends \TYPO3\Flow\Mvc\Controller\ActionController {
+class StandardController extends ActionController
+{
 
-	/**
-	 * Standard controller
-	 */
-	public function indexAction() {
-		$this->redirect('index', 'FormManager');
-	}
-
+    /**
+     * Standard controller
+     */
+    public function indexAction()
+    {
+        $this->redirect('index', 'FormManager');
+    }
 }
-?>
