@@ -2,7 +2,7 @@
 namespace Neos\FormBuilder\Controller;
 
 /*                                                                        *
- * This script belongs to the TYPO3 Flow package "TYPO3.FormBuilder".     *
+ * This script belongs to the TYPO3 Flow package "Neos.FormBuilder".      *
  *                                                                        *
  * It is free software; you can redistribute it and/or modify it under    *
  * the terms of the GNU Lesser General Public License, either version 3   *
@@ -16,7 +16,7 @@ use Neos\Form\Factory\ArrayFormFactory;
 use Neos\Flow\Annotations as Flow;
 
 /**
- * Standard controller for the TYPO3.FormBuilder package
+ * Standard controller for the Neos.FormBuilder package
  *
  * @Flow\Scope("singleton")
  */

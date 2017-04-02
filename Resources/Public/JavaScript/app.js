@@ -10,7 +10,7 @@
 
   window.onbeforeunload = function(e) {
     var text;
-    if (!TYPO3.FormBuilder.Model.Form.get('unsavedContent')) {
+    if (!Neos.FormBuilder.Model.Form.get('unsavedContent')) {
       return void 0;
     }
     e = e || window.event;
@@ -26,47 +26,47 @@
     return false;
   };
 
-  TYPO3.FormBuilder = Ember.Application.create({
+  Neos.FormBuilder = Ember.Application.create({
     rootElement: 'body'
   });
 
-  TYPO3.FormBuilder.Configuration = window.FORMBUILDER_CONFIGURATION;
+  Neos.FormBuilder.Configuration = window.FORMBUILDER_CONFIGURATION;
 
-  if ((_ref = TYPO3.FormBuilder.Configuration) != null ? _ref.stylesheets : void 0) {
-    _ref1 = TYPO3.FormBuilder.Configuration.stylesheets;
+  if ((_ref = Neos.FormBuilder.Configuration) != null ? _ref.stylesheets : void 0) {
+    _ref1 = Neos.FormBuilder.Configuration.stylesheets;
     for (_i = 0, _len = _ref1.length; _i < _len; _i++) {
       stylesheet = _ref1[_i];
       $('head').append($('<link rel="stylesheet" />').attr('href', stylesheet));
     }
   }
 
-  if ((_ref2 = TYPO3.FormBuilder.Configuration) != null ? _ref2.javaScripts : void 0) {
-    _ref3 = TYPO3.FormBuilder.Configuration.javaScripts;
+  if ((_ref2 = Neos.FormBuilder.Configuration) != null ? _ref2.javaScripts : void 0) {
+    _ref3 = Neos.FormBuilder.Configuration.javaScripts;
     for (_j = 0, _len1 = _ref3.length; _j < _len1; _j++) {
       javaScript = _ref3[_j];
       $.getScript(javaScript);
     }
   }
 
-  if ((_ref4 = TYPO3.FormBuilder.Configuration) != null ? _ref4.formPersistenceIdentifier : void 0) {
-    $.getJSON(TYPO3.FormBuilder.Configuration.endpoints.loadForm, {
-      formPersistenceIdentifier: (_ref5 = TYPO3.FormBuilder.Configuration) != null ? _ref5.formPersistenceIdentifier : void 0
+  if ((_ref4 = Neos.FormBuilder.Configuration) != null ? _ref4.formPersistenceIdentifier : void 0) {
+    $.getJSON(Neos.FormBuilder.Configuration.endpoints.loadForm, {
+      formPersistenceIdentifier: (_ref5 = Neos.FormBuilder.Configuration) != null ? _ref5.formPersistenceIdentifier : void 0
     }, function(data, textStatus, jqXHR) {
-      TYPO3.FormBuilder.Model.Form.set('formDefinition', TYPO3.FormBuilder.Model.Renderable.create(data));
-      return TYPO3.FormBuilder.Model.Form.set('unsavedContent', false);
+      Neos.FormBuilder.Model.Form.set('formDefinition', Neos.FormBuilder.Model.Renderable.create(data));
+      return Neos.FormBuilder.Model.Form.set('unsavedContent', false);
     });
   }
 
-  TYPO3.FormBuilder.Validators = {};
+  Neos.FormBuilder.Validators = {};
 
-  TYPO3.FormBuilder.Validators.isNumberOrBlank = function(n) {
+  Neos.FormBuilder.Validators.isNumberOrBlank = function(n) {
     if (n === '' || n === null || n === void 0) {
       return true;
     }
     return !isNaN(parseFloat(n)) && isFinite(n);
   };
 
-  TYPO3.FormBuilder.Utility = {};
+  Neos.FormBuilder.Utility = {};
 
   convertToSimpleObject = function(input) {
     var key, simpleObject, value;
@@ -88,20 +88,20 @@
     return simpleObject;
   };
 
-  TYPO3.FormBuilder.Utility.convertToSimpleObject = convertToSimpleObject;
+  Neos.FormBuilder.Utility.convertToSimpleObject = convertToSimpleObject;
 
-  TYPO3.FormBuilder.Utility.getUri = function(baseUri, presetName) {
+  Neos.FormBuilder.Utility.getUri = function(baseUri, presetName) {
     var uri;
     if (presetName == null) {
-      presetName = TYPO3.FormBuilder.Configuration.presetName;
+      presetName = Neos.FormBuilder.Configuration.presetName;
     }
-    uri = baseUri + ("?formPersistenceIdentifier=" + (encodeURIComponent(TYPO3.FormBuilder.Configuration.formPersistenceIdentifier)) + "&presetName=" + (encodeURIComponent(presetName)));
+    uri = baseUri + ("?formPersistenceIdentifier=" + (encodeURIComponent(Neos.FormBuilder.Configuration.formPersistenceIdentifier)) + "&presetName=" + (encodeURIComponent(presetName)));
     return uri;
   };
 
-  TYPO3.FormBuilder.Model = {};
+  Neos.FormBuilder.Model = {};
 
-  TYPO3.FormBuilder.Model.Form = Ember.Object.create({
+  Neos.FormBuilder.Model.Form = Ember.Object.create({
     formDefinition: null,
     unsavedContent: false,
     currentlySelectedRenderable: null,
@@ -113,11 +113,11 @@
         callback = null;
       }
       this.set('saveStatus', 'currently-saving');
-      formDefinition = TYPO3.FormBuilder.Utility.convertToSimpleObject(this.get('formDefinition'));
-      return $.post(TYPO3.FormBuilder.Configuration.endpoints.saveForm, {
-        formPersistenceIdentifier: (_ref6 = TYPO3.FormBuilder.Configuration) != null ? _ref6.formPersistenceIdentifier : void 0,
+      formDefinition = Neos.FormBuilder.Utility.convertToSimpleObject(this.get('formDefinition'));
+      return $.post(Neos.FormBuilder.Configuration.endpoints.saveForm, {
+        formPersistenceIdentifier: (_ref6 = Neos.FormBuilder.Configuration) != null ? _ref6.formPersistenceIdentifier : void 0,
         formDefinition: formDefinition,
-        __csrfToken: TYPO3.FormBuilder.Configuration.csrfToken
+        __csrfToken: Neos.FormBuilder.Configuration.csrfToken
       }, function(data, textStatus, jqXHR) {
         if (data === 'success') {
           _this.set('saveStatus', 'saved');
@@ -144,7 +144,7 @@
     }).observes('formDefinition.__nestedPropertyChange')
   });
 
-  TYPO3.FormBuilder.Model.Renderable = Ember.Object.extend({
+  Neos.FormBuilder.Model.Renderable = Ember.Object.extend({
     parentRenderable: null,
     renderables: null,
     __nestedPropertyChange: 0,
@@ -155,7 +155,7 @@
       if (!formElementTypeName) {
         return null;
       }
-      return TYPO3.FormBuilder.Model.FormElementTypes.get(formElementTypeName);
+      return Neos.FormBuilder.Model.FormElementTypes.get(formElementTypeName);
     }).property('type').cacheable(),
     init: function() {
       this.renderables = [];
@@ -256,18 +256,18 @@
         updateCurrentRenderable = true;
       }
       if (updateCurrentRenderable) {
-        TYPO3.FormBuilder.Model.Form.set('currentlySelectedRenderable', this.get('parentRenderable'));
+        Neos.FormBuilder.Model.Form.set('currentlySelectedRenderable', this.get('parentRenderable'));
       }
       return this.getPath('parentRenderable.renderables').removeObject(this);
     }
   });
 
-  TYPO3.FormBuilder.Model.Renderable.reopenClass({
+  Neos.FormBuilder.Model.Renderable.reopenClass({
     create: function(obj) {
       var childRenderable, childRenderables, k, renderable, v, _k, _len2;
       childRenderables = obj.renderables;
       delete obj.renderables;
-      renderable = Ember.Object.create.call(TYPO3.FormBuilder.Model.Renderable, obj);
+      renderable = Ember.Object.create.call(Neos.FormBuilder.Model.Renderable, obj);
       for (k in obj) {
         v = obj[k];
         renderable.addObserver(k, renderable, 'somePropertyChanged');
@@ -275,47 +275,47 @@
       if (childRenderables) {
         for (_k = 0, _len2 = childRenderables.length; _k < _len2; _k++) {
           childRenderable = childRenderables[_k];
-          renderable.get('renderables').pushObject(TYPO3.FormBuilder.Model.Renderable.create(childRenderable));
+          renderable.get('renderables').pushObject(Neos.FormBuilder.Model.Renderable.create(childRenderable));
         }
       }
       return renderable;
     }
   });
 
-  TYPO3.FormBuilder.Model.FormElementType = Ember.Object.extend({
+  Neos.FormBuilder.Model.FormElementType = Ember.Object.extend({
     type: null,
     __cssClassNames: (function() {
       return "typo3-formbuilder-group-" + (this.getPath('formBuilder.group')) + " typo3-formbuilder-type-" + (this.get('type').toLowerCase().replace(/[^a-z0-9]/g, '-'));
     }).property('formBuilder.group', 'type').cacheable()
   });
 
-  TYPO3.FormBuilder.Model.FormElementTypes = Ember.Object.create({
+  Neos.FormBuilder.Model.FormElementTypes = Ember.Object.create({
     allTypeNames: [],
     init: function() {
       var typeConfiguration, typeName, _ref6, _ref7, _results;
-      if (((_ref6 = TYPO3.FormBuilder.Configuration) != null ? _ref6.formElementTypes : void 0) == null) {
+      if (((_ref6 = Neos.FormBuilder.Configuration) != null ? _ref6.formElementTypes : void 0) == null) {
         return;
       }
-      _ref7 = TYPO3.FormBuilder.Configuration.formElementTypes;
+      _ref7 = Neos.FormBuilder.Configuration.formElementTypes;
       _results = [];
       for (typeName in _ref7) {
         typeConfiguration = _ref7[typeName];
         typeConfiguration.type = typeName;
         this.allTypeNames.push(typeName);
-        _results.push(this.set(typeName, TYPO3.FormBuilder.Model.FormElementType.create(typeConfiguration)));
+        _results.push(this.set(typeName, Neos.FormBuilder.Model.FormElementType.create(typeConfiguration)));
       }
       return _results;
     }
   });
 
-  TYPO3.FormBuilder.Model.FormElementGroups = Ember.Object.create({
+  Neos.FormBuilder.Model.FormElementGroups = Ember.Object.create({
     allGroupNames: [],
     init: function() {
       var groupConfiguration, groupName, _ref6, _ref7, _results;
-      if (((_ref6 = TYPO3.FormBuilder.Configuration) != null ? _ref6.formElementGroups : void 0) == null) {
+      if (((_ref6 = Neos.FormBuilder.Configuration) != null ? _ref6.formElementGroups : void 0) == null) {
         return;
       }
-      _ref7 = TYPO3.FormBuilder.Configuration.formElementGroups;
+      _ref7 = Neos.FormBuilder.Configuration.formElementGroups;
       _results = [];
       for (groupName in _ref7) {
         groupConfiguration = _ref7[groupName];
@@ -326,9 +326,9 @@
     }
   });
 
-  TYPO3.FormBuilder.View = {};
+  Neos.FormBuilder.View = {};
 
-  TYPO3.FormBuilder.View.ContainerView = Ember.ContainerView.extend({
+  Neos.FormBuilder.View.ContainerView = Ember.ContainerView.extend({
     instanciatedViews: null,
     onInstanciatedViewsChange: (function() {
       var view, _k, _len2, _ref6, _results;
@@ -343,11 +343,11 @@
     }).observes('instanciatedViews')
   });
 
-  TYPO3.FormBuilder.View.Select = Ember.Select.extend({
+  Neos.FormBuilder.View.Select = Ember.Select.extend({
     attributeBindings: ['disabled']
   });
 
-  TYPO3.FormBuilder.View.TextField = Ember.TextField.extend({
+  Neos.FormBuilder.View.TextField = Ember.TextField.extend({
     validatorName: null,
     _lastValidValue: false,
     validate: function(v) {
@@ -371,7 +371,7 @@
     valueBinding: 'validatedValue'
   });
 
-  TYPO3.FormBuilder.View.Application = Ember.View.extend({
+  Neos.FormBuilder.View.Application = Ember.View.extend({
     templateName: 'Application',
     didInsertElement: function() {
       return this.addLayout();
@@ -436,16 +436,16 @@
       });
     },
     updatePageTitle: (function() {
-      return document.title = 'Form Builder - ' + Ember.getPath('TYPO3.FormBuilder.Model.Form.formDefinition.label');
-    }).observes('TYPO3.FormBuilder.Model.Form.formDefinition.label')
+      return document.title = 'Form Builder - ' + Ember.getPath('Neos.FormBuilder.Model.Form.formDefinition.label');
+    }).observes('Neos.FormBuilder.Model.Form.formDefinition.label')
   });
 
-  TYPO3.FormBuilder.View.Header = Ember.View.extend({
+  Neos.FormBuilder.View.Header = Ember.View.extend({
     templateName: 'Header'
   });
 
-  TYPO3.FormBuilder.View.Header.PresetSelector = Ember.Select.extend({
-    contentBinding: 'TYPO3.FormBuilder.Configuration.availablePresets',
+  Neos.FormBuilder.View.Header.PresetSelector = Ember.Select.extend({
+    contentBinding: 'Neos.FormBuilder.Configuration.availablePresets',
     optionLabelPath: 'content.title',
     init: function() {
       this.resetSelection();
@@ -453,10 +453,10 @@
     },
     reloadIfPresetChanged: (function() {
       var that;
-      if (this.getPath('selection.name') === TYPO3.FormBuilder.Configuration.presetName) {
+      if (this.getPath('selection.name') === Neos.FormBuilder.Configuration.presetName) {
         return;
       }
-      if (TYPO3.FormBuilder.Model.Form.get('unsavedContent')) {
+      if (Neos.FormBuilder.Model.Form.get('unsavedContent')) {
         that = this;
         return $('<div>There are unsaved changes, but you need to save before changing the preset. Do you want to save now?</div>').dialog({
           dialogClass: 'typo3-formbuilder-dialog',
@@ -487,7 +487,7 @@
       _results = [];
       for (_k = 0, _len2 = _ref6.length; _k < _len2; _k++) {
         val = _ref6[_k];
-        if (val.name === TYPO3.FormBuilder.Configuration.presetName) {
+        if (val.name === Neos.FormBuilder.Configuration.presetName) {
           this.set('selection', val);
           break;
         } else {
@@ -498,18 +498,18 @@
     }).observes('content'),
     saveAndRedirect: function() {
       var _this = this;
-      return TYPO3.FormBuilder.Model.Form.save(function(success) {
+      return Neos.FormBuilder.Model.Form.save(function(success) {
         if (success) {
           return _this.redirect();
         }
       });
     },
     redirect: function() {
-      return window.location.href = TYPO3.FormBuilder.Utility.getUri(TYPO3.FormBuilder.Configuration.endpoints.editForm, this.getPath('selection.name'));
+      return window.location.href = Neos.FormBuilder.Utility.getUri(Neos.FormBuilder.Configuration.endpoints.editForm, this.getPath('selection.name'));
     }
   });
 
-  TYPO3.FormBuilder.View.Header.PreviewButton = Ember.Button.extend({
+  Neos.FormBuilder.View.Header.PreviewButton = Ember.Button.extend({
     targetObject: (function() {
       return this;
     }).property().cacheable(),
@@ -518,12 +518,12 @@
     },
     preview: function() {
       var windowIdentifier;
-      windowIdentifier = 'preview_' + TYPO3.FormBuilder.Model.Form.getPath('formDefinition.identifier');
-      return window.open('/' + TYPO3.FormBuilder.Utility.getUri(TYPO3.FormBuilder.Configuration.endpoints.previewForm), windowIdentifier);
+      windowIdentifier = 'preview_' + Neos.FormBuilder.Model.Form.getPath('formDefinition.identifier');
+      return window.open('/' + Neos.FormBuilder.Utility.getUri(Neos.FormBuilder.Configuration.endpoints.previewForm), windowIdentifier);
     }
   });
 
-  TYPO3.FormBuilder.View.Header.SaveButton = Ember.Button.extend({
+  Neos.FormBuilder.View.Header.SaveButton = Ember.Button.extend({
     targetObject: (function() {
       return this;
     }).property().cacheable(),
@@ -532,20 +532,20 @@
     },
     classNames: ['typo3-formbuilder-savebutton'],
     classNameBindings: ['isActive', 'currentStatus'],
-    currentStatusBinding: 'TYPO3.FormBuilder.Model.Form.saveStatus',
+    currentStatusBinding: 'Neos.FormBuilder.Model.Form.saveStatus',
     disabled: (function() {
-      return !Ember.getPath('TYPO3.FormBuilder.Model.Form.unsavedContent');
-    }).property('TYPO3.FormBuilder.Model.Form.unsavedContent').cacheable(),
+      return !Ember.getPath('Neos.FormBuilder.Model.Form.unsavedContent');
+    }).property('Neos.FormBuilder.Model.Form.unsavedContent').cacheable(),
     save: function() {
-      return TYPO3.FormBuilder.Model.Form.save();
+      return Neos.FormBuilder.Model.Form.save();
     }
   });
 
-  TYPO3.FormBuilder.View.Stage = Ember.View.extend({
-    formPagesBinding: 'TYPO3.FormBuilder.Model.Form.formDefinition.renderables',
+  Neos.FormBuilder.View.Stage = Ember.View.extend({
+    formPagesBinding: 'Neos.FormBuilder.Model.Form.formDefinition.renderables',
     currentPageIndex: (function() {
       var currentlySelectedRenderable, enclosingPage;
-      currentlySelectedRenderable = TYPO3.FormBuilder.Model.Form.get('currentlySelectedRenderable');
+      currentlySelectedRenderable = Neos.FormBuilder.Model.Form.get('currentlySelectedRenderable');
       if (!currentlySelectedRenderable) {
         return 0;
       }
@@ -557,16 +557,16 @@
         return 0;
       }
       return enclosingPage.getPath('parentRenderable.renderables').indexOf(enclosingPage);
-    }).property('TYPO3.FormBuilder.Model.Form.currentlySelectedRenderable').cacheable(),
+    }).property('Neos.FormBuilder.Model.Form.currentlySelectedRenderable').cacheable(),
     page: Ember.computed(function() {
       var _ref6;
       return (_ref6 = this.get('formPages')) != null ? _ref6.get(this.get('currentPageIndex')) : void 0;
     }).property('formPages', 'currentPageIndex').cacheable(),
     currentAjaxRequest: null,
-    isLoadingBinding: 'TYPO3.FormBuilder.Model.Form.currentlyLoadingPreview',
+    isLoadingBinding: 'Neos.FormBuilder.Model.Form.currentlyLoadingPreview',
     renderPageIfPageObjectChanges: (function() {
       var _this = this;
-      if (!TYPO3.FormBuilder.Model.Form.getPath('formDefinition.identifier')) {
+      if (!Neos.FormBuilder.Model.Form.getPath('formDefinition.identifier')) {
         return;
       }
       if (this.currentAjaxRequest) {
@@ -577,13 +577,13 @@
       }
       return this.timeout = window.setTimeout(function() {
         var formDefinition;
-        formDefinition = TYPO3.FormBuilder.Utility.convertToSimpleObject(TYPO3.FormBuilder.Model.Form.get('formDefinition'));
+        formDefinition = Neos.FormBuilder.Utility.convertToSimpleObject(Neos.FormBuilder.Model.Form.get('formDefinition'));
         _this.set('isLoading', true);
-        return _this.currentAjaxRequest = $.post(TYPO3.FormBuilder.Configuration.endpoints.formPageRenderer, {
+        return _this.currentAjaxRequest = $.post(Neos.FormBuilder.Configuration.endpoints.formPageRenderer, {
           formDefinition: formDefinition,
           currentPageIndex: _this.get('currentPageIndex'),
-          presetName: TYPO3.FormBuilder.Configuration.presetName,
-          __csrfToken: TYPO3.FormBuilder.Configuration.csrfToken
+          presetName: Neos.FormBuilder.Configuration.presetName,
+          __csrfToken: Neos.FormBuilder.Configuration.csrfToken
         }, function(data, textStatus, jqXHR) {
           if (_this.currentAjaxRequest !== jqXHR) {
             return;
@@ -641,7 +641,7 @@
     },
     onCurrentElementChanges: (function() {
       var identifierPath, renderable;
-      renderable = TYPO3.FormBuilder.Model.Form.get('currentlySelectedRenderable');
+      renderable = Neos.FormBuilder.Model.Form.get('currentlySelectedRenderable');
       if (!renderable) {
         return;
       }
@@ -651,14 +651,14 @@
         identifierPath = renderable.identifier + '/' + identifierPath;
       }
       return this.$().find('[data-element="' + identifierPath + '"]').addClass('typo3-formbuilder-form-element-selected');
-    }).observes('TYPO3.FormBuilder.Model.Form.currentlySelectedRenderable'),
+    }).observes('Neos.FormBuilder.Model.Form.currentlySelectedRenderable'),
     click: function(e) {
       var pathToClickedElement;
       pathToClickedElement = $(e.target).closest('[data-element]').attr('data-element');
       if (!pathToClickedElement) {
         return;
       }
-      return TYPO3.FormBuilder.Model.Form.set('currentlySelectedRenderable', this.findRenderableForPath(pathToClickedElement));
+      return Neos.FormBuilder.Model.Form.set('currentlySelectedRenderable', this.findRenderableForPath(pathToClickedElement));
     },
     findRenderableForPath: function(path) {
       var currentRenderable, expandedPathToClickedElement, pathPart, renderable, _k, _l, _len2, _len3, _ref6;
@@ -681,15 +681,15 @@
     }
   });
 
-  TYPO3.FormBuilder.View.StructurePanel = Ember.View.extend({
-    formDefinitionBinding: 'TYPO3.FormBuilder.Model.Form.formDefinition',
+  Neos.FormBuilder.View.StructurePanel = Ember.View.extend({
+    formDefinitionBinding: 'Neos.FormBuilder.Model.Form.formDefinition',
     templateName: 'StructurePanel',
     _tree: null,
     didInsertElement: function() {
       this._tree = this.$().find('.tree');
       this._tree.dynatree({
         onActivate: function(node) {
-          return TYPO3.FormBuilder.Model.Form.set('currentlySelectedRenderable', node.data.formRenderable);
+          return Neos.FormBuilder.Model.Form.set('currentlySelectedRenderable', node.data.formRenderable);
         },
         dnd: {
           onDragStart: function() {
@@ -736,8 +736,8 @@
                 targetRenderable.getPath('parentRenderable.renderables').insertAt(indexOfTargetRenderable + 1, sourceRenderable);
               }
             }
-            TYPO3.FormBuilder.Model.Form.set('currentlySelectedRenderable', null);
-            return TYPO3.FormBuilder.Model.Form.set('currentlySelectedRenderable', sourceRenderable);
+            Neos.FormBuilder.Model.Form.set('currentlySelectedRenderable', null);
+            return Neos.FormBuilder.Model.Form.set('currentlySelectedRenderable', sourceRenderable);
           }
         }
       });
@@ -764,7 +764,7 @@
           _ref7.expand(true);
         }
       }
-      activeNodePath = TYPO3.FormBuilder.Model.Form.getPath('currentlySelectedRenderable._path');
+      activeNodePath = Neos.FormBuilder.Model.Form.getPath('currentlySelectedRenderable._path');
       return typeof (_base1 = this._tree.dynatree('getTree')).getNodeByKey === "function" ? (_ref8 = _base1.getNodeByKey(activeNodePath)) != null ? _ref8.activate(true) : void 0 : void 0;
     }).observes('formDefinition.__nestedPropertyChange'),
     updateTreeStateFromModel: function(dynaTreeParentNode, currentListOfSubRenderables, expandFirstNode) {
@@ -794,31 +794,31 @@
     },
     updateCurrentlySelectedNode: (function() {
       return this.updateTree();
-    }).observes('TYPO3.FormBuilder.Model.Form.currentlySelectedRenderable'),
+    }).observes('Neos.FormBuilder.Model.Form.currentlySelectedRenderable'),
     showFormOptions: function() {
-      return TYPO3.FormBuilder.Model.Form.set('currentlySelectedRenderable', TYPO3.FormBuilder.Model.Form.get('formDefinition'));
+      return Neos.FormBuilder.Model.Form.set('currentlySelectedRenderable', Neos.FormBuilder.Model.Form.get('formDefinition'));
     }
   });
 
-  TYPO3.FormBuilder.View.StructurePanel.FormButton = Ember.Button.extend({
+  Neos.FormBuilder.View.StructurePanel.FormButton = Ember.Button.extend({
     target: 'parentView',
     action: 'showFormOptions',
     classNameBindings: ['isFormDefinitionCurrentlySelected:typo3-formbuilder-form-selected'],
     isFormDefinitionCurrentlySelected: (function() {
-      return Ember.getPath('TYPO3.FormBuilder.Model.Form.currentlySelectedRenderable') === Ember.getPath('TYPO3.FormBuilder.Model.Form.formDefinition');
-    }).property('TYPO3.FormBuilder.Model.Form.formDefinition', 'TYPO3.FormBuilder.Model.Form.currentlySelectedRenderable').cacheable()
+      return Ember.getPath('Neos.FormBuilder.Model.Form.currentlySelectedRenderable') === Ember.getPath('Neos.FormBuilder.Model.Form.formDefinition');
+    }).property('Neos.FormBuilder.Model.Form.formDefinition', 'Neos.FormBuilder.Model.Form.currentlySelectedRenderable').cacheable()
   });
 
-  TYPO3.FormBuilder.View.InsertElementsPanel = Ember.View.extend({
+  Neos.FormBuilder.View.InsertElementsPanel = Ember.View.extend({
     templateName: 'InsertElementsPanel',
-    allFormElementTypesBinding: 'TYPO3.FormBuilder.Model.FormElementTypes.allTypeNames',
+    allFormElementTypesBinding: 'Neos.FormBuilder.Model.FormElementTypes.allTypeNames',
     formElementsGrouped: (function() {
       var formElementType, formElementTypeName, formElementsByGroup, formGroup, formGroupName, formGroups, _k, _l, _len2, _len3, _ref6, _ref7, _ref8, _ref9;
       formElementsByGroup = {};
       _ref6 = this.get('allFormElementTypes');
       for (_k = 0, _len2 = _ref6.length; _k < _len2; _k++) {
         formElementTypeName = _ref6[_k];
-        formElementType = TYPO3.FormBuilder.Model.FormElementTypes.get(formElementTypeName);
+        formElementType = Neos.FormBuilder.Model.FormElementTypes.get(formElementTypeName);
         if (((_ref7 = formElementType.formBuilder) != null ? _ref7.group : void 0) == null) {
           continue;
         }
@@ -829,10 +829,10 @@
         formElementsByGroup[formElementType.formBuilder.group].push(formElementType);
       }
       formGroups = [];
-      _ref8 = TYPO3.FormBuilder.Model.FormElementGroups.get('allGroupNames');
+      _ref8 = Neos.FormBuilder.Model.FormElementGroups.get('allGroupNames');
       for (_l = 0, _len3 = _ref8.length; _l < _len3; _l++) {
         formGroupName = _ref8[_l];
-        formGroup = TYPO3.FormBuilder.Model.FormElementGroups.get(formGroupName);
+        formGroup = Neos.FormBuilder.Model.FormElementGroups.get(formGroupName);
         formGroup.set('key', formGroupName);
         if ((_ref9 = formElementsByGroup[formGroupName]) != null) {
           _ref9.sort(function(a, b) {
@@ -849,12 +849,12 @@
     }).property('allFormElementTypes').cacheable()
   });
 
-  TYPO3.FormBuilder.View.InsertElementsPanel.ElementsCollection = Ember.CollectionView.extend({
-    itemViewClass: 'TYPO3.FormBuilder.View.InsertElementsPanel.Element'
+  Neos.FormBuilder.View.InsertElementsPanel.ElementsCollection = Ember.CollectionView.extend({
+    itemViewClass: 'Neos.FormBuilder.View.InsertElementsPanel.Element'
   });
 
-  TYPO3.FormBuilder.View.InsertElementsPanel.Element = Ember.View.extend({
-    currentlySelectedElementBinding: 'TYPO3.FormBuilder.Model.Form.currentlySelectedRenderable',
+  Neos.FormBuilder.View.InsertElementsPanel.Element = Ember.View.extend({
+    currentlySelectedElementBinding: 'Neos.FormBuilder.Model.Form.currentlySelectedRenderable',
     content: null,
     formElementTypeBinding: 'content',
     didInsertElement: function() {
@@ -900,7 +900,7 @@
             return _results;
           }
         };
-        checkIdentifier(TYPO3.FormBuilder.Model.Form.get('formDefinition'));
+        checkIdentifier(Neos.FormBuilder.Model.Form.get('formDefinition'));
         return identifierFound;
       };
       i = 1;
@@ -921,7 +921,7 @@
       }
       defaultValues = this.getPath('formElementType.formBuilder.predefinedDefaults') || {};
       identifier = this.getNextFreeIdentifier();
-      newRenderable = TYPO3.FormBuilder.Model.Renderable.create($.extend({
+      newRenderable = Neos.FormBuilder.Model.Renderable.create($.extend({
         type: this.getPath('formElementType.key'),
         identifier: identifier,
         label: identifier
@@ -930,7 +930,7 @@
         currentlySelectedRenderable.get('renderables').pushObject(newRenderable);
       } else {
         referenceRenderable = currentlySelectedRenderable;
-        if (referenceRenderable === TYPO3.FormBuilder.Model.Form.get('formDefinition')) {
+        if (referenceRenderable === Neos.FormBuilder.Model.Form.get('formDefinition')) {
           referenceRenderable = referenceRenderable.getPath('renderables.0');
         } else if (this.getPath('formElementType.formBuilder._isTopLevel') && !currentlySelectedRenderable.getPath('typeDefinition.formBuilder._isTopLevel')) {
           referenceRenderable = referenceRenderable.findEnclosingPage();
@@ -949,7 +949,7 @@
     }
   });
 
-  TYPO3.FormBuilder.View.ElementOptionsPanel = Ember.ContainerView.extend({
+  Neos.FormBuilder.View.ElementOptionsPanel = Ember.ContainerView.extend({
     formElement: null,
     orderedFormFieldEditors: (function() {
       var formFieldEditors, k, orderedFormFieldEditors, v;
@@ -992,14 +992,14 @@
     }).observes('formElement')
   });
 
-  TYPO3.FormBuilder.View.ElementOptionsPanel.Editor = {};
+  Neos.FormBuilder.View.ElementOptionsPanel.Editor = {};
 
-  TYPO3.FormBuilder.View.ElementOptionsPanel.Editor.AbstractEditor = Ember.View.extend({
+  Neos.FormBuilder.View.ElementOptionsPanel.Editor.AbstractEditor = Ember.View.extend({
     classNames: ['form-editor'],
     formElement: null
   });
 
-  TYPO3.FormBuilder.View.ElementOptionsPanel.Editor.AbstractPropertyEditor = TYPO3.FormBuilder.View.ElementOptionsPanel.Editor.AbstractEditor.extend({
+  Neos.FormBuilder.View.ElementOptionsPanel.Editor.AbstractPropertyEditor = Neos.FormBuilder.View.ElementOptionsPanel.Editor.AbstractEditor.extend({
     propertyPath: null,
     defaultValue: '',
     valueChanged: function() {
@@ -1022,7 +1022,7 @@
     }).property('propertyPath', 'formElement').cacheable()
   });
 
-  TYPO3.FormBuilder.View.ElementOptionsPanel.Editor.AbstractCollectionEditor = TYPO3.FormBuilder.View.ElementOptionsPanel.Editor.AbstractPropertyEditor.extend({
+  Neos.FormBuilder.View.ElementOptionsPanel.Editor.AbstractCollectionEditor = Neos.FormBuilder.View.ElementOptionsPanel.Editor.AbstractPropertyEditor.extend({
     availableCollectionElements: null,
     defaultValue: (function() {
       return [];
@@ -1100,7 +1100,7 @@
         if (!collectionElementTemplate) {
           continue;
         }
-        collectionElementEditor = Ember.getPath(collectionElementTemplate.viewName || 'TYPO3.FormBuilder.View.ElementOptionsPanel.Editor.ValidatorEditor.DefaultValidatorEditor');
+        collectionElementEditor = Ember.getPath(collectionElementTemplate.viewName || 'Neos.FormBuilder.View.ElementOptionsPanel.Editor.ValidatorEditor.DefaultValidatorEditor');
         if (!collectionElementEditor) {
           throw "Collection Editor class '" + collectionElementTemplate.viewName + "' not found";
         }
@@ -1155,9 +1155,9 @@
     }
   });
 
-  TYPO3.FormBuilder.View.ElementOptionsPanel.Editor.TextOutput = TYPO3.FormBuilder.View.ElementOptionsPanel.Editor.AbstractEditor.extend({});
+  Neos.FormBuilder.View.ElementOptionsPanel.Editor.TextOutput = Neos.FormBuilder.View.ElementOptionsPanel.Editor.AbstractEditor.extend({});
 
-  TYPO3.FormBuilder.View.ElementOptionsPanel.Editor.IdentifierEditor = TYPO3.FormBuilder.View.ElementOptionsPanel.Editor.AbstractPropertyEditor.extend({
+  Neos.FormBuilder.View.ElementOptionsPanel.Editor.IdentifierEditor = Neos.FormBuilder.View.ElementOptionsPanel.Editor.AbstractPropertyEditor.extend({
     templateName: 'ElementOptionsPanel-IdentifierEditor',
     propertyPath: 'identifier',
     editMode: false,
@@ -1187,7 +1187,7 @@
         }
         return _results;
       };
-      findFormElementsWithIdentifiers(TYPO3.FormBuilder.Model.Form.get('formDefinition'));
+      findFormElementsWithIdentifiers(Neos.FormBuilder.Model.Form.get('formDefinition'));
       if (elementsWithIdentifier.length === 0) {
         this.set('validationErrorMessage', null);
         return true;
@@ -1224,7 +1224,7 @@
     }
   });
 
-  TYPO3.FormBuilder.View.ElementOptionsPanel.Editor.IdentifierEditor.TextField = Ember.TextField.extend({
+  Neos.FormBuilder.View.ElementOptionsPanel.Editor.IdentifierEditor.TextField = Ember.TextField.extend({
     insertNewline: function() {
       return this.get('parentView').commit();
     },
@@ -1239,7 +1239,7 @@
     }
   });
 
-  TYPO3.FormBuilder.View.ElementOptionsPanel.Editor.TextEditor = TYPO3.FormBuilder.View.ElementOptionsPanel.Editor.AbstractPropertyEditor.extend({
+  Neos.FormBuilder.View.ElementOptionsPanel.Editor.TextEditor = Neos.FormBuilder.View.ElementOptionsPanel.Editor.AbstractPropertyEditor.extend({
     label: null,
     onValueChange: (function() {
       return this.valueChanged();
@@ -1247,11 +1247,11 @@
     templateName: 'ElementOptionsPanel-TextEditor'
   });
 
-  TYPO3.FormBuilder.View.ElementOptionsPanel.Editor.TextareaEditor = TYPO3.FormBuilder.View.ElementOptionsPanel.Editor.TextEditor.extend({
+  Neos.FormBuilder.View.ElementOptionsPanel.Editor.TextareaEditor = Neos.FormBuilder.View.ElementOptionsPanel.Editor.TextEditor.extend({
     templateName: 'ElementOptionsPanel-TextareaEditor'
   });
 
-  TYPO3.FormBuilder.View.ElementOptionsPanel.Editor.SelectEditor = TYPO3.FormBuilder.View.ElementOptionsPanel.Editor.AbstractPropertyEditor.extend({
+  Neos.FormBuilder.View.ElementOptionsPanel.Editor.SelectEditor = Neos.FormBuilder.View.ElementOptionsPanel.Editor.AbstractPropertyEditor.extend({
     templateName: 'ElementOptionsPanel-SelectEditor',
     availableElements: null,
     selectedValue: (function(k, v) {
@@ -1271,14 +1271,14 @@
     }).property('availableElements', 'value').cacheable()
   });
 
-  TYPO3.FormBuilder.View.ElementOptionsPanel.Editor.RemoveElementEditor = TYPO3.FormBuilder.View.ElementOptionsPanel.Editor.AbstractEditor.extend({
+  Neos.FormBuilder.View.ElementOptionsPanel.Editor.RemoveElementEditor = Neos.FormBuilder.View.ElementOptionsPanel.Editor.AbstractEditor.extend({
     templateName: 'ElementOptionsPanel-RemoveElement',
     remove: function() {
       return this.get('formElement').removeWithConfirmationDialog();
     }
   });
 
-  TYPO3.FormBuilder.View.ElementOptionsPanel.Editor.PropertyGrid = TYPO3.FormBuilder.View.ElementOptionsPanel.Editor.AbstractPropertyEditor.extend({
+  Neos.FormBuilder.View.ElementOptionsPanel.Editor.PropertyGrid = Neos.FormBuilder.View.ElementOptionsPanel.Editor.AbstractPropertyEditor.extend({
     columns: null,
     isSortable: false,
     enableAddRow: false,
@@ -1495,7 +1495,7 @@
     }
   });
 
-  TYPO3.FormBuilder.View.ElementOptionsPanel.Editor.PropertyGrid.TextCellEditor = function(args) {
+  Neos.FormBuilder.View.ElementOptionsPanel.Editor.PropertyGrid.TextCellEditor = function(args) {
     var retVal;
     retVal = window.TextCellEditor.apply(this, arguments);
     $(args.container).children('.editor-text').focusout(function() {
@@ -1504,7 +1504,7 @@
     return retVal;
   };
 
-  TYPO3.FormBuilder.View.ElementOptionsPanel.Editor.RequiredValidatorEditor = TYPO3.FormBuilder.View.ElementOptionsPanel.Editor.AbstractPropertyEditor.extend({
+  Neos.FormBuilder.View.ElementOptionsPanel.Editor.RequiredValidatorEditor = Neos.FormBuilder.View.ElementOptionsPanel.Editor.AbstractPropertyEditor.extend({
     templateName: 'ElementOptionsPanel-RequiredValidatorEditor',
     propertyPath: 'validators',
     defaultValue: (function() {
@@ -1512,7 +1512,7 @@
     }).property().cacheable(),
     isRequiredValidatorConfigured: (function(k, v) {
       var a, notEmptyValidatorIdentifier, val;
-      notEmptyValidatorIdentifier = 'TYPO3.Flow:NotEmpty';
+      notEmptyValidatorIdentifier = 'Neos.Flow:NotEmpty';
       if (v !== void 0) {
         a = this.get('value').filter(function(validatorConfiguration) {
           return validatorConfiguration.identifier !== notEmptyValidatorIdentifier;
@@ -1534,7 +1534,7 @@
     }).property('value').cacheable()
   });
 
-  TYPO3.FormBuilder.View.ElementOptionsPanel.Editor.ValidatorEditor = TYPO3.FormBuilder.View.ElementOptionsPanel.Editor.AbstractCollectionEditor.extend({
+  Neos.FormBuilder.View.ElementOptionsPanel.Editor.ValidatorEditor = Neos.FormBuilder.View.ElementOptionsPanel.Editor.AbstractCollectionEditor.extend({
     availableValidators: null,
     availableCollectionElementsBinding: 'availableValidators',
     templateName: 'ElementOptionsPanel-ValidatorEditor',
@@ -1542,7 +1542,7 @@
     propertyPath: 'validators'
   });
 
-  TYPO3.FormBuilder.View.ElementOptionsPanel.Editor.ValidatorEditor.DefaultValidatorEditor = Ember.View.extend({
+  Neos.FormBuilder.View.ElementOptionsPanel.Editor.ValidatorEditor.DefaultValidatorEditor = Ember.View.extend({
     classNames: ['typo3-formbuilder-validator-editor'],
     templateName: 'Validator-Default',
     required: false,
@@ -1563,7 +1563,7 @@
     }).property('required').cacheable()
   });
 
-  TYPO3.FormBuilder.View.ElementOptionsPanel.Editor.ValidatorEditor.MinimumMaximumValidatorEditor = TYPO3.FormBuilder.View.ElementOptionsPanel.Editor.ValidatorEditor.DefaultValidatorEditor.extend({
+  Neos.FormBuilder.View.ElementOptionsPanel.Editor.ValidatorEditor.MinimumMaximumValidatorEditor = Neos.FormBuilder.View.ElementOptionsPanel.Editor.ValidatorEditor.DefaultValidatorEditor.extend({
     templateName: 'Validator-MinimumMaximumEditor',
     pathToMinimumOption: 'currentCollectionElement.options.minimum',
     pathToMaximumOption: 'currentCollectionElement.options.maximum',
@@ -1587,7 +1587,7 @@
     }).property('pathToMaximumOption').cacheable()
   });
 
-  TYPO3.FormBuilder.View.ElementOptionsPanel.Editor.ValidatorEditor.SimpleValueValidatorEditor = TYPO3.FormBuilder.View.ElementOptionsPanel.Editor.ValidatorEditor.DefaultValidatorEditor.extend({
+  Neos.FormBuilder.View.ElementOptionsPanel.Editor.ValidatorEditor.SimpleValueValidatorEditor = Neos.FormBuilder.View.ElementOptionsPanel.Editor.ValidatorEditor.DefaultValidatorEditor.extend({
     templateName: 'Validator-SimpleValueEditor',
     pathToEditedValue: 'currentCollectionElement.options.TODO',
     fieldLabel: Ember.required(),
@@ -1602,7 +1602,7 @@
     }).property('pathToEditedValue').cacheable()
   });
 
-  TYPO3.FormBuilder.View.ElementOptionsPanel.Editor.FinisherEditor = TYPO3.FormBuilder.View.ElementOptionsPanel.Editor.AbstractCollectionEditor.extend({
+  Neos.FormBuilder.View.ElementOptionsPanel.Editor.FinisherEditor = Neos.FormBuilder.View.ElementOptionsPanel.Editor.AbstractCollectionEditor.extend({
     availableFinishers: null,
     availableCollectionElementsBinding: 'availableFinishers',
     templateName: 'ElementOptionsPanel-FinisherEditor',
@@ -1610,7 +1610,7 @@
     propertyPath: 'finishers'
   });
 
-  TYPO3.FormBuilder.View.ElementOptionsPanel.Editor.FinisherEditor.EmailFinisherEditor = TYPO3.FormBuilder.View.ElementOptionsPanel.Editor.ValidatorEditor.DefaultValidatorEditor.extend({
+  Neos.FormBuilder.View.ElementOptionsPanel.Editor.FinisherEditor.EmailFinisherEditor = Neos.FormBuilder.View.ElementOptionsPanel.Editor.ValidatorEditor.DefaultValidatorEditor.extend({
     templateName: 'Finisher-EmailEditor',
     availableFormats: null,
     format: (function(k, v) {

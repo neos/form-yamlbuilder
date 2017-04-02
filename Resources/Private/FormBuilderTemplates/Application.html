@@ -1,20 +1,20 @@
-{{view TYPO3.FormBuilder.View.Header id="typo3-formbuilder-header" tagName="header"}}
+{{view Neos.FormBuilder.View.Header id="typo3-formbuilder-header" tagName="header"}}
 
-{{view TYPO3.FormBuilder.View.Stage tagName="section" id="typo3-formbuilder-stage"}}
+{{view Neos.FormBuilder.View.Stage tagName="section" id="typo3-formbuilder-stage"}}
 
 <section id="typo3-formbuilder-elementSidebar">
 	<section id="typo3-formbuilder-structurePanel">
 		<h2>Structure</h2>
-		{{view TYPO3.FormBuilder.View.StructurePanel}}
+		{{view Neos.FormBuilder.View.StructurePanel}}
 	</section>
 	<section id="typo3-formbuilder-insertElementsPanel">
 		<h2>Insert elements</h2>
-		{{view TYPO3.FormBuilder.View.InsertElementsPanel}}
+		{{view Neos.FormBuilder.View.InsertElementsPanel}}
 	</section>
 </section>
 <section id="typo3-formbuilder-elementOptionsPanel">
 	<h2>Element Options</h2>
-	{{view TYPO3.FormBuilder.View.ElementOptionsPanel formElementBinding="TYPO3.FormBuilder.Model.Form.currentlySelectedRenderable"}}
+	{{view Neos.FormBuilder.View.ElementOptionsPanel formElementBinding="Neos.FormBuilder.Model.Form.currentlySelectedRenderable"}}
 </section>
 <footer id="typo3-formbuilder-footer">
 	<p>Powered by TYPO3 Flow</p>

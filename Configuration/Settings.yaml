@@ -2,72 +2,72 @@ TYPO3:
   FormBuilder:
     defaultPreset: 'default'
     newFormTemplates:
-      'resource://TYPO3.FormBuilder/Private/NewFormTemplates/Blank.yaml': Blank
+      'resource://Neos.FormBuilder/Private/NewFormTemplates/Blank.yaml': Blank
 
     javaScripts:
       jQuery:
         sorting: 10
-        files: ['resource://TYPO3.FormBuilder/Public/Library/jquery-1.7.1.min.js', 'resource://TYPO3.FormBuilder/Public/Library/jquery-ui.min.js']
+        files: ['resource://Neos.FormBuilder/Public/Library/jquery-1.7.1.min.js', 'resource://Neos.FormBuilder/Public/Library/jquery-ui.min.js']
       jQueryLayout:
         sorting: 15
-        files: ['resource://TYPO3.FormBuilder/Public/Library/jquery.layout.js']
+        files: ['resource://Neos.FormBuilder/Public/Library/jquery.layout.js']
       ember:
         sorting: 20
-        files: ['resource://TYPO3.FormBuilder/Public/Library/ember-0.9.4.js']
+        files: ['resource://Neos.FormBuilder/Public/Library/ember-0.9.4.js']
       dynatree:
         sorting: 25
-        files: ['resource://TYPO3.FormBuilder/Public/Library/dynatree-1.2.0/src/jquery.dynatree.js']
+        files: ['resource://Neos.FormBuilder/Public/Library/dynatree-1.2.0/src/jquery.dynatree.js']
       slickGrid:
         sorting: 30
         files:
-          - 'resource://TYPO3.FormBuilder/Public/Library/SlickGrid/lib/jquery.event.drag-2.0.min.js'
-          - 'resource://TYPO3.FormBuilder/Public/Library/SlickGrid/slick.core.js'
-          - 'resource://TYPO3.FormBuilder/Public/Library/SlickGrid/plugins/slick.cellrangedecorator.js'
-          - 'resource://TYPO3.FormBuilder/Public/Library/SlickGrid/plugins/slick.cellrangeselector.js'
-          - 'resource://TYPO3.FormBuilder/Public/Library/SlickGrid/plugins/slick.cellselectionmodel.js'
-          - 'resource://TYPO3.FormBuilder/Public/Library/SlickGrid/plugins/slick.rowselectionmodel.js'
-          - 'resource://TYPO3.FormBuilder/Public/Library/SlickGrid/plugins/slick.rowmovemanager.js'
-          - 'resource://TYPO3.FormBuilder/Public/Library/SlickGrid/slick.editors.js'
-          - 'resource://TYPO3.FormBuilder/Public/Library/SlickGrid/slick.grid.js'
+          - 'resource://Neos.FormBuilder/Public/Library/SlickGrid/lib/jquery.event.drag-2.0.min.js'
+          - 'resource://Neos.FormBuilder/Public/Library/SlickGrid/slick.core.js'
+          - 'resource://Neos.FormBuilder/Public/Library/SlickGrid/plugins/slick.cellrangedecorator.js'
+          - 'resource://Neos.FormBuilder/Public/Library/SlickGrid/plugins/slick.cellrangeselector.js'
+          - 'resource://Neos.FormBuilder/Public/Library/SlickGrid/plugins/slick.cellselectionmodel.js'
+          - 'resource://Neos.FormBuilder/Public/Library/SlickGrid/plugins/slick.rowselectionmodel.js'
+          - 'resource://Neos.FormBuilder/Public/Library/SlickGrid/plugins/slick.rowmovemanager.js'
+          - 'resource://Neos.FormBuilder/Public/Library/SlickGrid/slick.editors.js'
+          - 'resource://Neos.FormBuilder/Public/Library/SlickGrid/slick.grid.js'
       application:
-        files: ['resource://TYPO3.FormBuilder/Public/JavaScript/app.js']
+        files: ['resource://Neos.FormBuilder/Public/JavaScript/app.js']
         sorting: 100
 
     stylesheets:
       slickGrid:
         sorting: 10
-        files: ['resource://TYPO3.FormBuilder/Public/Library/SlickGrid/slick.grid.wrapped.css']
+        files: ['resource://Neos.FormBuilder/Public/Library/SlickGrid/slick.grid.wrapped.css']
       application:
         sorting: 100
-        files: ['resource://TYPO3.FormBuilder/Public/Css/FormBuilder.css']
+        files: ['resource://Neos.FormBuilder/Public/Css/FormBuilder.css']
 
     handlebarsTemplates:
       # Main application layout
-      Application: resource://TYPO3.FormBuilder/Private/FormBuilderTemplates/Application.html
-      Header: resource://TYPO3.FormBuilder/Private/FormBuilderTemplates/Header.html
-      StructurePanel: resource://TYPO3.FormBuilder/Private/FormBuilderTemplates/StructurePanel.html
-      InsertElementsPanel: resource://TYPO3.FormBuilder/Private/FormBuilderTemplates/InsertElementsPanel.html
+      Application: resource://Neos.FormBuilder/Private/FormBuilderTemplates/Application.html
+      Header: resource://Neos.FormBuilder/Private/FormBuilderTemplates/Header.html
+      StructurePanel: resource://Neos.FormBuilder/Private/FormBuilderTemplates/StructurePanel.html
+      InsertElementsPanel: resource://Neos.FormBuilder/Private/FormBuilderTemplates/InsertElementsPanel.html
 
       # Element options panel parts
-      ElementOptionsPanel-FinisherEditor:  resource://TYPO3.FormBuilder/Private/FormBuilderTemplates/ElementOptionsPanel/FinisherEditor.html
-      ElementOptionsPanel-IdentifierEditor:  resource://TYPO3.FormBuilder/Private/FormBuilderTemplates/ElementOptionsPanel/IdentifierEditor.html
-      ElementOptionsPanel-PropertyGridEditor:  resource://TYPO3.FormBuilder/Private/FormBuilderTemplates/ElementOptionsPanel/PropertyGridEditor.html
-      ElementOptionsPanel-PropertyPanelTitle:  resource://TYPO3.FormBuilder/Private/FormBuilderTemplates/ElementOptionsPanel/PropertyPanelTitle.html
-      ElementOptionsPanel-RemoveElement:  resource://TYPO3.FormBuilder/Private/FormBuilderTemplates/ElementOptionsPanel/RemoveElement.html
-      ElementOptionsPanel-RequiredValidatorEditor:  resource://TYPO3.FormBuilder/Private/FormBuilderTemplates/ElementOptionsPanel/RequiredValidatorEditor.html
-      ElementOptionsPanel-TextEditor:  resource://TYPO3.FormBuilder/Private/FormBuilderTemplates/ElementOptionsPanel/TextEditor.html
-      ElementOptionsPanel-TextareaEditor:  resource://TYPO3.FormBuilder/Private/FormBuilderTemplates/ElementOptionsPanel/TextareaEditor.html
-      ElementOptionsPanel-SelectEditor:  resource://TYPO3.FormBuilder/Private/FormBuilderTemplates/ElementOptionsPanel/SelectEditor.html
-      ElementOptionsPanel-ValidatorEditor:  resource://TYPO3.FormBuilder/Private/FormBuilderTemplates/ElementOptionsPanel/ValidatorEditor.html
+      ElementOptionsPanel-FinisherEditor:  resource://Neos.FormBuilder/Private/FormBuilderTemplates/ElementOptionsPanel/FinisherEditor.html
+      ElementOptionsPanel-IdentifierEditor:  resource://Neos.FormBuilder/Private/FormBuilderTemplates/ElementOptionsPanel/IdentifierEditor.html
+      ElementOptionsPanel-PropertyGridEditor:  resource://Neos.FormBuilder/Private/FormBuilderTemplates/ElementOptionsPanel/PropertyGridEditor.html
+      ElementOptionsPanel-PropertyPanelTitle:  resource://Neos.FormBuilder/Private/FormBuilderTemplates/ElementOptionsPanel/PropertyPanelTitle.html
+      ElementOptionsPanel-RemoveElement:  resource://Neos.FormBuilder/Private/FormBuilderTemplates/ElementOptionsPanel/RemoveElement.html
+      ElementOptionsPanel-RequiredValidatorEditor:  resource://Neos.FormBuilder/Private/FormBuilderTemplates/ElementOptionsPanel/RequiredValidatorEditor.html
+      ElementOptionsPanel-TextEditor:  resource://Neos.FormBuilder/Private/FormBuilderTemplates/ElementOptionsPanel/TextEditor.html
+      ElementOptionsPanel-TextareaEditor:  resource://Neos.FormBuilder/Private/FormBuilderTemplates/ElementOptionsPanel/TextareaEditor.html
+      ElementOptionsPanel-SelectEditor:  resource://Neos.FormBuilder/Private/FormBuilderTemplates/ElementOptionsPanel/SelectEditor.html
+      ElementOptionsPanel-ValidatorEditor:  resource://Neos.FormBuilder/Private/FormBuilderTemplates/ElementOptionsPanel/ValidatorEditor.html
 
       # Validator Editors
-      Validator-Default: resource://TYPO3.FormBuilder/Private/FormBuilderTemplates/Validator/Default.html
-      Validator-MinimumMaximumEditor: resource://TYPO3.FormBuilder/Private/FormBuilderTemplates/Validator/MinimumMaximumEditor.html
-      Validator-SimpleValueEditor: resource://TYPO3.FormBuilder/Private/FormBuilderTemplates/Validator/SimpleValueEditor.html
+      Validator-Default: resource://Neos.FormBuilder/Private/FormBuilderTemplates/Validator/Default.html
+      Validator-MinimumMaximumEditor: resource://Neos.FormBuilder/Private/FormBuilderTemplates/Validator/MinimumMaximumEditor.html
+      Validator-SimpleValueEditor: resource://Neos.FormBuilder/Private/FormBuilderTemplates/Validator/SimpleValueEditor.html
 
       # Finisher Editors
-      Finisher-EmailEditor: resource://TYPO3.FormBuilder/Private/FormBuilderTemplates/Finisher/EmailEditor.html
-      Finisher-RedirectEditor: resource://TYPO3.FormBuilder/Private/FormBuilderTemplates/Finisher/RedirectEditor.html
+      Finisher-EmailEditor: resource://Neos.FormBuilder/Private/FormBuilderTemplates/Finisher/EmailEditor.html
+      Finisher-RedirectEditor: resource://Neos.FormBuilder/Private/FormBuilderTemplates/Finisher/RedirectEditor.html
 
   Form:
     supertypeResolver:
@@ -77,7 +77,7 @@ TYPO3:
       ########### DEFAULT ###########
       default:
         validatorPresets:
-          'TYPO3.FormBuilder:ZipCode':
+          'Neos.FormBuilder:ZipCode':
             implementationClassName: 'Neos\Flow\Validation\Validator\RegularExpressionValidator'
             options:
               regularExpression: '/^[0-9]{5}$/'
@@ -97,41 +97,41 @@ TYPO3:
             label: 'Container Form Elements'
 
         formElementTypes:
-          'TYPO3.Form:Base':
+          'Neos.Form:Base':
             formBuilder:
               editors:
                 elementType:
                   sorting: 100
-                  viewName: 'TYPO3.FormBuilder.View.ElementOptionsPanel.Editor.TextOutput'
+                  viewName: 'Neos.FormBuilder.View.ElementOptionsPanel.Editor.TextOutput'
                   templateName: 'ElementOptionsPanel-PropertyPanelTitle'
-          'TYPO3.Form:ReadOnlyFormElement':
+          'Neos.Form:ReadOnlyFormElement':
             formBuilder:
               editors:
                 label:
                   label: 'Title'
                   propertyPath: 'label'
                   sorting: 120
-                  viewName: 'TYPO3.FormBuilder.View.ElementOptionsPanel.Editor.TextEditor'
-          'TYPO3.Form:FormElement':
+                  viewName: 'Neos.FormBuilder.View.ElementOptionsPanel.Editor.TextEditor'
+          'Neos.Form:FormElement':
             formBuilder:
               editors:
                 identifier:
                   sorting: 110
-                  viewName: 'TYPO3.FormBuilder.View.ElementOptionsPanel.Editor.IdentifierEditor'
+                  viewName: 'Neos.FormBuilder.View.ElementOptionsPanel.Editor.IdentifierEditor'
                 label:
                   label: 'Label'
                   propertyPath: 'label'
                   sorting: 120
-                  viewName: 'TYPO3.FormBuilder.View.ElementOptionsPanel.Editor.TextEditor'
+                  viewName: 'Neos.FormBuilder.View.ElementOptionsPanel.Editor.TextEditor'
                 requiredValidator:
                   sorting: 800
-                  viewName: 'TYPO3.FormBuilder.View.ElementOptionsPanel.Editor.RequiredValidatorEditor'
+                  viewName: 'Neos.FormBuilder.View.ElementOptionsPanel.Editor.RequiredValidatorEditor'
 
                 validation:
                   sorting: 900
-                  viewName: 'TYPO3.FormBuilder.View.ElementOptionsPanel.Editor.ValidatorEditor'
+                  viewName: 'Neos.FormBuilder.View.ElementOptionsPanel.Editor.ValidatorEditor'
 
-          'TYPO3.Form:Form':
+          'Neos.Form:Form':
             formBuilder:
               label: 'Form'
               _isCompositeRenderable: false
@@ -139,60 +139,60 @@ TYPO3:
               editors:
                 identifier:
                   sorting: 110
-                  viewName: 'TYPO3.FormBuilder.View.ElementOptionsPanel.Editor.IdentifierEditor'
+                  viewName: 'Neos.FormBuilder.View.ElementOptionsPanel.Editor.IdentifierEditor'
                 label:
                   label: 'Form Name'
                   propertyPath: 'label'
                   sorting: 120
-                  viewName: 'TYPO3.FormBuilder.View.ElementOptionsPanel.Editor.TextEditor'
+                  viewName: 'Neos.FormBuilder.View.ElementOptionsPanel.Editor.TextEditor'
                 submitButtonLabel:
                   sorting: 200
                   label: 'Submit Label'
                   propertyPath: 'renderingOptions.submitButtonLabel'
-                  viewName: 'TYPO3.FormBuilder.View.ElementOptionsPanel.Editor.TextEditor'
+                  viewName: 'Neos.FormBuilder.View.ElementOptionsPanel.Editor.TextEditor'
 
                 finishers:
                   sorting: 410
-                  viewName: 'TYPO3.FormBuilder.View.ElementOptionsPanel.Editor.FinisherEditor'
+                  viewName: 'Neos.FormBuilder.View.ElementOptionsPanel.Editor.FinisherEditor'
                   availableFinishers:
-                    'TYPO3.Form:Email':
+                    'Neos.Form:Email':
                       label: 'Send Email'
-                      viewName: 'TYPO3.FormBuilder.View.ElementOptionsPanel.Editor.FinisherEditor.EmailFinisherEditor'
+                      viewName: 'Neos.FormBuilder.View.ElementOptionsPanel.Editor.FinisherEditor.EmailFinisherEditor'
                       availableFormats:
                         0: {key: 'plaintext', value: 'Plain Text'}
                         1: {key: 'html', value: 'HTML'}
-                    'TYPO3.Form:Redirect':
+                    'Neos.Form:Redirect':
                       label: 'Redirect to controller/action'
                       templateName: 'Finisher-RedirectEditor'
 
 
-          'TYPO3.Form:RemovableMixin':
+          'Neos.Form:RemovableMixin':
             formBuilder:
               editors:
                 removeButton:
                   sorting: 999
-                  viewName: 'TYPO3.FormBuilder.View.ElementOptionsPanel.Editor.RemoveElementEditor'
+                  viewName: 'Neos.FormBuilder.View.ElementOptionsPanel.Editor.RemoveElementEditor'
 
           # group INPUT
-          'TYPO3.Form:SingleLineText':
+          'Neos.Form:SingleLineText':
             formBuilder:
               label: 'Single-Line Text'
               group: input
               sorting: 100
 
-          'TYPO3.Form:MultiLineText':
+          'Neos.Form:MultiLineText':
             formBuilder:
               label: 'Multi-Line Text'
               group: input
               sorting: 110
 
-          'TYPO3.Form:Password':
+          'Neos.Form:Password':
             formBuilder:
               label: 'Password field'
               group: input
               sorting: 120
 
-          'TYPO3.Form:PasswordWithConfirmation':
+          'Neos.Form:PasswordWithConfirmation':
             formBuilder:
               label: 'Password with confirmation'
               group: input
@@ -200,44 +200,44 @@ TYPO3:
               editors:
                 confirmationLabel:
                   sorting: 125
-                  viewName: 'TYPO3.FormBuilder.View.ElementOptionsPanel.Editor.TextEditor'
+                  viewName: 'Neos.FormBuilder.View.ElementOptionsPanel.Editor.TextEditor'
                   label: 'Conf. Label'
                   defaultValue: 'Confirmation'
                   propertyPath: 'properties.confirmationLabel'
 
           # group SELECT
-          'TYPO3.Form:Checkbox':
+          'Neos.Form:Checkbox':
             formBuilder:
               label: 'Single Checkbox'
               group: select
               sorting: 100
 
-          'TYPO3.Form:SingleSelectDropdown':
+          'Neos.Form:SingleSelectDropdown':
             formBuilder:
               label: 'Single Select (Dropdown)'
               group: select
               sorting: 110
 
-          'TYPO3.Form:SingleSelectRadiobuttons':
+          'Neos.Form:SingleSelectRadiobuttons':
             formBuilder:
               label: 'Single Select (Radiobuttons)'
               group: select
               sorting: 120
 
-          'TYPO3.Form:MultipleSelectDropdown':
+          'Neos.Form:MultipleSelectDropdown':
             formBuilder:
               label: 'Multiple Select (Dropdown)'
               group: select
               sorting: 130
 
-          'TYPO3.Form:MultipleSelectCheckboxes':
+          'Neos.Form:MultipleSelectCheckboxes':
             formBuilder:
               label: 'Multiple Select (Checkboxes)'
               group: select
               sorting: 140
 
           # group CUSTOM
-          'TYPO3.Form:DatePicker':
+          'Neos.Form:DatePicker':
             formBuilder:
               label: 'Date Picker'
               group: custom
@@ -245,12 +245,12 @@ TYPO3:
               editors:
                 validation:
                   availableValidators:
-                    'TYPO3.Flow:DateTimeRange':
+                    'Neos.Flow:DateTimeRange':
                       label: 'Date/Time Range'
-                      viewName: 'TYPO3.FormBuilder.View.ElementOptionsPanel.Editor.ValidatorEditor.MinimumMaximumValidatorEditor'
+                      viewName: 'Neos.FormBuilder.View.ElementOptionsPanel.Editor.ValidatorEditor.MinimumMaximumValidatorEditor'
                       pathToMinimumOption: 'currentCollectionElement.options.earliestDate'
                       pathToMaximumOption: 'currentCollectionElement.options.latestDate'
-          'TYPO3.Form:FileUpload':
+          'Neos.Form:FileUpload':
             formBuilder:
               label: 'File Upload'
               group: custom
@@ -260,7 +260,7 @@ TYPO3:
                   sorting: 200
                   label: 'Allowed File Types'
                   propertyPath: 'properties.allowedExtensions'
-                  viewName: 'TYPO3.FormBuilder.View.ElementOptionsPanel.Editor.SelectEditor'
+                  viewName: 'Neos.FormBuilder.View.ElementOptionsPanel.Editor.SelectEditor'
                   availableElements:
                     0:
                       value: ['doc', 'docx', 'odt', 'pdf']
@@ -268,13 +268,13 @@ TYPO3:
                     1:
                       value: ['xls']
                       label: 'Spreadsheet documents (xls)'
-          'TYPO3.Form:ImageUpload':
+          'Neos.Form:ImageUpload':
             formBuilder:
               label: 'Image Upload'
               group: custom
               sorting: 115
 
-          'TYPO3.Form:StaticText':
+          'Neos.Form:StaticText':
             formBuilder:
               label: 'Static Text'
               group: custom
@@ -282,19 +282,19 @@ TYPO3:
               editors:
                 staticText:
                   sorting: 150
-                  viewName: 'TYPO3.FormBuilder.View.ElementOptionsPanel.Editor.TextareaEditor'
+                  viewName: 'Neos.FormBuilder.View.ElementOptionsPanel.Editor.TextareaEditor'
                   label: 'Text'
                   propertyPath: 'properties.text'
 
           # group CONTAINER
-          'TYPO3.Form:Section':
+          'Neos.Form:Section':
             formBuilder:
               label: 'Section (Fieldset)'
               group: container
               sorting: 100
               _isCompositeRenderable: true
 
-          'TYPO3.Form:Page':
+          'Neos.Form:Page':
             formBuilder:
               label: 'Page'
               group: container
@@ -304,14 +304,14 @@ TYPO3:
               editors:
                 identifier:
                   sorting: 110
-                  viewName: 'TYPO3.FormBuilder.View.ElementOptionsPanel.Editor.IdentifierEditor'
+                  viewName: 'Neos.FormBuilder.View.ElementOptionsPanel.Editor.IdentifierEditor'
                 label:
                   label: 'Label'
                   propertyPath: 'label'
                   sorting: 120
-                  viewName: 'TYPO3.FormBuilder.View.ElementOptionsPanel.Editor.TextEditor'
+                  viewName: 'Neos.FormBuilder.View.ElementOptionsPanel.Editor.TextEditor'
 
-          'TYPO3.Form:PreviewPage':
+          'Neos.Form:PreviewPage':
             formBuilder:
               label: 'Preview Page'
               group: container
@@ -320,68 +320,68 @@ TYPO3:
               _isCompositeRenderable: false
 
 
-          'TYPO3.Form:TextMixin':
+          'Neos.Form:TextMixin':
             formBuilder:
               editors:
                 placeholder:
                   sorting: 150
-                  viewName: 'TYPO3.FormBuilder.View.ElementOptionsPanel.Editor.TextEditor'
+                  viewName: 'Neos.FormBuilder.View.ElementOptionsPanel.Editor.TextEditor'
                   label: 'Placeholder'
                   propertyPath: 'properties.placeholder'
                 defaultValue:
                   sorting: 160
-                  viewName: 'TYPO3.FormBuilder.View.ElementOptionsPanel.Editor.TextEditor'
+                  viewName: 'Neos.FormBuilder.View.ElementOptionsPanel.Editor.TextEditor'
                   label: 'Default Value'
                   propertyPath: 'defaultValue'
                 validation:
                    availableValidators:
-                    'TYPO3.Flow:Alphanumeric':
+                    'Neos.Flow:Alphanumeric':
                       label: 'Alphanumeric'
                       sorting: 100
-                    'TYPO3.Flow:Text':
+                    'Neos.Flow:Text':
                       label: 'Non-XML Text'
                       sorting: 110
-                    'TYPO3.Flow:StringLength':
+                    'Neos.Flow:StringLength':
                       label: 'String Length'
                       sorting: 120
-                      viewName: 'TYPO3.FormBuilder.View.ElementOptionsPanel.Editor.ValidatorEditor.MinimumMaximumValidatorEditor'
+                      viewName: 'Neos.FormBuilder.View.ElementOptionsPanel.Editor.ValidatorEditor.MinimumMaximumValidatorEditor'
                       required: false
-                    'TYPO3.Flow:EmailAddress':
+                    'Neos.Flow:EmailAddress':
                       label: 'EMail'
                       sorting: 130
                       required: false
 
-                    'TYPO3.Flow:Integer':
+                    'Neos.Flow:Integer':
                       label: 'Integer Number'
                       sorting: 200
-                    'TYPO3.Flow:Float':
+                    'Neos.Flow:Float':
                       label: 'Floating-point Number'
                       sorting: 210
-                    'TYPO3.Flow:NumberRange':
+                    'Neos.Flow:NumberRange':
                       label: 'Number Range'
                       sorting: 220
-                      viewName: 'TYPO3.FormBuilder.View.ElementOptionsPanel.Editor.ValidatorEditor.MinimumMaximumValidatorEditor'
+                      viewName: 'Neos.FormBuilder.View.ElementOptionsPanel.Editor.ValidatorEditor.MinimumMaximumValidatorEditor'
 
-                    'TYPO3.Flow:RegularExpression':
+                    'Neos.Flow:RegularExpression':
                       label: 'Regular Expression'
                       fieldLabel: 'Regular Expression'
                       fieldExplanationText: 'Enter a valid PHP PCRE Regular Expression here.'
                       sorting: 300
-                      viewName: 'TYPO3.FormBuilder.View.ElementOptionsPanel.Editor.ValidatorEditor.SimpleValueValidatorEditor'
+                      viewName: 'Neos.FormBuilder.View.ElementOptionsPanel.Editor.ValidatorEditor.SimpleValueValidatorEditor'
                       pathToEditedValue: 'currentCollectionElement.options.regularExpression'
 
                     # Example of creating a custom "ZipCode" validator preset,
                     # which is defined in the "validatorPresets" above.
-                    'TYPO3.FormBuilder:ZipCode':
+                    'Neos.FormBuilder:ZipCode':
                       label: 'Zip Code'
                       sorting: 140
 
-          'TYPO3.Form:SelectionMixin':
+          'Neos.Form:SelectionMixin':
             formBuilder:
               editors:
                 options:
                   sorting: 200
-                  viewName: 'TYPO3.FormBuilder.View.ElementOptionsPanel.Editor.PropertyGrid'
+                  viewName: 'Neos.FormBuilder.View.ElementOptionsPanel.Editor.PropertyGrid'
                   # TODO: rename to "optionListPath"?
                   propertyPath: 'properties.options'
                   isSortable: true
@@ -391,24 +391,24 @@ TYPO3:
                     0:
                       field: '_value'
                       name: 'Label'
-                      editor: 'TYPO3.FormBuilder.View.ElementOptionsPanel.Editor.PropertyGrid.TextCellEditor'
+                      editor: 'Neos.FormBuilder.View.ElementOptionsPanel.Editor.PropertyGrid.TextCellEditor'
                     1:
                       field: '_key'
                       name: 'Value'
-                      editor: 'TYPO3.FormBuilder.View.ElementOptionsPanel.Editor.PropertyGrid.TextCellEditor'
-          'TYPO3.Form:SingleSelectionMixin':
+                      editor: 'Neos.FormBuilder.View.ElementOptionsPanel.Editor.PropertyGrid.TextCellEditor'
+          'Neos.Form:SingleSelectionMixin':
             formBuilder:
               editors:
                 options:
                   shouldShowPreselectedValueColumn: 'single'
-          'TYPO3.Form:MultiSelectionMixin':
+          'Neos.Form:MultiSelectionMixin':
             formBuilder:
               editors:
                 options:
                   shouldShowPreselectedValueColumn: 'multiple'
                 validation:
                   availableValidators:
-                    'TYPO3.Flow:Count':
+                    'Neos.Flow:Count':
                       label: 'Number of submitted values'
                       sorting: 100
-                      viewName: 'TYPO3.FormBuilder.View.ElementOptionsPanel.Editor.ValidatorEditor.MinimumMaximumValidatorEditor'
+                      viewName: 'Neos.FormBuilder.View.ElementOptionsPanel.Editor.ValidatorEditor.MinimumMaximumValidatorEditor'

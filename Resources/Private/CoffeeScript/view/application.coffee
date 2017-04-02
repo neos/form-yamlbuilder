@@ -1,5 +1,5 @@
 # <!--
-# This script belongs to the FLOW3 package "TYPO3.FormBuilder".
+# This script belongs to the FLOW3 package "Neos.FormBuilder".
 #
 # It is free software; you can redistribute it and/or modify it under
 # the terms of the GNU Lesser General Public License, either version 3
@@ -18,7 +18,7 @@
 # It mainly uses the jQuery layout() plugin for this.
 # ***
 # ###Private###
-TYPO3.FormBuilder.View.Application = Ember.View.extend {
+Neos.FormBuilder.View.Application = Ember.View.extend {
 	templateName: 'Application'
 	didInsertElement: ->
 		@addLayout()
@@ -87,6 +87,6 @@ TYPO3.FormBuilder.View.Application = Ember.View.extend {
 
 	# update <title> when the label of the form definition changes
 	updatePageTitle: (->
-		document.title = 'Form Builder - ' + Ember.getPath('TYPO3.FormBuilder.Model.Form.formDefinition.label')
-	).observes('TYPO3.FormBuilder.Model.Form.formDefinition.label')
+		document.title = 'Form Builder - ' + Ember.getPath('Neos.FormBuilder.Model.Form.formDefinition.label')
+	).observes('Neos.FormBuilder.Model.Form.formDefinition.label')
 }

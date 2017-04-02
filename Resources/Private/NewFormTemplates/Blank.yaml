@@ -1,8 +1,8 @@
-type: 'TYPO3.Form:Form'
+type: 'Neos.Form:Form'
 identifier: 'blankForm'
 label: '[Blank Form]'
 renderables:
     -
-        type: 'TYPO3.Form:Page'
+        type: 'Neos.Form:Page'
         identifier: page1
         label: 'Page 1'

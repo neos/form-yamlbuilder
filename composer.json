@@ -8,7 +8,7 @@
 		"neos/form": "~4.0.0"
 	},
 	"autoload": {
-		"psr-3": {
+		"psr-4": {
 			"Neos\\FormBuilder\\": "Classes"
 		}
 	}

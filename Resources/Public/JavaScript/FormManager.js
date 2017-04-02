@@ -1,6 +1,7 @@
-$('#forms .duplicate').click(function(event) {
+$('#forms').find('.duplicate').click(function(event) {
 	event.preventDefault();
-	$('#modalDuplicateForm .formName').html($(this).data('formName'));
-	$('#modalDuplicateForm .formPersistenceIdentifier').val($(this).data('formPersistenceIdentifier'));
-	$('#modalDuplicateForm').modal();
+	var $modalDuplicateForm = $('#modalDuplicateForm');
+	$modalDuplicateForm.find('.formName').html($(this).data('formName'));
+	$modalDuplicateForm.find('.formPersistenceIdentifier').val($(this).data('formPersistenceIdentifier'));
+	$modalDuplicateForm.modal();
 });

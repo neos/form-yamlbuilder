@@ -1,5 +1,5 @@
 # <!--
-# This script belongs to the FLOW3 package "TYPO3.FormBuilder".
+# This script belongs to the FLOW3 package "Neos.FormBuilder".
 #
 # It is free software; you can redistribute it and/or modify it under
 # the terms of the GNU Lesser General Public License, either version 3
@@ -9,7 +9,7 @@
 # -->
 
 
-# #Namespace `TYPO3.FormBuilder.View.ElementOptionsPanel.Editor`#
+# #Namespace `Neos.FormBuilder.View.ElementOptionsPanel.Editor`#
 #
 # This file contains a generic collection editor, which is used as common
 # base class for Validator and Finisher editors.
@@ -18,13 +18,13 @@
 
 # ## Class AbstractCollectionEditor
 #
-TYPO3.FormBuilder.View.ElementOptionsPanel.Editor.AbstractCollectionEditor = TYPO3.FormBuilder.View.ElementOptionsPanel.Editor.AbstractPropertyEditor.extend {
+Neos.FormBuilder.View.ElementOptionsPanel.Editor.AbstractCollectionEditor = Neos.FormBuilder.View.ElementOptionsPanel.Editor.AbstractPropertyEditor.extend {
 	# ###Public Properties###
 	# * `availableCollectionElements`: JSON object of available sub elements, where each element has the following options:
 	#
 	#    * `label`: human-readable label of the validator
 	#    * `sorting`: sorting index to be used for the validator
-	#    * `name`: Validator class name, if not specified the `TYPO3.FormBuilder.View.ElementOptionsPanel.Editor.ValidatorEditor.DefaultValidatorEditor` is used.
+	#    * `name`: Validator class name, if not specified the `Neos.FormBuilder.View.ElementOptionsPanel.Editor.ValidatorEditor.DefaultValidatorEditor` is used.
 	#    * `options`: Validator options to be set (JSON object)
 	#    * `required`: (boolean) if TRUE; it is required validator which is not de-selectable
 	availableCollectionElements: null,
@@ -117,7 +117,7 @@ TYPO3.FormBuilder.View.ElementOptionsPanel.Editor.AbstractCollectionEditor = TYP
 
 			# we found the correct collectionElementTemplate for the current collectionElement
 			# thus we can output label and determine the view to be used.
-			collectionElementEditor = Ember.getPath(collectionElementTemplate.viewName || 'TYPO3.FormBuilder.View.ElementOptionsPanel.Editor.ValidatorEditor.DefaultValidatorEditor')
+			collectionElementEditor = Ember.getPath(collectionElementTemplate.viewName || 'Neos.FormBuilder.View.ElementOptionsPanel.Editor.ValidatorEditor.DefaultValidatorEditor')
 			throw "Collection Editor class '#{collectionElementTemplate.viewName}' not found" if !collectionElementEditor
 			collectionElementEditorOptions = $.extend({
 				elementIndex: i

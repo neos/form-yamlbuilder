@@ -1,8 +1,8 @@
 #Form Builder#
 
-This package implements a web-based IDE called **Form Builder**, which can be used to create and edit forms in conjunction with the **TYPO3.Form** package.
+This package implements a web-based IDE called **Form Builder**, which can be used to create and edit forms in conjunction with the **Neos.Form** package.
 
-What you are reading now is the entry point of the API documentation. For a general introduction and usage examples, we suggest the documentation included in the TYPO3.Form package.
+What you are reading now is the entry point of the API documentation. For a general introduction and usage examples, we suggest the documentation included in the Neos.Form package.
 
 *To see the documentation for the specific classes, use the **jump to** menu in the top-right corner of this screen.*
 
@@ -27,9 +27,9 @@ The Form Builder is meant to be extensible, on the following points:
 - you can adjust the CSS styling
 - you can override Handlebars templates to adjust the HTML markup of the form builder
 - you can write **new editors** which are displayed in the *editor panel*, by
-  subclassing `TYPO3.FormBuilder.View.Editor.AbstractPropertyEditor`
+  subclassing `Neos.FormBuilder.View.Editor.AbstractPropertyEditor`
 - you can write **new validator editors** which are displayed underneath the *validators* in the editor panel,
-  by subclassing `TYPO3.FormBuilder.View.Editor.ValidatorEditor.DefaultValidatorEditor`
+  by subclassing `Neos.FormBuilder.View.Editor.ValidatorEditor.DefaultValidatorEditor`
 - you can write **new finisher editors** which are displayed underneath the *finishers*, in a process
   similar to creating new validator editors.
 
@@ -38,7 +38,7 @@ The Form Builder is meant to be extensible, on the following points:
 ### Adjusting CSS styling and loading additional JavaScript files ###
 
 The CSS files which are included in the form builder UI, and the JavaScript files being used,
-are configured using `Settings.yaml` at path `TYPO3.FormBuilder.stylesheets` and `TYPO3.FormBuilder.javaScripts`.
+are configured using `Settings.yaml` at path `Neos.FormBuilder.stylesheets` and `Neos.FormBuilder.javaScripts`.
 
 They both have the same structure, that's why we'll only focus on explaining the CSS styling configuration
 which looks as follows:
@@ -48,13 +48,13 @@ which looks as follows:
 	    stylesheets:
 	      slickGrid:
 	        sorting: 10
-	        files: ['resource://TYPO3.FormBuilder/Public/Library/SlickGrid/slick.grid.wrapped.css']
+	        files: ['resource://Neos.FormBuilder/Public/Library/SlickGrid/slick.grid.wrapped.css']
 	      # … some more definitions here …
 	      application:
 	        sorting: 100
-	        files: ['resource://TYPO3.FormBuilder/Public/Css/FormBuilder.css']
+	        files: ['resource://Neos.FormBuilder/Public/Css/FormBuilder.css']
 
-Underneath `TYPO3.FormBuilder.stylesheets` resides a list of "bundles" which need to be included. For each
+Underneath `Neos.FormBuilder.stylesheets` resides a list of "bundles" which need to be included. For each
 bundle, the `files` array points to resources which should be included appropriately. The `sorting` determines the inclusion order (low numbers are included first).
 
 You could even disable the inclusion of a particular style sheet, by setting it to NULL:
@@ -75,7 +75,7 @@ Each handlebars template which is used by the Form Builder is registered in the 
 	TYPO3:
 	  FormBuilder:
 	    handlebarsTemplates:
-	      ValidatorEditor: resource://TYPO3.FormBuilder/Private/Templates/FormBuilder/ValidatorEditor.html
+	      ValidatorEditor: resource://Neos.FormBuilder/Private/Templates/FormBuilder/ValidatorEditor.html
 	      # here follow lots of other handlebars templates
 
 Underneath the `handlebarsTemplates`, an associative array is stored where the *key* is the **templateName** as being used in `Ember.View`, and the *value* is the filesystem location where the template is stored.

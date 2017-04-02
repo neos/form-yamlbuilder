@@ -1,6 +1,6 @@
 describe('Model', function() {
 	describe('Renderable', function() {
-		var Renderable = TYPO3.FormBuilder.Model.Renderable;
+		var Renderable = Neos.FormBuilder.Model.Renderable;
 
 		it('setPathRecursively should work', function() {
 			var r = Renderable.create({

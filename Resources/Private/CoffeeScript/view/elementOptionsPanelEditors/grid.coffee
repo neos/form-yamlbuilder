@@ -1,5 +1,5 @@
 # <!--
-# This script belongs to the FLOW3 package "TYPO3.FormBuilder".
+# This script belongs to the FLOW3 package "Neos.FormBuilder".
 #
 # It is free software; you can redistribute it and/or modify it under
 # the terms of the GNU Lesser General Public License, either version 3
@@ -9,7 +9,7 @@
 # -->
 
 
-# #Namespace `TYPO3.FormBuilder.View.Editor`#
+# #Namespace `Neos.FormBuilder.View.Editor`#
 #
 # This file implements the `Property Grid` editor.
 #
@@ -20,7 +20,7 @@
 # - arbitrary number of columns
 # - columns are made sortable if wanted
 # - a new column is added at the bottom to insert a new element
-TYPO3.FormBuilder.View.ElementOptionsPanel.Editor.PropertyGrid = TYPO3.FormBuilder.View.ElementOptionsPanel.Editor.AbstractPropertyEditor.extend {
+Neos.FormBuilder.View.ElementOptionsPanel.Editor.PropertyGrid = Neos.FormBuilder.View.ElementOptionsPanel.Editor.AbstractPropertyEditor.extend {
 
 	# ###Public API###
 	#
@@ -271,7 +271,7 @@ TYPO3.FormBuilder.View.ElementOptionsPanel.Editor.PropertyGrid = TYPO3.FormBuild
 
 # This is just a standard TextCellEditor of SlickGrid; extended in a way that when
 # defocussing the text field, the edit is committed / saved.
-TYPO3.FormBuilder.View.ElementOptionsPanel.Editor.PropertyGrid.TextCellEditor = (args) ->
+Neos.FormBuilder.View.ElementOptionsPanel.Editor.PropertyGrid.TextCellEditor = (args) ->
 	retVal = window.TextCellEditor.apply(this, arguments)
 
 	$(args.container).children('.editor-text').focusout ->
