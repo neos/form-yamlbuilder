@@ -2,7 +2,6 @@
 	"name": "neos/formbuilder",
 	"type": "neos-package",
 	"description": "Graphical User Interface for creating and editing Forms based on the Flow Form Framework",
-	"version": "",
 	"require": {
 		"neos/flow": "~4.0.0",
 		"neos/form": "~4.0.0"
