@@ -1,5 +1,5 @@
 <?php
-namespace TYPO3\FormBuilder\Controller;
+namespace Neos\FormBuilder\Controller;
 
 /*                                                                        *
  * This script belongs to the TYPO3 Flow package "TYPO3.FormBuilder".     *
@@ -15,13 +15,12 @@ use Neos\Flow\Annotations as Flow;
 use Neos\Flow\Mvc\Controller\ActionController;
 
 /**
- * Standard controller for the TYPO3.FormBuilder package
+ * Standard controller for the Neos.FormBuilder package
  *
  * @Flow\Scope("singleton")
  */
 class StandardController extends ActionController
 {
-
     /**
      * Standard controller
      */

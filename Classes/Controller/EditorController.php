@@ -1,5 +1,5 @@
 <?php
-namespace TYPO3\FormBuilder\Controller;
+namespace Neos\FormBuilder\Controller;
 
 /*                                                                        *
  * This script belongs to the TYPO3 Flow package "TYPO3.FormBuilder".     *
@@ -22,7 +22,6 @@ use Neos\Flow\Annotations as Flow;
  */
 class EditorController extends ActionController
 {
-
     /**
      * @Flow\Inject
      * @var \Neos\Form\Persistence\FormPersistenceManagerInterface

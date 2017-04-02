@@ -1,5 +1,5 @@
 <?php
-namespace TYPO3\FormBuilder\Controller;
+namespace Neos\FormBuilder\Controller;
 
 /*                                                                        *
  * This script belongs to the TYPO3 Flow package "TYPO3.FormBuilder".     *
@@ -18,7 +18,7 @@ use Symfony\Component\Yaml\Yaml;
 use Neos\Flow\Annotations as Flow;
 
 /**
- * Form Manager controller for the TYPO3.FormBuilder package
+ * Form Manager controller for the Neos.FormBuilder package
  *
  * @Flow\Scope("singleton")
  */
@@ -32,7 +32,7 @@ class FormManagerController extends ActionController
     protected $formPersistenceManager;
 
     /**
-     * The settings of the TYPO3.Form package
+     * The settings of the Neos.Form package
      *
      * @var array
      * @api

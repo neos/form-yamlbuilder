@@ -1,5 +1,5 @@
 <?php
-namespace TYPO3\FormBuilder\ViewHelpers;
+namespace Neos\FormBuilder\ViewHelpers;
 
 /*                                                                        *
  * This script belongs to the TYPO3 Flow package "TYPO3.FormBuilder".     *
@@ -21,8 +21,6 @@ use Neos\Form\Utility\SupertypeResolver;
  */
 class JsonConfigurationViewHelper extends AbstractViewHelper
 {
-
-
     /**
      * @var boolean
      */
