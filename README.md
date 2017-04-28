@@ -1,4 +1,4 @@
-#Form Builder#
+# Form Builder
 
 This package implements a web-based IDE called **Form Builder**, which can be used to create and edit forms in conjunction with the **TYPO3.Form** package.
 
@@ -7,7 +7,7 @@ What you are reading now is the entry point of the API documentation. For a gene
 *To see the documentation for the specific classes, use the **jump to** menu in the top-right corner of this screen.*
 
 
-##Sponsoring##
+## Sponsoring
 
 This work has been generously sponsored by [AKOM360 - Multi Channel Marketing](	http://akom360.de)
 
@@ -16,11 +16,11 @@ It has been implemented by:
 * Sebastian Kurfürst, [sandstorm|media](http://sandstorm-media.de) (architecture, implementation)
 * Bastian Waidelich, [wwwision](http://wwwision.de) (styling)
 
-##License##
+## License
 
 We license the form builder under the terms of the GNU Lesser General Public License (LGPL) version 2.1 or later versions.
 
-##Extension Points##
+## Extension Points
 
 The Form Builder is meant to be extensible, on the following points:
 
@@ -35,7 +35,7 @@ The Form Builder is meant to be extensible, on the following points:
 
 **If you want to extend the form builder, EmberJS and JavaScript knowledge is required.**
 
-### Adjusting CSS styling and loading additional JavaScript files ###
+### Adjusting CSS styling and loading additional JavaScript files
 
 The CSS files which are included in the form builder UI, and the JavaScript files being used,
 are configured using `Settings.yaml` at path `TYPO3.FormBuilder.stylesheets` and `TYPO3.FormBuilder.javaScripts`.
@@ -66,7 +66,7 @@ You could even disable the inclusion of a particular style sheet, by setting it 
 
 Inclusion and modification of the **JavaScript files** can be done in exactly the same manner.
 
-##Overriding Handlebars Templates##
+## Overriding Handlebars Templates
 
 You should first understand the Handlebars templates as they are used by EmberJS -- [read in their documentation if necessary](http://emberjs.com/#handlebars).
 
@@ -84,7 +84,7 @@ You can easily copy such a template to another package, and update the correspon
 
 When the form builder is loaded, the handlebars templates are directly inserted into the HTML markup, as this is the preferred way of dealing with handlebars templates from within EmberJS.
 
-###Implementing Custom Editors###
+### Implementing Custom Editors
 
 In order to implement custom editors, you need to do the following:
 
@@ -92,11 +92,11 @@ In order to implement custom editors, you need to do the following:
 - (probably) create a new Handlebars template and register it in the settings as explained above
 - implement your editor; you can always have a look at the [existing editors](Resources/Private/CoffeeScript/view/editors/basic.html).
 
-##Internals - Development and Compilation Process##
+## Internals - Development and Compilation Process
 
 If you want to develop the core of the Form Builder, then you need to know the things outlined in the following section.
 
-###CoffeeScript, SASS, API Documentation###
+### CoffeeScript, SASS, API Documentation
 
 This project uses CoffeeScript as JavaScript preprocessor, and SASS as CSS preprocessor.
 Furthermore, it uses the docco-husky project for rendering documentation.
@@ -116,12 +116,12 @@ of build targets you can execute. The following targets exist:
 - `wrapCssFile`: You need to call this after upgrading the external JavaScript libraries.
   It wraps their CSS files with the selectors for the specific page parts where they are used.
 
-###Unit Tests###
+### Unit Tests
 
 The Form Builder has JavaScript unit tests for the model, which can be run by opening
 `Tests/JavaScript/SpecRunner.html` in your browser.
 
-###Names and Conventions###
+### Names and Conventions
 
 The FormBuilder is structured as follows, and the following
 names are used for it:
