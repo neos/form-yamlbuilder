@@ -1,7 +1,7 @@
 @import "compass/css3/box-shadow";
 @import "compass/css3/images";
 
-@mixin typo3-formbuilder-button {
+@mixin neos-formbuilder-button {
 	display: inline-block;
 	padding: 4px 5px;
 	font-size: 12px;
@@ -42,10 +42,10 @@
 	}
 }
 
-#typo3-formbuilder-header,
-#typo3-formbuilder-elementSidebar,
-#typo3-formbuilder-elementOptionsPanel,
-#typo3-formbuilder-footer {
+#neos-formbuilder-header,
+#neos-formbuilder-elementSidebar,
+#neos-formbuilder-elementOptionsPanel,
+#neos-formbuilder-footer {
 
 	label {
 		color: white;
@@ -77,8 +77,8 @@
 		}
 	}
 
-	.typo3-formbuilder-button {
-		@include typo3-formbuilder-button;
+	.neos-formbuilder-button {
+		@include neos-formbuilder-button;
 	}
 
 	line-height: normal;

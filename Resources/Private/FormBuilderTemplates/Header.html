@@ -1,14 +1,14 @@
 <h1>Form Builder - {{Neos.FormBuilder.Model.Form.formDefinition.label}}</h1>
-{{#if Neos.FormBuilder.Model.Form.currentlyLoadingPreview}}<span id="typo3-formbuilder-loading">Loading..</span>{{/if}}
+{{#if Neos.FormBuilder.Model.Form.currentlyLoadingPreview}}<span id="neos-formbuilder-loading">Loading..</span>{{/if}}
 
-<ul id="typo3-formbuilder-toolbar">
-	<li class="typo3-formbuilder-preset">
+<ul id="neos-formbuilder-toolbar">
+	<li class="neos-formbuilder-preset">
 		{{view Neos.FormBuilder.View.Header.PresetSelector}}
 	</li>
-	<li class="typo3-formbuilder-preview">
-		{{#view Neos.FormBuilder.View.Header.PreviewButton class="typo3-formbuilder-button icon"}}Preview{{/view}}
+	<li class="neos-formbuilder-preview">
+		{{#view Neos.FormBuilder.View.Header.PreviewButton class="neos-formbuilder-button icon"}}Preview{{/view}}
 	</li>
-	<li class="typo3-formbuilder-save">
-		{{#view Neos.FormBuilder.View.Header.SaveButton class="typo3-formbuilder-button icon"}}Save{{/view}}
+	<li class="neos-formbuilder-save">
+		{{#view Neos.FormBuilder.View.Header.SaveButton class="neos-formbuilder-button icon"}}Save{{/view}}
 	</li>
 </ul>

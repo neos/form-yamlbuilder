@@ -1,15 +1,15 @@
-<h4>{{label}}{{#view Ember.Button target="parentView" action="remove" isVisibleBinding="notRequired" class="typo3-formbuilder-removeButton"}}Remove{{/view}}</h4>
+<h4>{{label}}{{#view Ember.Button target="parentView" action="remove" isVisibleBinding="notRequired" class="neos-formbuilder-removeButton"}}Remove{{/view}}</h4>
 
-<div class="typo3-formbuilder-controlGroup">
+<div class="neos-formbuilder-controlGroup">
 	<label>Minimum:</label>
-	<div class="typo3-formbuilder-controls">
+	<div class="neos-formbuilder-controls">
 		{{view Neos.FormBuilder.View.TextField validatedValueBinding="minimum" validatorName="Neos.FormBuilder.Validators.isNumberOrBlank" }}
 	</div>
 </div>
 
-<div class="typo3-formbuilder-controlGroup">
+<div class="neos-formbuilder-controlGroup">
 	<label>Maximum:</label>
-	<div class="typo3-formbuilder-controls">
+	<div class="neos-formbuilder-controls">
 		{{view Neos.FormBuilder.View.TextField validatedValueBinding="maximum" validatorName="Neos.FormBuilder.Validators.isNumberOrBlank" }}
 	</div>
 </div>

@@ -1,11 +1,11 @@
 # <!--
-# This script belongs to the FLOW3 package "Neos.FormBuilder".
+# This file is part of the Neos.Formbuilder package.
 #
-# It is free software; you can redistribute it and/or modify it under
-# the terms of the GNU Lesser General Public License, either version 3
-#  of the License, or (at your option) any later version.
+# (c) Contributors of the Neos Project - www.neos.io
 #
-# The TYPO3 project - inspiring people to share!
+# This package is Open Source Software. For the full copyright and license
+# information, please view the LICENSE file which was distributed with this
+# source code.
 # -->
 
 
@@ -111,7 +111,7 @@ Neos.FormBuilder.View.InsertElementsPanel.Element = Ember.View.extend {
 		@$().attr('title', @getPath('formElementType.key'))
 		@$().addClass(@getPath('formElementType.__cssClassNames'))
 
-	classNameBindings: ['enabled:typo3-formbuilder-enabled']
+	classNameBindings: ['enabled:neos-formbuilder-enabled']
 
 	# the editable is disabled, if it is no top level element and if a page is selected which is not _compositeRenderable
 	enabled: (->

@@ -1,11 +1,11 @@
 # <!--
-# This script belongs to the TYPO3 Flow package "Neos.FormBuilder".
+# This file is part of the Neos.Formbuilder package.
 #
-# It is free software; you can redistribute it and/or modify it under
-# the terms of the GNU Lesser General Public License, either version 3
-#  of the License, or (at your option) any later version.
+# (c) Contributors of the Neos Project - www.neos.io
 #
-# The TYPO3 project - inspiring people to share!
+# This package is Open Source Software. For the full copyright and license
+# information, please view the LICENSE file which was distributed with this
+# source code.
 # -->
 
 
@@ -14,8 +14,8 @@
 # `Neos.FormBuilder` namespace.
 #
 
-TYPO3 = window.TYPO3 || {}
-window.TYPO3 = TYPO3
+Neos = window.Neos || {}
+window.Neos = Neos
 
 window.onbeforeunload = (e) ->
 	return undefined unless Neos.FormBuilder.Model.Form.get('unsavedContent')

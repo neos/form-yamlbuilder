@@ -43,7 +43,7 @@ are configured using `Settings.yaml` at path `Neos.FormBuilder.stylesheets` and 
 They both have the same structure, that's why we'll only focus on explaining the CSS styling configuration
 which looks as follows:
 
-	TYPO3:
+	Neos:
 	  FormBuilder:
 	    stylesheets:
 	      slickGrid:
@@ -59,7 +59,7 @@ bundle, the `files` array points to resources which should be included appropria
 
 You could even disable the inclusion of a particular style sheet, by setting it to NULL:
 
-	TYPO3:
+	Neos:
 	  FormBuilder:
 	    stylesheets:
 	      slickGrid: NULL
@@ -72,7 +72,7 @@ You should first understand the Handlebars templates as they are used by EmberJS
 
 Each handlebars template which is used by the Form Builder is registered in the Settings.yaml:
 
-	TYPO3:
+	Neos:
 	  FormBuilder:
 	    handlebarsTemplates:
 	      ValidatorEditor: resource://Neos.FormBuilder/Private/Templates/FormBuilder/ValidatorEditor.html
