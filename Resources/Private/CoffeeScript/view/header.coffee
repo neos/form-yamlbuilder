@@ -1,11 +1,11 @@
 # <!--
-# This script belongs to the FLOW3 package "Neos.FormBuilder".
+# This file is part of the Neos.Formbuilder package.
 #
-# It is free software; you can redistribute it and/or modify it under
-# the terms of the GNU Lesser General Public License, either version 3
-#  of the License, or (at your option) any later version.
+# (c) Contributors of the Neos Project - www.neos.io
 #
-# The TYPO3 project - inspiring people to share!
+# This package is Open Source Software. For the full copyright and license
+# information, please view the LICENSE file which was distributed with this
+# source code.
 # -->
 
 
@@ -42,7 +42,7 @@ Neos.FormBuilder.View.Header.PresetSelector = Ember.Select.extend {
 		if Neos.FormBuilder.Model.Form.get('unsavedContent')
 			that = this
 			$('<div>There are unsaved changes, but you need to save before changing the preset. Do you want to save now?</div>').dialog {
-				dialogClass: 'typo3-formbuilder-dialog',
+				dialogClass: 'neos-formbuilder-dialog',
 				title: 'Save changes?',
 				modal: true
 				resizable: false
@@ -95,7 +95,7 @@ Neos.FormBuilder.View.Header.SaveButton = Ember.Button.extend {
 	action: ->
 		@save()
 
-	classNames: ['typo3-formbuilder-savebutton']
+	classNames: ['neos-formbuilder-savebutton']
 	classNameBindings: ['isActive', 'currentStatus'],
 
 	currentStatusBinding: 'Neos.FormBuilder.Model.Form.saveStatus'

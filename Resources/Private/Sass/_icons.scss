@@ -168,40 +168,40 @@ span.dynatree-icon {
 /** ELEMENT ICONS **/
 
 // INPUT
-.typo3-formbuilder-group-input * {
+.neos-formbuilder-group-input * {
 	@include overrideIcon($icon-edit);
 }
 
 // SELECT
-.typo3-formbuilder-group-select * {
+.neos-formbuilder-group-select * {
 	@include overrideIcon($icon-list-alt);
 }
-.typo3-formbuilder-type-typo3-form-checkbox * {
+.neos-formbuilder-type-neos-form-checkbox * {
 	@include overrideIcon($icon-check);
 }
 
 // CUSTOM
-.typo3-formbuilder-group-custom * {
+.neos-formbuilder-group-custom * {
 	@include overrideIcon($icon-gift);
 }
-.typo3-formbuilder-type-typo3-form-datepicker * {
+.neos-formbuilder-type-neos-form-datepicker * {
 	@include overrideIcon($icon-calendar);
 }
-.typo3-formbuilder-type-typo3-form-fileupload * {
+.neos-formbuilder-type-neos-form-fileupload * {
 	@include overrideIcon($icon-upload);
 }
-.typo3-formbuilder-type-typo3-form-imageupload * {
+.neos-formbuilder-type-neos-form-imageupload * {
 	@include overrideIcon($icon-picture);
 }
-.typo3-formbuilder-type-typo3-form-statictext * {
+.neos-formbuilder-type-neos-form-statictext * {
 	@include overrideIcon($icon-align-left);
 }
 
 // CONTAINER
-.typo3-formbuilder-group-container * {
+.neos-formbuilder-group-container * {
 	@include overrideIcon($icon-folder-open);
 }
-.typo3-formbuilder-type-typo3-form-page *,
-.typo3-formbuilder-type-typo3-form-previewpage * {
+.neos-formbuilder-type-neos-form-page *,
+.neos-formbuilder-type-neos-form-previewpage * {
 	@include overrideIcon($icon-file);
 }

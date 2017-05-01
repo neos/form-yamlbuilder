@@ -1,11 +1,11 @@
 # <!--
-# This script belongs to the TYPO3 Flow package "Neos.FormBuilder".
+# This file is part of the Neos.Formbuilder package.
 #
-# It is free software; you can redistribute it and/or modify it under
-# the terms of the GNU Lesser General Public License, either version 3
-#  of the License, or (at your option) any later version.
+# (c) Contributors of the Neos Project - www.neos.io
 #
-# The TYPO3 project - inspiring people to share!
+# This package is Open Source Software. For the full copyright and license
+# information, please view the LICENSE file which was distributed with this
+# source code.
 # -->
 
 
@@ -214,7 +214,7 @@ Neos.FormBuilder.Model.Renderable = Ember.Object.extend {
 	removeWithConfirmationDialog: ->
 		thisRenderable = this
 		$('<div>Are you sure that you want to remove this Element?</div>').dialog {
-			dialogClass: 'typo3-formbuilder-dialog',
+			dialogClass: 'neos-formbuilder-dialog',
 			title: 'Remove Element?',
 			modal: true
 			resizable: false
@@ -264,7 +264,7 @@ Neos.FormBuilder.Model.FormElementType = Ember.Object.extend {
 
 	# list of CSS class names which should be used to represent this form element type
 	__cssClassNames: ( ->
-		"typo3-formbuilder-group-#{@getPath('formBuilder.group')} typo3-formbuilder-type-#{@get('type').toLowerCase().replace(/[^a-z0-9]/g, '-')}"
+		"neos-formbuilder-group-#{@getPath('formBuilder.group')} neos-formbuilder-type-#{@get('type').toLowerCase().replace(/[^a-z0-9]/g, '-')}"
 	).property('formBuilder.group', 'type').cacheable()
 }
 

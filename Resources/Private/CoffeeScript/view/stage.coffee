@@ -1,11 +1,11 @@
 # <!--
-# This script belongs to the FLOW3 package "Neos.FormBuilder".
+# This file is part of the Neos.Formbuilder package.
 #
-# It is free software; you can redistribute it and/or modify it under
-# the terms of the GNU Lesser General Public License, either version 3
-#  of the License, or (at your option) any later version.
+# (c) Contributors of the Neos Project - www.neos.io
 #
-# The TYPO3 project - inspiring people to share!
+# This package is Open Source Software. For the full copyright and license
+# information, please view the LICENSE file which was distributed with this
+# source code.
 # -->
 
 
@@ -89,7 +89,7 @@ Neos.FormBuilder.View.Stage = Ember.View.extend {
 		this.$().find('form').submit (e) ->
 			e.preventDefault()
 
-		this.$().find('[data-element]').parent().addClass('typo3-form-sortable').sortable {
+		this.$().find('[data-element]').parent().addClass('neos-form-sortable').sortable {
 			revert: 'true'
 			start: (e, o) =>
 				# starting drag/drop will disable the current AJAX request and clear the timeout
@@ -131,12 +131,12 @@ Neos.FormBuilder.View.Stage = Ember.View.extend {
 		renderable = Neos.FormBuilder.Model.Form.get('currentlySelectedRenderable')
 		return unless renderable
 
-		@$().find('.typo3-formbuilder-form-element-selected').removeClass('typo3-formbuilder-form-element-selected');
+		@$().find('.neos-formbuilder-form-element-selected').removeClass('neos-formbuilder-form-element-selected');
 		identifierPath = renderable.identifier
 		while renderable = renderable.parentRenderable
 			identifierPath = renderable.identifier + '/' + identifierPath
 
-		@$().find('[data-element="' + identifierPath + '"]').addClass('typo3-formbuilder-form-element-selected')
+		@$().find('[data-element="' + identifierPath + '"]').addClass('neos-formbuilder-form-element-selected')
 	).observes('Neos.FormBuilder.Model.Form.currentlySelectedRenderable')
 
 	# click handler, triggered if an element is clicked. We try to determine the path to the clicked element,

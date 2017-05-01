@@ -1,50 +1,50 @@
-<h4>{{label}}{{#view Ember.Button target="parentView" action="remove" isVisibleBinding="notRequired" class="typo3-formbuilder-removeButton"}}Remove{{/view}}</h4>
+<h4>{{label}}{{#view Ember.Button target="parentView" action="remove" isVisibleBinding="notRequired" class="neos-formbuilder-removeButton"}}Remove{{/view}}</h4>
 
-<div class="typo3-formbuilder-controlGroup">
+<div class="neos-formbuilder-controlGroup">
 	<label>Subject</label>
-	<div class="typo3-formbuilder-controls">
+	<div class="neos-formbuilder-controls">
 		{{view Ember.TextField valueBinding="currentCollectionElement.options.subject"}}
 	</div>
 </div>
 
-<div class="typo3-formbuilder-controlGroup">
+<div class="neos-formbuilder-controlGroup">
 	<label>Recipient Address</label>
-	<div class="typo3-formbuilder-controls">
+	<div class="neos-formbuilder-controls">
 		{{view Ember.TextField valueBinding="currentCollectionElement.options.recipientAddress"}}
 	</div>
 </div>
 
-<div class="typo3-formbuilder-controlGroup">
+<div class="neos-formbuilder-controlGroup">
 	<label>Recipient Name</label>
-	<div class="typo3-formbuilder-controls">
+	<div class="neos-formbuilder-controls">
 		{{view Ember.TextField valueBinding="currentCollectionElement.options.recipientName"}}
 	</div>
 </div>
 
-<div class="typo3-formbuilder-controlGroup">
+<div class="neos-formbuilder-controlGroup">
 	<label>Sender Address</label>
-	<div class="typo3-formbuilder-controls">
+	<div class="neos-formbuilder-controls">
 		{{view Ember.TextField valueBinding="currentCollectionElement.options.senderAddress"}}
 	</div>
 </div>
 
-<div class="typo3-formbuilder-controlGroup">
+<div class="neos-formbuilder-controlGroup">
 	<label>Sender Name</label>
-	<div class="typo3-formbuilder-controls">
+	<div class="neos-formbuilder-controls">
 		{{view Ember.TextField valueBinding="currentCollectionElement.options.senderName"}}
 	</div>
 </div>
 
-<div class="typo3-formbuilder-controlGroup">
+<div class="neos-formbuilder-controlGroup">
 	<label>Reply-To Address</label>
-	<div class="typo3-formbuilder-controls">
+	<div class="neos-formbuilder-controls">
 		{{view Ember.TextField valueBinding="currentCollectionElement.options.replyToAddress"}}
 	</div>
 </div>
 
-<div class="typo3-formbuilder-controlGroup">
+<div class="neos-formbuilder-controlGroup">
 	<label>Format</label>
-	<div class="typo3-formbuilder-controls">
+	<div class="neos-formbuilder-controls">
 		{{view Ember.Select contentBinding="availableFormats" optionValuePath="content.key" optionLabelPath="content.value" selectionBinding="format"}}
 	</div>
 </div>
