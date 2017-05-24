@@ -1,11 +1,11 @@
 # <!--
-# This script belongs to the FLOW3 package "TYPO3.FormBuilder".
+# This file is part of the Neos.Formbuilder package.
 #
-# It is free software; you can redistribute it and/or modify it under
-# the terms of the GNU Lesser General Public License, either version 3
-#  of the License, or (at your option) any later version.
+# (c) Contributors of the Neos Project - www.neos.io
 #
-# The TYPO3 project - inspiring people to share!
+# This package is Open Source Software. For the full copyright and license
+# information, please view the LICENSE file which was distributed with this
+# source code.
 # -->
 
 
@@ -18,7 +18,7 @@
 # It mainly uses the jQuery layout() plugin for this.
 # ***
 # ###Private###
-TYPO3.FormBuilder.View.Application = Ember.View.extend {
+Neos.FormBuilder.View.Application = Ember.View.extend {
 	templateName: 'Application'
 	didInsertElement: ->
 		@addLayout()
@@ -34,36 +34,36 @@ TYPO3.FormBuilder.View.Application = Ember.View.extend {
 				useStateCookie: false
 			},
 			north: {
-				paneSelector: '#typo3-formbuilder-header',
+				paneSelector: '#neos-formbuilder-header',
 				resizable: false,
 				spacing_open: 0,
 				size: 46,
 				minSize: 0
 			},
 			east: {
-				paneSelector:'#typo3-formbuilder-elementOptionsPanel',
+				paneSelector:'#neos-formbuilder-elementOptionsPanel',
 				size: 290,
 				minSize: 200,
 				maxSize: 350
 			},
 			south: {
-				paneSelector: '#typo3-formbuilder-footer',
+				paneSelector: '#neos-formbuilder-footer',
 				resizable: false,
 				spacing_open: 0,
 				size: 20,
 				minSize: 0
 			},
 			west: {
-				paneSelector: '#typo3-formbuilder-elementSidebar',
+				paneSelector: '#neos-formbuilder-elementSidebar',
 				size: 240,
 				minSize: 200,
 				maxSize: 350
 			},
 			center: {
-				paneSelector: '#typo3-formbuilder-stage'
+				paneSelector: '#neos-formbuilder-stage'
 			}
 		});
-		$('#typo3-formbuilder-elementSidebar').layout({
+		$('#neos-formbuilder-elementSidebar').layout({
 			defaults: {
 				minSize: 100,
 				closable: false,
@@ -75,18 +75,18 @@ TYPO3.FormBuilder.View.Application = Ember.View.extend {
 			north: {
 				minSize: 100,
 				size: 300,
-				paneSelector: '#typo3-formbuilder-structurePanel'
+				paneSelector: '#neos-formbuilder-structurePanel'
 			},
 			center: {
-				paneSelector: '#typo3-formbuilder-insertElementsPanel'
+				paneSelector: '#neos-formbuilder-insertElementsPanel'
 			}
 		});
-		#$('.typo3-formbuilder').scrollbars({
+		#$('.neos-formbuilder').scrollbars({
 		#	scrollbarAutohide: false
 		#});
 
 	# update <title> when the label of the form definition changes
 	updatePageTitle: (->
-		document.title = 'Form Builder - ' + Ember.getPath('TYPO3.FormBuilder.Model.Form.formDefinition.label')
-	).observes('TYPO3.FormBuilder.Model.Form.formDefinition.label')
+		document.title = 'Form Builder - ' + Ember.getPath('Neos.FormBuilder.Model.Form.formDefinition.label')
+	).observes('Neos.FormBuilder.Model.Form.formDefinition.label')
 }

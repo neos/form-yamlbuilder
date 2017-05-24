@@ -1,15 +1,15 @@
 # <!--
-# This script belongs to the FLOW3 package "TYPO3.FormBuilder".
+# This file is part of the Neos.Formbuilder package.
 #
-# It is free software; you can redistribute it and/or modify it under
-# the terms of the GNU Lesser General Public License, either version 3
-#  of the License, or (at your option) any later version.
+# (c) Contributors of the Neos Project - www.neos.io
 #
-# The TYPO3 project - inspiring people to share!
+# This package is Open Source Software. For the full copyright and license
+# information, please view the LICENSE file which was distributed with this
+# source code.
 # -->
 
 
-# #Namespace `TYPO3.FormBuilder.View.ElementOptionsPanel.Editor`#
+# #Namespace `Neos.FormBuilder.View.ElementOptionsPanel.Editor`#
 #
 # All views in this file render parts of the inspector for a single form element on the right side
 # of the Form Builder.
@@ -26,7 +26,7 @@
 # This editor can be used to output static text, such as the label of the current form element.
 #
 # Just make sure to set the `templateName` property and access `formObject` as required.
-TYPO3.FormBuilder.View.ElementOptionsPanel.Editor.TextOutput = TYPO3.FormBuilder.View.ElementOptionsPanel.Editor.AbstractEditor.extend {
+Neos.FormBuilder.View.ElementOptionsPanel.Editor.TextOutput = Neos.FormBuilder.View.ElementOptionsPanel.Editor.AbstractEditor.extend {
 }
 
 # ***
@@ -35,7 +35,7 @@ TYPO3.FormBuilder.View.ElementOptionsPanel.Editor.TextOutput = TYPO3.FormBuilder
 # This editor makes the `identifier` of a form element editable, and
 # also validates that the identifier is valid.
 #
-TYPO3.FormBuilder.View.ElementOptionsPanel.Editor.IdentifierEditor = TYPO3.FormBuilder.View.ElementOptionsPanel.Editor.AbstractPropertyEditor.extend {
+Neos.FormBuilder.View.ElementOptionsPanel.Editor.IdentifierEditor = Neos.FormBuilder.View.ElementOptionsPanel.Editor.AbstractPropertyEditor.extend {
 	templateName: 'ElementOptionsPanel-IdentifierEditor'
 
 	# ###Private###
@@ -72,7 +72,7 @@ TYPO3.FormBuilder.View.ElementOptionsPanel.Editor.IdentifierEditor = TYPO3.FormB
 			for subRenderable in el.get('renderables')
 				findFormElementsWithIdentifiers(subRenderable)
 
-		findFormElementsWithIdentifiers(TYPO3.FormBuilder.Model.Form.get('formDefinition'))
+		findFormElementsWithIdentifiers(Neos.FormBuilder.Model.Form.get('formDefinition'))
 
 		if elementsWithIdentifier.length == 0
 			@set('validationErrorMessage', null)
@@ -111,7 +111,7 @@ TYPO3.FormBuilder.View.ElementOptionsPanel.Editor.IdentifierEditor = TYPO3.FormB
 
 # special text field which selects its contents when being clicked upon,
 # and triggers `commit(), abort()`, and `tryToCommit()` on the respective events.
-TYPO3.FormBuilder.View.ElementOptionsPanel.Editor.IdentifierEditor.TextField = Ember.TextField.extend {
+Neos.FormBuilder.View.ElementOptionsPanel.Editor.IdentifierEditor.TextField = Ember.TextField.extend {
 	insertNewline: ->
 		@get('parentView').commit()
 	cancel: ->
@@ -131,7 +131,7 @@ TYPO3.FormBuilder.View.ElementOptionsPanel.Editor.IdentifierEditor.TextField = E
 # ###Public API###
 #
 # - `label`: Label of the text field, which should be shown.
-TYPO3.FormBuilder.View.ElementOptionsPanel.Editor.TextEditor = TYPO3.FormBuilder.View.ElementOptionsPanel.Editor.AbstractPropertyEditor.extend {
+Neos.FormBuilder.View.ElementOptionsPanel.Editor.TextEditor = Neos.FormBuilder.View.ElementOptionsPanel.Editor.AbstractPropertyEditor.extend {
 	label: null
 
 	onValueChange: (->
@@ -149,7 +149,7 @@ TYPO3.FormBuilder.View.ElementOptionsPanel.Editor.TextEditor = TYPO3.FormBuilder
 # ###Public API###
 #
 # - `label`: Label of the text field, which should be shown.
-TYPO3.FormBuilder.View.ElementOptionsPanel.Editor.TextareaEditor = TYPO3.FormBuilder.View.ElementOptionsPanel.Editor.TextEditor.extend {
+Neos.FormBuilder.View.ElementOptionsPanel.Editor.TextareaEditor = Neos.FormBuilder.View.ElementOptionsPanel.Editor.TextEditor.extend {
 	templateName: 'ElementOptionsPanel-TextareaEditor'
 }
 
@@ -161,7 +161,7 @@ TYPO3.FormBuilder.View.ElementOptionsPanel.Editor.TextareaEditor = TYPO3.FormBui
 # ###Public API###
 #
 # - `label`: Label of the select box, which should be shown.
-TYPO3.FormBuilder.View.ElementOptionsPanel.Editor.SelectEditor = TYPO3.FormBuilder.View.ElementOptionsPanel.Editor.AbstractPropertyEditor.extend {
+Neos.FormBuilder.View.ElementOptionsPanel.Editor.SelectEditor = Neos.FormBuilder.View.ElementOptionsPanel.Editor.AbstractPropertyEditor.extend {
 	templateName: 'ElementOptionsPanel-SelectEditor'
 
 	# - `availableElements`: Array of elements which are shown in the select box. Each element is a JavaScript object which should have a "label" and a "value" property.
@@ -188,7 +188,7 @@ TYPO3.FormBuilder.View.ElementOptionsPanel.Editor.SelectEditor = TYPO3.FormBuild
 # ##Class Editor.RemoveElementEditor##
 #
 # Displays button to remove this formElement.
-TYPO3.FormBuilder.View.ElementOptionsPanel.Editor.RemoveElementEditor = TYPO3.FormBuilder.View.ElementOptionsPanel.Editor.AbstractEditor.extend {
+Neos.FormBuilder.View.ElementOptionsPanel.Editor.RemoveElementEditor = Neos.FormBuilder.View.ElementOptionsPanel.Editor.AbstractEditor.extend {
 	templateName: 'ElementOptionsPanel-RemoveElement'
 	remove: ->
 		@get('formElement').removeWithConfirmationDialog()

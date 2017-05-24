@@ -1,15 +1,15 @@
 # <!--
-# This script belongs to the FLOW3 package "TYPO3.FormBuilder".
+# This file is part of the Neos.Formbuilder package.
 #
-# It is free software; you can redistribute it and/or modify it under
-# the terms of the GNU Lesser General Public License, either version 3
-#  of the License, or (at your option) any later version.
+# (c) Contributors of the Neos Project - www.neos.io
 #
-# The TYPO3 project - inspiring people to share!
+# This package is Open Source Software. For the full copyright and license
+# information, please view the LICENSE file which was distributed with this
+# source code.
 # -->
 
 
-# #Namespace `TYPO3.FormBuilder.View.Header`#
+# #Namespace `Neos.FormBuilder.View.Header`#
 #
 # All views in this file help rendering the header area of the Form Builder
 #
@@ -23,26 +23,26 @@
 # ***
 # ##Class View.Header##
 # Header View.
-TYPO3.FormBuilder.View.Header = Ember.View.extend {
+Neos.FormBuilder.View.Header = Ember.View.extend {
 	templateName: 'Header'
 }
 
 # ***
 # ###Private
 # ####Preset Selector
-TYPO3.FormBuilder.View.Header.PresetSelector = Ember.Select.extend {
-	contentBinding: 'TYPO3.FormBuilder.Configuration.availablePresets'
+Neos.FormBuilder.View.Header.PresetSelector = Ember.Select.extend {
+	contentBinding: 'Neos.FormBuilder.Configuration.availablePresets'
 	optionLabelPath: 'content.title'
 	init: ->
 		@resetSelection()
 		return @_super.apply(this, arguments)
 	reloadIfPresetChanged: (->
-		return if @getPath('selection.name') == TYPO3.FormBuilder.Configuration.presetName
+		return if @getPath('selection.name') == Neos.FormBuilder.Configuration.presetName
 
-		if TYPO3.FormBuilder.Model.Form.get('unsavedContent')
+		if Neos.FormBuilder.Model.Form.get('unsavedContent')
 			that = this
 			$('<div>There are unsaved changes, but you need to save before changing the preset. Do you want to save now?</div>').dialog {
-				dialogClass: 'typo3-formbuilder-dialog',
+				dialogClass: 'neos-formbuilder-dialog',
 				title: 'Save changes?',
 				modal: true
 				resizable: false
@@ -63,46 +63,46 @@ TYPO3.FormBuilder.View.Header.PresetSelector = Ember.Select.extend {
 	resetSelection: (->
 		return unless @get('content')
 		for val in @get('content')
-			if val.name == TYPO3.FormBuilder.Configuration.presetName
+			if val.name == Neos.FormBuilder.Configuration.presetName
 				@set('selection', val)
 				break
 	).observes('content')
 
 	saveAndRedirect: ->
-		TYPO3.FormBuilder.Model.Form.save( (success)=>
+		Neos.FormBuilder.Model.Form.save( (success)=>
 			@redirect() if success
 		)
 
 	redirect: ->
-		window.location.href = TYPO3.FormBuilder.Utility.getUri(TYPO3.FormBuilder.Configuration.endpoints.editForm, @getPath('selection.name'))
+		window.location.href = Neos.FormBuilder.Utility.getUri(Neos.FormBuilder.Configuration.endpoints.editForm, @getPath('selection.name'))
 }
 
 # ####Preview Button
-TYPO3.FormBuilder.View.Header.PreviewButton = Ember.Button.extend {
+Neos.FormBuilder.View.Header.PreviewButton = Ember.Button.extend {
 	targetObject: (-> return this).property().cacheable()
 	action: ->
 		@preview()
 
 	preview: ->
-		windowIdentifier = 'preview_' + TYPO3.FormBuilder.Model.Form.getPath('formDefinition.identifier')
+		windowIdentifier = 'preview_' + Neos.FormBuilder.Model.Form.getPath('formDefinition.identifier')
 		# IE HACK: to make the preview work in IE8, we need to prepend a "/" in front of the URI
-		window.open('/' + TYPO3.FormBuilder.Utility.getUri(TYPO3.FormBuilder.Configuration.endpoints.previewForm), windowIdentifier)
+		window.open('/' + Neos.FormBuilder.Utility.getUri(Neos.FormBuilder.Configuration.endpoints.previewForm), windowIdentifier)
 }
 
 # ####Save Button
-TYPO3.FormBuilder.View.Header.SaveButton = Ember.Button.extend {
+Neos.FormBuilder.View.Header.SaveButton = Ember.Button.extend {
 	targetObject: (-> return this).property().cacheable()
 	action: ->
 		@save()
 
-	classNames: ['typo3-formbuilder-savebutton']
+	classNames: ['neos-formbuilder-savebutton']
 	classNameBindings: ['isActive', 'currentStatus'],
 
-	currentStatusBinding: 'TYPO3.FormBuilder.Model.Form.saveStatus'
+	currentStatusBinding: 'Neos.FormBuilder.Model.Form.saveStatus'
 	disabled: (->
-		return !Ember.getPath('TYPO3.FormBuilder.Model.Form.unsavedContent')
-	).property('TYPO3.FormBuilder.Model.Form.unsavedContent').cacheable()
+		return !Ember.getPath('Neos.FormBuilder.Model.Form.unsavedContent')
+	).property('Neos.FormBuilder.Model.Form.unsavedContent').cacheable()
 
 	save: ->
-		TYPO3.FormBuilder.Model.Form.save()
+		Neos.FormBuilder.Model.Form.save()
 }

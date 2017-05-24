@@ -1,17 +1,17 @@
 # <!--
-# This script belongs to the TYPO3 Flow package "TYPO3.FormBuilder".
+# This file is part of the Neos.Formbuilder package.
 #
-# It is free software; you can redistribute it and/or modify it under
-# the terms of the GNU Lesser General Public License, either version 3
-#  of the License, or (at your option) any later version.
+# (c) Contributors of the Neos Project - www.neos.io
 #
-# The TYPO3 project - inspiring people to share!
+# This package is Open Source Software. For the full copyright and license
+# information, please view the LICENSE file which was distributed with this
+# source code.
 # -->
 
 
-# #Namespace `TYPO3.FormBuilder.Utility`#
+# #Namespace `Neos.FormBuilder.Utility`#
 # Contains helper functions to be used directly (without object instanciations).
-TYPO3.FormBuilder.Utility = {}
+Neos.FormBuilder.Utility = {}
 
 # ##convertToSimpleObject(Renderable)##
 #
@@ -40,11 +40,11 @@ convertToSimpleObject = (input) ->
 
 	return simpleObject
 
-TYPO3.FormBuilder.Utility.convertToSimpleObject = convertToSimpleObject
+Neos.FormBuilder.Utility.convertToSimpleObject = convertToSimpleObject
 
 # ##getUri(baseUri, [presetName])
 #
 # Get an URI which is comprised of base URI, form persistence identifier and passed preset.
-TYPO3.FormBuilder.Utility.getUri = (baseUri, presetName = TYPO3.FormBuilder.Configuration.presetName) ->
-	 uri = baseUri + "?formPersistenceIdentifier=#{encodeURIComponent(TYPO3.FormBuilder.Configuration.formPersistenceIdentifier)}&presetName=#{encodeURIComponent(presetName)}"
+Neos.FormBuilder.Utility.getUri = (baseUri, presetName = Neos.FormBuilder.Configuration.presetName) ->
+	 uri = baseUri + "?formPersistenceIdentifier=#{encodeURIComponent(Neos.FormBuilder.Configuration.formPersistenceIdentifier)}&presetName=#{encodeURIComponent(presetName)}"
 	 return uri

@@ -1,15 +1,15 @@
 # <!--
-# This script belongs to the FLOW3 package "TYPO3.FormBuilder".
+# This file is part of the Neos.Formbuilder package.
 #
-# It is free software; you can redistribute it and/or modify it under
-# the terms of the GNU Lesser General Public License, either version 3
-#  of the License, or (at your option) any later version.
+# (c) Contributors of the Neos Project - www.neos.io
 #
-# The TYPO3 project - inspiring people to share!
+# This package is Open Source Software. For the full copyright and license
+# information, please view the LICENSE file which was distributed with this
+# source code.
 # -->
 
 
-# #Namespace `TYPO3.FormBuilder.View.Editor`#
+# #Namespace `Neos.FormBuilder.View.Editor`#
 #
 # This file implements the `Property Grid` editor.
 #
@@ -20,7 +20,7 @@
 # - arbitrary number of columns
 # - columns are made sortable if wanted
 # - a new column is added at the bottom to insert a new element
-TYPO3.FormBuilder.View.ElementOptionsPanel.Editor.PropertyGrid = TYPO3.FormBuilder.View.ElementOptionsPanel.Editor.AbstractPropertyEditor.extend {
+Neos.FormBuilder.View.ElementOptionsPanel.Editor.PropertyGrid = Neos.FormBuilder.View.ElementOptionsPanel.Editor.AbstractPropertyEditor.extend {
 
 	# ###Public API###
 	#
@@ -111,7 +111,7 @@ TYPO3.FormBuilder.View.ElementOptionsPanel.Editor.PropertyGrid = TYPO3.FormBuild
 				selectable: false
 				resizable: false
 				focusable: false
-				cssClass: "typo3-formbuilder-grid-deleteRow"
+				cssClass: "neos-formbuilder-grid-deleteRow"
 			}
 
 		return columns
@@ -196,7 +196,7 @@ TYPO3.FormBuilder.View.ElementOptionsPanel.Editor.PropertyGrid = TYPO3.FormBuild
 	# Initialize Grid
 	didInsertElement: ->
 		@buildTableRowModel()
-		@grid = new Slick.Grid(@$().find('.typo3-formbuilder-grid'), @get('tableRowModel'), @get('columnDefinition'), @get('options'));
+		@grid = new Slick.Grid(@$().find('.neos-formbuilder-grid'), @get('tableRowModel'), @get('columnDefinition'), @get('options'));
 
 		# make autoHeight really work
 		@$().find('.slick-viewport').css('overflow-x', 'hidden');
@@ -271,7 +271,7 @@ TYPO3.FormBuilder.View.ElementOptionsPanel.Editor.PropertyGrid = TYPO3.FormBuild
 
 # This is just a standard TextCellEditor of SlickGrid; extended in a way that when
 # defocussing the text field, the edit is committed / saved.
-TYPO3.FormBuilder.View.ElementOptionsPanel.Editor.PropertyGrid.TextCellEditor = (args) ->
+Neos.FormBuilder.View.ElementOptionsPanel.Editor.PropertyGrid.TextCellEditor = (args) ->
 	retVal = window.TextCellEditor.apply(this, arguments)
 
 	$(args.container).children('.editor-text').focusout ->

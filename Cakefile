@@ -59,8 +59,8 @@ wrapCssFile = (filePath, beforeWrapper, afterWrapper = '}') ->
 
 
 task 'modifyExternalLibraryCss', 'Modify external library CSS by wrapping it and compiling it with SASS', ->
-	wrapCssFile('Resources/Public/Library/SlickGrid/slick.grid', '#typo3-formbuilder-elementOptionsPanel {')
-	wrapCssFile('Resources/Public/Library/jQuery-contextMenu/jquery.contextMenu', '#typo3-formbuilder-elementSidebar, #typo3-formbuilder-elementOptionsPanel {')
+	wrapCssFile('Resources/Public/Library/SlickGrid/slick.grid', '#neos-formbuilder-elementOptionsPanel {')
+	wrapCssFile('Resources/Public/Library/jQuery-contextMenu/jquery.contextMenu', '#neos-formbuilder-elementSidebar, #neos-formbuilder-elementOptionsPanel {')
 
 task 'buildDocumentation', 'build JS api documentation with docco-husky', ->
 	exec "docco-husky Resources/Private/CoffeeScript", consoleOutput

@@ -1,9 +1,9 @@
 @import "compass/css3/box-shadow";
 
-#typo3-formbuilder-header,
-#typo3-formbuilder-elementSidebar,
-#typo3-formbuilder-elementOptionsPanel,
-#typo3-formbuilder-footer {
+#neos-formbuilder-header,
+#neos-formbuilder-elementSidebar,
+#neos-formbuilder-elementOptionsPanel,
+#neos-formbuilder-footer {
 	@include global-reset();
 
 	font-family: Arial, sans-serif;

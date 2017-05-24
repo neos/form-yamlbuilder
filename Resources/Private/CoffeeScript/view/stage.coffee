@@ -1,11 +1,11 @@
 # <!--
-# This script belongs to the FLOW3 package "TYPO3.FormBuilder".
+# This file is part of the Neos.Formbuilder package.
 #
-# It is free software; you can redistribute it and/or modify it under
-# the terms of the GNU Lesser General Public License, either version 3
-#  of the License, or (at your option) any later version.
+# (c) Contributors of the Neos Project - www.neos.io
 #
-# The TYPO3 project - inspiring people to share!
+# This package is Open Source Software. For the full copyright and license
+# information, please view the LICENSE file which was distributed with this
+# source code.
 # -->
 
 
@@ -16,13 +16,13 @@
 # to the server as needed when the form definition changes.
 # ***
 # ###Private###
-TYPO3.FormBuilder.View.Stage = Ember.View.extend {
-	formPagesBinding: 'TYPO3.FormBuilder.Model.Form.formDefinition.renderables',
+Neos.FormBuilder.View.Stage = Ember.View.extend {
+	formPagesBinding: 'Neos.FormBuilder.Model.Form.formDefinition.renderables',
 
 	# find the current page index based on the currently selected renderable; by traversing
 	# up the renderable hierarchy.
 	currentPageIndex: (->
-		currentlySelectedRenderable = TYPO3.FormBuilder.Model.Form.get('currentlySelectedRenderable')
+		currentlySelectedRenderable = Neos.FormBuilder.Model.Form.get('currentlySelectedRenderable')
 		return 0 unless currentlySelectedRenderable
 
 		enclosingPage = currentlySelectedRenderable.findEnclosingPage()
@@ -31,9 +31,9 @@ TYPO3.FormBuilder.View.Stage = Ember.View.extend {
 		return 0 unless enclosingPage.getPath('parentRenderable.renderables')
 
 		return enclosingPage.getPath('parentRenderable.renderables').indexOf(enclosingPage)
-	).property('TYPO3.FormBuilder.Model.Form.currentlySelectedRenderable').cacheable()
+	).property('Neos.FormBuilder.Model.Form.currentlySelectedRenderable').cacheable()
 
-	# Reference to the current Page (instance of `TYPO3.Form.Model.Renderable`) which is shown in the middle.
+	# Reference to the current Page (instance of `Neos.Form.Model.Renderable`) which is shown in the middle.
 	page: Ember.computed(->
 		@get('formPages')?.get(@get('currentPageIndex'))
 	).property('formPages', 'currentPageIndex').cacheable()
@@ -41,12 +41,12 @@ TYPO3.FormBuilder.View.Stage = Ember.View.extend {
 	# Reference to the currently running AJAX request, if any.
 	currentAjaxRequest: null,
 
-	isLoadingBinding: 'TYPO3.FormBuilder.Model.Form.currentlyLoadingPreview'
+	isLoadingBinding: 'Neos.FormBuilder.Model.Form.currentlyLoadingPreview'
 
 	# Function which renders the page if something changes on the form, with a little delay of 300 ms.
 	# After the response has been received from the server, it triggers the `postProcessPage` function.
 	renderPageIfPageObjectChanges: (->
-		return unless TYPO3.FormBuilder.Model.Form.getPath('formDefinition.identifier')
+		return unless Neos.FormBuilder.Model.Form.getPath('formDefinition.identifier')
 
 		if @currentAjaxRequest
 			@currentAjaxRequest.abort()
@@ -55,15 +55,15 @@ TYPO3.FormBuilder.View.Stage = Ember.View.extend {
 			window.clearTimeout(@timeout)
 
 		@timeout = window.setTimeout( =>
-			formDefinition = TYPO3.FormBuilder.Utility.convertToSimpleObject(TYPO3.FormBuilder.Model.Form.get('formDefinition'))
+			formDefinition = Neos.FormBuilder.Utility.convertToSimpleObject(Neos.FormBuilder.Model.Form.get('formDefinition'))
 			@set('isLoading', true)
 			@currentAjaxRequest = $.post(
-				TYPO3.FormBuilder.Configuration.endpoints.formPageRenderer,
+				Neos.FormBuilder.Configuration.endpoints.formPageRenderer,
 				{
 					formDefinition,
 					currentPageIndex: @get('currentPageIndex'),
-					presetName: TYPO3.FormBuilder.Configuration.presetName,
-					__csrfToken: TYPO3.FormBuilder.Configuration.csrfToken
+					presetName: Neos.FormBuilder.Configuration.presetName,
+					__csrfToken: Neos.FormBuilder.Configuration.csrfToken
 				},
 				(data, textStatus, jqXHR) =>
 					return unless @currentAjaxRequest == jqXHR
@@ -89,7 +89,7 @@ TYPO3.FormBuilder.View.Stage = Ember.View.extend {
 		this.$().find('form').submit (e) ->
 			e.preventDefault()
 
-		this.$().find('[data-element]').parent().addClass('typo3-form-sortable').sortable {
+		this.$().find('[data-element]').parent().addClass('neos-form-sortable').sortable {
 			revert: 'true'
 			start: (e, o) =>
 				# starting drag/drop will disable the current AJAX request and clear the timeout
@@ -128,16 +128,16 @@ TYPO3.FormBuilder.View.Stage = Ember.View.extend {
 
 	# this callback highlights the currently selected element, if any.
 	onCurrentElementChanges: (->
-		renderable = TYPO3.FormBuilder.Model.Form.get('currentlySelectedRenderable')
+		renderable = Neos.FormBuilder.Model.Form.get('currentlySelectedRenderable')
 		return unless renderable
 
-		@$().find('.typo3-formbuilder-form-element-selected').removeClass('typo3-formbuilder-form-element-selected');
+		@$().find('.neos-formbuilder-form-element-selected').removeClass('neos-formbuilder-form-element-selected');
 		identifierPath = renderable.identifier
 		while renderable = renderable.parentRenderable
 			identifierPath = renderable.identifier + '/' + identifierPath
 
-		@$().find('[data-element="' + identifierPath + '"]').addClass('typo3-formbuilder-form-element-selected')
-	).observes('TYPO3.FormBuilder.Model.Form.currentlySelectedRenderable')
+		@$().find('[data-element="' + identifierPath + '"]').addClass('neos-formbuilder-form-element-selected')
+	).observes('Neos.FormBuilder.Model.Form.currentlySelectedRenderable')
 
 	# click handler, triggered if an element is clicked. We try to determine the path to the clicked element,
 	# and select it accordingly.
@@ -145,7 +145,7 @@ TYPO3.FormBuilder.View.Stage = Ember.View.extend {
 		pathToClickedElement = ($(e.target).closest('[data-element]').attr('data-element'));
 
 		return unless pathToClickedElement
-		TYPO3.FormBuilder.Model.Form.set('currentlySelectedRenderable', @findRenderableForPath(pathToClickedElement));
+		Neos.FormBuilder.Model.Form.set('currentlySelectedRenderable', @findRenderableForPath(pathToClickedElement));
 
 	# helper function, which, given an element path, returns the appropriate renderable.
 	findRenderableForPath: (path) ->

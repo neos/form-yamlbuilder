@@ -1,15 +1,15 @@
 # <!--
-# This script belongs to the FLOW3 package "TYPO3.FormBuilder".
+# This file is part of the Neos.Formbuilder package.
 #
-# It is free software; you can redistribute it and/or modify it under
-# the terms of the GNU Lesser General Public License, either version 3
-#  of the License, or (at your option) any later version.
+# (c) Contributors of the Neos Project - www.neos.io
 #
-# The TYPO3 project - inspiring people to share!
+# This package is Open Source Software. For the full copyright and license
+# information, please view the LICENSE file which was distributed with this
+# source code.
 # -->
 
 
-# #Namespace `TYPO3.FormBuilder.View.Editor`#
+# #Namespace `Neos.FormBuilder.View.Editor`#
 #
 # This file implements all editors related to Validation.
 #
@@ -24,7 +24,7 @@
 # ##Class Editor.RequiredValidatorEditor##
 #
 # This view adds a `required` checkbox which selects or deselects the NotEmpty validator from the list of validators.
-TYPO3.FormBuilder.View.ElementOptionsPanel.Editor.RequiredValidatorEditor = TYPO3.FormBuilder.View.ElementOptionsPanel.Editor.AbstractPropertyEditor.extend {
+Neos.FormBuilder.View.ElementOptionsPanel.Editor.RequiredValidatorEditor = Neos.FormBuilder.View.ElementOptionsPanel.Editor.AbstractPropertyEditor.extend {
 	# ***
 	# ###Private###
 	templateName: 'ElementOptionsPanel-RequiredValidatorEditor'
@@ -33,7 +33,7 @@ TYPO3.FormBuilder.View.ElementOptionsPanel.Editor.RequiredValidatorEditor = TYPO
 
 	# returns TRUE if the required validator is currently configured, FALSE otherwise.
 	isRequiredValidatorConfigured: ((k, v) ->
-		notEmptyValidatorIdentifier = 'TYPO3.Flow:NotEmpty'
+		notEmptyValidatorIdentifier = 'Neos.Flow:NotEmpty'
 		if v != undefined
 			# set case
 			# remove all NotEmptyValidators first
@@ -59,13 +59,13 @@ TYPO3.FormBuilder.View.ElementOptionsPanel.Editor.RequiredValidatorEditor = TYPO
 # ##Class Editor.ValidatorEditor##
 #
 # This is an editor for all validators. They are defined using the `availableValidators` property.
-TYPO3.FormBuilder.View.ElementOptionsPanel.Editor.ValidatorEditor = TYPO3.FormBuilder.View.ElementOptionsPanel.Editor.AbstractCollectionEditor.extend {
+Neos.FormBuilder.View.ElementOptionsPanel.Editor.ValidatorEditor = Neos.FormBuilder.View.ElementOptionsPanel.Editor.AbstractCollectionEditor.extend {
 	# ###Public Properties###
 	# * `availableValidators`: JSON object of available validators, where each validator has the following options:
 	#
 	#    * `label`: human-readable label of the validator
 	#    * `sorting`: sorting index to be used for the validator
-	#    * `name`: Validator class name, if not specified the `TYPO3.FormBuilder.View.ElementOptionsPanel.Editor.ValidatorEditor.DefaultValidatorEditor` is used.
+	#    * `name`: Validator class name, if not specified the `Neos.FormBuilder.View.ElementOptionsPanel.Editor.ValidatorEditor.DefaultValidatorEditor` is used.
 	#    * `options`: Validator options to be set (JSON object)
 	#    * `required`: (boolean) if TRUE; it is required validator which is not de-selectable
 	availableValidators: null,
@@ -88,8 +88,8 @@ TYPO3.FormBuilder.View.ElementOptionsPanel.Editor.ValidatorEditor = TYPO3.FormBu
 # methods to be used by subclasses and does not render any editing options.
 #
 # ###Public API
-TYPO3.FormBuilder.View.ElementOptionsPanel.Editor.ValidatorEditor.DefaultValidatorEditor = Ember.View.extend {
-	classNames: ['typo3-formbuilder-validator-editor']
+Neos.FormBuilder.View.ElementOptionsPanel.Editor.ValidatorEditor.DefaultValidatorEditor = Ember.View.extend {
+	classNames: ['neos-formbuilder-validator-editor']
 
 	templateName: 'Validator-Default'
 
@@ -133,7 +133,7 @@ TYPO3.FormBuilder.View.ElementOptionsPanel.Editor.ValidatorEditor.DefaultValidat
 # to be integers.
 #
 # ###Public API
-TYPO3.FormBuilder.View.ElementOptionsPanel.Editor.ValidatorEditor.MinimumMaximumValidatorEditor = TYPO3.FormBuilder.View.ElementOptionsPanel.Editor.ValidatorEditor.DefaultValidatorEditor.extend {
+Neos.FormBuilder.View.ElementOptionsPanel.Editor.ValidatorEditor.MinimumMaximumValidatorEditor = Neos.FormBuilder.View.ElementOptionsPanel.Editor.ValidatorEditor.DefaultValidatorEditor.extend {
 	templateName: 'Validator-MinimumMaximumEditor'
 
 	# - `pathToMinimumOption`: Path to minimum option
@@ -170,7 +170,7 @@ TYPO3.FormBuilder.View.ElementOptionsPanel.Editor.ValidatorEditor.MinimumMaximum
 # validations
 #
 # ###Public API
-TYPO3.FormBuilder.View.ElementOptionsPanel.Editor.ValidatorEditor.SimpleValueValidatorEditor = TYPO3.FormBuilder.View.ElementOptionsPanel.Editor.ValidatorEditor.DefaultValidatorEditor.extend {
+Neos.FormBuilder.View.ElementOptionsPanel.Editor.ValidatorEditor.SimpleValueValidatorEditor = Neos.FormBuilder.View.ElementOptionsPanel.Editor.ValidatorEditor.DefaultValidatorEditor.extend {
 	templateName: 'Validator-SimpleValueEditor'
 
 	# - `pathToEditedValue`: Path to the edited value of this validator.

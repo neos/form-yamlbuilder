@@ -1,15 +1,15 @@
 # <!--
-# This script belongs to the TYPO3 Flow package "TYPO3.FormBuilder".
+# This file is part of the Neos.Formbuilder package.
 #
-# It is free software; you can redistribute it and/or modify it under
-# the terms of the GNU Lesser General Public License, either version 3
-#  of the License, or (at your option) any later version.
+# (c) Contributors of the Neos Project - www.neos.io
 #
-# The TYPO3 project - inspiring people to share!
+# This package is Open Source Software. For the full copyright and license
+# information, please view the LICENSE file which was distributed with this
+# source code.
 # -->
 
 
-# #Namespace `TYPO3.FormBuilder.View`#
+# #Namespace `Neos.FormBuilder.View`#
 #
 # This namespace contains view classes, mostly subclassing `Ember.View`, containing
 # output-related logic.
@@ -23,7 +23,7 @@
 #
 # several other classes inside this namespace are added inside the "view" folder.
 
-TYPO3.FormBuilder.View = {}
+Neos.FormBuilder.View = {}
 
 
 # ***
@@ -36,7 +36,7 @@ TYPO3.FormBuilder.View = {}
 #
 # ***
 # ###Public Properties###
-TYPO3.FormBuilder.View.ContainerView = Ember.ContainerView.extend {
+Neos.FormBuilder.View.ContainerView = Ember.ContainerView.extend {
 	# * `instanciatedViews`: an ember array of instanciated view objects; and every
 	#   time this array changes the childViews are removed and re-added, triggering re-draw.
 	instanciatedViews: null
@@ -53,7 +53,7 @@ TYPO3.FormBuilder.View.ContainerView = Ember.ContainerView.extend {
 # extended version of `Ember.Select` which makes the `disabled` property of the
 # select exposed via attribute bindings.
 #
-TYPO3.FormBuilder.View.Select = Ember.Select.extend {
+Neos.FormBuilder.View.Select = Ember.Select.extend {
 	attributeBindings: ['disabled']
 }
 
@@ -70,10 +70,10 @@ TYPO3.FormBuilder.View.Select = Ember.Select.extend {
 #
 # ###Usage
 #
-# Example: `{{view TYPO3.FormBuilder.View.TextField validatedValueBinding="maximum" validatorName="TYPO3.FormBuilder.Validators.isNumberOrBlank" }}`
+# Example: `{{view Neos.FormBuilder.View.TextField validatedValueBinding="maximum" validatorName="Neos.FormBuilder.Validators.isNumberOrBlank" }}`
 #
 # ###Public Properties
-TYPO3.FormBuilder.View.TextField = Ember.TextField.extend {
+Neos.FormBuilder.View.TextField = Ember.TextField.extend {
 	# * `validatorName`: Path to a validate-function which should return `true`
 	#   in case the validation is successful, `false` otherwise.
 	validatorName: null

@@ -1,14 +1,14 @@
-<div class="typo3-formbuilder-controlGroup">
+<div class="neos-formbuilder-controlGroup">
 	<label>Identifier:</label>
-	<div class="typo3-formbuilder-controls">
+	<div class="neos-formbuilder-controls">
 		{{#if editMode}}
-			{{view TYPO3.FormBuilder.View.ElementOptionsPanel.Editor.IdentifierEditor.TextField valueBinding="textFieldValue"}}
+			{{view Neos.FormBuilder.View.ElementOptionsPanel.Editor.IdentifierEditor.TextField valueBinding="textFieldValue"}}
 			{{#if validationErrorMessage}}
-				<div class="typo3-formbuilder-error">{{validationErrorMessage}}</div>
+				<div class="neos-formbuilder-error">{{validationErrorMessage}}</div>
 			{{/if}}
 		{{/if}}
 		{{#unless editMode}}
-			<span class="typo3-formbuilder-identifier">{{value}}</span>
+			<span class="neos-formbuilder-identifier">{{value}}</span>
 		{{/unless}}
 	</div>
 </div>

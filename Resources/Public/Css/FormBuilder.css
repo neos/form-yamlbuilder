@@ -1,420 +1,420 @@
 /**
  * Global Variables
  */
-#typo3-formbuilder-header,
-#typo3-formbuilder-elementSidebar,
-#typo3-formbuilder-elementOptionsPanel,
-#typo3-formbuilder-footer {
+#neos-formbuilder-header,
+#neos-formbuilder-elementSidebar,
+#neos-formbuilder-elementOptionsPanel,
+#neos-formbuilder-footer {
   font-family: Arial, sans-serif; }
-  #typo3-formbuilder-header html, #typo3-formbuilder-header body, #typo3-formbuilder-header div, #typo3-formbuilder-header span, #typo3-formbuilder-header applet, #typo3-formbuilder-header object, #typo3-formbuilder-header iframe,
-  #typo3-formbuilder-header h1, #typo3-formbuilder-header h2, #typo3-formbuilder-header h3, #typo3-formbuilder-header h4, #typo3-formbuilder-header h5, #typo3-formbuilder-header h6, #typo3-formbuilder-header p, #typo3-formbuilder-header blockquote, #typo3-formbuilder-header pre,
-  #typo3-formbuilder-header a, #typo3-formbuilder-header abbr, #typo3-formbuilder-header acronym, #typo3-formbuilder-header address, #typo3-formbuilder-header big, #typo3-formbuilder-header cite, #typo3-formbuilder-header code,
-  #typo3-formbuilder-header del, #typo3-formbuilder-header dfn, #typo3-formbuilder-header em, #typo3-formbuilder-header img, #typo3-formbuilder-header ins, #typo3-formbuilder-header kbd, #typo3-formbuilder-header q, #typo3-formbuilder-header s, #typo3-formbuilder-header samp,
-  #typo3-formbuilder-header small, #typo3-formbuilder-header strike, #typo3-formbuilder-header strong, #typo3-formbuilder-header sub, #typo3-formbuilder-header sup, #typo3-formbuilder-header tt, #typo3-formbuilder-header var,
-  #typo3-formbuilder-header b, #typo3-formbuilder-header u, #typo3-formbuilder-header i, #typo3-formbuilder-header center,
-  #typo3-formbuilder-header dl, #typo3-formbuilder-header dt, #typo3-formbuilder-header dd, #typo3-formbuilder-header ol, #typo3-formbuilder-header ul, #typo3-formbuilder-header li,
-  #typo3-formbuilder-header fieldset, #typo3-formbuilder-header form, #typo3-formbuilder-header label, #typo3-formbuilder-header legend,
-  #typo3-formbuilder-header table, #typo3-formbuilder-header caption, #typo3-formbuilder-header tbody, #typo3-formbuilder-header tfoot, #typo3-formbuilder-header thead, #typo3-formbuilder-header tr, #typo3-formbuilder-header th, #typo3-formbuilder-header td,
-  #typo3-formbuilder-header article, #typo3-formbuilder-header aside, #typo3-formbuilder-header canvas, #typo3-formbuilder-header details, #typo3-formbuilder-header embed,
-  #typo3-formbuilder-header figure, #typo3-formbuilder-header figcaption, #typo3-formbuilder-header footer, #typo3-formbuilder-header header, #typo3-formbuilder-header hgroup,
-  #typo3-formbuilder-header menu, #typo3-formbuilder-header nav, #typo3-formbuilder-header output, #typo3-formbuilder-header ruby, #typo3-formbuilder-header section, #typo3-formbuilder-header summary,
-  #typo3-formbuilder-header time, #typo3-formbuilder-header mark, #typo3-formbuilder-header audio, #typo3-formbuilder-header video,
-  #typo3-formbuilder-elementSidebar html,
-  #typo3-formbuilder-elementSidebar body,
-  #typo3-formbuilder-elementSidebar div,
-  #typo3-formbuilder-elementSidebar span,
-  #typo3-formbuilder-elementSidebar applet,
-  #typo3-formbuilder-elementSidebar object,
-  #typo3-formbuilder-elementSidebar iframe,
-  #typo3-formbuilder-elementSidebar h1,
-  #typo3-formbuilder-elementSidebar h2,
-  #typo3-formbuilder-elementSidebar h3,
-  #typo3-formbuilder-elementSidebar h4,
-  #typo3-formbuilder-elementSidebar h5,
-  #typo3-formbuilder-elementSidebar h6,
-  #typo3-formbuilder-elementSidebar p,
-  #typo3-formbuilder-elementSidebar blockquote,
-  #typo3-formbuilder-elementSidebar pre,
-  #typo3-formbuilder-elementSidebar a,
-  #typo3-formbuilder-elementSidebar abbr,
-  #typo3-formbuilder-elementSidebar acronym,
-  #typo3-formbuilder-elementSidebar address,
-  #typo3-formbuilder-elementSidebar big,
-  #typo3-formbuilder-elementSidebar cite,
-  #typo3-formbuilder-elementSidebar code,
-  #typo3-formbuilder-elementSidebar del,
-  #typo3-formbuilder-elementSidebar dfn,
-  #typo3-formbuilder-elementSidebar em,
-  #typo3-formbuilder-elementSidebar img,
-  #typo3-formbuilder-elementSidebar ins,
-  #typo3-formbuilder-elementSidebar kbd,
-  #typo3-formbuilder-elementSidebar q,
-  #typo3-formbuilder-elementSidebar s,
-  #typo3-formbuilder-elementSidebar samp,
-  #typo3-formbuilder-elementSidebar small,
-  #typo3-formbuilder-elementSidebar strike,
-  #typo3-formbuilder-elementSidebar strong,
-  #typo3-formbuilder-elementSidebar sub,
-  #typo3-formbuilder-elementSidebar sup,
-  #typo3-formbuilder-elementSidebar tt,
-  #typo3-formbuilder-elementSidebar var,
-  #typo3-formbuilder-elementSidebar b,
-  #typo3-formbuilder-elementSidebar u,
-  #typo3-formbuilder-elementSidebar i,
-  #typo3-formbuilder-elementSidebar center,
-  #typo3-formbuilder-elementSidebar dl,
-  #typo3-formbuilder-elementSidebar dt,
-  #typo3-formbuilder-elementSidebar dd,
-  #typo3-formbuilder-elementSidebar ol,
-  #typo3-formbuilder-elementSidebar ul,
-  #typo3-formbuilder-elementSidebar li,
-  #typo3-formbuilder-elementSidebar fieldset,
-  #typo3-formbuilder-elementSidebar form,
-  #typo3-formbuilder-elementSidebar label,
-  #typo3-formbuilder-elementSidebar legend,
-  #typo3-formbuilder-elementSidebar table,
-  #typo3-formbuilder-elementSidebar caption,
-  #typo3-formbuilder-elementSidebar tbody,
-  #typo3-formbuilder-elementSidebar tfoot,
-  #typo3-formbuilder-elementSidebar thead,
-  #typo3-formbuilder-elementSidebar tr,
-  #typo3-formbuilder-elementSidebar th,
-  #typo3-formbuilder-elementSidebar td,
-  #typo3-formbuilder-elementSidebar article,
-  #typo3-formbuilder-elementSidebar aside,
-  #typo3-formbuilder-elementSidebar canvas,
-  #typo3-formbuilder-elementSidebar details,
-  #typo3-formbuilder-elementSidebar embed,
-  #typo3-formbuilder-elementSidebar figure,
-  #typo3-formbuilder-elementSidebar figcaption,
-  #typo3-formbuilder-elementSidebar footer,
-  #typo3-formbuilder-elementSidebar header,
-  #typo3-formbuilder-elementSidebar hgroup,
-  #typo3-formbuilder-elementSidebar menu,
-  #typo3-formbuilder-elementSidebar nav,
-  #typo3-formbuilder-elementSidebar output,
-  #typo3-formbuilder-elementSidebar ruby,
-  #typo3-formbuilder-elementSidebar section,
-  #typo3-formbuilder-elementSidebar summary,
-  #typo3-formbuilder-elementSidebar time,
-  #typo3-formbuilder-elementSidebar mark,
-  #typo3-formbuilder-elementSidebar audio,
-  #typo3-formbuilder-elementSidebar video,
-  #typo3-formbuilder-elementOptionsPanel html,
-  #typo3-formbuilder-elementOptionsPanel body,
-  #typo3-formbuilder-elementOptionsPanel div,
-  #typo3-formbuilder-elementOptionsPanel span,
-  #typo3-formbuilder-elementOptionsPanel applet,
-  #typo3-formbuilder-elementOptionsPanel object,
-  #typo3-formbuilder-elementOptionsPanel iframe,
-  #typo3-formbuilder-elementOptionsPanel h1,
-  #typo3-formbuilder-elementOptionsPanel h2,
-  #typo3-formbuilder-elementOptionsPanel h3,
-  #typo3-formbuilder-elementOptionsPanel h4,
-  #typo3-formbuilder-elementOptionsPanel h5,
-  #typo3-formbuilder-elementOptionsPanel h6,
-  #typo3-formbuilder-elementOptionsPanel p,
-  #typo3-formbuilder-elementOptionsPanel blockquote,
-  #typo3-formbuilder-elementOptionsPanel pre,
-  #typo3-formbuilder-elementOptionsPanel a,
-  #typo3-formbuilder-elementOptionsPanel abbr,
-  #typo3-formbuilder-elementOptionsPanel acronym,
-  #typo3-formbuilder-elementOptionsPanel address,
-  #typo3-formbuilder-elementOptionsPanel big,
-  #typo3-formbuilder-elementOptionsPanel cite,
-  #typo3-formbuilder-elementOptionsPanel code,
-  #typo3-formbuilder-elementOptionsPanel del,
-  #typo3-formbuilder-elementOptionsPanel dfn,
-  #typo3-formbuilder-elementOptionsPanel em,
-  #typo3-formbuilder-elementOptionsPanel img,
-  #typo3-formbuilder-elementOptionsPanel ins,
-  #typo3-formbuilder-elementOptionsPanel kbd,
-  #typo3-formbuilder-elementOptionsPanel q,
-  #typo3-formbuilder-elementOptionsPanel s,
-  #typo3-formbuilder-elementOptionsPanel samp,
-  #typo3-formbuilder-elementOptionsPanel small,
-  #typo3-formbuilder-elementOptionsPanel strike,
-  #typo3-formbuilder-elementOptionsPanel strong,
-  #typo3-formbuilder-elementOptionsPanel sub,
-  #typo3-formbuilder-elementOptionsPanel sup,
-  #typo3-formbuilder-elementOptionsPanel tt,
-  #typo3-formbuilder-elementOptionsPanel var,
-  #typo3-formbuilder-elementOptionsPanel b,
-  #typo3-formbuilder-elementOptionsPanel u,
-  #typo3-formbuilder-elementOptionsPanel i,
-  #typo3-formbuilder-elementOptionsPanel center,
-  #typo3-formbuilder-elementOptionsPanel dl,
-  #typo3-formbuilder-elementOptionsPanel dt,
-  #typo3-formbuilder-elementOptionsPanel dd,
-  #typo3-formbuilder-elementOptionsPanel ol,
-  #typo3-formbuilder-elementOptionsPanel ul,
-  #typo3-formbuilder-elementOptionsPanel li,
-  #typo3-formbuilder-elementOptionsPanel fieldset,
-  #typo3-formbuilder-elementOptionsPanel form,
-  #typo3-formbuilder-elementOptionsPanel label,
-  #typo3-formbuilder-elementOptionsPanel legend,
-  #typo3-formbuilder-elementOptionsPanel table,
-  #typo3-formbuilder-elementOptionsPanel caption,
-  #typo3-formbuilder-elementOptionsPanel tbody,
-  #typo3-formbuilder-elementOptionsPanel tfoot,
-  #typo3-formbuilder-elementOptionsPanel thead,
-  #typo3-formbuilder-elementOptionsPanel tr,
-  #typo3-formbuilder-elementOptionsPanel th,
-  #typo3-formbuilder-elementOptionsPanel td,
-  #typo3-formbuilder-elementOptionsPanel article,
-  #typo3-formbuilder-elementOptionsPanel aside,
-  #typo3-formbuilder-elementOptionsPanel canvas,
-  #typo3-formbuilder-elementOptionsPanel details,
-  #typo3-formbuilder-elementOptionsPanel embed,
-  #typo3-formbuilder-elementOptionsPanel figure,
-  #typo3-formbuilder-elementOptionsPanel figcaption,
-  #typo3-formbuilder-elementOptionsPanel footer,
-  #typo3-formbuilder-elementOptionsPanel header,
-  #typo3-formbuilder-elementOptionsPanel hgroup,
-  #typo3-formbuilder-elementOptionsPanel menu,
-  #typo3-formbuilder-elementOptionsPanel nav,
-  #typo3-formbuilder-elementOptionsPanel output,
-  #typo3-formbuilder-elementOptionsPanel ruby,
-  #typo3-formbuilder-elementOptionsPanel section,
-  #typo3-formbuilder-elementOptionsPanel summary,
-  #typo3-formbuilder-elementOptionsPanel time,
-  #typo3-formbuilder-elementOptionsPanel mark,
-  #typo3-formbuilder-elementOptionsPanel audio,
-  #typo3-formbuilder-elementOptionsPanel video,
-  #typo3-formbuilder-footer html,
-  #typo3-formbuilder-footer body,
-  #typo3-formbuilder-footer div,
-  #typo3-formbuilder-footer span,
-  #typo3-formbuilder-footer applet,
-  #typo3-formbuilder-footer object,
-  #typo3-formbuilder-footer iframe,
-  #typo3-formbuilder-footer h1,
-  #typo3-formbuilder-footer h2,
-  #typo3-formbuilder-footer h3,
-  #typo3-formbuilder-footer h4,
-  #typo3-formbuilder-footer h5,
-  #typo3-formbuilder-footer h6,
-  #typo3-formbuilder-footer p,
-  #typo3-formbuilder-footer blockquote,
-  #typo3-formbuilder-footer pre,
-  #typo3-formbuilder-footer a,
-  #typo3-formbuilder-footer abbr,
-  #typo3-formbuilder-footer acronym,
-  #typo3-formbuilder-footer address,
-  #typo3-formbuilder-footer big,
-  #typo3-formbuilder-footer cite,
-  #typo3-formbuilder-footer code,
-  #typo3-formbuilder-footer del,
-  #typo3-formbuilder-footer dfn,
-  #typo3-formbuilder-footer em,
-  #typo3-formbuilder-footer img,
-  #typo3-formbuilder-footer ins,
-  #typo3-formbuilder-footer kbd,
-  #typo3-formbuilder-footer q,
-  #typo3-formbuilder-footer s,
-  #typo3-formbuilder-footer samp,
-  #typo3-formbuilder-footer small,
-  #typo3-formbuilder-footer strike,
-  #typo3-formbuilder-footer strong,
-  #typo3-formbuilder-footer sub,
-  #typo3-formbuilder-footer sup,
-  #typo3-formbuilder-footer tt,
-  #typo3-formbuilder-footer var,
-  #typo3-formbuilder-footer b,
-  #typo3-formbuilder-footer u,
-  #typo3-formbuilder-footer i,
-  #typo3-formbuilder-footer center,
-  #typo3-formbuilder-footer dl,
-  #typo3-formbuilder-footer dt,
-  #typo3-formbuilder-footer dd,
-  #typo3-formbuilder-footer ol,
-  #typo3-formbuilder-footer ul,
-  #typo3-formbuilder-footer li,
-  #typo3-formbuilder-footer fieldset,
-  #typo3-formbuilder-footer form,
-  #typo3-formbuilder-footer label,
-  #typo3-formbuilder-footer legend,
-  #typo3-formbuilder-footer table,
-  #typo3-formbuilder-footer caption,
-  #typo3-formbuilder-footer tbody,
-  #typo3-formbuilder-footer tfoot,
-  #typo3-formbuilder-footer thead,
-  #typo3-formbuilder-footer tr,
-  #typo3-formbuilder-footer th,
-  #typo3-formbuilder-footer td,
-  #typo3-formbuilder-footer article,
-  #typo3-formbuilder-footer aside,
-  #typo3-formbuilder-footer canvas,
-  #typo3-formbuilder-footer details,
-  #typo3-formbuilder-footer embed,
-  #typo3-formbuilder-footer figure,
-  #typo3-formbuilder-footer figcaption,
-  #typo3-formbuilder-footer footer,
-  #typo3-formbuilder-footer header,
-  #typo3-formbuilder-footer hgroup,
-  #typo3-formbuilder-footer menu,
-  #typo3-formbuilder-footer nav,
-  #typo3-formbuilder-footer output,
-  #typo3-formbuilder-footer ruby,
-  #typo3-formbuilder-footer section,
-  #typo3-formbuilder-footer summary,
-  #typo3-formbuilder-footer time,
-  #typo3-formbuilder-footer mark,
-  #typo3-formbuilder-footer audio,
-  #typo3-formbuilder-footer video {
+  #neos-formbuilder-header html, #neos-formbuilder-header body, #neos-formbuilder-header div, #neos-formbuilder-header span, #neos-formbuilder-header applet, #neos-formbuilder-header object, #neos-formbuilder-header iframe,
+  #neos-formbuilder-header h1, #neos-formbuilder-header h2, #neos-formbuilder-header h3, #neos-formbuilder-header h4, #neos-formbuilder-header h5, #neos-formbuilder-header h6, #neos-formbuilder-header p, #neos-formbuilder-header blockquote, #neos-formbuilder-header pre,
+  #neos-formbuilder-header a, #neos-formbuilder-header abbr, #neos-formbuilder-header acronym, #neos-formbuilder-header address, #neos-formbuilder-header big, #neos-formbuilder-header cite, #neos-formbuilder-header code,
+  #neos-formbuilder-header del, #neos-formbuilder-header dfn, #neos-formbuilder-header em, #neos-formbuilder-header img, #neos-formbuilder-header ins, #neos-formbuilder-header kbd, #neos-formbuilder-header q, #neos-formbuilder-header s, #neos-formbuilder-header samp,
+  #neos-formbuilder-header small, #neos-formbuilder-header strike, #neos-formbuilder-header strong, #neos-formbuilder-header sub, #neos-formbuilder-header sup, #neos-formbuilder-header tt, #neos-formbuilder-header var,
+  #neos-formbuilder-header b, #neos-formbuilder-header u, #neos-formbuilder-header i, #neos-formbuilder-header center,
+  #neos-formbuilder-header dl, #neos-formbuilder-header dt, #neos-formbuilder-header dd, #neos-formbuilder-header ol, #neos-formbuilder-header ul, #neos-formbuilder-header li,
+  #neos-formbuilder-header fieldset, #neos-formbuilder-header form, #neos-formbuilder-header label, #neos-formbuilder-header legend,
+  #neos-formbuilder-header table, #neos-formbuilder-header caption, #neos-formbuilder-header tbody, #neos-formbuilder-header tfoot, #neos-formbuilder-header thead, #neos-formbuilder-header tr, #neos-formbuilder-header th, #neos-formbuilder-header td,
+  #neos-formbuilder-header article, #neos-formbuilder-header aside, #neos-formbuilder-header canvas, #neos-formbuilder-header details, #neos-formbuilder-header embed,
+  #neos-formbuilder-header figure, #neos-formbuilder-header figcaption, #neos-formbuilder-header footer, #neos-formbuilder-header header, #neos-formbuilder-header hgroup,
+  #neos-formbuilder-header menu, #neos-formbuilder-header nav, #neos-formbuilder-header output, #neos-formbuilder-header ruby, #neos-formbuilder-header section, #neos-formbuilder-header summary,
+  #neos-formbuilder-header time, #neos-formbuilder-header mark, #neos-formbuilder-header audio, #neos-formbuilder-header video,
+  #neos-formbuilder-elementSidebar html,
+  #neos-formbuilder-elementSidebar body,
+  #neos-formbuilder-elementSidebar div,
+  #neos-formbuilder-elementSidebar span,
+  #neos-formbuilder-elementSidebar applet,
+  #neos-formbuilder-elementSidebar object,
+  #neos-formbuilder-elementSidebar iframe,
+  #neos-formbuilder-elementSidebar h1,
+  #neos-formbuilder-elementSidebar h2,
+  #neos-formbuilder-elementSidebar h3,
+  #neos-formbuilder-elementSidebar h4,
+  #neos-formbuilder-elementSidebar h5,
+  #neos-formbuilder-elementSidebar h6,
+  #neos-formbuilder-elementSidebar p,
+  #neos-formbuilder-elementSidebar blockquote,
+  #neos-formbuilder-elementSidebar pre,
+  #neos-formbuilder-elementSidebar a,
+  #neos-formbuilder-elementSidebar abbr,
+  #neos-formbuilder-elementSidebar acronym,
+  #neos-formbuilder-elementSidebar address,
+  #neos-formbuilder-elementSidebar big,
+  #neos-formbuilder-elementSidebar cite,
+  #neos-formbuilder-elementSidebar code,
+  #neos-formbuilder-elementSidebar del,
+  #neos-formbuilder-elementSidebar dfn,
+  #neos-formbuilder-elementSidebar em,
+  #neos-formbuilder-elementSidebar img,
+  #neos-formbuilder-elementSidebar ins,
+  #neos-formbuilder-elementSidebar kbd,
+  #neos-formbuilder-elementSidebar q,
+  #neos-formbuilder-elementSidebar s,
+  #neos-formbuilder-elementSidebar samp,
+  #neos-formbuilder-elementSidebar small,
+  #neos-formbuilder-elementSidebar strike,
+  #neos-formbuilder-elementSidebar strong,
+  #neos-formbuilder-elementSidebar sub,
+  #neos-formbuilder-elementSidebar sup,
+  #neos-formbuilder-elementSidebar tt,
+  #neos-formbuilder-elementSidebar var,
+  #neos-formbuilder-elementSidebar b,
+  #neos-formbuilder-elementSidebar u,
+  #neos-formbuilder-elementSidebar i,
+  #neos-formbuilder-elementSidebar center,
+  #neos-formbuilder-elementSidebar dl,
+  #neos-formbuilder-elementSidebar dt,
+  #neos-formbuilder-elementSidebar dd,
+  #neos-formbuilder-elementSidebar ol,
+  #neos-formbuilder-elementSidebar ul,
+  #neos-formbuilder-elementSidebar li,
+  #neos-formbuilder-elementSidebar fieldset,
+  #neos-formbuilder-elementSidebar form,
+  #neos-formbuilder-elementSidebar label,
+  #neos-formbuilder-elementSidebar legend,
+  #neos-formbuilder-elementSidebar table,
+  #neos-formbuilder-elementSidebar caption,
+  #neos-formbuilder-elementSidebar tbody,
+  #neos-formbuilder-elementSidebar tfoot,
+  #neos-formbuilder-elementSidebar thead,
+  #neos-formbuilder-elementSidebar tr,
+  #neos-formbuilder-elementSidebar th,
+  #neos-formbuilder-elementSidebar td,
+  #neos-formbuilder-elementSidebar article,
+  #neos-formbuilder-elementSidebar aside,
+  #neos-formbuilder-elementSidebar canvas,
+  #neos-formbuilder-elementSidebar details,
+  #neos-formbuilder-elementSidebar embed,
+  #neos-formbuilder-elementSidebar figure,
+  #neos-formbuilder-elementSidebar figcaption,
+  #neos-formbuilder-elementSidebar footer,
+  #neos-formbuilder-elementSidebar header,
+  #neos-formbuilder-elementSidebar hgroup,
+  #neos-formbuilder-elementSidebar menu,
+  #neos-formbuilder-elementSidebar nav,
+  #neos-formbuilder-elementSidebar output,
+  #neos-formbuilder-elementSidebar ruby,
+  #neos-formbuilder-elementSidebar section,
+  #neos-formbuilder-elementSidebar summary,
+  #neos-formbuilder-elementSidebar time,
+  #neos-formbuilder-elementSidebar mark,
+  #neos-formbuilder-elementSidebar audio,
+  #neos-formbuilder-elementSidebar video,
+  #neos-formbuilder-elementOptionsPanel html,
+  #neos-formbuilder-elementOptionsPanel body,
+  #neos-formbuilder-elementOptionsPanel div,
+  #neos-formbuilder-elementOptionsPanel span,
+  #neos-formbuilder-elementOptionsPanel applet,
+  #neos-formbuilder-elementOptionsPanel object,
+  #neos-formbuilder-elementOptionsPanel iframe,
+  #neos-formbuilder-elementOptionsPanel h1,
+  #neos-formbuilder-elementOptionsPanel h2,
+  #neos-formbuilder-elementOptionsPanel h3,
+  #neos-formbuilder-elementOptionsPanel h4,
+  #neos-formbuilder-elementOptionsPanel h5,
+  #neos-formbuilder-elementOptionsPanel h6,
+  #neos-formbuilder-elementOptionsPanel p,
+  #neos-formbuilder-elementOptionsPanel blockquote,
+  #neos-formbuilder-elementOptionsPanel pre,
+  #neos-formbuilder-elementOptionsPanel a,
+  #neos-formbuilder-elementOptionsPanel abbr,
+  #neos-formbuilder-elementOptionsPanel acronym,
+  #neos-formbuilder-elementOptionsPanel address,
+  #neos-formbuilder-elementOptionsPanel big,
+  #neos-formbuilder-elementOptionsPanel cite,
+  #neos-formbuilder-elementOptionsPanel code,
+  #neos-formbuilder-elementOptionsPanel del,
+  #neos-formbuilder-elementOptionsPanel dfn,
+  #neos-formbuilder-elementOptionsPanel em,
+  #neos-formbuilder-elementOptionsPanel img,
+  #neos-formbuilder-elementOptionsPanel ins,
+  #neos-formbuilder-elementOptionsPanel kbd,
+  #neos-formbuilder-elementOptionsPanel q,
+  #neos-formbuilder-elementOptionsPanel s,
+  #neos-formbuilder-elementOptionsPanel samp,
+  #neos-formbuilder-elementOptionsPanel small,
+  #neos-formbuilder-elementOptionsPanel strike,
+  #neos-formbuilder-elementOptionsPanel strong,
+  #neos-formbuilder-elementOptionsPanel sub,
+  #neos-formbuilder-elementOptionsPanel sup,
+  #neos-formbuilder-elementOptionsPanel tt,
+  #neos-formbuilder-elementOptionsPanel var,
+  #neos-formbuilder-elementOptionsPanel b,
+  #neos-formbuilder-elementOptionsPanel u,
+  #neos-formbuilder-elementOptionsPanel i,
+  #neos-formbuilder-elementOptionsPanel center,
+  #neos-formbuilder-elementOptionsPanel dl,
+  #neos-formbuilder-elementOptionsPanel dt,
+  #neos-formbuilder-elementOptionsPanel dd,
+  #neos-formbuilder-elementOptionsPanel ol,
+  #neos-formbuilder-elementOptionsPanel ul,
+  #neos-formbuilder-elementOptionsPanel li,
+  #neos-formbuilder-elementOptionsPanel fieldset,
+  #neos-formbuilder-elementOptionsPanel form,
+  #neos-formbuilder-elementOptionsPanel label,
+  #neos-formbuilder-elementOptionsPanel legend,
+  #neos-formbuilder-elementOptionsPanel table,
+  #neos-formbuilder-elementOptionsPanel caption,
+  #neos-formbuilder-elementOptionsPanel tbody,
+  #neos-formbuilder-elementOptionsPanel tfoot,
+  #neos-formbuilder-elementOptionsPanel thead,
+  #neos-formbuilder-elementOptionsPanel tr,
+  #neos-formbuilder-elementOptionsPanel th,
+  #neos-formbuilder-elementOptionsPanel td,
+  #neos-formbuilder-elementOptionsPanel article,
+  #neos-formbuilder-elementOptionsPanel aside,
+  #neos-formbuilder-elementOptionsPanel canvas,
+  #neos-formbuilder-elementOptionsPanel details,
+  #neos-formbuilder-elementOptionsPanel embed,
+  #neos-formbuilder-elementOptionsPanel figure,
+  #neos-formbuilder-elementOptionsPanel figcaption,
+  #neos-formbuilder-elementOptionsPanel footer,
+  #neos-formbuilder-elementOptionsPanel header,
+  #neos-formbuilder-elementOptionsPanel hgroup,
+  #neos-formbuilder-elementOptionsPanel menu,
+  #neos-formbuilder-elementOptionsPanel nav,
+  #neos-formbuilder-elementOptionsPanel output,
+  #neos-formbuilder-elementOptionsPanel ruby,
+  #neos-formbuilder-elementOptionsPanel section,
+  #neos-formbuilder-elementOptionsPanel summary,
+  #neos-formbuilder-elementOptionsPanel time,
+  #neos-formbuilder-elementOptionsPanel mark,
+  #neos-formbuilder-elementOptionsPanel audio,
+  #neos-formbuilder-elementOptionsPanel video,
+  #neos-formbuilder-footer html,
+  #neos-formbuilder-footer body,
+  #neos-formbuilder-footer div,
+  #neos-formbuilder-footer span,
+  #neos-formbuilder-footer applet,
+  #neos-formbuilder-footer object,
+  #neos-formbuilder-footer iframe,
+  #neos-formbuilder-footer h1,
+  #neos-formbuilder-footer h2,
+  #neos-formbuilder-footer h3,
+  #neos-formbuilder-footer h4,
+  #neos-formbuilder-footer h5,
+  #neos-formbuilder-footer h6,
+  #neos-formbuilder-footer p,
+  #neos-formbuilder-footer blockquote,
+  #neos-formbuilder-footer pre,
+  #neos-formbuilder-footer a,
+  #neos-formbuilder-footer abbr,
+  #neos-formbuilder-footer acronym,
+  #neos-formbuilder-footer address,
+  #neos-formbuilder-footer big,
+  #neos-formbuilder-footer cite,
+  #neos-formbuilder-footer code,
+  #neos-formbuilder-footer del,
+  #neos-formbuilder-footer dfn,
+  #neos-formbuilder-footer em,
+  #neos-formbuilder-footer img,
+  #neos-formbuilder-footer ins,
+  #neos-formbuilder-footer kbd,
+  #neos-formbuilder-footer q,
+  #neos-formbuilder-footer s,
+  #neos-formbuilder-footer samp,
+  #neos-formbuilder-footer small,
+  #neos-formbuilder-footer strike,
+  #neos-formbuilder-footer strong,
+  #neos-formbuilder-footer sub,
+  #neos-formbuilder-footer sup,
+  #neos-formbuilder-footer tt,
+  #neos-formbuilder-footer var,
+  #neos-formbuilder-footer b,
+  #neos-formbuilder-footer u,
+  #neos-formbuilder-footer i,
+  #neos-formbuilder-footer center,
+  #neos-formbuilder-footer dl,
+  #neos-formbuilder-footer dt,
+  #neos-formbuilder-footer dd,
+  #neos-formbuilder-footer ol,
+  #neos-formbuilder-footer ul,
+  #neos-formbuilder-footer li,
+  #neos-formbuilder-footer fieldset,
+  #neos-formbuilder-footer form,
+  #neos-formbuilder-footer label,
+  #neos-formbuilder-footer legend,
+  #neos-formbuilder-footer table,
+  #neos-formbuilder-footer caption,
+  #neos-formbuilder-footer tbody,
+  #neos-formbuilder-footer tfoot,
+  #neos-formbuilder-footer thead,
+  #neos-formbuilder-footer tr,
+  #neos-formbuilder-footer th,
+  #neos-formbuilder-footer td,
+  #neos-formbuilder-footer article,
+  #neos-formbuilder-footer aside,
+  #neos-formbuilder-footer canvas,
+  #neos-formbuilder-footer details,
+  #neos-formbuilder-footer embed,
+  #neos-formbuilder-footer figure,
+  #neos-formbuilder-footer figcaption,
+  #neos-formbuilder-footer footer,
+  #neos-formbuilder-footer header,
+  #neos-formbuilder-footer hgroup,
+  #neos-formbuilder-footer menu,
+  #neos-formbuilder-footer nav,
+  #neos-formbuilder-footer output,
+  #neos-formbuilder-footer ruby,
+  #neos-formbuilder-footer section,
+  #neos-formbuilder-footer summary,
+  #neos-formbuilder-footer time,
+  #neos-formbuilder-footer mark,
+  #neos-formbuilder-footer audio,
+  #neos-formbuilder-footer video {
     margin: 0;
     padding: 0;
     border: 0;
     font: inherit;
     font-size: 100%;
     vertical-align: baseline; }
-  #typo3-formbuilder-header html,
-  #typo3-formbuilder-elementSidebar html,
-  #typo3-formbuilder-elementOptionsPanel html,
-  #typo3-formbuilder-footer html {
+  #neos-formbuilder-header html,
+  #neos-formbuilder-elementSidebar html,
+  #neos-formbuilder-elementOptionsPanel html,
+  #neos-formbuilder-footer html {
     line-height: 1; }
-  #typo3-formbuilder-header ol, #typo3-formbuilder-header ul,
-  #typo3-formbuilder-elementSidebar ol,
-  #typo3-formbuilder-elementSidebar ul,
-  #typo3-formbuilder-elementOptionsPanel ol,
-  #typo3-formbuilder-elementOptionsPanel ul,
-  #typo3-formbuilder-footer ol,
-  #typo3-formbuilder-footer ul {
+  #neos-formbuilder-header ol, #neos-formbuilder-header ul,
+  #neos-formbuilder-elementSidebar ol,
+  #neos-formbuilder-elementSidebar ul,
+  #neos-formbuilder-elementOptionsPanel ol,
+  #neos-formbuilder-elementOptionsPanel ul,
+  #neos-formbuilder-footer ol,
+  #neos-formbuilder-footer ul {
     list-style: none; }
-  #typo3-formbuilder-header table,
-  #typo3-formbuilder-elementSidebar table,
-  #typo3-formbuilder-elementOptionsPanel table,
-  #typo3-formbuilder-footer table {
+  #neos-formbuilder-header table,
+  #neos-formbuilder-elementSidebar table,
+  #neos-formbuilder-elementOptionsPanel table,
+  #neos-formbuilder-footer table {
     border-collapse: collapse;
     border-spacing: 0; }
-  #typo3-formbuilder-header caption, #typo3-formbuilder-header th, #typo3-formbuilder-header td,
-  #typo3-formbuilder-elementSidebar caption,
-  #typo3-formbuilder-elementSidebar th,
-  #typo3-formbuilder-elementSidebar td,
-  #typo3-formbuilder-elementOptionsPanel caption,
-  #typo3-formbuilder-elementOptionsPanel th,
-  #typo3-formbuilder-elementOptionsPanel td,
-  #typo3-formbuilder-footer caption,
-  #typo3-formbuilder-footer th,
-  #typo3-formbuilder-footer td {
+  #neos-formbuilder-header caption, #neos-formbuilder-header th, #neos-formbuilder-header td,
+  #neos-formbuilder-elementSidebar caption,
+  #neos-formbuilder-elementSidebar th,
+  #neos-formbuilder-elementSidebar td,
+  #neos-formbuilder-elementOptionsPanel caption,
+  #neos-formbuilder-elementOptionsPanel th,
+  #neos-formbuilder-elementOptionsPanel td,
+  #neos-formbuilder-footer caption,
+  #neos-formbuilder-footer th,
+  #neos-formbuilder-footer td {
     text-align: left;
     font-weight: normal;
     vertical-align: middle; }
-  #typo3-formbuilder-header q, #typo3-formbuilder-header blockquote,
-  #typo3-formbuilder-elementSidebar q,
-  #typo3-formbuilder-elementSidebar blockquote,
-  #typo3-formbuilder-elementOptionsPanel q,
-  #typo3-formbuilder-elementOptionsPanel blockquote,
-  #typo3-formbuilder-footer q,
-  #typo3-formbuilder-footer blockquote {
+  #neos-formbuilder-header q, #neos-formbuilder-header blockquote,
+  #neos-formbuilder-elementSidebar q,
+  #neos-formbuilder-elementSidebar blockquote,
+  #neos-formbuilder-elementOptionsPanel q,
+  #neos-formbuilder-elementOptionsPanel blockquote,
+  #neos-formbuilder-footer q,
+  #neos-formbuilder-footer blockquote {
     quotes: none; }
-    #typo3-formbuilder-header q:before, #typo3-formbuilder-header q:after, #typo3-formbuilder-header blockquote:before, #typo3-formbuilder-header blockquote:after,
-    #typo3-formbuilder-elementSidebar q:before,
-    #typo3-formbuilder-elementSidebar q:after,
-    #typo3-formbuilder-elementSidebar blockquote:before,
-    #typo3-formbuilder-elementSidebar blockquote:after,
-    #typo3-formbuilder-elementOptionsPanel q:before,
-    #typo3-formbuilder-elementOptionsPanel q:after,
-    #typo3-formbuilder-elementOptionsPanel blockquote:before,
-    #typo3-formbuilder-elementOptionsPanel blockquote:after,
-    #typo3-formbuilder-footer q:before,
-    #typo3-formbuilder-footer q:after,
-    #typo3-formbuilder-footer blockquote:before,
-    #typo3-formbuilder-footer blockquote:after {
+    #neos-formbuilder-header q:before, #neos-formbuilder-header q:after, #neos-formbuilder-header blockquote:before, #neos-formbuilder-header blockquote:after,
+    #neos-formbuilder-elementSidebar q:before,
+    #neos-formbuilder-elementSidebar q:after,
+    #neos-formbuilder-elementSidebar blockquote:before,
+    #neos-formbuilder-elementSidebar blockquote:after,
+    #neos-formbuilder-elementOptionsPanel q:before,
+    #neos-formbuilder-elementOptionsPanel q:after,
+    #neos-formbuilder-elementOptionsPanel blockquote:before,
+    #neos-formbuilder-elementOptionsPanel blockquote:after,
+    #neos-formbuilder-footer q:before,
+    #neos-formbuilder-footer q:after,
+    #neos-formbuilder-footer blockquote:before,
+    #neos-formbuilder-footer blockquote:after {
       content: "";
       content: none; }
-  #typo3-formbuilder-header a img,
-  #typo3-formbuilder-elementSidebar a img,
-  #typo3-formbuilder-elementOptionsPanel a img,
-  #typo3-formbuilder-footer a img {
+  #neos-formbuilder-header a img,
+  #neos-formbuilder-elementSidebar a img,
+  #neos-formbuilder-elementOptionsPanel a img,
+  #neos-formbuilder-footer a img {
     border: none; }
-  #typo3-formbuilder-header article, #typo3-formbuilder-header aside, #typo3-formbuilder-header details, #typo3-formbuilder-header figcaption, #typo3-formbuilder-header figure, #typo3-formbuilder-header footer, #typo3-formbuilder-header header, #typo3-formbuilder-header hgroup, #typo3-formbuilder-header menu, #typo3-formbuilder-header nav, #typo3-formbuilder-header section, #typo3-formbuilder-header summary,
-  #typo3-formbuilder-elementSidebar article,
-  #typo3-formbuilder-elementSidebar aside,
-  #typo3-formbuilder-elementSidebar details,
-  #typo3-formbuilder-elementSidebar figcaption,
-  #typo3-formbuilder-elementSidebar figure,
-  #typo3-formbuilder-elementSidebar footer,
-  #typo3-formbuilder-elementSidebar header,
-  #typo3-formbuilder-elementSidebar hgroup,
-  #typo3-formbuilder-elementSidebar menu,
-  #typo3-formbuilder-elementSidebar nav,
-  #typo3-formbuilder-elementSidebar section,
-  #typo3-formbuilder-elementSidebar summary,
-  #typo3-formbuilder-elementOptionsPanel article,
-  #typo3-formbuilder-elementOptionsPanel aside,
-  #typo3-formbuilder-elementOptionsPanel details,
-  #typo3-formbuilder-elementOptionsPanel figcaption,
-  #typo3-formbuilder-elementOptionsPanel figure,
-  #typo3-formbuilder-elementOptionsPanel footer,
-  #typo3-formbuilder-elementOptionsPanel header,
-  #typo3-formbuilder-elementOptionsPanel hgroup,
-  #typo3-formbuilder-elementOptionsPanel menu,
-  #typo3-formbuilder-elementOptionsPanel nav,
-  #typo3-formbuilder-elementOptionsPanel section,
-  #typo3-formbuilder-elementOptionsPanel summary,
-  #typo3-formbuilder-footer article,
-  #typo3-formbuilder-footer aside,
-  #typo3-formbuilder-footer details,
-  #typo3-formbuilder-footer figcaption,
-  #typo3-formbuilder-footer figure,
-  #typo3-formbuilder-footer footer,
-  #typo3-formbuilder-footer header,
-  #typo3-formbuilder-footer hgroup,
-  #typo3-formbuilder-footer menu,
-  #typo3-formbuilder-footer nav,
-  #typo3-formbuilder-footer section,
-  #typo3-formbuilder-footer summary {
+  #neos-formbuilder-header article, #neos-formbuilder-header aside, #neos-formbuilder-header details, #neos-formbuilder-header figcaption, #neos-formbuilder-header figure, #neos-formbuilder-header footer, #neos-formbuilder-header header, #neos-formbuilder-header hgroup, #neos-formbuilder-header menu, #neos-formbuilder-header nav, #neos-formbuilder-header section, #neos-formbuilder-header summary,
+  #neos-formbuilder-elementSidebar article,
+  #neos-formbuilder-elementSidebar aside,
+  #neos-formbuilder-elementSidebar details,
+  #neos-formbuilder-elementSidebar figcaption,
+  #neos-formbuilder-elementSidebar figure,
+  #neos-formbuilder-elementSidebar footer,
+  #neos-formbuilder-elementSidebar header,
+  #neos-formbuilder-elementSidebar hgroup,
+  #neos-formbuilder-elementSidebar menu,
+  #neos-formbuilder-elementSidebar nav,
+  #neos-formbuilder-elementSidebar section,
+  #neos-formbuilder-elementSidebar summary,
+  #neos-formbuilder-elementOptionsPanel article,
+  #neos-formbuilder-elementOptionsPanel aside,
+  #neos-formbuilder-elementOptionsPanel details,
+  #neos-formbuilder-elementOptionsPanel figcaption,
+  #neos-formbuilder-elementOptionsPanel figure,
+  #neos-formbuilder-elementOptionsPanel footer,
+  #neos-formbuilder-elementOptionsPanel header,
+  #neos-formbuilder-elementOptionsPanel hgroup,
+  #neos-formbuilder-elementOptionsPanel menu,
+  #neos-formbuilder-elementOptionsPanel nav,
+  #neos-formbuilder-elementOptionsPanel section,
+  #neos-formbuilder-elementOptionsPanel summary,
+  #neos-formbuilder-footer article,
+  #neos-formbuilder-footer aside,
+  #neos-formbuilder-footer details,
+  #neos-formbuilder-footer figcaption,
+  #neos-formbuilder-footer figure,
+  #neos-formbuilder-footer footer,
+  #neos-formbuilder-footer header,
+  #neos-formbuilder-footer hgroup,
+  #neos-formbuilder-footer menu,
+  #neos-formbuilder-footer nav,
+  #neos-formbuilder-footer section,
+  #neos-formbuilder-footer summary {
     display: block; }
-  #typo3-formbuilder-header h1, #typo3-formbuilder-header h2, #typo3-formbuilder-header h3, #typo3-formbuilder-header h4, #typo3-formbuilder-header h5, #typo3-formbuilder-header h6, #typo3-formbuilder-header li,
-  #typo3-formbuilder-elementSidebar h1,
-  #typo3-formbuilder-elementSidebar h2,
-  #typo3-formbuilder-elementSidebar h3,
-  #typo3-formbuilder-elementSidebar h4,
-  #typo3-formbuilder-elementSidebar h5,
-  #typo3-formbuilder-elementSidebar h6,
-  #typo3-formbuilder-elementSidebar li,
-  #typo3-formbuilder-elementOptionsPanel h1,
-  #typo3-formbuilder-elementOptionsPanel h2,
-  #typo3-formbuilder-elementOptionsPanel h3,
-  #typo3-formbuilder-elementOptionsPanel h4,
-  #typo3-formbuilder-elementOptionsPanel h5,
-  #typo3-formbuilder-elementOptionsPanel h6,
-  #typo3-formbuilder-elementOptionsPanel li,
-  #typo3-formbuilder-footer h1,
-  #typo3-formbuilder-footer h2,
-  #typo3-formbuilder-footer h3,
-  #typo3-formbuilder-footer h4,
-  #typo3-formbuilder-footer h5,
-  #typo3-formbuilder-footer h6,
-  #typo3-formbuilder-footer li {
+  #neos-formbuilder-header h1, #neos-formbuilder-header h2, #neos-formbuilder-header h3, #neos-formbuilder-header h4, #neos-formbuilder-header h5, #neos-formbuilder-header h6, #neos-formbuilder-header li,
+  #neos-formbuilder-elementSidebar h1,
+  #neos-formbuilder-elementSidebar h2,
+  #neos-formbuilder-elementSidebar h3,
+  #neos-formbuilder-elementSidebar h4,
+  #neos-formbuilder-elementSidebar h5,
+  #neos-formbuilder-elementSidebar h6,
+  #neos-formbuilder-elementSidebar li,
+  #neos-formbuilder-elementOptionsPanel h1,
+  #neos-formbuilder-elementOptionsPanel h2,
+  #neos-formbuilder-elementOptionsPanel h3,
+  #neos-formbuilder-elementOptionsPanel h4,
+  #neos-formbuilder-elementOptionsPanel h5,
+  #neos-formbuilder-elementOptionsPanel h6,
+  #neos-formbuilder-elementOptionsPanel li,
+  #neos-formbuilder-footer h1,
+  #neos-formbuilder-footer h2,
+  #neos-formbuilder-footer h3,
+  #neos-formbuilder-footer h4,
+  #neos-formbuilder-footer h5,
+  #neos-formbuilder-footer h6,
+  #neos-formbuilder-footer li {
     color: white; }
-  #typo3-formbuilder-header label,
-  #typo3-formbuilder-elementSidebar label,
-  #typo3-formbuilder-elementOptionsPanel label,
-  #typo3-formbuilder-footer label {
+  #neos-formbuilder-header label,
+  #neos-formbuilder-elementSidebar label,
+  #neos-formbuilder-elementOptionsPanel label,
+  #neos-formbuilder-footer label {
     color: white;
     text-align: left;
     float: none; }
-  #typo3-formbuilder-header input, #typo3-formbuilder-header textarea, #typo3-formbuilder-header select,
-  #typo3-formbuilder-elementSidebar input,
-  #typo3-formbuilder-elementSidebar textarea,
-  #typo3-formbuilder-elementSidebar select,
-  #typo3-formbuilder-elementOptionsPanel input,
-  #typo3-formbuilder-elementOptionsPanel textarea,
-  #typo3-formbuilder-elementOptionsPanel select,
-  #typo3-formbuilder-footer input,
-  #typo3-formbuilder-footer textarea,
-  #typo3-formbuilder-footer select {
+  #neos-formbuilder-header input, #neos-formbuilder-header textarea, #neos-formbuilder-header select,
+  #neos-formbuilder-elementSidebar input,
+  #neos-formbuilder-elementSidebar textarea,
+  #neos-formbuilder-elementSidebar select,
+  #neos-formbuilder-elementOptionsPanel input,
+  #neos-formbuilder-elementOptionsPanel textarea,
+  #neos-formbuilder-elementOptionsPanel select,
+  #neos-formbuilder-footer input,
+  #neos-formbuilder-footer textarea,
+  #neos-formbuilder-footer select {
     width: inherit;
     height: inherit;
     padding: 0;
     box-shadow: none;
     border-radius: 0; }
-  #typo3-formbuilder-header button,
-  #typo3-formbuilder-elementSidebar button,
-  #typo3-formbuilder-elementOptionsPanel button,
-  #typo3-formbuilder-footer button {
+  #neos-formbuilder-header button,
+  #neos-formbuilder-elementSidebar button,
+  #neos-formbuilder-elementOptionsPanel button,
+  #neos-formbuilder-footer button {
     padding: 2px 0;
     color: white;
     border: none;
@@ -439,75 +439,75 @@ span.dynatree-icon:before {
   width: 14px; }
 
 /** ELEMENT ICONS **/
-.typo3-formbuilder-group-input *:before {
+.neos-formbuilder-group-input *:before {
   background-position: -96px -72px !important; }
 
-.typo3-formbuilder-group-select *:before {
+.neos-formbuilder-group-select *:before {
   background-position: -264px -24px !important; }
 
-.typo3-formbuilder-type-typo3-form-checkbox *:before {
+.neos-formbuilder-type-neos-form-checkbox *:before {
   background-position: -144px -72px !important; }
 
-.typo3-formbuilder-group-custom *:before {
+.neos-formbuilder-group-custom *:before {
   background-position: -24px -120px !important; }
 
-.typo3-formbuilder-type-typo3-form-datepicker *:before {
+.neos-formbuilder-type-neos-form-datepicker *:before {
   background-position: -192px -120px !important; }
 
-.typo3-formbuilder-type-typo3-form-fileupload *:before {
+.neos-formbuilder-type-neos-form-fileupload *:before {
   background-position: -144px -24px !important; }
 
-.typo3-formbuilder-type-typo3-form-imageupload *:before {
+.neos-formbuilder-type-neos-form-imageupload *:before {
   background-position: -456px -48px !important; }
 
-.typo3-formbuilder-type-typo3-form-statictext *:before {
+.neos-formbuilder-type-neos-form-statictext *:before {
   background-position: -264px -48px !important; }
 
-.typo3-formbuilder-group-container *:before {
+.neos-formbuilder-group-container *:before {
   background-position: -408px -120px !important; }
 
-.typo3-formbuilder-type-typo3-form-page *:before,
-.typo3-formbuilder-type-typo3-form-previewpage *:before {
+.neos-formbuilder-type-neos-form-page *:before,
+.neos-formbuilder-type-neos-form-previewpage *:before {
   background-position: -24px -24px !important; }
 
-#typo3-formbuilder-header,
-#typo3-formbuilder-elementSidebar,
-#typo3-formbuilder-elementOptionsPanel,
-#typo3-formbuilder-footer {
+#neos-formbuilder-header,
+#neos-formbuilder-elementSidebar,
+#neos-formbuilder-elementOptionsPanel,
+#neos-formbuilder-footer {
   line-height: normal; }
-  #typo3-formbuilder-header label,
-  #typo3-formbuilder-elementSidebar label,
-  #typo3-formbuilder-elementOptionsPanel label,
-  #typo3-formbuilder-footer label {
+  #neos-formbuilder-header label,
+  #neos-formbuilder-elementSidebar label,
+  #neos-formbuilder-elementOptionsPanel label,
+  #neos-formbuilder-footer label {
     color: white; }
-  #typo3-formbuilder-header select,
-  #typo3-formbuilder-header textarea,
-  #typo3-formbuilder-header input,
-  #typo3-formbuilder-elementSidebar select,
-  #typo3-formbuilder-elementSidebar textarea,
-  #typo3-formbuilder-elementSidebar input,
-  #typo3-formbuilder-elementOptionsPanel select,
-  #typo3-formbuilder-elementOptionsPanel textarea,
-  #typo3-formbuilder-elementOptionsPanel input,
-  #typo3-formbuilder-footer select,
-  #typo3-formbuilder-footer textarea,
-  #typo3-formbuilder-footer input {
+  #neos-formbuilder-header select,
+  #neos-formbuilder-header textarea,
+  #neos-formbuilder-header input,
+  #neos-formbuilder-elementSidebar select,
+  #neos-formbuilder-elementSidebar textarea,
+  #neos-formbuilder-elementSidebar input,
+  #neos-formbuilder-elementOptionsPanel select,
+  #neos-formbuilder-elementOptionsPanel textarea,
+  #neos-formbuilder-elementOptionsPanel input,
+  #neos-formbuilder-footer select,
+  #neos-formbuilder-footer textarea,
+  #neos-formbuilder-footer input {
     color: #474747;
     background: #ddd;
     border: 1px solid #777; }
-  #typo3-formbuilder-header select,
-  #typo3-formbuilder-elementSidebar select,
-  #typo3-formbuilder-elementOptionsPanel select,
-  #typo3-formbuilder-footer select {
+  #neos-formbuilder-header select,
+  #neos-formbuilder-elementSidebar select,
+  #neos-formbuilder-elementOptionsPanel select,
+  #neos-formbuilder-footer select {
     display: inline;
     font-size: 12px; }
-  #typo3-formbuilder-header input, #typo3-formbuilder-header textarea,
-  #typo3-formbuilder-elementSidebar input,
-  #typo3-formbuilder-elementSidebar textarea,
-  #typo3-formbuilder-elementOptionsPanel input,
-  #typo3-formbuilder-elementOptionsPanel textarea,
-  #typo3-formbuilder-footer input,
-  #typo3-formbuilder-footer textarea {
+  #neos-formbuilder-header input, #neos-formbuilder-header textarea,
+  #neos-formbuilder-elementSidebar input,
+  #neos-formbuilder-elementSidebar textarea,
+  #neos-formbuilder-elementOptionsPanel input,
+  #neos-formbuilder-elementOptionsPanel textarea,
+  #neos-formbuilder-footer input,
+  #neos-formbuilder-footer textarea {
     -webkit-transition-property: none;
     -moz-transition-property: none;
     -o-transition-property: none;
@@ -516,13 +516,13 @@ span.dynatree-icon:before {
     height: inherit;
     padding: 1px 2px;
     font-size: 12px; }
-    #typo3-formbuilder-header input:focus, #typo3-formbuilder-header textarea:focus,
-    #typo3-formbuilder-elementSidebar input:focus,
-    #typo3-formbuilder-elementSidebar textarea:focus,
-    #typo3-formbuilder-elementOptionsPanel input:focus,
-    #typo3-formbuilder-elementOptionsPanel textarea:focus,
-    #typo3-formbuilder-footer input:focus,
-    #typo3-formbuilder-footer textarea:focus {
+    #neos-formbuilder-header input:focus, #neos-formbuilder-header textarea:focus,
+    #neos-formbuilder-elementSidebar input:focus,
+    #neos-formbuilder-elementSidebar textarea:focus,
+    #neos-formbuilder-elementOptionsPanel input:focus,
+    #neos-formbuilder-elementOptionsPanel textarea:focus,
+    #neos-formbuilder-footer input:focus,
+    #neos-formbuilder-footer textarea:focus {
       outline: 0;
       border: 1px solid #ff8700;
       background: white;
@@ -530,10 +530,10 @@ span.dynatree-icon:before {
       -webkit-box-shadow: #ff8700 0 0 5px;
       -moz-box-shadow: #ff8700 0 0 5px;
       box-shadow: #ff8700 0 0 5px; }
-  #typo3-formbuilder-header .typo3-formbuilder-button,
-  #typo3-formbuilder-elementSidebar .typo3-formbuilder-button,
-  #typo3-formbuilder-elementOptionsPanel .typo3-formbuilder-button,
-  #typo3-formbuilder-footer .typo3-formbuilder-button {
+  #neos-formbuilder-header .neos-formbuilder-button,
+  #neos-formbuilder-elementSidebar .neos-formbuilder-button,
+  #neos-formbuilder-elementOptionsPanel .neos-formbuilder-button,
+  #neos-formbuilder-footer .neos-formbuilder-button {
     display: inline-block;
     padding: 4px 5px;
     font-size: 12px;
@@ -550,62 +550,62 @@ span.dynatree-icon:before {
     border-radius: 3px;
     box-shadow: inset 0 1px 0 rgba(255, 255, 255, 0.2), 0 1px 2px rgba(0, 0, 0, 0.05);
     cursor: pointer; }
-    #typo3-formbuilder-header .typo3-formbuilder-button:hover,
-    #typo3-formbuilder-elementSidebar .typo3-formbuilder-button:hover,
-    #typo3-formbuilder-elementOptionsPanel .typo3-formbuilder-button:hover,
-    #typo3-formbuilder-footer .typo3-formbuilder-button:hover {
+    #neos-formbuilder-header .neos-formbuilder-button:hover,
+    #neos-formbuilder-elementSidebar .neos-formbuilder-button:hover,
+    #neos-formbuilder-elementOptionsPanel .neos-formbuilder-button:hover,
+    #neos-formbuilder-footer .neos-formbuilder-button:hover {
       text-shadow: 0 0 1px rgba(155, 155, 155, 0.75);
       background-image: -webkit-gradient(linear, 50% 0%, 50% 100%, color-stop(0%, #666666), color-stop(100%, #333333));
       background-image: -webkit-linear-gradient(#666666, #333333);
       background-image: -moz-linear-gradient(#666666, #333333);
       background-image: -o-linear-gradient(#666666, #333333);
       background-image: linear-gradient(#666666, #333333); }
-    #typo3-formbuilder-header .typo3-formbuilder-button.active, #typo3-formbuilder-header .typo3-formbuilder-button:active,
-    #typo3-formbuilder-elementSidebar .typo3-formbuilder-button.active,
-    #typo3-formbuilder-elementSidebar .typo3-formbuilder-button:active,
-    #typo3-formbuilder-elementOptionsPanel .typo3-formbuilder-button.active,
-    #typo3-formbuilder-elementOptionsPanel .typo3-formbuilder-button:active,
-    #typo3-formbuilder-footer .typo3-formbuilder-button.active,
-    #typo3-formbuilder-footer .typo3-formbuilder-button:active {
+    #neos-formbuilder-header .neos-formbuilder-button.active, #neos-formbuilder-header .neos-formbuilder-button:active,
+    #neos-formbuilder-elementSidebar .neos-formbuilder-button.active,
+    #neos-formbuilder-elementSidebar .neos-formbuilder-button:active,
+    #neos-formbuilder-elementOptionsPanel .neos-formbuilder-button.active,
+    #neos-formbuilder-elementOptionsPanel .neos-formbuilder-button:active,
+    #neos-formbuilder-footer .neos-formbuilder-button.active,
+    #neos-formbuilder-footer .neos-formbuilder-button:active {
       background-image: none;
       box-shadow: inset 0 2px 4px rgba(0, 0, 0, 0.45), 0 1px 2px rgba(0, 0, 0, 0.05);
       background-color: #555;
       text-shadow: none;
       color: rgba(0, 0, 0, 0.5);
       outline: 0; }
-    #typo3-formbuilder-header .typo3-formbuilder-button.icon,
-    #typo3-formbuilder-elementSidebar .typo3-formbuilder-button.icon,
-    #typo3-formbuilder-elementOptionsPanel .typo3-formbuilder-button.icon,
-    #typo3-formbuilder-footer .typo3-formbuilder-button.icon {
+    #neos-formbuilder-header .neos-formbuilder-button.icon,
+    #neos-formbuilder-elementSidebar .neos-formbuilder-button.icon,
+    #neos-formbuilder-elementOptionsPanel .neos-formbuilder-button.icon,
+    #neos-formbuilder-footer .neos-formbuilder-button.icon {
       padding-left: 21px; }
-      #typo3-formbuilder-header .typo3-formbuilder-button.icon:before,
-      #typo3-formbuilder-elementSidebar .typo3-formbuilder-button.icon:before,
-      #typo3-formbuilder-elementOptionsPanel .typo3-formbuilder-button.icon:before,
-      #typo3-formbuilder-footer .typo3-formbuilder-button.icon:before {
+      #neos-formbuilder-header .neos-formbuilder-button.icon:before,
+      #neos-formbuilder-elementSidebar .neos-formbuilder-button.icon:before,
+      #neos-formbuilder-elementOptionsPanel .neos-formbuilder-button.icon:before,
+      #neos-formbuilder-footer .neos-formbuilder-button.icon:before {
         background: transparent url("../Images/glyphicons-halflings-white.png") -432px 0 no-repeat;
         content: ' ';
         position: absolute;
         margin: 2px 0 0 -17px;
         height: 14px;
         width: 14px; }
-      #typo3-formbuilder-header .typo3-formbuilder-button.icon:before,
-      #typo3-formbuilder-elementSidebar .typo3-formbuilder-button.icon:before,
-      #typo3-formbuilder-elementOptionsPanel .typo3-formbuilder-button.icon:before,
-      #typo3-formbuilder-footer .typo3-formbuilder-button.icon:before {
+      #neos-formbuilder-header .neos-formbuilder-button.icon:before,
+      #neos-formbuilder-elementSidebar .neos-formbuilder-button.icon:before,
+      #neos-formbuilder-elementOptionsPanel .neos-formbuilder-button.icon:before,
+      #neos-formbuilder-footer .neos-formbuilder-button.icon:before {
         margin-top: 0; }
-    #typo3-formbuilder-header .typo3-formbuilder-button.danger,
-    #typo3-formbuilder-elementSidebar .typo3-formbuilder-button.danger,
-    #typo3-formbuilder-elementOptionsPanel .typo3-formbuilder-button.danger,
-    #typo3-formbuilder-footer .typo3-formbuilder-button.danger {
+    #neos-formbuilder-header .neos-formbuilder-button.danger,
+    #neos-formbuilder-elementSidebar .neos-formbuilder-button.danger,
+    #neos-formbuilder-elementOptionsPanel .neos-formbuilder-button.danger,
+    #neos-formbuilder-footer .neos-formbuilder-button.danger {
       background-image: -webkit-gradient(linear, 50% 0%, 50% 100%, color-stop(0%, #7a4848), color-stop(100%, #634444));
       background-image: -webkit-linear-gradient(#7a4848, #634444);
       background-image: -moz-linear-gradient(#7a4848, #634444);
       background-image: -o-linear-gradient(#7a4848, #634444);
       background-image: linear-gradient(#7a4848, #634444); }
-      #typo3-formbuilder-header .typo3-formbuilder-button.danger:hover,
-      #typo3-formbuilder-elementSidebar .typo3-formbuilder-button.danger:hover,
-      #typo3-formbuilder-elementOptionsPanel .typo3-formbuilder-button.danger:hover,
-      #typo3-formbuilder-footer .typo3-formbuilder-button.danger:hover {
+      #neos-formbuilder-header .neos-formbuilder-button.danger:hover,
+      #neos-formbuilder-elementSidebar .neos-formbuilder-button.danger:hover,
+      #neos-formbuilder-elementOptionsPanel .neos-formbuilder-button.danger:hover,
+      #neos-formbuilder-footer .neos-formbuilder-button.danger:hover {
         background-image: -webkit-gradient(linear, 50% 0%, 50% 100%, color-stop(0%, #9b3939), color-stop(100%, #634444));
         background-image: -webkit-linear-gradient(#9b3939, #634444);
         background-image: -moz-linear-gradient(#9b3939, #634444);
@@ -625,7 +625,7 @@ span.dynatree-icon:before {
   opacity: .70;
   filter: Alpha(Opacity=70); }
 
-.typo3-formbuilder-dialog {
+.neos-formbuilder-dialog {
   font: 11px Verdana, Arial, Helvetica, sans-serif;
   position: absolute;
   width: 300px;
@@ -659,9 +659,9 @@ span.dynatree-icon:before {
   *
   * http://docs.jquery.com/UI/Dialog#theming
   */ }
-  .typo3-formbuilder-dialog .ui-helper-hidden {
+  .neos-formbuilder-dialog .ui-helper-hidden {
     display: none; }
-  .typo3-formbuilder-dialog .ui-helper-reset {
+  .neos-formbuilder-dialog .ui-helper-reset {
     margin: 0;
     padding: 0;
     border: 0;
@@ -670,23 +670,23 @@ span.dynatree-icon:before {
     text-decoration: none;
     font-size: 100%;
     list-style: none; }
-  .typo3-formbuilder-dialog .ui-helper-clearfix:before, .typo3-formbuilder-dialog .ui-helper-clearfix:after {
+  .neos-formbuilder-dialog .ui-helper-clearfix:before, .neos-formbuilder-dialog .ui-helper-clearfix:after {
     content: "";
     display: table; }
-  .typo3-formbuilder-dialog .ui-helper-clearfix:after {
+  .neos-formbuilder-dialog .ui-helper-clearfix:after {
     clear: both; }
-  .typo3-formbuilder-dialog .ui-helper-clearfix {
+  .neos-formbuilder-dialog .ui-helper-clearfix {
     zoom: 1; }
-  .typo3-formbuilder-dialog .ui-icon-closethick {
+  .neos-formbuilder-dialog .ui-icon-closethick {
     background: transparent url("../Images/glyphicons-halflings.png") -312px 0 no-repeat;
     width: 14px;
     height: 14px;
     text-indent: -9999px;
     overflow: hidden; }
-  .typo3-formbuilder-dialog input, .typo3-formbuilder-dialog select, .typo3-formbuilder-dialog textarea, .typo3-formbuilder-dialog button {
+  .neos-formbuilder-dialog input, .neos-formbuilder-dialog select, .neos-formbuilder-dialog textarea, .neos-formbuilder-dialog button {
     font-family: Trebuchet MS, Tahoma, Verdana, Arial, sans-serif;
     font-size: 1em; }
-  .typo3-formbuilder-dialog button {
+  .neos-formbuilder-dialog button {
     display: inline-block;
     padding: 4px 5px;
     font-size: 12px;
@@ -703,61 +703,61 @@ span.dynatree-icon:before {
     border-radius: 3px;
     box-shadow: inset 0 1px 0 rgba(255, 255, 255, 0.2), 0 1px 2px rgba(0, 0, 0, 0.05);
     cursor: pointer; }
-    .typo3-formbuilder-dialog button:hover {
+    .neos-formbuilder-dialog button:hover {
       text-shadow: 0 0 1px rgba(155, 155, 155, 0.75);
       background-image: -webkit-gradient(linear, 50% 0%, 50% 100%, color-stop(0%, #666666), color-stop(100%, #333333));
       background-image: -webkit-linear-gradient(#666666, #333333);
       background-image: -moz-linear-gradient(#666666, #333333);
       background-image: -o-linear-gradient(#666666, #333333);
       background-image: linear-gradient(#666666, #333333); }
-    .typo3-formbuilder-dialog button.active, .typo3-formbuilder-dialog button:active {
+    .neos-formbuilder-dialog button.active, .neos-formbuilder-dialog button:active {
       background-image: none;
       box-shadow: inset 0 2px 4px rgba(0, 0, 0, 0.45), 0 1px 2px rgba(0, 0, 0, 0.05);
       background-color: #555;
       text-shadow: none;
       color: rgba(0, 0, 0, 0.5);
       outline: 0; }
-    .typo3-formbuilder-dialog button.icon {
+    .neos-formbuilder-dialog button.icon {
       padding-left: 21px; }
-      .typo3-formbuilder-dialog button.icon:before {
+      .neos-formbuilder-dialog button.icon:before {
         background: transparent url("../Images/glyphicons-halflings-white.png") -432px 0 no-repeat;
         content: ' ';
         position: absolute;
         margin: 2px 0 0 -17px;
         height: 14px;
         width: 14px; }
-      .typo3-formbuilder-dialog button.icon:before {
+      .neos-formbuilder-dialog button.icon:before {
         margin-top: 0; }
-    .typo3-formbuilder-dialog button.danger {
+    .neos-formbuilder-dialog button.danger {
       background-image: -webkit-gradient(linear, 50% 0%, 50% 100%, color-stop(0%, #7a4848), color-stop(100%, #634444));
       background-image: -webkit-linear-gradient(#7a4848, #634444);
       background-image: -moz-linear-gradient(#7a4848, #634444);
       background-image: -o-linear-gradient(#7a4848, #634444);
       background-image: linear-gradient(#7a4848, #634444); }
-      .typo3-formbuilder-dialog button.danger:hover {
+      .neos-formbuilder-dialog button.danger:hover {
         background-image: -webkit-gradient(linear, 50% 0%, 50% 100%, color-stop(0%, #9b3939), color-stop(100%, #634444));
         background-image: -webkit-linear-gradient(#9b3939, #634444);
         background-image: -moz-linear-gradient(#9b3939, #634444);
         background-image: -o-linear-gradient(#9b3939, #634444);
         background-image: linear-gradient(#9b3939, #634444); }
-  .typo3-formbuilder-dialog a {
+  .neos-formbuilder-dialog a {
     color: #333333; }
-  .typo3-formbuilder-dialog .ui-widget-header {
+  .neos-formbuilder-dialog .ui-widget-header {
     background: gray;
     color: white;
     font-weight: bold; }
-  .typo3-formbuilder-dialog .ui-widget-header a {
+  .neos-formbuilder-dialog .ui-widget-header a {
     color: white; }
-  .typo3-formbuilder-dialog .ui-corner-all, .typo3-formbuilder-dialog .ui-corner-top, .typo3-formbuilder-dialog .ui-corner-left, .typo3-formbuilder-dialog .ui-corner-tl {
+  .neos-formbuilder-dialog .ui-corner-all, .neos-formbuilder-dialog .ui-corner-top, .neos-formbuilder-dialog .ui-corner-left, .neos-formbuilder-dialog .ui-corner-tl {
     border-radius: 3px; }
-  .typo3-formbuilder-dialog .ui-dialog-titlebar {
+  .neos-formbuilder-dialog .ui-dialog-titlebar {
     padding: .4em 1em;
     position: relative;
     border-radius: 0; }
-  .typo3-formbuilder-dialog .ui-dialog-title {
+  .neos-formbuilder-dialog .ui-dialog-title {
     float: left;
     margin: .1em 16px .1em 0; }
-  .typo3-formbuilder-dialog .ui-dialog-titlebar-close {
+  .neos-formbuilder-dialog .ui-dialog-titlebar-close {
     position: absolute;
     right: .3em;
     top: 50%;
@@ -765,38 +765,38 @@ span.dynatree-icon:before {
     margin: -10px 0 0 0;
     padding: 1px;
     height: 18px; }
-  .typo3-formbuilder-dialog .ui-dialog-titlebar-close span {
+  .neos-formbuilder-dialog .ui-dialog-titlebar-close span {
     display: block;
     margin: 1px; }
-  .typo3-formbuilder-dialog .ui-dialog-titlebar-close:hover, .typo3-formbuilder-dialog .ui-dialog .ui-dialog-titlebar-close:focus {
+  .neos-formbuilder-dialog .ui-dialog-titlebar-close:hover, .neos-formbuilder-dialog .ui-dialog .ui-dialog-titlebar-close:focus {
     padding: 0; }
-  .typo3-formbuilder-dialog .ui-dialog-content {
+  .neos-formbuilder-dialog .ui-dialog-content {
     position: relative;
     border: 0;
     padding: .5em 1em;
     background: none;
     overflow: auto;
     zoom: 1; }
-  .typo3-formbuilder-dialog .ui-dialog-buttonpane {
+  .neos-formbuilder-dialog .ui-dialog-buttonpane {
     text-align: left;
     border-top: 1px solid silver;
     background-image: none;
     margin: .5em 0 0 0;
     padding: .3em 1em .5em .4em; }
-  .typo3-formbuilder-dialog .ui-dialog-buttonpane .ui-dialog-buttonset {
+  .neos-formbuilder-dialog .ui-dialog-buttonpane .ui-dialog-buttonset {
     float: right; }
-  .typo3-formbuilder-dialog .ui-dialog-buttonpane button {
+  .neos-formbuilder-dialog .ui-dialog-buttonpane button {
     margin: .5em .4em .5em 0;
     cursor: pointer; }
-  .typo3-formbuilder-dialog .ui-resizable-se {
+  .neos-formbuilder-dialog .ui-resizable-se {
     width: 14px;
     height: 14px;
     right: 3px;
     bottom: 3px; }
-  .typo3-formbuilder-dialog .ui-dialog-titlebar {
+  .neos-formbuilder-dialog .ui-dialog-titlebar {
     cursor: move; }
 
-#typo3-formbuilder-structurePanel {
+#neos-formbuilder-structurePanel {
   /* Suppress lines for last child node */
   /* Suppress lines if level is fixed expanded (option minExpandLevel) */
   /*******************************************************************************
@@ -829,148 +829,148 @@ span.dynatree-icon:before {
   /*** Drop marker icon *********************************************************/
   /*** Source node while dragging ***********************************************/
   /*** Target node while dragging cursor is over it *****************************/ }
-  #typo3-formbuilder-structurePanel ul.dynatree-container {
+  #neos-formbuilder-structurePanel ul.dynatree-container {
     font-size: 10px;
     white-space: nowrap;
     padding: 3px; }
-  #typo3-formbuilder-structurePanel ul.dynatree-container ul {
+  #neos-formbuilder-structurePanel ul.dynatree-container ul {
     padding: 0 0 0 16px; }
-  #typo3-formbuilder-structurePanel ul.dynatree-container li {
+  #neos-formbuilder-structurePanel ul.dynatree-container li {
     padding-top: 1px;
     list-style: none;
     background: transparent url("../Images/dynatree/vline.gif") 0 0 repeat-y; }
-  #typo3-formbuilder-structurePanel ul.dynatree-container li.dynatree-lastsib {
+  #neos-formbuilder-structurePanel ul.dynatree-container li.dynatree-lastsib {
     background-image: none; }
-  #typo3-formbuilder-structurePanel ul.dynatree-no-connector > li {
+  #neos-formbuilder-structurePanel ul.dynatree-no-connector > li {
     background-image: none; }
-  #typo3-formbuilder-structurePanel .ui-dynatree-disabled ul.dynatree-container {
+  #neos-formbuilder-structurePanel .ui-dynatree-disabled ul.dynatree-container {
     opacity: 0.5; }
-  #typo3-formbuilder-structurePanel span.dynatree-empty,
-  #typo3-formbuilder-structurePanel span.dynatree-vline,
-  #typo3-formbuilder-structurePanel span.dynatree-connector,
-  #typo3-formbuilder-structurePanel span.dynatree-expander,
-  #typo3-formbuilder-structurePanel span.dynatree-checkbox,
-  #typo3-formbuilder-structurePanel span.dynatree-radio,
-  #typo3-formbuilder-structurePanel span.dynatree-drag-helper-img,
-  #typo3-formbuilder-structurePanel #dynatree-drop-marker {
+  #neos-formbuilder-structurePanel span.dynatree-empty,
+  #neos-formbuilder-structurePanel span.dynatree-vline,
+  #neos-formbuilder-structurePanel span.dynatree-connector,
+  #neos-formbuilder-structurePanel span.dynatree-expander,
+  #neos-formbuilder-structurePanel span.dynatree-checkbox,
+  #neos-formbuilder-structurePanel span.dynatree-radio,
+  #neos-formbuilder-structurePanel span.dynatree-drag-helper-img,
+  #neos-formbuilder-structurePanel #dynatree-drop-marker {
     display: inline-block;
     vertical-align: top;
     background: transparent url("../Images/dynatree/icons.gif") 0 0 no-repeat;
     width: 16px;
     height: 16px; }
-  #typo3-formbuilder-structurePanel span.dynatree-connector {
+  #neos-formbuilder-structurePanel span.dynatree-connector {
     background-position: -16px -64px; }
-  #typo3-formbuilder-structurePanel span.dynatree-expander {
+  #neos-formbuilder-structurePanel span.dynatree-expander {
     background-position: 0px -80px;
     cursor: pointer; }
-  #typo3-formbuilder-structurePanel .dynatree-exp-cl span.dynatree-expander {
+  #neos-formbuilder-structurePanel .dynatree-exp-cl span.dynatree-expander {
     /* Collapsed, not delayed, last sibling */
     background-position: 0px -96px; }
-  #typo3-formbuilder-structurePanel .dynatree-exp-cd span.dynatree-expander {
+  #neos-formbuilder-structurePanel .dynatree-exp-cd span.dynatree-expander {
     /* Collapsed, delayed, not last sibling */
     background-position: -64px -80px; }
-  #typo3-formbuilder-structurePanel .dynatree-exp-cdl span.dynatree-expander {
+  #neos-formbuilder-structurePanel .dynatree-exp-cdl span.dynatree-expander {
     /* Collapsed, delayed, last sibling */
     background-position: -64px -96px; }
-  #typo3-formbuilder-structurePanel .dynatree-exp-e span.dynatree-expander,
-  #typo3-formbuilder-structurePanel .dynatree-exp-ed span.dynatree-expander {
+  #neos-formbuilder-structurePanel .dynatree-exp-e span.dynatree-expander,
+  #neos-formbuilder-structurePanel .dynatree-exp-ed span.dynatree-expander {
     /* Expanded, delayed, not last sibling */
     background-position: -32px -80px; }
-  #typo3-formbuilder-structurePanel .dynatree-exp-el span.dynatree-expander,
-  #typo3-formbuilder-structurePanel .dynatree-exp-edl span.dynatree-expander {
+  #neos-formbuilder-structurePanel .dynatree-exp-el span.dynatree-expander,
+  #neos-formbuilder-structurePanel .dynatree-exp-edl span.dynatree-expander {
     /* Expanded, delayed, last sibling */
     background-position: -32px -96px; }
-  #typo3-formbuilder-structurePanel .dynatree-loading span.dynatree-expander {
+  #neos-formbuilder-structurePanel .dynatree-loading span.dynatree-expander {
     /* 'Loading' status overrides all others */
     background: transparent url("../Images/dynatree/loading.gif") 0 0 no-repeat; }
-  #typo3-formbuilder-structurePanel span.dynatree-icon {
+  #neos-formbuilder-structurePanel span.dynatree-icon {
     padding: 2px 0 0 20px; }
-  #typo3-formbuilder-structurePanel .dynatree-statusnode-wait span.dynatree-icon {
+  #neos-formbuilder-structurePanel .dynatree-statusnode-wait span.dynatree-icon {
     background: transparent url("../Images/dynatree/loading.gif") 0 0 no-repeat; }
-  #typo3-formbuilder-structurePanel .dynatree-title {
+  #neos-formbuilder-structurePanel .dynatree-title {
     margin-top: 1px; }
-    #typo3-formbuilder-structurePanel .dynatree-title em {
+    #neos-formbuilder-structurePanel .dynatree-title em {
       color: #666; }
-  #typo3-formbuilder-structurePanel span.dynatree-node {
+  #neos-formbuilder-structurePanel span.dynatree-node {
     display: -moz-inline-box;
     /* issue 133, 165, 172, 192,  */ }
-  #typo3-formbuilder-structurePanel ul.dynatree-container a {
+  #neos-formbuilder-structurePanel ul.dynatree-container a {
     color: #eee;
     text-decoration: none;
     vertical-align: top; }
-  #typo3-formbuilder-structurePanel ul.dynatree-container a:hover {
+  #neos-formbuilder-structurePanel ul.dynatree-container a:hover {
     color: #ff8700;
     background: #383838; }
-  #typo3-formbuilder-structurePanel span.dynatree-node a {
+  #neos-formbuilder-structurePanel span.dynatree-node a {
     display: inline-block;
     /* Better alignment, when title contains <br> */
     padding: 0; }
-  #typo3-formbuilder-structurePanel span.dynatree-selected a, #typo3-formbuilder-structurePanel span.dynatree-active a {
+  #neos-formbuilder-structurePanel span.dynatree-selected a, #neos-formbuilder-structurePanel span.dynatree-active a {
     color: #ff8700; }
-  #typo3-formbuilder-structurePanel div.dynatree-drag-helper a {
+  #neos-formbuilder-structurePanel div.dynatree-drag-helper a {
     border: 1px solid gray;
     background-color: white;
     padding-left: 5px;
     padding-right: 5px;
     opacity: 0.8; }
-  #typo3-formbuilder-structurePanel div.dynatree-drop-accept span.dynatree-drag-helper-img {
+  #neos-formbuilder-structurePanel div.dynatree-drop-accept span.dynatree-drag-helper-img {
     background-position: -32px -112px; }
-  #typo3-formbuilder-structurePanel div.dynatree-drag-helper.dynatree-drop-reject {
+  #neos-formbuilder-structurePanel div.dynatree-drag-helper.dynatree-drop-reject {
     border-color: red; }
-  #typo3-formbuilder-structurePanel div.dynatree-drop-reject span.dynatree-drag-helper-img {
+  #neos-formbuilder-structurePanel div.dynatree-drop-reject span.dynatree-drag-helper-img {
     background-position: -16px -112px; }
-  #typo3-formbuilder-structurePanel #dynatree-drop-marker {
+  #neos-formbuilder-structurePanel #dynatree-drop-marker {
     width: 24px;
     position: absolute;
     background-position: 0 -128px; }
-  #typo3-formbuilder-structurePanel #dynatree-drop-marker.dynatree-drop-after,
-  #typo3-formbuilder-structurePanel #dynatree-drop-marker.dynatree-drop-before {
+  #neos-formbuilder-structurePanel #dynatree-drop-marker.dynatree-drop-after,
+  #neos-formbuilder-structurePanel #dynatree-drop-marker.dynatree-drop-before {
     width: 64px;
     background-position: 0 -144px; }
-  #typo3-formbuilder-structurePanel #dynatree-drop-marker.dynatree-drop-copy {
+  #neos-formbuilder-structurePanel #dynatree-drop-marker.dynatree-drop-copy {
     background-position: -64px -128px; }
-  #typo3-formbuilder-structurePanel #dynatree-drop-marker.dynatree-drop-move {
+  #neos-formbuilder-structurePanel #dynatree-drop-marker.dynatree-drop-move {
     background-position: -64px -128px; }
-  #typo3-formbuilder-structurePanel span.dynatree-drag-source {
+  #neos-formbuilder-structurePanel span.dynatree-drag-source {
     background-color: #e0e0e0; }
-  #typo3-formbuilder-structurePanel span.dynatree-drag-source a {
+  #neos-formbuilder-structurePanel span.dynatree-drag-source a {
     color: gray; }
-  #typo3-formbuilder-structurePanel span.dynatree-drop-target.dynatree-drop-accept a {
+  #neos-formbuilder-structurePanel span.dynatree-drop-target.dynatree-drop-accept a {
     color: #69a550 !important;
     text-decoration: none; }
 
-#typo3-formbuilder-header,
-#typo3-formbuilder-elementSidebar,
-#typo3-formbuilder-elementOptionsPanel,
-#typo3-formbuilder-footer {
+#neos-formbuilder-header,
+#neos-formbuilder-elementSidebar,
+#neos-formbuilder-elementOptionsPanel,
+#neos-formbuilder-footer {
   background: #474747;
   color: white;
   font: 11px Verdana, Arial, Helvetica, sans-serif;
   overflow: auto; }
-  #typo3-formbuilder-header a,
-  #typo3-formbuilder-elementSidebar a,
-  #typo3-formbuilder-elementOptionsPanel a,
-  #typo3-formbuilder-footer a {
+  #neos-formbuilder-header a,
+  #neos-formbuilder-elementSidebar a,
+  #neos-formbuilder-elementOptionsPanel a,
+  #neos-formbuilder-footer a {
     color: white;
     text-decoration: none; }
-    #typo3-formbuilder-header a.active, #typo3-formbuilder-header a:hover,
-    #typo3-formbuilder-elementSidebar a.active,
-    #typo3-formbuilder-elementSidebar a:hover,
-    #typo3-formbuilder-elementOptionsPanel a.active,
-    #typo3-formbuilder-elementOptionsPanel a:hover,
-    #typo3-formbuilder-footer a.active,
-    #typo3-formbuilder-footer a:hover {
+    #neos-formbuilder-header a.active, #neos-formbuilder-header a:hover,
+    #neos-formbuilder-elementSidebar a.active,
+    #neos-formbuilder-elementSidebar a:hover,
+    #neos-formbuilder-elementOptionsPanel a.active,
+    #neos-formbuilder-elementOptionsPanel a:hover,
+    #neos-formbuilder-footer a.active,
+    #neos-formbuilder-footer a:hover {
       color: #ff8700; }
-  #typo3-formbuilder-header h2, #typo3-formbuilder-header h3, #typo3-formbuilder-header h4,
-  #typo3-formbuilder-elementSidebar h2,
-  #typo3-formbuilder-elementSidebar h3,
-  #typo3-formbuilder-elementSidebar h4,
-  #typo3-formbuilder-elementOptionsPanel h2,
-  #typo3-formbuilder-elementOptionsPanel h3,
-  #typo3-formbuilder-elementOptionsPanel h4,
-  #typo3-formbuilder-footer h2,
-  #typo3-formbuilder-footer h3,
-  #typo3-formbuilder-footer h4 {
+  #neos-formbuilder-header h2, #neos-formbuilder-header h3, #neos-formbuilder-header h4,
+  #neos-formbuilder-elementSidebar h2,
+  #neos-formbuilder-elementSidebar h3,
+  #neos-formbuilder-elementSidebar h4,
+  #neos-formbuilder-elementOptionsPanel h2,
+  #neos-formbuilder-elementOptionsPanel h3,
+  #neos-formbuilder-elementOptionsPanel h4,
+  #neos-formbuilder-footer h2,
+  #neos-formbuilder-footer h3,
+  #neos-formbuilder-footer h4 {
     padding: 1px 2px 2px 5px;
     border-bottom: 1px solid #282828;
     color: white;
@@ -979,18 +979,18 @@ span.dynatree-icon:before {
     font-size: 10px;
     font-weight: bold;
     height: 16px; }
-  #typo3-formbuilder-header h2,
-  #typo3-formbuilder-elementSidebar h2,
-  #typo3-formbuilder-elementOptionsPanel h2,
-  #typo3-formbuilder-footer h2 {
+  #neos-formbuilder-header h2,
+  #neos-formbuilder-elementSidebar h2,
+  #neos-formbuilder-elementOptionsPanel h2,
+  #neos-formbuilder-footer h2 {
     padding-top: 3px;
     background: #383838;
     text-transform: uppercase;
     text-shadow: 0 1px 1px #111; }
-  #typo3-formbuilder-header h3,
-  #typo3-formbuilder-elementSidebar h3,
-  #typo3-formbuilder-elementOptionsPanel h3,
-  #typo3-formbuilder-footer h3 {
+  #neos-formbuilder-header h3,
+  #neos-formbuilder-elementSidebar h3,
+  #neos-formbuilder-elementOptionsPanel h3,
+  #neos-formbuilder-footer h3 {
     background: #777;
     text-transform: uppercase;
     color: #383838;
@@ -998,22 +998,22 @@ span.dynatree-icon:before {
     border-bottom: 1px solid #383838;
     text-shadow: 0 1px 1px #aaa;
     height: 14px; }
-  #typo3-formbuilder-header h4,
-  #typo3-formbuilder-elementSidebar h4,
-  #typo3-formbuilder-elementOptionsPanel h4,
-  #typo3-formbuilder-footer h4 {
+  #neos-formbuilder-header h4,
+  #neos-formbuilder-elementSidebar h4,
+  #neos-formbuilder-elementOptionsPanel h4,
+  #neos-formbuilder-footer h4 {
     background: #555;
     color: white;
     border-top: 1px solid #999;
     border-bottom: 1px solid #383838;
     height: 14px; }
-  #typo3-formbuilder-header .typo3-formbuilder-error,
-  #typo3-formbuilder-elementSidebar .typo3-formbuilder-error,
-  #typo3-formbuilder-elementOptionsPanel .typo3-formbuilder-error,
-  #typo3-formbuilder-footer .typo3-formbuilder-error {
+  #neos-formbuilder-header .neos-formbuilder-error,
+  #neos-formbuilder-elementSidebar .neos-formbuilder-error,
+  #neos-formbuilder-elementOptionsPanel .neos-formbuilder-error,
+  #neos-formbuilder-footer .neos-formbuilder-error {
     color: #aa6666; }
 
-#typo3-formbuilder-loading {
+#neos-formbuilder-loading {
   position: absolute;
   top: 11px;
   left: 10px;
@@ -1024,214 +1024,214 @@ span.dynatree-icon:before {
   text-indent: -9999px;
   overflow: hidden; }
 
-#typo3-formbuilder-header {
+#neos-formbuilder-header {
   margin: 0;
   padding: 0;
   background: #282828 url("../Images/header_background.png") 0 0 repeat-x;
   height: 46px !important;
   overflow: hidden; }
-  #typo3-formbuilder-header h1 {
+  #neos-formbuilder-header h1 {
     margin: 5px 0 0 12px;
     font-size: 25px;
     color: #fff;
     text-shadow: 0 -1px 0 #777;
     background: transparent url("../Images/flowLogo.png") 2px center no-repeat;
     padding-left: 23px; }
-  #typo3-formbuilder-header #typo3-formbuilder-toolbar {
+  #neos-formbuilder-header #neos-formbuilder-toolbar {
     position: absolute;
     top: 14px;
     right: 10px; }
-    #typo3-formbuilder-header #typo3-formbuilder-toolbar li {
+    #neos-formbuilder-header #neos-formbuilder-toolbar li {
       display: inline;
       margin: 0 0 0 10px; }
-      #typo3-formbuilder-header #typo3-formbuilder-toolbar li div {
+      #neos-formbuilder-header #neos-formbuilder-toolbar li div {
         display: inline; }
-      #typo3-formbuilder-header #typo3-formbuilder-toolbar li select {
+      #neos-formbuilder-header #neos-formbuilder-toolbar li select {
         background: #474747;
         width: 119px;
         color: white; }
-    #typo3-formbuilder-header #typo3-formbuilder-toolbar .typo3-formbuilder-preset {
+    #neos-formbuilder-header #neos-formbuilder-toolbar .neos-formbuilder-preset {
       position: relative;
       top: -2px;
       height: 20px; }
-    #typo3-formbuilder-header #typo3-formbuilder-toolbar .typo3-formbuilder-preview button:before {
+    #neos-formbuilder-header #neos-formbuilder-toolbar .neos-formbuilder-preview button:before {
       background-position: -48px 0 !important; }
-    #typo3-formbuilder-header #typo3-formbuilder-toolbar .typo3-formbuilder-save button:before {
+    #neos-formbuilder-header #neos-formbuilder-toolbar .neos-formbuilder-save button:before {
       background-position: -96px -24px !important; }
-    #typo3-formbuilder-header #typo3-formbuilder-toolbar .typo3-formbuilder-save button[disabled] {
+    #neos-formbuilder-header #neos-formbuilder-toolbar .neos-formbuilder-save button[disabled] {
       color: #444; }
-      #typo3-formbuilder-header #typo3-formbuilder-toolbar .typo3-formbuilder-save button[disabled]:before {
+      #neos-formbuilder-header #neos-formbuilder-toolbar .neos-formbuilder-save button[disabled]:before {
         background-image: url("../Images/glyphicons-halflings.png");
         background-position: -96px -24px !important; }
-    #typo3-formbuilder-header #typo3-formbuilder-toolbar .typo3-formbuilder-save button.currently-saving:before {
+    #neos-formbuilder-header #neos-formbuilder-toolbar .neos-formbuilder-save button.currently-saving:before {
       background-image: url("../Images/saving.gif");
       background-position: 1px 1px !important; }
-    #typo3-formbuilder-header #typo3-formbuilder-toolbar .typo3-formbuilder-save button.save-error:before {
+    #neos-formbuilder-header #neos-formbuilder-toolbar .neos-formbuilder-save button.save-error:before {
       background-image: url("../Images/saving_error.gif");
       background-position: 1px 1px !important; }
 
-#typo3-formbuilder-structurePanel {
+#neos-formbuilder-structurePanel {
   overflow: auto; }
-  #typo3-formbuilder-structurePanel button {
+  #neos-formbuilder-structurePanel button {
     padding: 0 0 0 19px;
     font-size: 10px;
     line-height: 16px;
     font-weight: bold; }
-    #typo3-formbuilder-structurePanel button:before {
+    #neos-formbuilder-structurePanel button:before {
       background: transparent url("../Images/glyphicons-halflings-white.png") -432px 0 no-repeat;
       content: ' ';
       position: absolute;
       margin: 2px 0 0 -17px;
       height: 14px;
       width: 14px; }
-    #typo3-formbuilder-structurePanel button:before {
+    #neos-formbuilder-structurePanel button:before {
       margin-top: 1px; }
-    #typo3-formbuilder-structurePanel button:hover {
+    #neos-formbuilder-structurePanel button:hover {
       background: #383838;
       color: #ff8700; }
-    #typo3-formbuilder-structurePanel button.typo3-formbuilder-form-selected {
+    #neos-formbuilder-structurePanel button.neos-formbuilder-form-selected {
       color: #ff8700; }
 
-#typo3-formbuilder-insertElementsPanel {
+#neos-formbuilder-insertElementsPanel {
   overflow: auto; }
-  #typo3-formbuilder-insertElementsPanel h3 span {
+  #neos-formbuilder-insertElementsPanel h3 span {
     padding-left: 17px;
     color: #383838; }
-    #typo3-formbuilder-insertElementsPanel h3 span:before {
+    #neos-formbuilder-insertElementsPanel h3 span:before {
       background: transparent url("../Images/glyphicons-halflings-white.png") -432px 0 no-repeat;
       content: ' ';
       position: absolute;
       margin: 2px 0 0 -17px;
       height: 14px;
       width: 14px; }
-    #typo3-formbuilder-insertElementsPanel h3 span:before {
+    #neos-formbuilder-insertElementsPanel h3 span:before {
       background-image: url("../Images/glyphicons-halflings.png"); }
-    #typo3-formbuilder-insertElementsPanel h3 span:before {
+    #neos-formbuilder-insertElementsPanel h3 span:before {
       margin-top: 0; }
-  #typo3-formbuilder-insertElementsPanel ul {
+  #neos-formbuilder-insertElementsPanel ul {
     margin-bottom: 7px; }
-    #typo3-formbuilder-insertElementsPanel ul li {
+    #neos-formbuilder-insertElementsPanel ul li {
       padding-left: 25px;
       color: #999; }
-      #typo3-formbuilder-insertElementsPanel ul li.typo3-formbuilder-enabled {
+      #neos-formbuilder-insertElementsPanel ul li.neos-formbuilder-enabled {
         color: white; }
-        #typo3-formbuilder-insertElementsPanel ul li.typo3-formbuilder-enabled:hover {
+        #neos-formbuilder-insertElementsPanel ul li.neos-formbuilder-enabled:hover {
           color: #ff8700;
           background: #383838; }
-        #typo3-formbuilder-insertElementsPanel ul li.typo3-formbuilder-enabled span {
+        #neos-formbuilder-insertElementsPanel ul li.neos-formbuilder-enabled span {
           cursor: pointer; }
-          #typo3-formbuilder-insertElementsPanel ul li.typo3-formbuilder-enabled span:before {
+          #neos-formbuilder-insertElementsPanel ul li.neos-formbuilder-enabled span:before {
             background: transparent url("../Images/glyphicons-halflings-white.png") -24px -24px no-repeat;
             content: ' ';
             position: absolute;
             margin: 2px 0 0 -17px;
             height: 14px;
             width: 14px; }
-          #typo3-formbuilder-insertElementsPanel ul li.typo3-formbuilder-enabled span:before {
+          #neos-formbuilder-insertElementsPanel ul li.neos-formbuilder-enabled span:before {
             margin-top: 0; }
-      #typo3-formbuilder-insertElementsPanel ul li span {
+      #neos-formbuilder-insertElementsPanel ul li span {
         cursor: disabled;
         display: block;
         padding: 4px 0 3px 2px;
         font-size: 10px; }
-        #typo3-formbuilder-insertElementsPanel ul li span:before {
+        #neos-formbuilder-insertElementsPanel ul li span:before {
           background: transparent url("../Images/glyphicons-halflings-white.png") -216px -96px no-repeat;
           content: ' ';
           position: absolute;
           margin: 2px 0 0 -17px;
           height: 14px;
           width: 14px; }
-        #typo3-formbuilder-insertElementsPanel ul li span:before {
+        #neos-formbuilder-insertElementsPanel ul li span:before {
           background-image: url("../Images/glyphicons-halflings.png"); }
-        #typo3-formbuilder-insertElementsPanel ul li span:before {
+        #neos-formbuilder-insertElementsPanel ul li span:before {
           margin-top: 0; }
 
-#typo3-formbuilder-elementOptionsPanel .typo3-formbuilder-propertyPanelTitle {
+#neos-formbuilder-elementOptionsPanel .neos-formbuilder-propertyPanelTitle {
   height: 28px; }
-  #typo3-formbuilder-elementOptionsPanel .typo3-formbuilder-propertyPanelTitle em {
+  #neos-formbuilder-elementOptionsPanel .neos-formbuilder-propertyPanelTitle em {
     display: block;
     font-weight: normal;
     text-transform: none; }
-#typo3-formbuilder-elementOptionsPanel .typo3-formbuilder-identifier {
+#neos-formbuilder-elementOptionsPanel .neos-formbuilder-identifier {
   cursor: pointer; }
-  #typo3-formbuilder-elementOptionsPanel .typo3-formbuilder-identifier:hover {
+  #neos-formbuilder-elementOptionsPanel .neos-formbuilder-identifier:hover {
     color: #ff8700; }
-#typo3-formbuilder-elementOptionsPanel .typo3-formbuilder-controlGroup {
+#neos-formbuilder-elementOptionsPanel .neos-formbuilder-controlGroup {
   margin: 7px 5px 7px 5px;
   clear: both; }
-  #typo3-formbuilder-elementOptionsPanel .typo3-formbuilder-controlGroup label {
+  #neos-formbuilder-elementOptionsPanel .neos-formbuilder-controlGroup label {
     float: left;
     padding-right: 2px;
     width: 35%; }
-  #typo3-formbuilder-elementOptionsPanel .typo3-formbuilder-controlGroup .typo3-formbuilder-controls {
+  #neos-formbuilder-elementOptionsPanel .neos-formbuilder-controlGroup .neos-formbuilder-controls {
     display: block;
     margin-left: 40%;
     width: 57%; }
-    #typo3-formbuilder-elementOptionsPanel .typo3-formbuilder-controlGroup .typo3-formbuilder-controls .typo3-formbuilder-explanation {
+    #neos-formbuilder-elementOptionsPanel .neos-formbuilder-controlGroup .neos-formbuilder-controls .neos-formbuilder-explanation {
       font-size: 10px;
       color: #999; }
-    #typo3-formbuilder-elementOptionsPanel .typo3-formbuilder-controlGroup .typo3-formbuilder-controls label {
+    #neos-formbuilder-elementOptionsPanel .neos-formbuilder-controlGroup .neos-formbuilder-controls label {
       float: none;
       width: auto; }
-  #typo3-formbuilder-elementOptionsPanel .typo3-formbuilder-controlGroup input,
-  #typo3-formbuilder-elementOptionsPanel .typo3-formbuilder-controlGroup textarea,
-  #typo3-formbuilder-elementOptionsPanel .typo3-formbuilder-controlGroup select {
+  #neos-formbuilder-elementOptionsPanel .neos-formbuilder-controlGroup input,
+  #neos-formbuilder-elementOptionsPanel .neos-formbuilder-controlGroup textarea,
+  #neos-formbuilder-elementOptionsPanel .neos-formbuilder-controlGroup select {
     width: 100%; }
-  #typo3-formbuilder-elementOptionsPanel .typo3-formbuilder-controlGroup input[type='checkbox'],
-  #typo3-formbuilder-elementOptionsPanel .typo3-formbuilder-controlGroup input[type='radio'] {
+  #neos-formbuilder-elementOptionsPanel .neos-formbuilder-controlGroup input[type='checkbox'],
+  #neos-formbuilder-elementOptionsPanel .neos-formbuilder-controlGroup input[type='radio'] {
     width: auto;
     margin-right: 3px; }
-#typo3-formbuilder-elementOptionsPanel .typo3-formbuilder-addValidator,
-#typo3-formbuilder-elementOptionsPanel .typo3-formbuilder-addFinisher {
+#neos-formbuilder-elementOptionsPanel .neos-formbuilder-addValidator,
+#neos-formbuilder-elementOptionsPanel .neos-formbuilder-addFinisher {
   border-bottom: 1px solid #444; }
-  #typo3-formbuilder-elementOptionsPanel .typo3-formbuilder-addValidator select,
-  #typo3-formbuilder-elementOptionsPanel .typo3-formbuilder-addFinisher select {
+  #neos-formbuilder-elementOptionsPanel .neos-formbuilder-addValidator select,
+  #neos-formbuilder-elementOptionsPanel .neos-formbuilder-addFinisher select {
     width: 100%;
     background: gray;
     font-size: 12px;
     color: white;
     font-weight: bold;
     border: none; }
-    #typo3-formbuilder-elementOptionsPanel .typo3-formbuilder-addValidator select option,
-    #typo3-formbuilder-elementOptionsPanel .typo3-formbuilder-addFinisher select option {
+    #neos-formbuilder-elementOptionsPanel .neos-formbuilder-addValidator select option,
+    #neos-formbuilder-elementOptionsPanel .neos-formbuilder-addFinisher select option {
       font-weight: normal; }
-#typo3-formbuilder-elementOptionsPanel .typo3-formbuilder-grid {
+#neos-formbuilder-elementOptionsPanel .neos-formbuilder-grid {
   clear: both;
   padding-top: 5px; }
-  #typo3-formbuilder-elementOptionsPanel .typo3-formbuilder-grid .slick-header-columns {
+  #neos-formbuilder-elementOptionsPanel .neos-formbuilder-grid .slick-header-columns {
     background: gray;
     color: #474747;
     text-align: center;
     font-weight: bold;
     border-bottom: 1px solid #282828; }
-  #typo3-formbuilder-elementOptionsPanel .typo3-formbuilder-grid .slick-viewport {
+  #neos-formbuilder-elementOptionsPanel .neos-formbuilder-grid .slick-viewport {
     background: white;
     color: #282828; }
-    #typo3-formbuilder-elementOptionsPanel .typo3-formbuilder-grid .slick-viewport .slick-row {
+    #neos-formbuilder-elementOptionsPanel .neos-formbuilder-grid .slick-viewport .slick-row {
       border: none; }
-      #typo3-formbuilder-elementOptionsPanel .typo3-formbuilder-grid .slick-viewport .slick-row .slick-cell {
+      #neos-formbuilder-elementOptionsPanel .neos-formbuilder-grid .slick-viewport .slick-row .slick-cell {
         border-color: transparent silver silver transparent;
         background: #ddd;
         padding: 3px 2px 2px 1px;
         height: 18px; }
-        #typo3-formbuilder-elementOptionsPanel .typo3-formbuilder-grid .slick-viewport .slick-row .slick-cell.editable {
+        #neos-formbuilder-elementOptionsPanel .neos-formbuilder-grid .slick-viewport .slick-row .slick-cell.editable {
           padding: 0 2px 2px 0;
           height: 21px; }
-      #typo3-formbuilder-elementOptionsPanel .typo3-formbuilder-grid .slick-viewport .slick-row .editor-text {
+      #neos-formbuilder-elementOptionsPanel .neos-formbuilder-grid .slick-viewport .slick-row .editor-text {
         width: 97%;
         height: 100%;
         border: none;
         box-shadow: none;
         color: black; }
-      #typo3-formbuilder-elementOptionsPanel .typo3-formbuilder-grid .slick-viewport .slick-row .cell-reorder {
+      #neos-formbuilder-elementOptionsPanel .neos-formbuilder-grid .slick-viewport .slick-row .cell-reorder {
         cursor: move;
         background: #dddddd url("../Images/drag-handle.png") no-repeat center center; }
-      #typo3-formbuilder-elementOptionsPanel .typo3-formbuilder-grid .slick-viewport .slick-row .slick-cell.typo3-formbuilder-grid-deleteRow {
+      #neos-formbuilder-elementOptionsPanel .neos-formbuilder-grid .slick-viewport .slick-row .slick-cell.neos-formbuilder-grid-deleteRow {
         cursor: pointer;
         background: url("../Images/glyphicons-halflings.png") -456px 0 no-repeat; }
-    #typo3-formbuilder-elementOptionsPanel .typo3-formbuilder-grid .slick-viewport .slick-reorder-proxy, #typo3-formbuilder-elementOptionsPanel .typo3-formbuilder-grid .slick-viewport .slick-reorder-guide {
+    #neos-formbuilder-elementOptionsPanel .neos-formbuilder-grid .slick-viewport .slick-reorder-proxy, #neos-formbuilder-elementOptionsPanel .neos-formbuilder-grid .slick-viewport .slick-reorder-guide {
       background: #282828; }
-#typo3-formbuilder-elementOptionsPanel .typo3-formbuilder-removeButton {
+#neos-formbuilder-elementOptionsPanel .neos-formbuilder-removeButton {
   display: inline-block;
   position: absolute;
   right: 5px;
@@ -1240,18 +1240,18 @@ span.dynatree-icon:before {
   text-indent: -9999px;
   vertical-align: text-top;
   background: transparent url("../Images/glyphicons-halflings-white.png") -456px 0 no-repeat; }
-  #typo3-formbuilder-elementOptionsPanel .typo3-formbuilder-removeButton:hover {
+  #neos-formbuilder-elementOptionsPanel .neos-formbuilder-removeButton:hover {
     background-color: #666; }
-#typo3-formbuilder-elementOptionsPanel .typo3-formbuilder-removeElementButton {
+#neos-formbuilder-elementOptionsPanel .neos-formbuilder-removeElementButton {
   position: absolute;
   top: 26px;
   right: 3px;
   font-size: 0;
   padding: 5px 2px 5px 21px; }
-  #typo3-formbuilder-elementOptionsPanel .typo3-formbuilder-removeElementButton:before {
+  #neos-formbuilder-elementOptionsPanel .neos-formbuilder-removeElementButton:before {
     background-position: -456px 0 !important; }
 
-#typo3-formbuilder-footer {
+#neos-formbuilder-footer {
   background: #282828 url("../Images/footer_background.png") 0 0 repeat-x;
   height: 20px !important;
   padding: 9px 5px 0 0;
@@ -1260,9 +1260,9 @@ span.dynatree-icon:before {
   overflow: hidden;
   text-align: right; }
 
-#typo3-formbuilder-stage {
+#neos-formbuilder-stage {
   overflow: auto; }
-  #typo3-formbuilder-stage .typo3-formbuilder-form-element-selected {
+  #neos-formbuilder-stage .neos-formbuilder-form-element-selected {
     background: #ccc; }
 
 .ui-layout-resizer {

@@ -1,15 +1,17 @@
 {
-	"name": "typo3/formbuilder",
-	"type": "typo3-flow-package",
-	"description": "Graphical User Interface for creating and editing Forms based on the TYPO3 Flow Form Framework",
-	"version": "",
-	"require": {
-		"typo3/flow": "*",
-		"typo3/form": "*"
-	},
-	"autoload": {
-		"psr-0": {
-			"TYPO3\\FormBuilder": "Classes"
-		}
-	}
+    "name": "neos/formbuilder",
+    "type": "neos-package",
+    "description": "Graphical User Interface for creating and editing Forms based on the Flow Form Framework",
+    "require": {
+        "neos/flow": "~4.0.0",
+        "neos/form": "~4.0.0"
+    },
+    "replace": {
+        "typo3/formbuilder": "self.version"
+    },
+    "autoload": {
+        "psr-4": {
+            "Neos\\FormBuilder\\": "Classes"
+        }
+    }
 }

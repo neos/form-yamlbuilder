@@ -1,4 +1,5 @@
 {{#collection contentBinding="formElementsGrouped"}}
-	<h3 class="typo3-formbuilder-group-{{unbound content.key}}"><span>{{content.label}}</span></h3>
-	{{view TYPO3.FormBuilder.View.InsertElementsPanel.ElementsCollection contentBinding="content.elements" tagName="ul"}}
+	<h3 class="neos-formbuilder-group-{{unbound content.key}}"><span>{{content.label}}</span></h3>
+	{{view Neos.FormBuilder.View.InsertElementsPanel.ElementsCollection contentBinding="content.elements" tagName="ul"}}
 {{/collection}}
+

@@ -18,10 +18,10 @@ $colorHighlight: #ff8700;
 @import 'dialogs';
 @import 'elementStructure';
 
-#typo3-formbuilder-header,
-#typo3-formbuilder-elementSidebar,
-#typo3-formbuilder-elementOptionsPanel,
-#typo3-formbuilder-footer {
+#neos-formbuilder-header,
+#neos-formbuilder-elementSidebar,
+#neos-formbuilder-elementOptionsPanel,
+#neos-formbuilder-footer {
 	background: $colorLighterBackground;
 	color: white;
 	font: 11px Verdana, Arial, Helvetica, sans-serif;
@@ -65,12 +65,12 @@ $colorHighlight: #ff8700;
 		border-bottom: 1px solid #383838;
 		height: 14px;
 	}
-	.typo3-formbuilder-error {
+	.neos-formbuilder-error {
 		color: #aa6666;
 	}
 }
 
-#typo3-formbuilder-loading {
+#neos-formbuilder-loading {
 	position: absolute;
 	top: 11px;
 	left: 10px;
@@ -82,7 +82,7 @@ $colorHighlight: #ff8700;
 	overflow: hidden;
 }
 
-#typo3-formbuilder-header {
+#neos-formbuilder-header {
 	margin: 0;
 	padding: 0;
 	background: $colorDarkBackground url('../Images/header_background.png') 0 0 repeat-x;
@@ -96,7 +96,7 @@ $colorHighlight: #ff8700;
 		background: transparent url('../Images/flowLogo.png') 2px center no-repeat;
 		padding-left: 23px;
 	}
-	#typo3-formbuilder-toolbar {
+	#neos-formbuilder-toolbar {
 		position: absolute;
 		top: 14px;
 		right: 10px;
@@ -112,15 +112,15 @@ $colorHighlight: #ff8700;
 				color: white;
 			}
 		}
-		.typo3-formbuilder-preset {
+		.neos-formbuilder-preset {
 			position: relative;
 			top: -2px;
 			height: 20px;
 		}
-		.typo3-formbuilder-preview button {
+		.neos-formbuilder-preview button {
 			@include overrideIcon($icon-search);
 		}
-		.typo3-formbuilder-save button {
+		.neos-formbuilder-save button {
 			@include overrideIcon($icon-download-alt);
 			&[disabled] {
 				color: #444;
@@ -138,7 +138,7 @@ $colorHighlight: #ff8700;
 	}
 }
 
-#typo3-formbuilder-structurePanel {
+#neos-formbuilder-structurePanel {
 	overflow: auto;
 	button {
 		@include icon($icon-cog);
@@ -153,12 +153,12 @@ $colorHighlight: #ff8700;
 			background: #383838;
 			color: $colorHighlight;
 		}
-		&.typo3-formbuilder-form-selected {
+		&.neos-formbuilder-form-selected {
 			color: $colorHighlight;
 		}
 	}
 }
-#typo3-formbuilder-insertElementsPanel {
+#neos-formbuilder-insertElementsPanel {
 	overflow: auto;
 	h3 span {
 		@include iconDark($icon-cog);
@@ -173,7 +173,7 @@ $colorHighlight: #ff8700;
 		li {
 			padding-left: 25px;
 			color: #999;
-			&.typo3-formbuilder-enabled {
+			&.neos-formbuilder-enabled {
 				color: white;
 				&:hover {
 					color: $colorHighlight;
@@ -201,8 +201,8 @@ $colorHighlight: #ff8700;
 	}
 }
 
-#typo3-formbuilder-elementOptionsPanel {
-	.typo3-formbuilder-propertyPanelTitle {
+#neos-formbuilder-elementOptionsPanel {
+	.neos-formbuilder-propertyPanelTitle {
 		height: 28px;
 		em {
 			display: block;
@@ -210,13 +210,13 @@ $colorHighlight: #ff8700;
 			text-transform: none;
 		}
 	}
-	.typo3-formbuilder-identifier {
+	.neos-formbuilder-identifier {
 		cursor: pointer;
 		&:hover {
 			color: $colorHighlight;
 		}
 	}
-	.typo3-formbuilder-controlGroup {
+	.neos-formbuilder-controlGroup {
 		margin: 7px 5px 7px 5px;
 		clear: both;
 		label {
@@ -224,11 +224,11 @@ $colorHighlight: #ff8700;
 			padding-right: 2px;
 			width: 35%;
 		}
-		.typo3-formbuilder-controls {
+		.neos-formbuilder-controls {
 			display: block;
 			margin-left: 40%;
 			width: 57%;
-			.typo3-formbuilder-explanation {
+			.neos-formbuilder-explanation {
 				font-size: 10px;
 				color: #999;
 			}
@@ -248,8 +248,8 @@ $colorHighlight: #ff8700;
 			margin-right: 3px;
 		}
 	}
-	.typo3-formbuilder-addValidator,
-	.typo3-formbuilder-addFinisher {
+	.neos-formbuilder-addValidator,
+	.neos-formbuilder-addFinisher {
 		border-bottom: 1px solid #444;
 		select {
 			width: 100%;
@@ -263,7 +263,7 @@ $colorHighlight: #ff8700;
 			}
 		}
 	}
-	.typo3-formbuilder-grid {
+	.neos-formbuilder-grid {
 		clear: both;
 		padding-top: 5px;
 		.slick-header-columns {
@@ -300,7 +300,7 @@ $colorHighlight: #ff8700;
 					background: #ddd url('../Images/drag-handle.png') no-repeat center center;
 				}
 
-				.slick-cell.typo3-formbuilder-grid-deleteRow {
+				.slick-cell.neos-formbuilder-grid-deleteRow {
 					cursor: pointer;
 					background: url('../Images/glyphicons-halflings.png') $icon-trash no-repeat;
 				}
@@ -310,7 +310,7 @@ $colorHighlight: #ff8700;
 			}
 		}
 	}
-	.typo3-formbuilder-removeButton {
+	.neos-formbuilder-removeButton {
 		display: inline-block;
 		position: absolute;
 		right: 5px;
@@ -323,7 +323,7 @@ $colorHighlight: #ff8700;
 			background-color: #666;
 		}
 	}
-	.typo3-formbuilder-removeElementButton {
+	.neos-formbuilder-removeElementButton {
 		position: absolute;
 		top: 26px;
 		right: 3px;
@@ -333,7 +333,7 @@ $colorHighlight: #ff8700;
 	}
 }
 
-#typo3-formbuilder-footer {
+#neos-formbuilder-footer {
 	background: $colorDarkBackground url('../Images/footer_background.png') 0 0 repeat-x;
 	height: $footerSize + 9px !important;
 	padding: 9px 5px 0 0;
@@ -343,9 +343,9 @@ $colorHighlight: #ff8700;
 	text-align: right;
 }
 
-#typo3-formbuilder-stage {
+#neos-formbuilder-stage {
 	overflow: auto;
-	.typo3-formbuilder-form-element-selected {
+	.neos-formbuilder-form-element-selected {
 		background: #ccc;
 	}
 }

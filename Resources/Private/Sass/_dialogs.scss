@@ -14,7 +14,7 @@
 	filter: Alpha(Opacity = 70);
 }
 
-.typo3-formbuilder-dialog {
+.neos-formbuilder-dialog {
 
 	font: 11px Verdana, Arial, Helvetica, sans-serif;
 	position: absolute;
@@ -80,7 +80,7 @@
 		font-size: 1em;
 	}
 	button {
-		@include typo3-formbuilder-button;
+		@include neos-formbuilder-button;
 	}
 
 	a {
