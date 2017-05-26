@@ -1,6 +1,7 @@
 {
     "name": "neos/formbuilder",
     "type": "neos-package",
+    "license": "LGPL-2.1",
     "description": "Graphical User Interface for creating and editing Forms based on the Flow Form Framework",
     "require": {
         "neos/flow": "~4.0.0",
