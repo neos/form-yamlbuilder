@@ -1,5 +1,5 @@
 # <!--
-# This file is part of the Neos.Formbuilder package.
+# This file is part of the Neos.Form.YamlBuilder package.
 #
 # (c) Contributors of the Neos Project - www.neos.io
 #
@@ -16,13 +16,13 @@
 # to the server as needed when the form definition changes.
 # ***
 # ###Private###
-Neos.FormBuilder.View.Stage = Ember.View.extend {
-	formPagesBinding: 'Neos.FormBuilder.Model.Form.formDefinition.renderables',
+Neos.Form.YamlBuilder.View.Stage = Ember.View.extend {
+	formPagesBinding: 'Neos.Form.YamlBuilder.Model.Form.formDefinition.renderables',
 
 	# find the current page index based on the currently selected renderable; by traversing
 	# up the renderable hierarchy.
 	currentPageIndex: (->
-		currentlySelectedRenderable = Neos.FormBuilder.Model.Form.get('currentlySelectedRenderable')
+		currentlySelectedRenderable = Neos.Form.YamlBuilder.Model.Form.get('currentlySelectedRenderable')
 		return 0 unless currentlySelectedRenderable
 
 		enclosingPage = currentlySelectedRenderable.findEnclosingPage()
@@ -31,7 +31,7 @@ Neos.FormBuilder.View.Stage = Ember.View.extend {
 		return 0 unless enclosingPage.getPath('parentRenderable.renderables')
 
 		return enclosingPage.getPath('parentRenderable.renderables').indexOf(enclosingPage)
-	).property('Neos.FormBuilder.Model.Form.currentlySelectedRenderable').cacheable()
+	).property('Neos.Form.YamlBuilder.Model.Form.currentlySelectedRenderable').cacheable()
 
 	# Reference to the current Page (instance of `Neos.Form.Model.Renderable`) which is shown in the middle.
 	page: Ember.computed(->
@@ -41,12 +41,12 @@ Neos.FormBuilder.View.Stage = Ember.View.extend {
 	# Reference to the currently running AJAX request, if any.
 	currentAjaxRequest: null,
 
-	isLoadingBinding: 'Neos.FormBuilder.Model.Form.currentlyLoadingPreview'
+	isLoadingBinding: 'Neos.Form.YamlBuilder.Model.Form.currentlyLoadingPreview'
 
 	# Function which renders the page if something changes on the form, with a little delay of 300 ms.
 	# After the response has been received from the server, it triggers the `postProcessPage` function.
 	renderPageIfPageObjectChanges: (->
-		return unless Neos.FormBuilder.Model.Form.getPath('formDefinition.identifier')
+		return unless Neos.Form.YamlBuilder.Model.Form.getPath('formDefinition.identifier')
 
 		if @currentAjaxRequest
 			@currentAjaxRequest.abort()
@@ -55,15 +55,15 @@ Neos.FormBuilder.View.Stage = Ember.View.extend {
 			window.clearTimeout(@timeout)
 
 		@timeout = window.setTimeout( =>
-			formDefinition = Neos.FormBuilder.Utility.convertToSimpleObject(Neos.FormBuilder.Model.Form.get('formDefinition'))
+			formDefinition = Neos.Form.YamlBuilder.Utility.convertToSimpleObject(Neos.Form.YamlBuilder.Model.Form.get('formDefinition'))
 			@set('isLoading', true)
 			@currentAjaxRequest = $.post(
-				Neos.FormBuilder.Configuration.endpoints.formPageRenderer,
+				Neos.Form.YamlBuilder.Configuration.endpoints.formPageRenderer,
 				{
 					formDefinition,
 					currentPageIndex: @get('currentPageIndex'),
-					presetName: Neos.FormBuilder.Configuration.presetName,
-					__csrfToken: Neos.FormBuilder.Configuration.csrfToken
+					presetName: Neos.Form.YamlBuilder.Configuration.presetName,
+					__csrfToken: Neos.Form.YamlBuilder.Configuration.csrfToken
 				},
 				(data, textStatus, jqXHR) =>
 					return unless @currentAjaxRequest == jqXHR
@@ -128,16 +128,16 @@ Neos.FormBuilder.View.Stage = Ember.View.extend {
 
 	# this callback highlights the currently selected element, if any.
 	onCurrentElementChanges: (->
-		renderable = Neos.FormBuilder.Model.Form.get('currentlySelectedRenderable')
+		renderable = Neos.Form.YamlBuilder.Model.Form.get('currentlySelectedRenderable')
 		return unless renderable
 
-		@$().find('.neos-formbuilder-form-element-selected').removeClass('neos-formbuilder-form-element-selected');
+		@$().find('.neos-form-yamlbuilder-form-element-selected').removeClass('neos-form-yamlbuilder-form-element-selected');
 		identifierPath = renderable.identifier
 		while renderable = renderable.parentRenderable
 			identifierPath = renderable.identifier + '/' + identifierPath
 
-		@$().find('[data-element="' + identifierPath + '"]').addClass('neos-formbuilder-form-element-selected')
-	).observes('Neos.FormBuilder.Model.Form.currentlySelectedRenderable')
+		@$().find('[data-element="' + identifierPath + '"]').addClass('neos-form-yamlbuilder-form-element-selected')
+	).observes('Neos.Form.YamlBuilder.Model.Form.currentlySelectedRenderable')
 
 	# click handler, triggered if an element is clicked. We try to determine the path to the clicked element,
 	# and select it accordingly.
@@ -145,7 +145,7 @@ Neos.FormBuilder.View.Stage = Ember.View.extend {
 		pathToClickedElement = ($(e.target).closest('[data-element]').attr('data-element'));
 
 		return unless pathToClickedElement
-		Neos.FormBuilder.Model.Form.set('currentlySelectedRenderable', @findRenderableForPath(pathToClickedElement));
+		Neos.Form.YamlBuilder.Model.Form.set('currentlySelectedRenderable', @findRenderableForPath(pathToClickedElement));
 
 	# helper function, which, given an element path, returns the appropriate renderable.
 	findRenderableForPath: (path) ->

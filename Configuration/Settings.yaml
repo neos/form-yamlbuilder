@@ -1,75 +1,76 @@
 Neos:
-  FormBuilder:
-    defaultPreset: 'default'
-    newFormTemplates:
-      'resource://Neos.FormBuilder/Private/NewFormTemplates/Blank.yaml': Blank
-
-    javaScripts:
-      jQuery:
-        sorting: 10
-        files: ['resource://Neos.FormBuilder/Public/Library/jquery-1.7.1.min.js', 'resource://Neos.FormBuilder/Public/Library/jquery-ui.min.js']
-      jQueryLayout:
-        sorting: 15
-        files: ['resource://Neos.FormBuilder/Public/Library/jquery.layout.js']
-      ember:
-        sorting: 20
-        files: ['resource://Neos.FormBuilder/Public/Library/ember-0.9.4.js']
-      dynatree:
-        sorting: 25
-        files: ['resource://Neos.FormBuilder/Public/Library/dynatree-1.2.0/src/jquery.dynatree.js']
-      slickGrid:
-        sorting: 30
-        files:
-          - 'resource://Neos.FormBuilder/Public/Library/SlickGrid/lib/jquery.event.drag-2.0.min.js'
-          - 'resource://Neos.FormBuilder/Public/Library/SlickGrid/slick.core.js'
-          - 'resource://Neos.FormBuilder/Public/Library/SlickGrid/plugins/slick.cellrangedecorator.js'
-          - 'resource://Neos.FormBuilder/Public/Library/SlickGrid/plugins/slick.cellrangeselector.js'
-          - 'resource://Neos.FormBuilder/Public/Library/SlickGrid/plugins/slick.cellselectionmodel.js'
-          - 'resource://Neos.FormBuilder/Public/Library/SlickGrid/plugins/slick.rowselectionmodel.js'
-          - 'resource://Neos.FormBuilder/Public/Library/SlickGrid/plugins/slick.rowmovemanager.js'
-          - 'resource://Neos.FormBuilder/Public/Library/SlickGrid/slick.editors.js'
-          - 'resource://Neos.FormBuilder/Public/Library/SlickGrid/slick.grid.js'
-      application:
-        files: ['resource://Neos.FormBuilder/Public/JavaScript/app.js']
-        sorting: 100
-
-    stylesheets:
-      slickGrid:
-        sorting: 10
-        files: ['resource://Neos.FormBuilder/Public/Library/SlickGrid/slick.grid.wrapped.css']
-      application:
-        sorting: 100
-        files: ['resource://Neos.FormBuilder/Public/Css/FormBuilder.css']
-
-    handlebarsTemplates:
-      # Main application layout
-      Application: resource://Neos.FormBuilder/Private/FormBuilderTemplates/Application.html
-      Header: resource://Neos.FormBuilder/Private/FormBuilderTemplates/Header.html
-      StructurePanel: resource://Neos.FormBuilder/Private/FormBuilderTemplates/StructurePanel.html
-      InsertElementsPanel: resource://Neos.FormBuilder/Private/FormBuilderTemplates/InsertElementsPanel.html
-
-      # Element options panel parts
-      ElementOptionsPanel-FinisherEditor:  resource://Neos.FormBuilder/Private/FormBuilderTemplates/ElementOptionsPanel/FinisherEditor.html
-      ElementOptionsPanel-IdentifierEditor:  resource://Neos.FormBuilder/Private/FormBuilderTemplates/ElementOptionsPanel/IdentifierEditor.html
-      ElementOptionsPanel-PropertyGridEditor:  resource://Neos.FormBuilder/Private/FormBuilderTemplates/ElementOptionsPanel/PropertyGridEditor.html
-      ElementOptionsPanel-PropertyPanelTitle:  resource://Neos.FormBuilder/Private/FormBuilderTemplates/ElementOptionsPanel/PropertyPanelTitle.html
-      ElementOptionsPanel-RemoveElement:  resource://Neos.FormBuilder/Private/FormBuilderTemplates/ElementOptionsPanel/RemoveElement.html
-      ElementOptionsPanel-RequiredValidatorEditor:  resource://Neos.FormBuilder/Private/FormBuilderTemplates/ElementOptionsPanel/RequiredValidatorEditor.html
-      ElementOptionsPanel-TextEditor:  resource://Neos.FormBuilder/Private/FormBuilderTemplates/ElementOptionsPanel/TextEditor.html
-      ElementOptionsPanel-TextareaEditor:  resource://Neos.FormBuilder/Private/FormBuilderTemplates/ElementOptionsPanel/TextareaEditor.html
-      ElementOptionsPanel-SelectEditor:  resource://Neos.FormBuilder/Private/FormBuilderTemplates/ElementOptionsPanel/SelectEditor.html
-      ElementOptionsPanel-ValidatorEditor:  resource://Neos.FormBuilder/Private/FormBuilderTemplates/ElementOptionsPanel/ValidatorEditor.html
-
-      # Validator Editors
-      Validator-Default: resource://Neos.FormBuilder/Private/FormBuilderTemplates/Validator/Default.html
-      Validator-MinimumMaximumEditor: resource://Neos.FormBuilder/Private/FormBuilderTemplates/Validator/MinimumMaximumEditor.html
-      Validator-SimpleValueEditor: resource://Neos.FormBuilder/Private/FormBuilderTemplates/Validator/SimpleValueEditor.html
-
-      # Finisher Editors
-      Finisher-EmailEditor: resource://Neos.FormBuilder/Private/FormBuilderTemplates/Finisher/EmailEditor.html
-      Finisher-RedirectEditor: resource://Neos.FormBuilder/Private/FormBuilderTemplates/Finisher/RedirectEditor.html
-
   Form:
+    YamlBuilder:
+      defaultPreset: 'default'
+      newFormTemplates:
+        'resource://Neos.Form.YamlBuilder/Private/NewFormTemplates/Blank.yaml': Blank
+
+      javaScripts:
+        jQuery:
+          sorting: 10
+          files: ['resource://Neos.Form.YamlBuilder/Public/Library/jquery-1.7.1.min.js', 'resource://Neos.Form.YamlBuilder/Public/Library/jquery-ui.min.js']
+        jQueryLayout:
+          sorting: 15
+          files: ['resource://Neos.Form.YamlBuilder/Public/Library/jquery.layout.js']
+        ember:
+          sorting: 20
+          files: ['resource://Neos.Form.YamlBuilder/Public/Library/ember-0.9.4.js']
+        dynatree:
+          sorting: 25
+          files: ['resource://Neos.Form.YamlBuilder/Public/Library/dynatree-1.2.0/src/jquery.dynatree.js']
+        slickGrid:
+          sorting: 30
+          files:
+            - 'resource://Neos.Form.YamlBuilder/Public/Library/SlickGrid/lib/jquery.event.drag-2.0.min.js'
+            - 'resource://Neos.Form.YamlBuilder/Public/Library/SlickGrid/slick.core.js'
+            - 'resource://Neos.Form.YamlBuilder/Public/Library/SlickGrid/plugins/slick.cellrangedecorator.js'
+            - 'resource://Neos.Form.YamlBuilder/Public/Library/SlickGrid/plugins/slick.cellrangeselector.js'
+            - 'resource://Neos.Form.YamlBuilder/Public/Library/SlickGrid/plugins/slick.cellselectionmodel.js'
+            - 'resource://Neos.Form.YamlBuilder/Public/Library/SlickGrid/plugins/slick.rowselectionmodel.js'
+            - 'resource://Neos.Form.YamlBuilder/Public/Library/SlickGrid/plugins/slick.rowmovemanager.js'
+            - 'resource://Neos.Form.YamlBuilder/Public/Library/SlickGrid/slick.editors.js'
+            - 'resource://Neos.Form.YamlBuilder/Public/Library/SlickGrid/slick.grid.js'
+        application:
+          files: ['resource://Neos.Form.YamlBuilder/Public/JavaScript/app.js']
+          sorting: 100
+
+      stylesheets:
+        slickGrid:
+          sorting: 10
+          files: ['resource://Neos.Form.YamlBuilder/Public/Library/SlickGrid/slick.grid.wrapped.css']
+        application:
+          sorting: 100
+          files: ['resource://Neos.Form.YamlBuilder/Public/Css/FormBuilder.css']
+
+      handlebarsTemplates:
+        # Main application layout
+        Application: resource://Neos.Form.YamlBuilder/Private/FormBuilderTemplates/Application.html
+        Header: resource://Neos.Form.YamlBuilder/Private/FormBuilderTemplates/Header.html
+        StructurePanel: resource://Neos.Form.YamlBuilder/Private/FormBuilderTemplates/StructurePanel.html
+        InsertElementsPanel: resource://Neos.Form.YamlBuilder/Private/FormBuilderTemplates/InsertElementsPanel.html
+
+        # Element options panel parts
+        ElementOptionsPanel-FinisherEditor:  resource://Neos.Form.YamlBuilder/Private/FormBuilderTemplates/ElementOptionsPanel/FinisherEditor.html
+        ElementOptionsPanel-IdentifierEditor:  resource://Neos.Form.YamlBuilder/Private/FormBuilderTemplates/ElementOptionsPanel/IdentifierEditor.html
+        ElementOptionsPanel-PropertyGridEditor:  resource://Neos.Form.YamlBuilder/Private/FormBuilderTemplates/ElementOptionsPanel/PropertyGridEditor.html
+        ElementOptionsPanel-PropertyPanelTitle:  resource://Neos.Form.YamlBuilder/Private/FormBuilderTemplates/ElementOptionsPanel/PropertyPanelTitle.html
+        ElementOptionsPanel-RemoveElement:  resource://Neos.Form.YamlBuilder/Private/FormBuilderTemplates/ElementOptionsPanel/RemoveElement.html
+        ElementOptionsPanel-RequiredValidatorEditor:  resource://Neos.Form.YamlBuilder/Private/FormBuilderTemplates/ElementOptionsPanel/RequiredValidatorEditor.html
+        ElementOptionsPanel-TextEditor:  resource://Neos.Form.YamlBuilder/Private/FormBuilderTemplates/ElementOptionsPanel/TextEditor.html
+        ElementOptionsPanel-TextareaEditor:  resource://Neos.Form.YamlBuilder/Private/FormBuilderTemplates/ElementOptionsPanel/TextareaEditor.html
+        ElementOptionsPanel-SelectEditor:  resource://Neos.Form.YamlBuilder/Private/FormBuilderTemplates/ElementOptionsPanel/SelectEditor.html
+        ElementOptionsPanel-ValidatorEditor:  resource://Neos.Form.YamlBuilder/Private/FormBuilderTemplates/ElementOptionsPanel/ValidatorEditor.html
+
+        # Validator Editors
+        Validator-Default: resource://Neos.Form.YamlBuilder/Private/FormBuilderTemplates/Validator/Default.html
+        Validator-MinimumMaximumEditor: resource://Neos.Form.YamlBuilder/Private/FormBuilderTemplates/Validator/MinimumMaximumEditor.html
+        Validator-SimpleValueEditor: resource://Neos.Form.YamlBuilder/Private/FormBuilderTemplates/Validator/SimpleValueEditor.html
+
+        # Finisher Editors
+        Finisher-EmailEditor: resource://Neos.Form.YamlBuilder/Private/FormBuilderTemplates/Finisher/EmailEditor.html
+        Finisher-RedirectEditor: resource://Neos.Form.YamlBuilder/Private/FormBuilderTemplates/Finisher/RedirectEditor.html
+
+    # Augmenting the Neos.Form settings
     supertypeResolver:
       hiddenProperties:
         formBuilder: formBuilder
@@ -77,7 +78,7 @@ Neos:
       ########### DEFAULT ###########
       default:
         validatorPresets:
-          'Neos.FormBuilder:ZipCode':
+          'Neos.Form.YamlBuilder:ZipCode':
             implementationClassName: 'Neos\Flow\Validation\Validator\RegularExpressionValidator'
             options:
               regularExpression: '/^[0-9]{5}$/'
@@ -102,7 +103,7 @@ Neos:
               editors:
                 elementType:
                   sorting: 100
-                  viewName: 'Neos.FormBuilder.View.ElementOptionsPanel.Editor.TextOutput'
+                  viewName: 'Neos.Form.YamlBuilder.View.ElementOptionsPanel.Editor.TextOutput'
                   templateName: 'ElementOptionsPanel-PropertyPanelTitle'
           'Neos.Form:ReadOnlyFormElement':
             formBuilder:
@@ -111,25 +112,25 @@ Neos:
                   label: 'Title'
                   propertyPath: 'label'
                   sorting: 120
-                  viewName: 'Neos.FormBuilder.View.ElementOptionsPanel.Editor.TextEditor'
+                  viewName: 'Neos.Form.YamlBuilder.View.ElementOptionsPanel.Editor.TextEditor'
           'Neos.Form:FormElement':
             formBuilder:
               editors:
                 identifier:
                   sorting: 110
-                  viewName: 'Neos.FormBuilder.View.ElementOptionsPanel.Editor.IdentifierEditor'
+                  viewName: 'Neos.Form.YamlBuilder.View.ElementOptionsPanel.Editor.IdentifierEditor'
                 label:
                   label: 'Label'
                   propertyPath: 'label'
                   sorting: 120
-                  viewName: 'Neos.FormBuilder.View.ElementOptionsPanel.Editor.TextEditor'
+                  viewName: 'Neos.Form.YamlBuilder.View.ElementOptionsPanel.Editor.TextEditor'
                 requiredValidator:
                   sorting: 800
-                  viewName: 'Neos.FormBuilder.View.ElementOptionsPanel.Editor.RequiredValidatorEditor'
+                  viewName: 'Neos.Form.YamlBuilder.View.ElementOptionsPanel.Editor.RequiredValidatorEditor'
 
                 validation:
                   sorting: 900
-                  viewName: 'Neos.FormBuilder.View.ElementOptionsPanel.Editor.ValidatorEditor'
+                  viewName: 'Neos.Form.YamlBuilder.View.ElementOptionsPanel.Editor.ValidatorEditor'
 
           'Neos.Form:Form':
             formBuilder:
@@ -139,25 +140,25 @@ Neos:
               editors:
                 identifier:
                   sorting: 110
-                  viewName: 'Neos.FormBuilder.View.ElementOptionsPanel.Editor.IdentifierEditor'
+                  viewName: 'Neos.Form.YamlBuilder.View.ElementOptionsPanel.Editor.IdentifierEditor'
                 label:
                   label: 'Form Name'
                   propertyPath: 'label'
                   sorting: 120
-                  viewName: 'Neos.FormBuilder.View.ElementOptionsPanel.Editor.TextEditor'
+                  viewName: 'Neos.Form.YamlBuilder.View.ElementOptionsPanel.Editor.TextEditor'
                 submitButtonLabel:
                   sorting: 200
                   label: 'Submit Label'
                   propertyPath: 'renderingOptions.submitButtonLabel'
-                  viewName: 'Neos.FormBuilder.View.ElementOptionsPanel.Editor.TextEditor'
+                  viewName: 'Neos.Form.YamlBuilder.View.ElementOptionsPanel.Editor.TextEditor'
 
                 finishers:
                   sorting: 410
-                  viewName: 'Neos.FormBuilder.View.ElementOptionsPanel.Editor.FinisherEditor'
+                  viewName: 'Neos.Form.YamlBuilder.View.ElementOptionsPanel.Editor.FinisherEditor'
                   availableFinishers:
                     'Neos.Form:Email':
                       label: 'Send Email'
-                      viewName: 'Neos.FormBuilder.View.ElementOptionsPanel.Editor.FinisherEditor.EmailFinisherEditor'
+                      viewName: 'Neos.Form.YamlBuilder.View.ElementOptionsPanel.Editor.FinisherEditor.EmailFinisherEditor'
                       availableFormats:
                         0: {key: 'plaintext', value: 'Plain Text'}
                         1: {key: 'html', value: 'HTML'}
@@ -171,7 +172,7 @@ Neos:
               editors:
                 removeButton:
                   sorting: 999
-                  viewName: 'Neos.FormBuilder.View.ElementOptionsPanel.Editor.RemoveElementEditor'
+                  viewName: 'Neos.Form.YamlBuilder.View.ElementOptionsPanel.Editor.RemoveElementEditor'
 
           # group INPUT
           'Neos.Form:SingleLineText':
@@ -200,7 +201,7 @@ Neos:
               editors:
                 confirmationLabel:
                   sorting: 125
-                  viewName: 'Neos.FormBuilder.View.ElementOptionsPanel.Editor.TextEditor'
+                  viewName: 'Neos.Form.YamlBuilder.View.ElementOptionsPanel.Editor.TextEditor'
                   label: 'Conf. Label'
                   defaultValue: 'Confirmation'
                   propertyPath: 'properties.confirmationLabel'
@@ -247,7 +248,7 @@ Neos:
                   availableValidators:
                     'Neos.Flow:DateTimeRange':
                       label: 'Date/Time Range'
-                      viewName: 'Neos.FormBuilder.View.ElementOptionsPanel.Editor.ValidatorEditor.MinimumMaximumValidatorEditor'
+                      viewName: 'Neos.Form.YamlBuilder.View.ElementOptionsPanel.Editor.ValidatorEditor.MinimumMaximumValidatorEditor'
                       pathToMinimumOption: 'currentCollectionElement.options.earliestDate'
                       pathToMaximumOption: 'currentCollectionElement.options.latestDate'
           'Neos.Form:FileUpload':
@@ -260,7 +261,7 @@ Neos:
                   sorting: 200
                   label: 'Allowed File Types'
                   propertyPath: 'properties.allowedExtensions'
-                  viewName: 'Neos.FormBuilder.View.ElementOptionsPanel.Editor.SelectEditor'
+                  viewName: 'Neos.Form.YamlBuilder.View.ElementOptionsPanel.Editor.SelectEditor'
                   availableElements:
                     0:
                       value: ['doc', 'docx', 'odt', 'pdf']
@@ -282,7 +283,7 @@ Neos:
               editors:
                 staticText:
                   sorting: 150
-                  viewName: 'Neos.FormBuilder.View.ElementOptionsPanel.Editor.TextareaEditor'
+                  viewName: 'Neos.Form.YamlBuilder.View.ElementOptionsPanel.Editor.TextareaEditor'
                   label: 'Text'
                   propertyPath: 'properties.text'
 
@@ -304,12 +305,12 @@ Neos:
               editors:
                 identifier:
                   sorting: 110
-                  viewName: 'Neos.FormBuilder.View.ElementOptionsPanel.Editor.IdentifierEditor'
+                  viewName: 'Neos.Form.YamlBuilder.View.ElementOptionsPanel.Editor.IdentifierEditor'
                 label:
                   label: 'Label'
                   propertyPath: 'label'
                   sorting: 120
-                  viewName: 'Neos.FormBuilder.View.ElementOptionsPanel.Editor.TextEditor'
+                  viewName: 'Neos.Form.YamlBuilder.View.ElementOptionsPanel.Editor.TextEditor'
 
           'Neos.Form:PreviewPage':
             formBuilder:
@@ -325,12 +326,12 @@ Neos:
               editors:
                 placeholder:
                   sorting: 150
-                  viewName: 'Neos.FormBuilder.View.ElementOptionsPanel.Editor.TextEditor'
+                  viewName: 'Neos.Form.YamlBuilder.View.ElementOptionsPanel.Editor.TextEditor'
                   label: 'Placeholder'
                   propertyPath: 'properties.placeholder'
                 defaultValue:
                   sorting: 160
-                  viewName: 'Neos.FormBuilder.View.ElementOptionsPanel.Editor.TextEditor'
+                  viewName: 'Neos.Form.YamlBuilder.View.ElementOptionsPanel.Editor.TextEditor'
                   label: 'Default Value'
                   propertyPath: 'defaultValue'
                 validation:
@@ -344,7 +345,7 @@ Neos:
                     'Neos.Flow:StringLength':
                       label: 'String Length'
                       sorting: 120
-                      viewName: 'Neos.FormBuilder.View.ElementOptionsPanel.Editor.ValidatorEditor.MinimumMaximumValidatorEditor'
+                      viewName: 'Neos.Form.YamlBuilder.View.ElementOptionsPanel.Editor.ValidatorEditor.MinimumMaximumValidatorEditor'
                       required: false
                     'Neos.Flow:EmailAddress':
                       label: 'EMail'
@@ -360,19 +361,19 @@ Neos:
                     'Neos.Flow:NumberRange':
                       label: 'Number Range'
                       sorting: 220
-                      viewName: 'Neos.FormBuilder.View.ElementOptionsPanel.Editor.ValidatorEditor.MinimumMaximumValidatorEditor'
+                      viewName: 'Neos.Form.YamlBuilder.View.ElementOptionsPanel.Editor.ValidatorEditor.MinimumMaximumValidatorEditor'
 
                     'Neos.Flow:RegularExpression':
                       label: 'Regular Expression'
                       fieldLabel: 'Regular Expression'
                       fieldExplanationText: 'Enter a valid PHP PCRE Regular Expression here.'
                       sorting: 300
-                      viewName: 'Neos.FormBuilder.View.ElementOptionsPanel.Editor.ValidatorEditor.SimpleValueValidatorEditor'
+                      viewName: 'Neos.Form.YamlBuilder.View.ElementOptionsPanel.Editor.ValidatorEditor.SimpleValueValidatorEditor'
                       pathToEditedValue: 'currentCollectionElement.options.regularExpression'
 
                     # Example of creating a custom "ZipCode" validator preset,
                     # which is defined in the "validatorPresets" above.
-                    'Neos.FormBuilder:ZipCode':
+                    'Neos.Form.YamlBuilder:ZipCode':
                       label: 'Zip Code'
                       sorting: 140
 
@@ -381,7 +382,7 @@ Neos:
               editors:
                 options:
                   sorting: 200
-                  viewName: 'Neos.FormBuilder.View.ElementOptionsPanel.Editor.PropertyGrid'
+                  viewName: 'Neos.Form.YamlBuilder.View.ElementOptionsPanel.Editor.PropertyGrid'
                   # TODO: rename to "optionListPath"?
                   propertyPath: 'properties.options'
                   isSortable: true
@@ -391,11 +392,11 @@ Neos:
                     0:
                       field: '_value'
                       name: 'Label'
-                      editor: 'Neos.FormBuilder.View.ElementOptionsPanel.Editor.PropertyGrid.TextCellEditor'
+                      editor: 'Neos.Form.YamlBuilder.View.ElementOptionsPanel.Editor.PropertyGrid.TextCellEditor'
                     1:
                       field: '_key'
                       name: 'Value'
-                      editor: 'Neos.FormBuilder.View.ElementOptionsPanel.Editor.PropertyGrid.TextCellEditor'
+                      editor: 'Neos.Form.YamlBuilder.View.ElementOptionsPanel.Editor.PropertyGrid.TextCellEditor'
           'Neos.Form:SingleSelectionMixin':
             formBuilder:
               editors:
@@ -411,4 +412,4 @@ Neos:
                     'Neos.Flow:Count':
                       label: 'Number of submitted values'
                       sorting: 100
-                      viewName: 'Neos.FormBuilder.View.ElementOptionsPanel.Editor.ValidatorEditor.MinimumMaximumValidatorEditor'
+                      viewName: 'Neos.Form.YamlBuilder.View.ElementOptionsPanel.Editor.ValidatorEditor.MinimumMaximumValidatorEditor'

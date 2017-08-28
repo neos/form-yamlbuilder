@@ -1,5 +1,5 @@
 # <!--
-# This file is part of the Neos.Formbuilder package.
+# This file is part of the Neos.Form.YamlBuilder package.
 #
 # (c) Contributors of the Neos Project - www.neos.io
 #
@@ -9,7 +9,7 @@
 # -->
 
 
-# #Namespace `Neos.FormBuilder.View.Header`#
+# #Namespace `Neos.Form.YamlBuilder.View.Header`#
 #
 # All views in this file help rendering the header area of the Form Builder
 #
@@ -23,26 +23,26 @@
 # ***
 # ##Class View.Header##
 # Header View.
-Neos.FormBuilder.View.Header = Ember.View.extend {
+Neos.Form.YamlBuilder.View.Header = Ember.View.extend {
 	templateName: 'Header'
 }
 
 # ***
 # ###Private
 # ####Preset Selector
-Neos.FormBuilder.View.Header.PresetSelector = Ember.Select.extend {
-	contentBinding: 'Neos.FormBuilder.Configuration.availablePresets'
+Neos.Form.YamlBuilder.View.Header.PresetSelector = Ember.Select.extend {
+	contentBinding: 'Neos.Form.YamlBuilder.Configuration.availablePresets'
 	optionLabelPath: 'content.title'
 	init: ->
 		@resetSelection()
 		return @_super.apply(this, arguments)
 	reloadIfPresetChanged: (->
-		return if @getPath('selection.name') == Neos.FormBuilder.Configuration.presetName
+		return if @getPath('selection.name') == Neos.Form.YamlBuilder.Configuration.presetName
 
-		if Neos.FormBuilder.Model.Form.get('unsavedContent')
+		if Neos.Form.YamlBuilder.Model.Form.get('unsavedContent')
 			that = this
 			$('<div>There are unsaved changes, but you need to save before changing the preset. Do you want to save now?</div>').dialog {
-				dialogClass: 'neos-formbuilder-dialog',
+				dialogClass: 'neos-form-yamlbuilder-dialog',
 				title: 'Save changes?',
 				modal: true
 				resizable: false
@@ -63,46 +63,46 @@ Neos.FormBuilder.View.Header.PresetSelector = Ember.Select.extend {
 	resetSelection: (->
 		return unless @get('content')
 		for val in @get('content')
-			if val.name == Neos.FormBuilder.Configuration.presetName
+			if val.name == Neos.Form.YamlBuilder.Configuration.presetName
 				@set('selection', val)
 				break
 	).observes('content')
 
 	saveAndRedirect: ->
-		Neos.FormBuilder.Model.Form.save( (success)=>
+		Neos.Form.YamlBuilder.Model.Form.save( (success)=>
 			@redirect() if success
 		)
 
 	redirect: ->
-		window.location.href = Neos.FormBuilder.Utility.getUri(Neos.FormBuilder.Configuration.endpoints.editForm, @getPath('selection.name'))
+		window.location.href = Neos.Form.YamlBuilder.Utility.getUri(Neos.Form.YamlBuilder.Configuration.endpoints.editForm, @getPath('selection.name'))
 }
 
 # ####Preview Button
-Neos.FormBuilder.View.Header.PreviewButton = Ember.Button.extend {
+Neos.Form.YamlBuilder.View.Header.PreviewButton = Ember.Button.extend {
 	targetObject: (-> return this).property().cacheable()
 	action: ->
 		@preview()
 
 	preview: ->
-		windowIdentifier = 'preview_' + Neos.FormBuilder.Model.Form.getPath('formDefinition.identifier')
+		windowIdentifier = 'preview_' + Neos.Form.YamlBuilder.Model.Form.getPath('formDefinition.identifier')
 		# IE HACK: to make the preview work in IE8, we need to prepend a "/" in front of the URI
-		window.open('/' + Neos.FormBuilder.Utility.getUri(Neos.FormBuilder.Configuration.endpoints.previewForm), windowIdentifier)
+		window.open('/' + Neos.Form.YamlBuilder.Utility.getUri(Neos.Form.YamlBuilder.Configuration.endpoints.previewForm), windowIdentifier)
 }
 
 # ####Save Button
-Neos.FormBuilder.View.Header.SaveButton = Ember.Button.extend {
+Neos.Form.YamlBuilder.View.Header.SaveButton = Ember.Button.extend {
 	targetObject: (-> return this).property().cacheable()
 	action: ->
 		@save()
 
-	classNames: ['neos-formbuilder-savebutton']
+	classNames: ['neos-form-yamlbuilder-savebutton']
 	classNameBindings: ['isActive', 'currentStatus'],
 
-	currentStatusBinding: 'Neos.FormBuilder.Model.Form.saveStatus'
+	currentStatusBinding: 'Neos.Form.YamlBuilder.Model.Form.saveStatus'
 	disabled: (->
-		return !Ember.getPath('Neos.FormBuilder.Model.Form.unsavedContent')
-	).property('Neos.FormBuilder.Model.Form.unsavedContent').cacheable()
+		return !Ember.getPath('Neos.Form.YamlBuilder.Model.Form.unsavedContent')
+	).property('Neos.Form.YamlBuilder.Model.Form.unsavedContent').cacheable()
 
 	save: ->
-		Neos.FormBuilder.Model.Form.save()
+		Neos.Form.YamlBuilder.Model.Form.save()
 }

@@ -1,5 +1,5 @@
 # <!--
-# This file is part of the Neos.Formbuilder package.
+# This file is part of the Neos.Form.YamlBuilder package.
 #
 # (c) Contributors of the Neos Project - www.neos.io
 #
@@ -9,9 +9,9 @@
 # -->
 
 
-# #Namespace `Neos.FormBuilder.Utility`#
+# #Namespace `Neos.Form.YamlBuilder.Utility`#
 # Contains helper functions to be used directly (without object instanciations).
-Neos.FormBuilder.Utility = {}
+Neos.Form.YamlBuilder.Utility = {}
 
 # ##convertToSimpleObject(Renderable)##
 #
@@ -40,11 +40,11 @@ convertToSimpleObject = (input) ->
 
 	return simpleObject
 
-Neos.FormBuilder.Utility.convertToSimpleObject = convertToSimpleObject
+Neos.Form.YamlBuilder.Utility.convertToSimpleObject = convertToSimpleObject
 
 # ##getUri(baseUri, [presetName])
 #
 # Get an URI which is comprised of base URI, form persistence identifier and passed preset.
-Neos.FormBuilder.Utility.getUri = (baseUri, presetName = Neos.FormBuilder.Configuration.presetName) ->
-	 uri = baseUri + "?formPersistenceIdentifier=#{encodeURIComponent(Neos.FormBuilder.Configuration.formPersistenceIdentifier)}&presetName=#{encodeURIComponent(presetName)}"
+Neos.Form.YamlBuilder.Utility.getUri = (baseUri, presetName = Neos.Form.YamlBuilder.Configuration.presetName) ->
+	 uri = baseUri + "?formPersistenceIdentifier=#{encodeURIComponent(Neos.Form.YamlBuilder.Configuration.formPersistenceIdentifier)}&presetName=#{encodeURIComponent(presetName)}"
 	 return uri

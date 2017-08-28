@@ -1,5 +1,5 @@
 # <!--
-# This file is part of the Neos.Formbuilder package.
+# This file is part of the Neos.Form.YamlBuilder package.
 #
 # (c) Contributors of the Neos Project - www.neos.io
 #
@@ -9,7 +9,7 @@
 # -->
 
 
-# #Namespace `Neos.FormBuilder.View`#
+# #Namespace `Neos.Form.YamlBuilder.View`#
 #
 # All views in this file render the grouped list of available form elements on
 # the bottom-left of the Form Builder.
@@ -30,17 +30,17 @@
 #
 # This also evaluates the *sorting* property and orders the form elements and groups
 # in the respective order.
-Neos.FormBuilder.View.InsertElementsPanel = Ember.View.extend {
+Neos.Form.YamlBuilder.View.InsertElementsPanel = Ember.View.extend {
 	# ***
 	# ###Private###
 	templateName: 'InsertElementsPanel'
-	allFormElementTypesBinding: 'Neos.FormBuilder.Model.FormElementTypes.allTypeNames'
+	allFormElementTypesBinding: 'Neos.Form.YamlBuilder.Model.FormElementTypes.allTypeNames'
 
 	formElementsGrouped: (->
 		formElementsByGroup = {}
 
 		for formElementTypeName in @get('allFormElementTypes')
-			formElementType = Neos.FormBuilder.Model.FormElementTypes.get(formElementTypeName)
+			formElementType = Neos.Form.YamlBuilder.Model.FormElementTypes.get(formElementTypeName)
 			continue unless formElementType.formBuilder?.group?
 			if !formElementsByGroup[formElementType.formBuilder.group]
 				formElementsByGroup[formElementType.formBuilder.group] = []
@@ -49,8 +49,8 @@ Neos.FormBuilder.View.InsertElementsPanel = Ember.View.extend {
 			formElementsByGroup[formElementType.formBuilder.group].push(formElementType)
 
 		formGroups = []
-		for formGroupName in Neos.FormBuilder.Model.FormElementGroups.get('allGroupNames')
-			formGroup = Neos.FormBuilder.Model.FormElementGroups.get(formGroupName)
+		for formGroupName in Neos.Form.YamlBuilder.Model.FormElementGroups.get('allGroupNames')
+			formGroup = Neos.Form.YamlBuilder.Model.FormElementGroups.get(formGroupName)
 			formGroup.set('key', formGroupName)
 			formElementsByGroup[formGroupName]?.sort((a, b) -> a.formBuilder.sorting - b.formBuilder.sorting)
 			formGroup.set('elements', formElementsByGroup[formGroupName])
@@ -67,8 +67,8 @@ Neos.FormBuilder.View.InsertElementsPanel = Ember.View.extend {
 #
 # This class is a collection of multiple elements, responsible for rendering the collection
 # of elements.
-Neos.FormBuilder.View.InsertElementsPanel.ElementsCollection = Ember.CollectionView.extend {
-	itemViewClass: 'Neos.FormBuilder.View.InsertElementsPanel.Element'
+Neos.Form.YamlBuilder.View.InsertElementsPanel.ElementsCollection = Ember.CollectionView.extend {
+	itemViewClass: 'Neos.Form.YamlBuilder.View.InsertElementsPanel.Element'
 }
 
 # ***
@@ -79,7 +79,7 @@ Neos.FormBuilder.View.InsertElementsPanel.ElementsCollection = Ember.CollectionV
 #
 # When an element is added, the following code is executed:
 #
-# - build a new `Neos.FormBuilder.Model.Renderable` object, using the specified type
+# - build a new `Neos.Form.YamlBuilder.Model.Renderable` object, using the specified type
 #   and a random identifier.
 # - Further, apply the default values `label, defaultValue, properties` and `renderingOptions`
 #   from the form type definition, such that the values can be edited correctly
@@ -96,10 +96,10 @@ Neos.FormBuilder.View.InsertElementsPanel.ElementsCollection = Ember.CollectionV
 #   page after it.
 # - Normal form elements are, by default, added *after* the currently selected form element.
 #   However, if a *page* is selected, it is added as the *child* of this page.
-Neos.FormBuilder.View.InsertElementsPanel.Element = Ember.View.extend {
+Neos.Form.YamlBuilder.View.InsertElementsPanel.Element = Ember.View.extend {
 	# ***
 	# ###Private###
-	currentlySelectedElementBinding: 'Neos.FormBuilder.Model.Form.currentlySelectedRenderable'
+	currentlySelectedElementBinding: 'Neos.Form.YamlBuilder.Model.Form.currentlySelectedRenderable'
 	# this is set from the outside, containing a reference to the enclosing form element type.
 	content: null
 
@@ -111,7 +111,7 @@ Neos.FormBuilder.View.InsertElementsPanel.Element = Ember.View.extend {
 		@$().attr('title', @getPath('formElementType.key'))
 		@$().addClass(@getPath('formElementType.__cssClassNames'))
 
-	classNameBindings: ['enabled:neos-formbuilder-enabled']
+	classNameBindings: ['enabled:neos-form-yamlbuilder-enabled']
 
 	# the editable is disabled, if it is no top level element and if a page is selected which is not _compositeRenderable
 	enabled: (->
@@ -147,7 +147,7 @@ Neos.FormBuilder.View.InsertElementsPanel.Element = Ember.View.extend {
 					for childRenderable in renderable.get('renderables')
 						checkIdentifier(childRenderable)
 
-			checkIdentifier(Neos.FormBuilder.Model.Form.get('formDefinition'))
+			checkIdentifier(Neos.Form.YamlBuilder.Model.Form.get('formDefinition'))
 			return identifierFound
 
 		i = 1
@@ -167,7 +167,7 @@ Neos.FormBuilder.View.InsertElementsPanel.Element = Ember.View.extend {
 
 		identifier = @getNextFreeIdentifier()
 
-		newRenderable = Neos.FormBuilder.Model.Renderable.create($.extend({
+		newRenderable = Neos.Form.YamlBuilder.Model.Renderable.create($.extend({
 			type: @getPath('formElementType.key')
 			identifier: identifier,
 			label: identifier
@@ -180,7 +180,7 @@ Neos.FormBuilder.View.InsertElementsPanel.Element = Ember.View.extend {
 				currentlySelectedRenderable.get('renderables').pushObject(newRenderable)
 		else
 			referenceRenderable = currentlySelectedRenderable
-			if referenceRenderable == Neos.FormBuilder.Model.Form.get('formDefinition')
+			if referenceRenderable == Neos.Form.YamlBuilder.Model.Form.get('formDefinition')
 				# currently selected renderable is the form definition itself -> select first page
 				referenceRenderable = referenceRenderable.getPath('renderables.0')
 			else if @getPath('formElementType.formBuilder._isTopLevel') && !currentlySelectedRenderable.getPath('typeDefinition.formBuilder._isTopLevel')

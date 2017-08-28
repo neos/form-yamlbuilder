@@ -1,5 +1,5 @@
 # <!--
-# This file is part of the Neos.Formbuilder package.
+# This file is part of the Neos.Form.YamlBuilder package.
 #
 # (c) Contributors of the Neos Project - www.neos.io
 #
@@ -18,7 +18,7 @@
 # It mainly uses the jQuery layout() plugin for this.
 # ***
 # ###Private###
-Neos.FormBuilder.View.Application = Ember.View.extend {
+Neos.Form.YamlBuilder.View.Application = Ember.View.extend {
 	templateName: 'Application'
 	didInsertElement: ->
 		@addLayout()
@@ -34,36 +34,36 @@ Neos.FormBuilder.View.Application = Ember.View.extend {
 				useStateCookie: false
 			},
 			north: {
-				paneSelector: '#neos-formbuilder-header',
+				paneSelector: '#neos-form-yamlbuilder-header',
 				resizable: false,
 				spacing_open: 0,
 				size: 46,
 				minSize: 0
 			},
 			east: {
-				paneSelector:'#neos-formbuilder-elementOptionsPanel',
+				paneSelector:'#neos-form-yamlbuilder-elementOptionsPanel',
 				size: 290,
 				minSize: 200,
 				maxSize: 350
 			},
 			south: {
-				paneSelector: '#neos-formbuilder-footer',
+				paneSelector: '#neos-form-yamlbuilder-footer',
 				resizable: false,
 				spacing_open: 0,
 				size: 20,
 				minSize: 0
 			},
 			west: {
-				paneSelector: '#neos-formbuilder-elementSidebar',
+				paneSelector: '#neos-form-yamlbuilder-elementSidebar',
 				size: 240,
 				minSize: 200,
 				maxSize: 350
 			},
 			center: {
-				paneSelector: '#neos-formbuilder-stage'
+				paneSelector: '#neos-form-yamlbuilder-stage'
 			}
 		});
-		$('#neos-formbuilder-elementSidebar').layout({
+		$('#neos-form-yamlbuilder-elementSidebar').layout({
 			defaults: {
 				minSize: 100,
 				closable: false,
@@ -75,18 +75,18 @@ Neos.FormBuilder.View.Application = Ember.View.extend {
 			north: {
 				minSize: 100,
 				size: 300,
-				paneSelector: '#neos-formbuilder-structurePanel'
+				paneSelector: '#neos-form-yamlbuilder-structurePanel'
 			},
 			center: {
-				paneSelector: '#neos-formbuilder-insertElementsPanel'
+				paneSelector: '#neos-form-yamlbuilder-insertElementsPanel'
 			}
 		});
-		#$('.neos-formbuilder').scrollbars({
+		#$('.neos-form-yamlbuilder').scrollbars({
 		#	scrollbarAutohide: false
 		#});
 
 	# update <title> when the label of the form definition changes
 	updatePageTitle: (->
-		document.title = 'Form Builder - ' + Ember.getPath('Neos.FormBuilder.Model.Form.formDefinition.label')
-	).observes('Neos.FormBuilder.Model.Form.formDefinition.label')
+		document.title = 'Form Builder - ' + Ember.getPath('Neos.Form.YamlBuilder.Model.Form.formDefinition.label')
+	).observes('Neos.Form.YamlBuilder.Model.Form.formDefinition.label')
 }

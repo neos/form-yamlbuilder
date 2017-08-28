@@ -1,14 +1,14 @@
-<div class="neos-formbuilder-controlGroup">
+<div class="neos-form-yamlbuilder-controlGroup">
 	<label>Identifier:</label>
-	<div class="neos-formbuilder-controls">
+	<div class="neos-form-yamlbuilder-controls">
 		{{#if editMode}}
-			{{view Neos.FormBuilder.View.ElementOptionsPanel.Editor.IdentifierEditor.TextField valueBinding="textFieldValue"}}
+			{{view Neos.Form.YamlBuilder.View.ElementOptionsPanel.Editor.IdentifierEditor.TextField valueBinding="textFieldValue"}}
 			{{#if validationErrorMessage}}
-				<div class="neos-formbuilder-error">{{validationErrorMessage}}</div>
+				<div class="neos-form-yamlbuilder-error">{{validationErrorMessage}}</div>
 			{{/if}}
 		{{/if}}
 		{{#unless editMode}}
-			<span class="neos-formbuilder-identifier">{{value}}</span>
+			<span class="neos-form-yamlbuilder-identifier">{{value}}</span>
 		{{/unless}}
 	</div>
 </div>

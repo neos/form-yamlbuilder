@@ -168,40 +168,40 @@ span.dynatree-icon {
 /** ELEMENT ICONS **/
 
 // INPUT
-.neos-formbuilder-group-input * {
+.neos-form-yamlbuilder-group-input * {
 	@include overrideIcon($icon-edit);
 }
 
 // SELECT
-.neos-formbuilder-group-select * {
+.neos-form-yamlbuilder-group-select * {
 	@include overrideIcon($icon-list-alt);
 }
-.neos-formbuilder-type-neos-form-checkbox * {
+.neos-form-yamlbuilder-type-neos-form-checkbox * {
 	@include overrideIcon($icon-check);
 }
 
 // CUSTOM
-.neos-formbuilder-group-custom * {
+.neos-form-yamlbuilder-group-custom * {
 	@include overrideIcon($icon-gift);
 }
-.neos-formbuilder-type-neos-form-datepicker * {
+.neos-form-yamlbuilder-type-neos-form-datepicker * {
 	@include overrideIcon($icon-calendar);
 }
-.neos-formbuilder-type-neos-form-fileupload * {
+.neos-form-yamlbuilder-type-neos-form-fileupload * {
 	@include overrideIcon($icon-upload);
 }
-.neos-formbuilder-type-neos-form-imageupload * {
+.neos-form-yamlbuilder-type-neos-form-imageupload * {
 	@include overrideIcon($icon-picture);
 }
-.neos-formbuilder-type-neos-form-statictext * {
+.neos-form-yamlbuilder-type-neos-form-statictext * {
 	@include overrideIcon($icon-align-left);
 }
 
 // CONTAINER
-.neos-formbuilder-group-container * {
+.neos-form-yamlbuilder-group-container * {
 	@include overrideIcon($icon-folder-open);
 }
-.neos-formbuilder-type-neos-form-page *,
-.neos-formbuilder-type-neos-form-previewpage * {
+.neos-form-yamlbuilder-type-neos-form-page *,
+.neos-form-yamlbuilder-type-neos-form-previewpage * {
 	@include overrideIcon($icon-file);
 }

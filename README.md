@@ -1,6 +1,6 @@
-# Form Builder
+# Neos Form YAML Builder
 
-This package implements a web-based IDE called **Form Builder**, which can be used to create and edit forms in conjunction with the **Neos.Form** package.
+This package implements a web-based IDE which can be used to create and edit YAML definitions of the **Neos.Form** package.
 
 What you are reading now is the entry point of the API documentation. For a general introduction and usage examples, we suggest the documentation included in the Neos.Form package.
 
@@ -27,9 +27,9 @@ The Form Builder is meant to be extensible, on the following points:
 - you can adjust the CSS styling
 - you can override Handlebars templates to adjust the HTML markup of the form builder
 - you can write **new editors** which are displayed in the *editor panel*, by
-  subclassing `Neos.FormBuilder.View.Editor.AbstractPropertyEditor`
+  subclassing `Neos.Form.YamlBuilder.View.Editor.AbstractPropertyEditor`
 - you can write **new validator editors** which are displayed underneath the *validators* in the editor panel,
-  by subclassing `Neos.FormBuilder.View.Editor.ValidatorEditor.DefaultValidatorEditor`
+  by subclassing `Neos.Form.YamlBuilder.View.Editor.ValidatorEditor.DefaultValidatorEditor`
 - you can write **new finisher editors** which are displayed underneath the *finishers*, in a process
   similar to creating new validator editors.
 
@@ -38,31 +38,33 @@ The Form Builder is meant to be extensible, on the following points:
 ### Adjusting CSS styling and loading additional JavaScript files
 
 The CSS files which are included in the form builder UI, and the JavaScript files being used,
-are configured using `Settings.yaml` at path `Neos.FormBuilder.stylesheets` and `Neos.FormBuilder.javaScripts`.
+are configured using `Settings.yaml` at path `Neos.Form.YamlBuilder.stylesheets` and `Neos.Form.YamlBuilder.javaScripts`.
 
 They both have the same structure, that's why we'll only focus on explaining the CSS styling configuration
 which looks as follows:
 
 	Neos:
-	  FormBuilder:
-	    stylesheets:
-	      slickGrid:
-	        sorting: 10
-	        files: ['resource://Neos.FormBuilder/Public/Library/SlickGrid/slick.grid.wrapped.css']
-	      # … some more definitions here …
-	      application:
-	        sorting: 100
-	        files: ['resource://Neos.FormBuilder/Public/Css/FormBuilder.css']
+	  Form
+	    YamlBuilder:
+	      stylesheets:
+	        slickGrid:
+	          sorting: 10
+	          files: ['resource://Neos.Form.YamlBuilder/Public/Library/SlickGrid/slick.grid.wrapped.css']
+	        # … some more definitions here …
+	        application:
+	          sorting: 100
+	          files: ['resource://Neos.Form.YamlBuilder/Public/Css/FormBuilder.css']
 
-Underneath `Neos.FormBuilder.stylesheets` resides a list of "bundles" which need to be included. For each
+Underneath `Neos.Form.YamlBuilder.stylesheets` resides a list of "bundles" which need to be included. For each
 bundle, the `files` array points to resources which should be included appropriately. The `sorting` determines the inclusion order (low numbers are included first).
 
 You could even disable the inclusion of a particular style sheet, by setting it to NULL:
 
 	Neos:
-	  FormBuilder:
-	    stylesheets:
-	      slickGrid: NULL
+	  Form:
+	    YamlBuilder:
+	      stylesheets:
+	        slickGrid: NULL
 
 Inclusion and modification of the **JavaScript files** can be done in exactly the same manner.
 
@@ -73,10 +75,11 @@ You should first understand the Handlebars templates as they are used by EmberJS
 Each handlebars template which is used by the Form Builder is registered in the Settings.yaml:
 
 	Neos:
-	  FormBuilder:
-	    handlebarsTemplates:
-	      ValidatorEditor: resource://Neos.FormBuilder/Private/Templates/FormBuilder/ValidatorEditor.html
-	      # here follow lots of other handlebars templates
+	  Form:
+	    YamlBuilder:
+	      handlebarsTemplates:
+	        ValidatorEditor: resource://Neos.Form.YamlBuilder/Private/Templates/FormBuilder/ValidatorEditor.html
+	        # here follow lots of other handlebars templates
 
 Underneath the `handlebarsTemplates`, an associative array is stored where the *key* is the **templateName** as being used in `Ember.View`, and the *value* is the filesystem location where the template is stored.
 
@@ -123,7 +126,7 @@ The Form Builder has JavaScript unit tests for the model, which can be run by op
 
 ### Names and Conventions
 
-The FormBuilder is structured as follows, and the following
+The YAML FormBuilder is structured as follows, and the following
 names are used for it:
 
 	+------------------------------------------------------------+

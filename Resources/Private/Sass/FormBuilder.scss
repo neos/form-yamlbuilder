@@ -18,10 +18,10 @@ $colorHighlight: #ff8700;
 @import 'dialogs';
 @import 'elementStructure';
 
-#neos-formbuilder-header,
-#neos-formbuilder-elementSidebar,
-#neos-formbuilder-elementOptionsPanel,
-#neos-formbuilder-footer {
+#neos-form-yamlbuilder-header,
+#neos-form-yamlbuilder-elementSidebar,
+#neos-form-yamlbuilder-elementOptionsPanel,
+#neos-form-yamlbuilder-footer {
 	background: $colorLighterBackground;
 	color: white;
 	font: 11px Verdana, Arial, Helvetica, sans-serif;
@@ -65,12 +65,12 @@ $colorHighlight: #ff8700;
 		border-bottom: 1px solid #383838;
 		height: 14px;
 	}
-	.neos-formbuilder-error {
+	.neos-form-yamlbuilder-error {
 		color: #aa6666;
 	}
 }
 
-#neos-formbuilder-loading {
+#neos-form-yamlbuilder-loading {
 	position: absolute;
 	top: 11px;
 	left: 10px;
@@ -82,7 +82,7 @@ $colorHighlight: #ff8700;
 	overflow: hidden;
 }
 
-#neos-formbuilder-header {
+#neos-form-yamlbuilder-header {
 	margin: 0;
 	padding: 0;
 	background: $colorDarkBackground url('../Images/header_background.png') 0 0 repeat-x;
@@ -96,7 +96,7 @@ $colorHighlight: #ff8700;
 		background: transparent url('../Images/flowLogo.png') 2px center no-repeat;
 		padding-left: 23px;
 	}
-	#neos-formbuilder-toolbar {
+	#neos-form-yamlbuilder-toolbar {
 		position: absolute;
 		top: 14px;
 		right: 10px;
@@ -112,15 +112,15 @@ $colorHighlight: #ff8700;
 				color: white;
 			}
 		}
-		.neos-formbuilder-preset {
+		.neos-form-yamlbuilder-preset {
 			position: relative;
 			top: -2px;
 			height: 20px;
 		}
-		.neos-formbuilder-preview button {
+		.neos-form-yamlbuilder-preview button {
 			@include overrideIcon($icon-search);
 		}
-		.neos-formbuilder-save button {
+		.neos-form-yamlbuilder-save button {
 			@include overrideIcon($icon-download-alt);
 			&[disabled] {
 				color: #444;
@@ -138,7 +138,7 @@ $colorHighlight: #ff8700;
 	}
 }
 
-#neos-formbuilder-structurePanel {
+#neos-form-yamlbuilder-structurePanel {
 	overflow: auto;
 	button {
 		@include icon($icon-cog);
@@ -153,12 +153,12 @@ $colorHighlight: #ff8700;
 			background: #383838;
 			color: $colorHighlight;
 		}
-		&.neos-formbuilder-form-selected {
+		&.neos-form-yamlbuilder-form-selected {
 			color: $colorHighlight;
 		}
 	}
 }
-#neos-formbuilder-insertElementsPanel {
+#neos-form-yamlbuilder-insertElementsPanel {
 	overflow: auto;
 	h3 span {
 		@include iconDark($icon-cog);
@@ -173,7 +173,7 @@ $colorHighlight: #ff8700;
 		li {
 			padding-left: 25px;
 			color: #999;
-			&.neos-formbuilder-enabled {
+			&.neos-form-yamlbuilder-enabled {
 				color: white;
 				&:hover {
 					color: $colorHighlight;
@@ -201,8 +201,8 @@ $colorHighlight: #ff8700;
 	}
 }
 
-#neos-formbuilder-elementOptionsPanel {
-	.neos-formbuilder-propertyPanelTitle {
+#neos-form-yamlbuilder-elementOptionsPanel {
+	.neos-form-yamlbuilder-propertyPanelTitle {
 		height: 28px;
 		em {
 			display: block;
@@ -210,13 +210,13 @@ $colorHighlight: #ff8700;
 			text-transform: none;
 		}
 	}
-	.neos-formbuilder-identifier {
+	.neos-form-yamlbuilder-identifier {
 		cursor: pointer;
 		&:hover {
 			color: $colorHighlight;
 		}
 	}
-	.neos-formbuilder-controlGroup {
+	.neos-form-yamlbuilder-controlGroup {
 		margin: 7px 5px 7px 5px;
 		clear: both;
 		label {
@@ -224,11 +224,11 @@ $colorHighlight: #ff8700;
 			padding-right: 2px;
 			width: 35%;
 		}
-		.neos-formbuilder-controls {
+		.neos-form-yamlbuilder-controls {
 			display: block;
 			margin-left: 40%;
 			width: 57%;
-			.neos-formbuilder-explanation {
+			.neos-form-yamlbuilder-explanation {
 				font-size: 10px;
 				color: #999;
 			}
@@ -248,8 +248,8 @@ $colorHighlight: #ff8700;
 			margin-right: 3px;
 		}
 	}
-	.neos-formbuilder-addValidator,
-	.neos-formbuilder-addFinisher {
+	.neos-form-yamlbuilder-addValidator,
+	.neos-form-yamlbuilder-addFinisher {
 		border-bottom: 1px solid #444;
 		select {
 			width: 100%;
@@ -263,7 +263,7 @@ $colorHighlight: #ff8700;
 			}
 		}
 	}
-	.neos-formbuilder-grid {
+	.neos-form-yamlbuilder-grid {
 		clear: both;
 		padding-top: 5px;
 		.slick-header-columns {
@@ -300,7 +300,7 @@ $colorHighlight: #ff8700;
 					background: #ddd url('../Images/drag-handle.png') no-repeat center center;
 				}
 
-				.slick-cell.neos-formbuilder-grid-deleteRow {
+				.slick-cell.neos-form-yamlbuilder-grid-deleteRow {
 					cursor: pointer;
 					background: url('../Images/glyphicons-halflings.png') $icon-trash no-repeat;
 				}
@@ -310,7 +310,7 @@ $colorHighlight: #ff8700;
 			}
 		}
 	}
-	.neos-formbuilder-removeButton {
+	.neos-form-yamlbuilder-removeButton {
 		display: inline-block;
 		position: absolute;
 		right: 5px;
@@ -323,7 +323,7 @@ $colorHighlight: #ff8700;
 			background-color: #666;
 		}
 	}
-	.neos-formbuilder-removeElementButton {
+	.neos-form-yamlbuilder-removeElementButton {
 		position: absolute;
 		top: 26px;
 		right: 3px;
@@ -333,7 +333,7 @@ $colorHighlight: #ff8700;
 	}
 }
 
-#neos-formbuilder-footer {
+#neos-form-yamlbuilder-footer {
 	background: $colorDarkBackground url('../Images/footer_background.png') 0 0 repeat-x;
 	height: $footerSize + 9px !important;
 	padding: 9px 5px 0 0;
@@ -343,9 +343,9 @@ $colorHighlight: #ff8700;
 	text-align: right;
 }
 
-#neos-formbuilder-stage {
+#neos-form-yamlbuilder-stage {
 	overflow: auto;
-	.neos-formbuilder-form-element-selected {
+	.neos-form-yamlbuilder-form-element-selected {
 		background: #ccc;
 	}
 }

@@ -1,5 +1,5 @@
 # <!--
-# This file is part of the Neos.Formbuilder package.
+# This file is part of the Neos.Form.YamlBuilder package.
 #
 # (c) Contributors of the Neos Project - www.neos.io
 #
@@ -9,7 +9,7 @@
 # -->
 
 
-# #Namespace `Neos.FormBuilder.View`#
+# #Namespace `Neos.Form.YamlBuilder.View`#
 #
 # This namespace contains view classes, mostly subclassing `Ember.View`, containing
 # output-related logic.
@@ -23,7 +23,7 @@
 #
 # several other classes inside this namespace are added inside the "view" folder.
 
-Neos.FormBuilder.View = {}
+Neos.Form.YamlBuilder.View = {}
 
 
 # ***
@@ -36,7 +36,7 @@ Neos.FormBuilder.View = {}
 #
 # ***
 # ###Public Properties###
-Neos.FormBuilder.View.ContainerView = Ember.ContainerView.extend {
+Neos.Form.YamlBuilder.View.ContainerView = Ember.ContainerView.extend {
 	# * `instanciatedViews`: an ember array of instanciated view objects; and every
 	#   time this array changes the childViews are removed and re-added, triggering re-draw.
 	instanciatedViews: null
@@ -53,7 +53,7 @@ Neos.FormBuilder.View.ContainerView = Ember.ContainerView.extend {
 # extended version of `Ember.Select` which makes the `disabled` property of the
 # select exposed via attribute bindings.
 #
-Neos.FormBuilder.View.Select = Ember.Select.extend {
+Neos.Form.YamlBuilder.View.Select = Ember.Select.extend {
 	attributeBindings: ['disabled']
 }
 
@@ -70,10 +70,10 @@ Neos.FormBuilder.View.Select = Ember.Select.extend {
 #
 # ###Usage
 #
-# Example: `{{view Neos.FormBuilder.View.TextField validatedValueBinding="maximum" validatorName="Neos.FormBuilder.Validators.isNumberOrBlank" }}`
+# Example: `{{view Neos.Form.YamlBuilder.View.TextField validatedValueBinding="maximum" validatorName="Neos.Form.YamlBuilder.Validators.isNumberOrBlank" }}`
 #
 # ###Public Properties
-Neos.FormBuilder.View.TextField = Ember.TextField.extend {
+Neos.Form.YamlBuilder.View.TextField = Ember.TextField.extend {
 	# * `validatorName`: Path to a validate-function which should return `true`
 	#   in case the validation is successful, `false` otherwise.
 	validatorName: null

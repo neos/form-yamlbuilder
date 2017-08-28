@@ -1,5 +1,5 @@
 # <!--
-# This file is part of the Neos.Formbuilder package.
+# This file is part of the Neos.Form.YamlBuilder package.
 #
 # (c) Contributors of the Neos Project - www.neos.io
 #
@@ -9,7 +9,7 @@
 # -->
 
 
-# #Namespace `Neos.FormBuilder.View`#
+# #Namespace `Neos.Form.YamlBuilder.View`#
 #
 # All views in this file render the inspector for a single form element on the right side
 # of the Form Builder.
@@ -34,10 +34,10 @@
 #
 # - `sorting`: numerical sorting index determining the order of the editor
 # - `viewName`: name of a view used to render this Form Element. The specified view name
-#   should be a subclass of `Neos.FormBuilder.View.ElementOptionsPanel.Editor.AbstractEditor`.
+#   should be a subclass of `Neos.Form.YamlBuilder.View.ElementOptionsPanel.Editor.AbstractEditor`.
 # - `[view-specific-options]`: all of the above properties are made available on
 #   the view, so view-specific properties can also be specified.
-Neos.FormBuilder.View.ElementOptionsPanel = Ember.ContainerView.extend {
+Neos.Form.YamlBuilder.View.ElementOptionsPanel = Ember.ContainerView.extend {
 	# ***
 	# ###Private###
 
@@ -82,14 +82,14 @@ Neos.FormBuilder.View.ElementOptionsPanel = Ember.ContainerView.extend {
 #
 # This namespace contains all the editors displayed inside the element inspector on
 # the right side.
-Neos.FormBuilder.View.ElementOptionsPanel.Editor = {}
+Neos.Form.YamlBuilder.View.ElementOptionsPanel.Editor = {}
 
 # ***
 # ##Class Editor.AbstractEditor##
 #
 # Base class for custom editors. This is an extension point of the framework.
 # You often will want to subclass `AbstractPropertyEditor` instead.
-Neos.FormBuilder.View.ElementOptionsPanel.Editor.AbstractEditor = Ember.View.extend {
+Neos.Form.YamlBuilder.View.ElementOptionsPanel.Editor.AbstractEditor = Ember.View.extend {
 	classNames: ['form-editor']
 
 	# ###Public Properties###
@@ -112,7 +112,7 @@ Neos.FormBuilder.View.ElementOptionsPanel.Editor.AbstractEditor = Ember.View.ext
 #   use @get and @set.
 # - `valueChanged()`: You should call this API method every time you changed `value` or a sub property of `value`.
 #   This triggers the event listeners in the rest of the UI.
-Neos.FormBuilder.View.ElementOptionsPanel.Editor.AbstractPropertyEditor = Neos.FormBuilder.View.ElementOptionsPanel.Editor.AbstractEditor.extend {
+Neos.Form.YamlBuilder.View.ElementOptionsPanel.Editor.AbstractPropertyEditor = Neos.Form.YamlBuilder.View.ElementOptionsPanel.Editor.AbstractEditor.extend {
 	# ###Public Properties###
 	#
 	# - `propertyPath`: the property path at which the current value resides, relative to the current @formElement.

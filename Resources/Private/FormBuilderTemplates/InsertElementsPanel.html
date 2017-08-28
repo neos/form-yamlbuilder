@@ -1,5 +1,5 @@
 {{#collection contentBinding="formElementsGrouped"}}
-	<h3 class="neos-formbuilder-group-{{unbound content.key}}"><span>{{content.label}}</span></h3>
-	{{view Neos.FormBuilder.View.InsertElementsPanel.ElementsCollection contentBinding="content.elements" tagName="ul"}}
+	<h3 class="neos-form-yamlbuilder-group-{{unbound content.key}}"><span>{{content.label}}</span></h3>
+	{{view Neos.Form.YamlBuilder.View.InsertElementsPanel.ElementsCollection contentBinding="content.elements" tagName="ul"}}
 {{/collection}}
 

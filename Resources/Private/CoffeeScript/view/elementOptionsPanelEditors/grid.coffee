@@ -1,5 +1,5 @@
 # <!--
-# This file is part of the Neos.Formbuilder package.
+# This file is part of the Neos.Form.YamlBuilder package.
 #
 # (c) Contributors of the Neos Project - www.neos.io
 #
@@ -9,7 +9,7 @@
 # -->
 
 
-# #Namespace `Neos.FormBuilder.View.Editor`#
+# #Namespace `Neos.Form.YamlBuilder.View.Editor`#
 #
 # This file implements the `Property Grid` editor.
 #
@@ -20,7 +20,7 @@
 # - arbitrary number of columns
 # - columns are made sortable if wanted
 # - a new column is added at the bottom to insert a new element
-Neos.FormBuilder.View.ElementOptionsPanel.Editor.PropertyGrid = Neos.FormBuilder.View.ElementOptionsPanel.Editor.AbstractPropertyEditor.extend {
+Neos.Form.YamlBuilder.View.ElementOptionsPanel.Editor.PropertyGrid = Neos.Form.YamlBuilder.View.ElementOptionsPanel.Editor.AbstractPropertyEditor.extend {
 
 	# ###Public API###
 	#
@@ -111,7 +111,7 @@ Neos.FormBuilder.View.ElementOptionsPanel.Editor.PropertyGrid = Neos.FormBuilder
 				selectable: false
 				resizable: false
 				focusable: false
-				cssClass: "neos-formbuilder-grid-deleteRow"
+				cssClass: "neos-form-yamlbuilder-grid-deleteRow"
 			}
 
 		return columns
@@ -196,7 +196,7 @@ Neos.FormBuilder.View.ElementOptionsPanel.Editor.PropertyGrid = Neos.FormBuilder
 	# Initialize Grid
 	didInsertElement: ->
 		@buildTableRowModel()
-		@grid = new Slick.Grid(@$().find('.neos-formbuilder-grid'), @get('tableRowModel'), @get('columnDefinition'), @get('options'));
+		@grid = new Slick.Grid(@$().find('.neos-form-yamlbuilder-grid'), @get('tableRowModel'), @get('columnDefinition'), @get('options'));
 
 		# make autoHeight really work
 		@$().find('.slick-viewport').css('overflow-x', 'hidden');
@@ -271,7 +271,7 @@ Neos.FormBuilder.View.ElementOptionsPanel.Editor.PropertyGrid = Neos.FormBuilder
 
 # This is just a standard TextCellEditor of SlickGrid; extended in a way that when
 # defocussing the text field, the edit is committed / saved.
-Neos.FormBuilder.View.ElementOptionsPanel.Editor.PropertyGrid.TextCellEditor = (args) ->
+Neos.Form.YamlBuilder.View.ElementOptionsPanel.Editor.PropertyGrid.TextCellEditor = (args) ->
 	retVal = window.TextCellEditor.apply(this, arguments)
 
 	$(args.container).children('.editor-text').focusout ->

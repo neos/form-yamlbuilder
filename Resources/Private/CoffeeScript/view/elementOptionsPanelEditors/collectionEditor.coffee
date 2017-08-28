@@ -1,5 +1,5 @@
 # <!--
-# This file is part of the Neos.Formbuilder package.
+# This file is part of the Neos.Form.YamlBuilder package.
 #
 # (c) Contributors of the Neos Project - www.neos.io
 #
@@ -9,7 +9,7 @@
 # -->
 
 
-# #Namespace `Neos.FormBuilder.View.ElementOptionsPanel.Editor`#
+# #Namespace `Neos.Form.YamlBuilder.View.ElementOptionsPanel.Editor`#
 #
 # This file contains a generic collection editor, which is used as common
 # base class for Validator and Finisher editors.
@@ -18,13 +18,13 @@
 
 # ## Class AbstractCollectionEditor
 #
-Neos.FormBuilder.View.ElementOptionsPanel.Editor.AbstractCollectionEditor = Neos.FormBuilder.View.ElementOptionsPanel.Editor.AbstractPropertyEditor.extend {
+Neos.Form.YamlBuilder.View.ElementOptionsPanel.Editor.AbstractCollectionEditor = Neos.Form.YamlBuilder.View.ElementOptionsPanel.Editor.AbstractPropertyEditor.extend {
 	# ###Public Properties###
 	# * `availableCollectionElements`: JSON object of available sub elements, where each element has the following options:
 	#
 	#    * `label`: human-readable label of the validator
 	#    * `sorting`: sorting index to be used for the validator
-	#    * `name`: Validator class name, if not specified the `Neos.FormBuilder.View.ElementOptionsPanel.Editor.ValidatorEditor.DefaultValidatorEditor` is used.
+	#    * `name`: Validator class name, if not specified the `Neos.Form.YamlBuilder.View.ElementOptionsPanel.Editor.ValidatorEditor.DefaultValidatorEditor` is used.
 	#    * `options`: Validator options to be set (JSON object)
 	#    * `required`: (boolean) if TRUE; it is required validator which is not de-selectable
 	availableCollectionElements: null,
@@ -92,7 +92,7 @@ Neos.FormBuilder.View.ElementOptionsPanel.Editor.AbstractCollectionEditor = Neos
 			# sometimes double entries etc.
 			# Thus, we have to redraw the *complete* dropdown.
 			window.setTimeout(=>
-				viewId = @$().find('.neos-formbuilder-addFinisher select, .neos-formbuilder-addValidator select').attr('id')
+				viewId = @$().find('.neos-form-yamlbuilder-addFinisher select, .neos-form-yamlbuilder-addValidator select').attr('id')
 				Ember.View.views[viewId].rerender()
 			, 100)
 
@@ -117,7 +117,7 @@ Neos.FormBuilder.View.ElementOptionsPanel.Editor.AbstractCollectionEditor = Neos
 
 			# we found the correct collectionElementTemplate for the current collectionElement
 			# thus we can output label and determine the view to be used.
-			collectionElementEditor = Ember.getPath(collectionElementTemplate.viewName || 'Neos.FormBuilder.View.ElementOptionsPanel.Editor.ValidatorEditor.DefaultValidatorEditor')
+			collectionElementEditor = Ember.getPath(collectionElementTemplate.viewName || 'Neos.Form.YamlBuilder.View.ElementOptionsPanel.Editor.ValidatorEditor.DefaultValidatorEditor')
 			throw "Collection Editor class '#{collectionElementTemplate.viewName}' not found" if !collectionElementEditor
 			collectionElementEditorOptions = $.extend({
 				elementIndex: i
