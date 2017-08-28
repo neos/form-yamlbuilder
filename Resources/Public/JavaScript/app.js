@@ -524,7 +524,7 @@
     preview: function() {
       var windowIdentifier;
       windowIdentifier = 'preview_' + Neos.Form.YamlBuilder.Model.Form.getPath('formDefinition.identifier');
-      return window.open('/' + Neos.Form.YamlBuilder.Utility.getUri(Neos.Form.YamlBuilder.Configuration.endpoints.previewForm), windowIdentifier);
+      return window.open(Neos.Form.YamlBuilder.Utility.getUri(Neos.Form.YamlBuilder.Configuration.endpoints.previewForm), windowIdentifier);
     }
   });
 

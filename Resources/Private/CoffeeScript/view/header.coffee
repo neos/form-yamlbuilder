@@ -85,8 +85,7 @@ Neos.Form.YamlBuilder.View.Header.PreviewButton = Ember.Button.extend {
 
 	preview: ->
 		windowIdentifier = 'preview_' + Neos.Form.YamlBuilder.Model.Form.getPath('formDefinition.identifier')
-		# IE HACK: to make the preview work in IE8, we need to prepend a "/" in front of the URI
-		window.open('/' + Neos.Form.YamlBuilder.Utility.getUri(Neos.Form.YamlBuilder.Configuration.endpoints.previewForm), windowIdentifier)
+		window.open(Neos.Form.YamlBuilder.Utility.getUri(Neos.Form.YamlBuilder.Configuration.endpoints.previewForm), windowIdentifier)
 }
 
 # ####Save Button
