@@ -1,6 +1,6 @@
 describe('Model', function() {
 	describe('Renderable', function() {
-		var Renderable = Neos.FormBuilder.Model.Renderable;
+		var Renderable = Neos.Form.YamlBuilder.Model.Renderable;
 
 		it('setPathRecursively should work', function() {
 			var r = Renderable.create({

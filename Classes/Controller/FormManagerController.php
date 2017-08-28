@@ -1,8 +1,8 @@
 <?php
-namespace Neos\FormBuilder\Controller;
+namespace Neos\Form\YamlBuilder\Controller;
 
 /*
- * This file is part of the Neos.Formbuilder package.
+ * This file is part of the Neos.Form.YamlBuilder package.
  *
  * (c) Contributors of the Neos Project - www.neos.io
  *
@@ -18,7 +18,7 @@ use Symfony\Component\Yaml\Yaml;
 use Neos\Flow\Annotations as Flow;
 
 /**
- * Form Manager controller for the Neos.FormBuilder package
+ * Form Manager controller for the Neos.Form.YamlBuilder package
  *
  * @Flow\Scope("singleton")
  */

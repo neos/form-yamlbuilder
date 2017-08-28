@@ -1,9 +1,9 @@
 @import "compass/css3/box-shadow";
 
-#neos-formbuilder-header,
-#neos-formbuilder-elementSidebar,
-#neos-formbuilder-elementOptionsPanel,
-#neos-formbuilder-footer {
+#neos-form-yamlbuilder-header,
+#neos-form-yamlbuilder-elementSidebar,
+#neos-form-yamlbuilder-elementOptionsPanel,
+#neos-form-yamlbuilder-footer {
 	@include global-reset();
 
 	font-family: Arial, sans-serif;

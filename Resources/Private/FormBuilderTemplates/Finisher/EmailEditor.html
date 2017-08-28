@@ -1,50 +1,50 @@
-<h4>{{label}}{{#view Ember.Button target="parentView" action="remove" isVisibleBinding="notRequired" class="neos-formbuilder-removeButton"}}Remove{{/view}}</h4>
+<h4>{{label}}{{#view Ember.Button target="parentView" action="remove" isVisibleBinding="notRequired" class="neos-form-yamlbuilder-removeButton"}}Remove{{/view}}</h4>
 
-<div class="neos-formbuilder-controlGroup">
+<div class="neos-form-yamlbuilder-controlGroup">
 	<label>Subject</label>
-	<div class="neos-formbuilder-controls">
+	<div class="neos-form-yamlbuilder-controls">
 		{{view Ember.TextField valueBinding="currentCollectionElement.options.subject"}}
 	</div>
 </div>
 
-<div class="neos-formbuilder-controlGroup">
+<div class="neos-form-yamlbuilder-controlGroup">
 	<label>Recipient Address</label>
-	<div class="neos-formbuilder-controls">
+	<div class="neos-form-yamlbuilder-controls">
 		{{view Ember.TextField valueBinding="currentCollectionElement.options.recipientAddress"}}
 	</div>
 </div>
 
-<div class="neos-formbuilder-controlGroup">
+<div class="neos-form-yamlbuilder-controlGroup">
 	<label>Recipient Name</label>
-	<div class="neos-formbuilder-controls">
+	<div class="neos-form-yamlbuilder-controls">
 		{{view Ember.TextField valueBinding="currentCollectionElement.options.recipientName"}}
 	</div>
 </div>
 
-<div class="neos-formbuilder-controlGroup">
+<div class="neos-form-yamlbuilder-controlGroup">
 	<label>Sender Address</label>
-	<div class="neos-formbuilder-controls">
+	<div class="neos-form-yamlbuilder-controls">
 		{{view Ember.TextField valueBinding="currentCollectionElement.options.senderAddress"}}
 	</div>
 </div>
 
-<div class="neos-formbuilder-controlGroup">
+<div class="neos-form-yamlbuilder-controlGroup">
 	<label>Sender Name</label>
-	<div class="neos-formbuilder-controls">
+	<div class="neos-form-yamlbuilder-controls">
 		{{view Ember.TextField valueBinding="currentCollectionElement.options.senderName"}}
 	</div>
 </div>
 
-<div class="neos-formbuilder-controlGroup">
+<div class="neos-form-yamlbuilder-controlGroup">
 	<label>Reply-To Address</label>
-	<div class="neos-formbuilder-controls">
+	<div class="neos-form-yamlbuilder-controls">
 		{{view Ember.TextField valueBinding="currentCollectionElement.options.replyToAddress"}}
 	</div>
 </div>
 
-<div class="neos-formbuilder-controlGroup">
+<div class="neos-form-yamlbuilder-controlGroup">
 	<label>Format</label>
-	<div class="neos-formbuilder-controls">
+	<div class="neos-form-yamlbuilder-controls">
 		{{view Ember.Select contentBinding="availableFormats" optionValuePath="content.key" optionLabelPath="content.value" selectionBinding="format"}}
 	</div>
 </div>

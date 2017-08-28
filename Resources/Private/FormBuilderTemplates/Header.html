@@ -1,14 +1,14 @@
-<h1>Form Builder - {{Neos.FormBuilder.Model.Form.formDefinition.label}}</h1>
-{{#if Neos.FormBuilder.Model.Form.currentlyLoadingPreview}}<span id="neos-formbuilder-loading">Loading..</span>{{/if}}
+<h1>Form Builder - {{Neos.Form.YamlBuilder.Model.Form.formDefinition.label}}</h1>
+{{#if Neos.Form.YamlBuilder.Model.Form.currentlyLoadingPreview}}<span id="neos-form-yamlbuilder-loading">Loading..</span>{{/if}}
 
-<ul id="neos-formbuilder-toolbar">
-	<li class="neos-formbuilder-preset">
-		{{view Neos.FormBuilder.View.Header.PresetSelector}}
+<ul id="neos-form-yamlbuilder-toolbar">
+	<li class="neos-form-yamlbuilder-preset">
+		{{view Neos.Form.YamlBuilder.View.Header.PresetSelector}}
 	</li>
-	<li class="neos-formbuilder-preview">
-		{{#view Neos.FormBuilder.View.Header.PreviewButton class="neos-formbuilder-button icon"}}Preview{{/view}}
+	<li class="neos-form-yamlbuilder-preview">
+		{{#view Neos.Form.YamlBuilder.View.Header.PreviewButton class="neos-form-yamlbuilder-button icon"}}Preview{{/view}}
 	</li>
-	<li class="neos-formbuilder-save">
-		{{#view Neos.FormBuilder.View.Header.SaveButton class="neos-formbuilder-button icon"}}Save{{/view}}
+	<li class="neos-form-yamlbuilder-save">
+		{{#view Neos.Form.YamlBuilder.View.Header.SaveButton class="neos-form-yamlbuilder-button icon"}}Save{{/view}}
 	</li>
 </ul>

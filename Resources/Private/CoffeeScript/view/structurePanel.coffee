@@ -1,5 +1,5 @@
 # <!--
-# This file is part of the Neos.Formbuilder package.
+# This file is part of the Neos.Form.YamlBuilder package.
 #
 # (c) Contributors of the Neos Project - www.neos.io
 #
@@ -9,7 +9,7 @@
 # -->
 
 
-# #Class `Neos.FormBuilder.View.StructurePanel`#
+# #Class `Neos.Form.YamlBuilder.View.StructurePanel`#
 #
 # This class renders the hierarchical structure of the form inside a Tree View, displayed
 # on top-left of the Form Builder.
@@ -29,12 +29,12 @@
 # - form elements are only droppable inside other pages, before and after other form elements
 # - additionally, form elements are droppable *inside* other form elements, if these target
 #   form elements are composite form elements (like sections)
-Neos.FormBuilder.View.StructurePanel = Ember.View.extend {
+Neos.Form.YamlBuilder.View.StructurePanel = Ember.View.extend {
 	# ***
 	# ###Private###
 
 	# shorthand to the form definition
-	formDefinitionBinding: 'Neos.FormBuilder.Model.Form.formDefinition'
+	formDefinitionBinding: 'Neos.Form.YamlBuilder.Model.Form.formDefinition'
 
 	# template name to use
 	templateName: 'StructurePanel'
@@ -50,7 +50,7 @@ Neos.FormBuilder.View.StructurePanel = Ember.View.extend {
 			# we set the currently selected renderable to the renderable being attached to the
 			# currently selected tree node
 			onActivate: (node) ->
-				Neos.FormBuilder.Model.Form.set('currentlySelectedRenderable', node.data.formRenderable)
+				Neos.Form.YamlBuilder.Model.Form.set('currentlySelectedRenderable', node.data.formRenderable)
 
 			# Drag / Drop functionality
 			dnd: {
@@ -103,8 +103,8 @@ Neos.FormBuilder.View.StructurePanel = Ember.View.extend {
 							targetRenderable.getPath('parentRenderable.renderables').insertAt(indexOfTargetRenderable+1, sourceRenderable)
 
 					# trigger a property change event such that we switch the current page
-					Neos.FormBuilder.Model.Form.set('currentlySelectedRenderable', null)
-					Neos.FormBuilder.Model.Form.set('currentlySelectedRenderable', sourceRenderable)
+					Neos.Form.YamlBuilder.Model.Form.set('currentlySelectedRenderable', null)
+					Neos.Form.YamlBuilder.Model.Form.set('currentlySelectedRenderable', sourceRenderable)
 			}
 		}
 
@@ -124,7 +124,7 @@ Neos.FormBuilder.View.StructurePanel = Ember.View.extend {
 		for expandedNodePath in expandedNodePaths
 			@_tree.dynatree('getTree').getNodeByKey(expandedNodePath)?.expand(true)
 
-		activeNodePath = Neos.FormBuilder.Model.Form.getPath('currentlySelectedRenderable._path')
+		activeNodePath = Neos.Form.YamlBuilder.Model.Form.getPath('currentlySelectedRenderable._path')
 		@_tree.dynatree('getTree').getNodeByKey?(activeNodePath)?.activate(true)
 	).observes('formDefinition.__nestedPropertyChange')
 
@@ -147,23 +147,23 @@ Neos.FormBuilder.View.StructurePanel = Ember.View.extend {
 	# the currently selected renderable should also be active inside the tree
 	updateCurrentlySelectedNode: ( ->
 		@updateTree()
-	).observes('Neos.FormBuilder.Model.Form.currentlySelectedRenderable')
+	).observes('Neos.Form.YamlBuilder.Model.Form.currentlySelectedRenderable')
 
 	# callback which is triggered when the form options button is clicked.
 	showFormOptions: ->
-		Neos.FormBuilder.Model.Form.set('currentlySelectedRenderable', Neos.FormBuilder.Model.Form.get('formDefinition'));
+		Neos.Form.YamlBuilder.Model.Form.set('currentlySelectedRenderable', Neos.Form.YamlBuilder.Model.Form.get('formDefinition'));
 }
 
 # button above the structure element which is styled as the top-level form element
-Neos.FormBuilder.View.StructurePanel.FormButton = Ember.Button.extend {
+Neos.Form.YamlBuilder.View.StructurePanel.FormButton = Ember.Button.extend {
 	target: 'parentView'
 	action: 'showFormOptions'
-	classNameBindings: ['isFormDefinitionCurrentlySelected:neos-formbuilder-form-selected']
+	classNameBindings: ['isFormDefinitionCurrentlySelected:neos-form-yamlbuilder-form-selected']
 
 	# Computed property which is TRUE if the form definition is currently selected
 	isFormDefinitionCurrentlySelected: (->
-		return (Ember.getPath('Neos.FormBuilder.Model.Form.currentlySelectedRenderable') == Ember.getPath('Neos.FormBuilder.Model.Form.formDefinition'))
-	).property('Neos.FormBuilder.Model.Form.formDefinition', 'Neos.FormBuilder.Model.Form.currentlySelectedRenderable').cacheable()
+		return (Ember.getPath('Neos.Form.YamlBuilder.Model.Form.currentlySelectedRenderable') == Ember.getPath('Neos.Form.YamlBuilder.Model.Form.formDefinition'))
+	).property('Neos.Form.YamlBuilder.Model.Form.formDefinition', 'Neos.Form.YamlBuilder.Model.Form.currentlySelectedRenderable').cacheable()
 
 
 }

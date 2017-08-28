@@ -1,5 +1,5 @@
 # <!--
-# This file is part of the Neos.Formbuilder package.
+# This file is part of the Neos.Form.YamlBuilder package.
 #
 # (c) Contributors of the Neos Project - www.neos.io
 #
@@ -9,7 +9,7 @@
 # -->
 
 
-# #Namespace `Neos.FormBuilder.View.ElementOptionsPanel.Editor`#
+# #Namespace `Neos.Form.YamlBuilder.View.ElementOptionsPanel.Editor`#
 #
 # All views in this file render parts of the inspector for a single form element on the right side
 # of the Form Builder.
@@ -26,7 +26,7 @@
 # This editor can be used to output static text, such as the label of the current form element.
 #
 # Just make sure to set the `templateName` property and access `formObject` as required.
-Neos.FormBuilder.View.ElementOptionsPanel.Editor.TextOutput = Neos.FormBuilder.View.ElementOptionsPanel.Editor.AbstractEditor.extend {
+Neos.Form.YamlBuilder.View.ElementOptionsPanel.Editor.TextOutput = Neos.Form.YamlBuilder.View.ElementOptionsPanel.Editor.AbstractEditor.extend {
 }
 
 # ***
@@ -35,7 +35,7 @@ Neos.FormBuilder.View.ElementOptionsPanel.Editor.TextOutput = Neos.FormBuilder.V
 # This editor makes the `identifier` of a form element editable, and
 # also validates that the identifier is valid.
 #
-Neos.FormBuilder.View.ElementOptionsPanel.Editor.IdentifierEditor = Neos.FormBuilder.View.ElementOptionsPanel.Editor.AbstractPropertyEditor.extend {
+Neos.Form.YamlBuilder.View.ElementOptionsPanel.Editor.IdentifierEditor = Neos.Form.YamlBuilder.View.ElementOptionsPanel.Editor.AbstractPropertyEditor.extend {
 	templateName: 'ElementOptionsPanel-IdentifierEditor'
 
 	# ###Private###
@@ -72,7 +72,7 @@ Neos.FormBuilder.View.ElementOptionsPanel.Editor.IdentifierEditor = Neos.FormBui
 			for subRenderable in el.get('renderables')
 				findFormElementsWithIdentifiers(subRenderable)
 
-		findFormElementsWithIdentifiers(Neos.FormBuilder.Model.Form.get('formDefinition'))
+		findFormElementsWithIdentifiers(Neos.Form.YamlBuilder.Model.Form.get('formDefinition'))
 
 		if elementsWithIdentifier.length == 0
 			@set('validationErrorMessage', null)
@@ -111,7 +111,7 @@ Neos.FormBuilder.View.ElementOptionsPanel.Editor.IdentifierEditor = Neos.FormBui
 
 # special text field which selects its contents when being clicked upon,
 # and triggers `commit(), abort()`, and `tryToCommit()` on the respective events.
-Neos.FormBuilder.View.ElementOptionsPanel.Editor.IdentifierEditor.TextField = Ember.TextField.extend {
+Neos.Form.YamlBuilder.View.ElementOptionsPanel.Editor.IdentifierEditor.TextField = Ember.TextField.extend {
 	insertNewline: ->
 		@get('parentView').commit()
 	cancel: ->
@@ -131,7 +131,7 @@ Neos.FormBuilder.View.ElementOptionsPanel.Editor.IdentifierEditor.TextField = Em
 # ###Public API###
 #
 # - `label`: Label of the text field, which should be shown.
-Neos.FormBuilder.View.ElementOptionsPanel.Editor.TextEditor = Neos.FormBuilder.View.ElementOptionsPanel.Editor.AbstractPropertyEditor.extend {
+Neos.Form.YamlBuilder.View.ElementOptionsPanel.Editor.TextEditor = Neos.Form.YamlBuilder.View.ElementOptionsPanel.Editor.AbstractPropertyEditor.extend {
 	label: null
 
 	onValueChange: (->
@@ -149,7 +149,7 @@ Neos.FormBuilder.View.ElementOptionsPanel.Editor.TextEditor = Neos.FormBuilder.V
 # ###Public API###
 #
 # - `label`: Label of the text field, which should be shown.
-Neos.FormBuilder.View.ElementOptionsPanel.Editor.TextareaEditor = Neos.FormBuilder.View.ElementOptionsPanel.Editor.TextEditor.extend {
+Neos.Form.YamlBuilder.View.ElementOptionsPanel.Editor.TextareaEditor = Neos.Form.YamlBuilder.View.ElementOptionsPanel.Editor.TextEditor.extend {
 	templateName: 'ElementOptionsPanel-TextareaEditor'
 }
 
@@ -161,7 +161,7 @@ Neos.FormBuilder.View.ElementOptionsPanel.Editor.TextareaEditor = Neos.FormBuild
 # ###Public API###
 #
 # - `label`: Label of the select box, which should be shown.
-Neos.FormBuilder.View.ElementOptionsPanel.Editor.SelectEditor = Neos.FormBuilder.View.ElementOptionsPanel.Editor.AbstractPropertyEditor.extend {
+Neos.Form.YamlBuilder.View.ElementOptionsPanel.Editor.SelectEditor = Neos.Form.YamlBuilder.View.ElementOptionsPanel.Editor.AbstractPropertyEditor.extend {
 	templateName: 'ElementOptionsPanel-SelectEditor'
 
 	# - `availableElements`: Array of elements which are shown in the select box. Each element is a JavaScript object which should have a "label" and a "value" property.
@@ -188,7 +188,7 @@ Neos.FormBuilder.View.ElementOptionsPanel.Editor.SelectEditor = Neos.FormBuilder
 # ##Class Editor.RemoveElementEditor##
 #
 # Displays button to remove this formElement.
-Neos.FormBuilder.View.ElementOptionsPanel.Editor.RemoveElementEditor = Neos.FormBuilder.View.ElementOptionsPanel.Editor.AbstractEditor.extend {
+Neos.Form.YamlBuilder.View.ElementOptionsPanel.Editor.RemoveElementEditor = Neos.Form.YamlBuilder.View.ElementOptionsPanel.Editor.AbstractEditor.extend {
 	templateName: 'ElementOptionsPanel-RemoveElement'
 	remove: ->
 		@get('formElement').removeWithConfirmationDialog()

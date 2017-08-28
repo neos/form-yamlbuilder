@@ -1,5 +1,5 @@
 # <!--
-# This file is part of the Neos.Formbuilder package.
+# This file is part of the Neos.Form.YamlBuilder package.
 #
 # (c) Contributors of the Neos Project - www.neos.io
 #
@@ -11,14 +11,15 @@
 
 # #Main Base Class#
 # Main Entry point for the form builder, setting up the environment and initializing
-# `Neos.FormBuilder` namespace.
+# `Neos.Form.YamlBuilder` namespace.
 #
 
 Neos = window.Neos || {}
 window.Neos = Neos
+Neos.Form = Neos.Form || {}
 
 window.onbeforeunload = (e) ->
-	return undefined unless Neos.FormBuilder.Model.Form.get('unsavedContent')
+	return undefined unless Neos.Form.YamlBuilder.Model.Form.get('unsavedContent')
 	e = e || window.event
 	text = 'There is unsaved content. Are you sure that you want to close the browser?'
 	if e
@@ -29,38 +30,38 @@ window.onerror = (errorMessage, url, lineNumber) ->
 	alert "There was a JavaScript error in File #{url}, line #{lineNumber}: #{errorMessage}. Please report the error to the developers"
 	return false
 
-# `Neos.FormBuilder` is the namespace where the whole package is inside
-Neos.FormBuilder = Ember.Application.create {
+# `Neos.Form.YamlBuilder` is the namespace where the whole package is inside
+Neos.Form.YamlBuilder = Ember.Application.create {
 	rootElement: 'body'
 }
 
-# `Neos.FormBuilder.Configuration` contains the server-side generated config array.
-Neos.FormBuilder.Configuration = window.FORMBUILDER_CONFIGURATION
+# `Neos.Form.YamlBuilder.Configuration` contains the server-side generated config array.
+Neos.Form.YamlBuilder.Configuration = window.NEOS_FORM_YAMLBUILDER_CONFIGURATION
 
-if Neos.FormBuilder.Configuration?.stylesheets
-	for stylesheet in Neos.FormBuilder.Configuration.stylesheets
+if Neos.Form.YamlBuilder.Configuration?.stylesheets
+	for stylesheet in Neos.Form.YamlBuilder.Configuration.stylesheets
 		$('head').append($('<link rel="stylesheet" />').attr('href', stylesheet))
 
-if Neos.FormBuilder.Configuration?.javaScripts
-	for javaScript in Neos.FormBuilder.Configuration.javaScripts
+if Neos.Form.YamlBuilder.Configuration?.javaScripts
+	for javaScript in Neos.Form.YamlBuilder.Configuration.javaScripts
 		$.getScript(javaScript);
 
 # if the form persistence identifier was configured, we load it using
 # the loadForm endpoint
-if Neos.FormBuilder.Configuration?.formPersistenceIdentifier
+if Neos.Form.YamlBuilder.Configuration?.formPersistenceIdentifier
 	$.getJSON(
-		Neos.FormBuilder.Configuration.endpoints.loadForm,
-		{ formPersistenceIdentifier: Neos.FormBuilder.Configuration?.formPersistenceIdentifier },
+		Neos.Form.YamlBuilder.Configuration.endpoints.loadForm,
+		{ formPersistenceIdentifier: Neos.Form.YamlBuilder.Configuration?.formPersistenceIdentifier },
 		(data, textStatus, jqXHR) =>
-			Neos.FormBuilder.Model.Form.set('formDefinition', Neos.FormBuilder.Model.Renderable.create(data))
-			Neos.FormBuilder.Model.Form.set('unsavedContent', false)
+			Neos.Form.YamlBuilder.Model.Form.set('formDefinition', Neos.Form.YamlBuilder.Model.Renderable.create(data))
+			Neos.Form.YamlBuilder.Model.Form.set('unsavedContent', false)
 	)
 
 
 # Definition of some validators which can be used together
-# with Neos.FormBuilder.View.TextField
-Neos.FormBuilder.Validators = {}
-Neos.FormBuilder.Validators.isNumberOrBlank = (n) ->
+# with Neos.Form.YamlBuilder.View.TextField
+Neos.Form.YamlBuilder.Validators = {}
+Neos.Form.YamlBuilder.Validators.isNumberOrBlank = (n) ->
 	return true if n == '' or n == null or n == undefined
 	return !isNaN(parseFloat(n)) && isFinite(n);
 

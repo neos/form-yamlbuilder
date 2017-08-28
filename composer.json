@@ -1,18 +1,20 @@
 {
-    "name": "neos/formbuilder",
+    "name": "neos/form-yamlbuilder",
     "type": "neos-package",
     "license": "LGPL-2.1",
     "description": "Graphical User Interface for creating and editing Forms based on the Flow Form Framework",
     "require": {
-        "neos/flow": "~4.0.0",
-        "neos/form": "~4.0.0"
-    },
-    "replace": {
-        "typo3/formbuilder": "self.version"
+        "neos/flow": "^4.1",
+        "neos/form": "^4.0"
     },
     "autoload": {
         "psr-4": {
-            "Neos\\FormBuilder\\": "Classes"
+            "Neos\\Form\\YamlBuilder\\": "Classes"
+        }
+    },
+    "extra": {
+        "neos": {
+            "package-key": "Neos.Form.YamlBuilder"
         }
     }
 }

@@ -1,5 +1,5 @@
 # <!--
-# This file is part of the Neos.Formbuilder package.
+# This file is part of the Neos.Form.YamlBuilder package.
 #
 # (c) Contributors of the Neos Project - www.neos.io
 #
@@ -9,7 +9,7 @@
 # -->
 
 
-# #Namespace `Neos.FormBuilder.View.Editor`#
+# #Namespace `Neos.Form.YamlBuilder.View.Editor`#
 #
 # This file implements all editors related to Finishers.
 #
@@ -21,13 +21,13 @@
 # ##Class Editor.FinisherEditor##
 #
 # This is an editor for all finishers. They are defined using the `availableFinishers` property.
-Neos.FormBuilder.View.ElementOptionsPanel.Editor.FinisherEditor = Neos.FormBuilder.View.ElementOptionsPanel.Editor.AbstractCollectionEditor.extend {
+Neos.Form.YamlBuilder.View.ElementOptionsPanel.Editor.FinisherEditor = Neos.Form.YamlBuilder.View.ElementOptionsPanel.Editor.AbstractCollectionEditor.extend {
 	# ###Public Properties###
 	# * `availableFinishers`: JSON object of available validators, where each validator has the following options:
 	#
 	#    * `label`: human-readable label of the validator
 	#    * `sorting`: sorting index to be used for the validator
-	#    * `name`: Validator class name, if not specified the `Neos.FormBuilder.View.ElementOptionsPanel.Editor.ValidatorEditor.DefaultValidatorEditor` is used.
+	#    * `name`: Validator class name, if not specified the `Neos.Form.YamlBuilder.View.ElementOptionsPanel.Editor.ValidatorEditor.DefaultValidatorEditor` is used.
 	#    * `options`: Validator options to be set (JSON object)
 	#    * `required`: (boolean) if TRUE; it is required validator which is not de-selectable
 	availableFinishers: null,
@@ -48,7 +48,7 @@ Neos.FormBuilder.View.ElementOptionsPanel.Editor.FinisherEditor = Neos.FormBuild
 #
 # view with extra logic for the email finisher; handling the "format" option
 # of the email correctly.
-Neos.FormBuilder.View.ElementOptionsPanel.Editor.FinisherEditor.EmailFinisherEditor = Neos.FormBuilder.View.ElementOptionsPanel.Editor.ValidatorEditor.DefaultValidatorEditor.extend {
+Neos.Form.YamlBuilder.View.ElementOptionsPanel.Editor.FinisherEditor.EmailFinisherEditor = Neos.Form.YamlBuilder.View.ElementOptionsPanel.Editor.ValidatorEditor.DefaultValidatorEditor.extend {
 	templateName: 'Finisher-EmailEditor'
 
 	availableFormats: null,

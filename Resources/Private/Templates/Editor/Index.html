@@ -1,4 +1,4 @@
-{namespace formbuilder=Neos\FormBuilder\ViewHelpers}
+{namespace formbuilder=Neos\Form\YamlBuilder\ViewHelpers}
 <!DOCTYPE html>
 <html lang="en">
 <head>
@@ -7,7 +7,7 @@
 	<f:base />
 
 	<script type="text/javascript">
-		FORMBUILDER_CONFIGURATION = {formbuilder:jsonConfiguration(presetName: presetName)};
+		NEOS_FORM_YAMLBUILDER_CONFIGURATION = {formbuilder:jsonConfiguration(presetName: presetName)};
 	</script>
 
 	<f:for each="{javaScripts}" as="script">
@@ -26,7 +26,7 @@
 </head>
 <body>
 	<script type="text/x-handlebars"><![CDATA[
-		{{view Neos.FormBuilder.View.Application templateName="Application"}}
+		{{view Neos.Form.YamlBuilder.View.Application templateName="Application"}}
 	]]></script>
 </body>
 </html>

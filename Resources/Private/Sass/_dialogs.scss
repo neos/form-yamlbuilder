@@ -14,7 +14,7 @@
 	filter: Alpha(Opacity = 70);
 }
 
-.neos-formbuilder-dialog {
+.neos-form-yamlbuilder-dialog {
 
 	font: 11px Verdana, Arial, Helvetica, sans-serif;
 	position: absolute;
@@ -80,7 +80,7 @@
 		font-size: 1em;
 	}
 	button {
-		@include neos-formbuilder-button;
+		@include neos-form-yamlbuilder-button;
 	}
 
 	a {

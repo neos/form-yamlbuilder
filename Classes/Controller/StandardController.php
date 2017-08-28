@@ -1,8 +1,8 @@
 <?php
-namespace Neos\FormBuilder\Controller;
+namespace Neos\Form\YamlBuilder\Controller;
 
 /*
- * This file is part of the Neos.Formbuilder package.
+ * This file is part of the Neos.Form.YamlBuilder package.
  *
  * (c) Contributors of the Neos Project - www.neos.io
  *
@@ -15,7 +15,7 @@ use Neos\Flow\Annotations as Flow;
 use Neos\Flow\Mvc\Controller\ActionController;
 
 /**
- * Standard controller for the Neos.FormBuilder package
+ * Standard controller for the Neos.Form.YamlBuilder package
  *
  * @Flow\Scope("singleton")
  */

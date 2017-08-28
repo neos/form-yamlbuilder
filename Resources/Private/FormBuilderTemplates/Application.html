@@ -1,21 +1,21 @@
-{{view Neos.FormBuilder.View.Header id="neos-formbuilder-header" tagName="header"}}
+{{view Neos.Form.YamlBuilder.View.Header id="neos-form-yamlbuilder-header" tagName="header"}}
 
-{{view Neos.FormBuilder.View.Stage tagName="section" id="neos-formbuilder-stage"}}
+{{view Neos.Form.YamlBuilder.View.Stage tagName="section" id="neos-form-yamlbuilder-stage"}}
 
-<section id="neos-formbuilder-elementSidebar">
-	<section id="neos-formbuilder-structurePanel">
+<section id="neos-form-yamlbuilder-elementSidebar">
+	<section id="neos-form-yamlbuilder-structurePanel">
 		<h2>Structure</h2>
-		{{view Neos.FormBuilder.View.StructurePanel}}
+		{{view Neos.Form.YamlBuilder.View.StructurePanel}}
 	</section>
-	<section id="neos-formbuilder-insertElementsPanel">
+	<section id="neos-form-yamlbuilder-insertElementsPanel">
 		<h2>Insert elements</h2>
-		{{view Neos.FormBuilder.View.InsertElementsPanel}}
+		{{view Neos.Form.YamlBuilder.View.InsertElementsPanel}}
 	</section>
 </section>
-<section id="neos-formbuilder-elementOptionsPanel">
+<section id="neos-form-yamlbuilder-elementOptionsPanel">
 	<h2>Element Options</h2>
-	{{view Neos.FormBuilder.View.ElementOptionsPanel formElementBinding="Neos.FormBuilder.Model.Form.currentlySelectedRenderable"}}
+	{{view Neos.Form.YamlBuilder.View.ElementOptionsPanel formElementBinding="Neos.Form.YamlBuilder.Model.Form.currentlySelectedRenderable"}}
 </section>
-<footer id="neos-formbuilder-footer">
+<footer id="neos-form-yamlbuilder-footer">
 	<p>Powered by Neos Flow</p>
 </footer>

@@ -1,22 +1,22 @@
-<h4>{{label}}{{#view Ember.Button target="parentView" action="remove" isVisibleBinding="notRequired" class="neos-formbuilder-removeButton"}}Remove{{/view}}</h4>
+<h4>{{label}}{{#view Ember.Button target="parentView" action="remove" isVisibleBinding="notRequired" class="neos-form-yamlbuilder-removeButton"}}Remove{{/view}}</h4>
 
-<div class="neos-formbuilder-controlGroup">
+<div class="neos-form-yamlbuilder-controlGroup">
 	<label>Package Key</label>
-	<div class="neos-formbuilder-controls">
+	<div class="neos-form-yamlbuilder-controls">
 		{{view Ember.TextField valueBinding="currentCollectionElement.options.package"}}
 	</div>
 </div>
 
-<div class="neos-formbuilder-controlGroup">
+<div class="neos-form-yamlbuilder-controlGroup">
 	<label>Controller</label>
-	<div class="neos-formbuilder-controls">
+	<div class="neos-form-yamlbuilder-controls">
 		{{view Ember.TextField valueBinding="currentCollectionElement.options.controller"}}
 	</div>
 </div>
 
-<div class="neos-formbuilder-controlGroup">
+<div class="neos-form-yamlbuilder-controlGroup">
 	<label>Action</label>
-	<div class="neos-formbuilder-controls">
+	<div class="neos-form-yamlbuilder-controls">
 		{{view Ember.TextField valueBinding="currentCollectionElement.options.action"}}
 	</div>
 </div>

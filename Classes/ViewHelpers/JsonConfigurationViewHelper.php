@@ -1,8 +1,8 @@
 <?php
-namespace Neos\FormBuilder\ViewHelpers;
+namespace Neos\Form\YamlBuilder\ViewHelpers;
 
 /*
- * This file is part of the Neos.Formbuilder package.
+ * This file is part of the Neos.Form.YamlBuilder package.
  *
  * (c) Contributors of the Neos Project - www.neos.io
  *
