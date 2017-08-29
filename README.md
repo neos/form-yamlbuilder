@@ -6,6 +6,9 @@ What you are reading now is the entry point of the API documentation. For a gene
 
 *To see the documentation for the specific classes, use the **jump to** menu in the top-right corner of this screen.*
 
+## Related Packages
+
+Make sure to have a look at the other Flow Form Framework [Related Packages](https://github.com/neos/form/#related-packages)
 
 ## Sponsoring
 
@@ -18,11 +21,11 @@ It has been implemented by:
 
 ## License
 
-We license the form builder under the terms of the GNU Lesser General Public License (LGPL) version 2.1 or later versions.
+We license the Form YAML Builder under the terms of the GNU Lesser General Public License (LGPL) version 2.1 or later versions.
 
 ## Extension Points
 
-The Form Builder is meant to be extensible, on the following points:
+The Form YAML Builder is meant to be extensible, on the following points:
 
 - you can adjust the CSS styling
 - you can override Handlebars templates to adjust the HTML markup of the form builder
@@ -132,7 +135,7 @@ The Form Builder has JavaScript unit tests for the model, which can be run by op
 
 ### Names and Conventions
 
-The YAML FormBuilder is structured as follows, and the following
+The Form YAML Builder is structured as follows, and the following
 names are used for it:
 
 	+------------------------------------------------------------+
@@ -325,11 +328,12 @@ Let's say you want to adjust the form builder with a custom CSS file inside ``Yo
 
 ```yaml
 Neos:
-  FormBuilder:
-    stylesheets:
-      customAdjustments:
-        files: ['resource://Your.Package/Public/FormBuilderAdjustments.css']
-        sorting: 200
+  Form:
+    YamlBuilder:
+      stylesheets:
+        customAdjustments:
+          files: ['resource://Your.Package/Public/FormBuilderAdjustments.css']
+          sorting: 200
 ```
 
 Most important is the ``sorting`` property, as it defines the *order in which the CSS files are included*. Every sorting up to 100 is reserved for internal use by the form builder, so you should use sorting numbers above 100 unless you have a good reason to do otherwise.
@@ -344,23 +348,23 @@ Let's say we want to adjust the header of the form builder, such that it display
    has been released! Modification of handlebars templates is useful for **unplanned extensibility**, but you should only
    do it as last resort!
 
-The default template is located inside ``Neos.FormBuilder/Resources/Private/FormBuilderTemplates/Header.html`` and looks as follows:
+The default template is located inside ``Neos.Form.YamlBuilder/Resources/Private/FormBuilderTemplates/Header.html`` and looks as follows:
 
 ```html
-<h1>Form Builder - {{Neos.FormBuilder.Model.Form.formDefinition.label}}</h1>
-{{#if Neos.FormBuilder.Model.Form.currentlyLoadingPreview}}
-   <span id="neos-formbuilder-loading">Loading..</span>
+<h1>Form Builder - {{Neos.Form.YamlBuilder.Model.Form.formDefinition.label}}</h1>
+{{#if Neos.Form.YamlBuilder.Model.Form.currentlyLoadingPreview}}
+   <span id="neos-form-yamlbuilder-loading">Loading..</span>
 {{/if}}
 
-<ul id="neos-formbuilder-toolbar">
-   <li class="neos-formbuilder-preset">
-      {{view Neos.FormBuilder.View.Header.PresetSelector}}
+<ul id="neos-form-yamlbuilder-toolbar">
+   <li class="neos-form-yamlbuilder-preset">
+      {{view Neos.Form.YamlBuilder.View.Header.PresetSelector}}
    </li>
-   <li class="neos-formbuilder-preview">
-      {{#view Neos.FormBuilder.View.Header.PreviewButton class="neos-formbuilder-button icon"}}Preview{{/view}}
+   <li class="neos-form-yamlbuilder-preview">
+      {{#view Neos.Form.YamlBuilder.View.Header.PreviewButton class="neos-form-yamlbuilder-button icon"}}Preview{{/view}}
    </li>
-   <li class="neos-formbuilder-save">
-    {{#view Neos.FormBuilder.View.Header.SaveButton class="neos-formbuilder-button icon"}}Save{{/view}}
+   <li class="neos-form-yamlbuilder-save">
+    {{#view Neos.Form.YamlBuilder.View.Header.SaveButton class="neos-form-yamlbuilder-button icon"}}Save{{/view}}
    </li>
 </ul>
 ```
@@ -368,23 +372,24 @@ The default template is located inside ``Neos.FormBuilder/Resources/Private/Form
 We can just copy it to ``Your.Package/Resources/Private/FormBuilderTemplates/Header.html`` and adjust it as needed, modifying the part inside the ``<h1>...</h1>`` to:
 
 ```html
-<h1>Your Company Form Builder - {{Neos.FormBuilder.Model.Form.formDefinition.label}}</h1>
+<h1>Your Company Form Builder - {{Neos.Form.YamlBuilder.Model.Form.formDefinition.label}}</h1>
 ```
 
 Then, we need to tell the form builder that we want to use a different handlebars template for the header. For that, we need the following ``Settings.yaml``:
 
 ```yaml
 Neos:
-  FormBuilder:
-    handlebarsTemplates:
-      Header: 'resource://Your.Package/Private/FormBuilderTemplates/Header.html'
+  Form:
+    YamlBuilder:
+      handlebarsTemplates:
+        Header: 'resource://Your.Package/Private/FormBuilderTemplates/Header.html'
 ```
 
-> **Warning:** Make sure that your package is loaded **after the FormBuilder package** if you want to override such settings.
+> **Warning:** Make sure that your package is loaded **after the Neos.Form.YamlBuilder package** if you want to override such settings.
 
 ### Creating a Custom Editor
 
-Every form element is edited on the right side of the Form Builder in the *element options panel*. In order to be flexible and extensible, the element options panel is a container for **editors** which, as a whole, edit the form element. There are a multitude of predefined editors, ranging from a simple text input field up to a grid widget for editing properties.
+Every form element is edited on the right side of the Form YAML Builder in the *element options panel*. In order to be flexible and extensible, the element options panel is a container for **editors** which, as a whole, edit the form element. There are a multitude of predefined editors, ranging from a simple text input field up to a grid widget for editing properties.
 
 All editors for a given form element are defined inside the ``formElementTypes`` definition, looking as follows:
 
@@ -419,9 +424,9 @@ Neos.Form.YamlBuilder.View.ElementOptionsPanel.Editor.SelectEditor = AbstractPro
 Then, we will create a basic handlebars template and register it underneath ``ElementOptionsPanel-SelectEditor`` (as described above). We'll just copy over an existing editor template and slightly adjust it:
 
 ```html
-<div class="neos-formbuilder-controlGroup">
+<div class="neos-form-yamlbuilder-controlGroup">
    <label>{{label}}:</label>
-   <div class="neos-formbuilder-controls">
+   <div class="neos-form-yamlbuilder-controls">
       [select should come here]
    </div>
 </div>
@@ -438,7 +443,7 @@ Now that we have all the pieces ready, let's actually use the editor inside the 
     editors:
       allowedExtensions:
         sorting: 200
-        viewName: 'Neos.FormBuilder.View.ElementOptionsPanel.Editor.SelectEditor'
+        viewName: 'Neos.Form.YamlBuilder.View.ElementOptionsPanel.Editor.SelectEditor'
 ```
 
 After reloading the form builder, you will see that the file upload field has a field: ``[select should come here]`` displayed inside the element options panel.
@@ -456,7 +461,7 @@ allowedExtensions:
   sorting: 200
   label: 'Allowed File Types'
   propertyPath: 'properties.allowedExtensions'
-  viewName: 'Neos.FormBuilder.View.ElementOptionsPanel.Editor.SelectEditor'
+  viewName: 'Neos.Form.YamlBuilder.View.ElementOptionsPanel.Editor.SelectEditor'
   availableElements:
     0:
       value: ['doc', 'docx', 'odt', 'pdf']
@@ -540,10 +545,10 @@ Neos:
                     'Your.Package:DatabaseFinisher':
                       label: 'Database Persistence Finisher'
                       templateName: 'Finisher-YourPackage-DatabaseFinisher'
-  FormBuilder:
-    handlebarsTemplates:
-      # include the handlebars template
-      Finisher-YourPackage-DatabaseFinisher: 'resource://Your.Package/Private/FormBuilderTemplates/DatabaseFinisher.html'
+    YamlBuilder:
+      handlebarsTemplates:
+        # include the handlebars template
+        Finisher-YourPackage-DatabaseFinisher: 'resource://Your.Package/Private/FormBuilderTemplates/DatabaseFinisher.html'
 ```
 
 Now, you only need to include the appropriate Handlebars template, which could look as follows:
@@ -553,12 +558,12 @@ Now, you only need to include the appropriate Handlebars template, which could l
    {{label}}
    {{#view Ember.Button target="parentView" action="remove"
                         isVisibleBinding="notRequired"
-                        class="neos-formbuilder-removeButton"}}Remove{{/view}}
+                        class="neos-form-yamlbuilder-removeButton"}}Remove{{/view}}
 </h4>
 
-<div class="neos-formbuilder-controlGroup">
+<div class="neos-form-yamlbuilder-controlGroup">
    <label>Database Table</label>
-   <div class="neos-formbuilder-controls">
+   <div class="neos-form-yamlbuilder-controls">
       {{view Ember.TextField valueBinding="currentCollectionElement.options.databaseTable"}}
    </div>
 </div>
