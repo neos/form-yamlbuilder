@@ -5,7 +5,7 @@
     "description": "Graphical User Interface for creating and editing Forms based on the Flow Form Framework",
     "require": {
         "neos/flow": "^4.1",
-        "neos/form": "^5.0"
+        "neos/form": "^4.1"
     },
     "autoload": {
         "psr-4": {
