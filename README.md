@@ -45,18 +45,17 @@ which looks as follows:
 
 ```yaml
 Neos:
-  Form
+  Form:
     YamlBuilder:
       stylesheets:
-	slickGrid:
-	  sorting: 10
-	  files: ['resource://Neos.Form.YamlBuilder/Public/Library/SlickGrid/slick.grid.wrapped.css']
-	# … some more definitions here …
-	application:
-	  sorting: 100
-	  files: ['resource://Neos.Form.YamlBuilder/Public/Css/FormBuilder.css']
+        slickGrid:
+          sorting: 10
+          files: ['resource://Neos.Form.YamlBuilder/Public/Library/SlickGrid/slick.grid.wrapped.css']
+        # … some more definitions here …
+        application:
+          sorting: 100
+          files: ['resource://Neos.Form.YamlBuilder/Public/Css/FormBuilder.css']
 ```
-	  files: ['resource://Neos.Form.YamlBuilder/Public/Css/FormBuilder.css']
 
 Underneath `Neos.Form.YamlBuilder.stylesheets` resides a list of "bundles" which need to be included. For each
 bundle, the `files` array points to resources which should be included appropriately. The `sorting` determines the inclusion order (low numbers are included first).
@@ -68,7 +67,7 @@ Neos:
   Form:
     YamlBuilder:
       stylesheets:
-	slickGrid: NULL
+        slickGrid: ~
 ```
 
 Inclusion and modification of the **JavaScript files** can be done in exactly the same manner.
@@ -84,8 +83,8 @@ Neos:
   Form:
     YamlBuilder:
       handlebarsTemplates:
-	ValidatorEditor: resource://Neos.Form.YamlBuilder/Private/Templates/FormBuilder/ValidatorEditor.html
-	# here follow lots of other handlebars templates
+        ValidatorEditor: 'resource://Neos.Form.YamlBuilder/Private/Templates/FormBuilder/ValidatorEditor.html'
+        # here follow lots of other handlebars templates
 ```
 
 Underneath the `handlebarsTemplates`, an associative array is stored where the *key* is the **templateName** as being used in `Ember.View`, and the *value* is the filesystem location where the template is stored.
@@ -221,22 +220,22 @@ formElementTypes:
 
       # here follow the form builder specific options
       formBuilder:
-	group: custom
-	label: 'Programming Language Select'
-
-	# we now set some defaults which are applied once the form element is inserted to the form
-	predefinedDefaults:
-	  properties:
-	    options:
-	      0:
-		_key: 'php'
-		_value: 'PHP'
-	      1:
-		_key: 'java'
-		_value: 'Java etc'
-	      2:
-		_key: 'js'
-		_value: 'JavaScript'
+        group: custom
+        label: 'Programming Language Select'
+      
+        # we now set some defaults which are applied once the form element is inserted to the form
+        predefinedDefaults:
+          properties:
+            options:
+              0:
+            _key: 'php'
+            _value: 'PHP'
+              1:
+            _key: 'java'
+            _value: 'Java etc'
+              2:
+            _key: 'js'
+            _value: 'JavaScript'
 ```
 
 #### Contrasting Use Case: Gender Selection
@@ -260,8 +259,8 @@ formElementTypes:
   'Neos.FormExample:GenderSelect':
     formBuilder:
       editors:
-	# Disable "options" editor
-	options: null
+        # Disable "options" editor
+        options: ~
 ```
 
 > **Tip:** The same distinction between using ``formBuilder:predefinedDefaults`` and the form element type definition directly can also be used to add other elements like ``Validators`` or ``Finishers``.
@@ -279,11 +278,11 @@ formElementTypes:
   'Neos.Form:TextMixin': # or any other type here
     formBuilder:
       editors:
-	validation:
-	  availableValidators:
-	    'Neos.Flow:StringLength': # or any other validator
-	      # mark this validator required such that it is always shown.
-	      required: true
+        validation:
+          availableValidators:
+            'Neos.Flow:StringLength': # or any other validator
+              # mark this validator required such that it is always shown.
+              required: true
 ```
 
 #### Finishers
@@ -296,11 +295,11 @@ formElementTypes:
   'Neos.Form:Form':
     formBuilder:
       editors:
-	finishers:
-	  availableFinishers:
-	    'Neos.Form:Email': # or any other finisher
-	      # mark this finisher required such that it is always shown.
-	      required: true
+        finishers:
+          availableFinishers:
+            'Neos.Form:Email': # or any other finisher
+              # mark this finisher required such that it is always shown.
+              required: true
 ```
 
 
