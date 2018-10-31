@@ -4,7 +4,7 @@
     "license": "LGPL-2.1",
     "description": "Graphical User Interface for creating and editing Forms based on the Flow Form Framework",
     "require": {
-        "neos/flow": "^4.1",
+        "neos/flow": ">=4.1 <6.0 || dev-master",
         "neos/form": "^4.1"
     },
     "autoload": {
