@@ -1,21 +1,21 @@
-#neos-formbuilder-elementOptionsPanel {
+#neos-form-yamlbuilder-elementOptionsPanel {
   /*
   IMPORTANT:
   In order to preserve the uniform grid appearance, all cell styles need to have padding, margin and border sizes.
   No built-in (selected, editable, highlight, flashing, invalid, loading, :focus) or user-specified CSS
   classes should alter those!
   */ }
-  #neos-formbuilder-elementOptionsPanel .slick-header.ui-state-default, #neos-formbuilder-elementOptionsPanel .slick-headerrow.ui-state-default {
+  #neos-form-yamlbuilder-elementOptionsPanel .slick-header.ui-state-default, #neos-form-yamlbuilder-elementOptionsPanel .slick-headerrow.ui-state-default {
     width: 100%;
     overflow: hidden;
     border-left: 0px; }
-  #neos-formbuilder-elementOptionsPanel .slick-header-columns, #neos-formbuilder-elementOptionsPanel .slick-headerrow-columns {
+  #neos-form-yamlbuilder-elementOptionsPanel .slick-header-columns, #neos-form-yamlbuilder-elementOptionsPanel .slick-headerrow-columns {
     width: 999999px;
     position: relative;
     white-space: nowrap;
     cursor: default;
     overflow: hidden; }
-  #neos-formbuilder-elementOptionsPanel .slick-header-column.ui-state-default {
+  #neos-form-yamlbuilder-elementOptionsPanel .slick-header-column.ui-state-default {
     position: relative;
     display: inline-block;
     overflow: hidden;
@@ -29,20 +29,20 @@
     border-top: 0px;
     border-bottom: 0px;
     float: left; }
-  #neos-formbuilder-elementOptionsPanel .slick-headerrow-column.ui-state-default {
+  #neos-form-yamlbuilder-elementOptionsPanel .slick-headerrow-column.ui-state-default {
     padding: 4px; }
-  #neos-formbuilder-elementOptionsPanel .slick-header-column-sorted {
+  #neos-form-yamlbuilder-elementOptionsPanel .slick-header-column-sorted {
     font-style: italic; }
-  #neos-formbuilder-elementOptionsPanel .slick-sort-indicator {
+  #neos-form-yamlbuilder-elementOptionsPanel .slick-sort-indicator {
     display: inline-block;
     width: 8px;
     height: 5px;
     margin-left: 4px; }
-  #neos-formbuilder-elementOptionsPanel .slick-sort-indicator-desc {
+  #neos-form-yamlbuilder-elementOptionsPanel .slick-sort-indicator-desc {
     background: url(images/sort-desc.gif); }
-  #neos-formbuilder-elementOptionsPanel .slick-sort-indicator-asc {
+  #neos-form-yamlbuilder-elementOptionsPanel .slick-sort-indicator-asc {
     background: url(images/sort-asc.gif); }
-  #neos-formbuilder-elementOptionsPanel .slick-resizable-handle {
+  #neos-form-yamlbuilder-elementOptionsPanel .slick-resizable-handle {
     position: absolute;
     font-size: 0.1px;
     display: block;
@@ -51,15 +51,15 @@
     right: 0px;
     top: 0;
     height: 100%; }
-  #neos-formbuilder-elementOptionsPanel .slick-sortable-placeholder {
+  #neos-form-yamlbuilder-elementOptionsPanel .slick-sortable-placeholder {
     background: silver; }
-  #neos-formbuilder-elementOptionsPanel .grid-canvas {
+  #neos-form-yamlbuilder-elementOptionsPanel .grid-canvas {
     position: relative;
     outline: 0; }
-  #neos-formbuilder-elementOptionsPanel .slick-row.ui-widget-content, #neos-formbuilder-elementOptionsPanel .slick-row.ui-state-active {
+  #neos-form-yamlbuilder-elementOptionsPanel .slick-row.ui-widget-content, #neos-form-yamlbuilder-elementOptionsPanel .slick-row.ui-state-active {
     position: absolute;
     border: 0px; }
-  #neos-formbuilder-elementOptionsPanel .slick-cell, #neos-formbuilder-elementOptionsPanel .slick-headerrow-column {
+  #neos-form-yamlbuilder-elementOptionsPanel .slick-cell, #neos-form-yamlbuilder-elementOptionsPanel .slick-headerrow-column {
     position: absolute;
     border: 1px solid transparent;
     border-right: 1px dotted silver;
@@ -73,37 +73,39 @@
     margin: 0;
     white-space: nowrap;
     cursor: default; }
-  #neos-formbuilder-elementOptionsPanel .slick-group-toggle {
+  #neos-form-yamlbuilder-elementOptionsPanel .slick-group-toggle {
     display: inline-block; }
-  #neos-formbuilder-elementOptionsPanel .slick-cell.highlighted {
+  #neos-form-yamlbuilder-elementOptionsPanel .slick-cell.highlighted {
     background: lightskyblue;
     background: rgba(0, 0, 255, 0.2);
     -webkit-transition: all 0.5s;
     -moz-transition: all 0.5s;
     transition: all 0.5s; }
-  #neos-formbuilder-elementOptionsPanel .slick-cell.flashing {
+  #neos-form-yamlbuilder-elementOptionsPanel .slick-cell.flashing {
     border: 1px solid red !important; }
-  #neos-formbuilder-elementOptionsPanel .slick-cell.editable {
+  #neos-form-yamlbuilder-elementOptionsPanel .slick-cell.editable {
     z-index: 11;
     overflow: visible;
     background: white;
     border-color: black;
     border-style: solid; }
-  #neos-formbuilder-elementOptionsPanel .slick-cell:focus {
+  #neos-form-yamlbuilder-elementOptionsPanel .slick-cell:focus {
     outline: none; }
-  #neos-formbuilder-elementOptionsPanel .slick-reorder-proxy {
+  #neos-form-yamlbuilder-elementOptionsPanel .slick-reorder-proxy {
     display: inline-block;
     background: blue;
     opacity: 0.15;
     filter: alpha(opacity=15);
     cursor: move; }
-  #neos-formbuilder-elementOptionsPanel .slick-reorder-guide {
+  #neos-form-yamlbuilder-elementOptionsPanel .slick-reorder-guide {
     display: inline-block;
     height: 2px;
     background: blue;
     opacity: 0.7;
     filter: alpha(opacity=70); }
-  #neos-formbuilder-elementOptionsPanel .slick-selection {
+  #neos-form-yamlbuilder-elementOptionsPanel .slick-selection {
     z-index: 10;
     position: absolute;
     border: 2px dashed black; }
+
+/*# sourceMappingURL=slick.grid.wrapped.css.map */

@@ -108,17 +108,22 @@ In order to implement custom editors, you need to do the following:
 
 If you want to develop the core of the Form Builder, then you need to know the things outlined in the following section.
 
+### Frontend Dev/Build Environment with Docker
+
+Because we need NPM, Gem and CoffeeScript in specific versions, we have changed
+the frontend build process to be encapsulated in Docker.
+
+Everything outlined below is still correct; but it runs in a docker environment.
+
+Installation:
+
+- ensure you have Docker installed
+- run `make build`
+
 ### CoffeeScript, SASS, API Documentation
 
 This project uses CoffeeScript as JavaScript preprocessor, and SASS as CSS preprocessor.
 Furthermore, it uses the docco-husky project for rendering documentation.
-
-Installation:
-
-- install Node.JS
-- install a working ruby environment
-- `gem install sass compass`
-- `npm install -g coffee-script docco-husky`
 
 Then, you can run `cake` in the top-level directory of the package, and will get a list
 of build targets you can execute. The following targets exist:
