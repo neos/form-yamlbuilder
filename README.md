@@ -4,8 +4,6 @@ This package implements a web-based IDE which can be used to create and edit YAM
 
 What you are reading now is the entry point of the API documentation. For a general introduction and usage examples, we suggest the documentation included in the Neos.Form package.
 
-*To see the documentation for the specific classes, use the **jump to** menu in the top-right corner of this screen.*
-
 ## Related Packages
 
 Make sure to have a look at the other Flow Form Framework [Related Packages](https://github.com/neos/form/#related-packages)
