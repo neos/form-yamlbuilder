@@ -578,7 +578,7 @@ Now, you only need to include the appropriate Handlebars template, which could l
 
 ### Configuring a custom form factory
 
-If needed, you can implement your custom form factories und configure them to be used for diffrent pesets indually.
+If needed, you can implement your custom form factories und configure them to be used for diffrent presets indually.
 
 ```yaml
 Neos:
@@ -589,3 +589,5 @@ Neos:
           formFactories:
             myFormPersitenceIdentifier: '\MyVendor\MyPackage\PathTo\MyFormFactory'
 ```
+
+With this configurtion, your custom form factory will be used for generating your custom form when rendering the form for the preview or edit views of the form.
