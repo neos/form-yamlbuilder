@@ -14,6 +14,9 @@ namespace Neos\Form\YamlBuilder\Controller;
 use Neos\Flow\Configuration\ConfigurationManager;
 use Neos\Flow\Exception;
 use Neos\Flow\Mvc\Controller\ActionController;
+use Neos\Flow\Mvc\Exception\StopActionException;
+use Neos\Form\Factory\ArrayFormFactory;
+use Neos\Form\Persistence\FormPersistenceManagerInterface;
 use Symfony\Component\Yaml\Yaml;
 use Neos\Flow\Annotations as Flow;
 
@@ -27,7 +30,7 @@ class FormManagerController extends ActionController
 
     /**
      * @Flow\Inject
-     * @var \Neos\Form\Persistence\FormPersistenceManagerInterface
+     * @var FormPersistenceManagerInterface
      */
     protected $formPersistenceManager;
 
@@ -78,11 +81,21 @@ class FormManagerController extends ActionController
             $presetName = $this->settings['defaultPreset'];
         }
 
+        $formFactoryClass = ArrayFormFactory::class;
+
+        if (array_key_exists('formFactories', $this->formSettings['presets'][$presetName])
+            && array_key_exists($formPersistenceIdentifier, $this->formSettings['presets'][$presetName]['formFactories'])
+        ) {
+            $formFactoryClass = $this->formSettings['presets'][$presetName]['formFactories'][$formPersistenceIdentifier];
+        }
+
         $this->view->assign('formPersistenceIdentifier', $formPersistenceIdentifier);
         $this->view->assign('presetName', $presetName);
+        $this->view->assign('formFactoryClass', $formFactoryClass);
         $availablePresets = [];
-        foreach ($this->formSettings['presets'] as $presetName => $presetConfiguration) {
-            $availablePresets[$presetName] = isset($presetConfiguration['title']) ? $presetConfiguration['title'] : sprintf('[%s]', $presetName);
+
+        foreach ($this->formSettings['presets'] as $fromPresetName => $presetConfiguration) {
+            $availablePresets[$fromPresetName] = isset($presetConfiguration['title']) ? $presetConfiguration['title'] : sprintf('[%s]', $fromPresetName);
         }
         $this->view->assign('availablePresets', $availablePresets);
     }
@@ -93,6 +106,8 @@ class FormManagerController extends ActionController
      * @param string $formName
      * @param string $templatePath
      * @return void
+     * @throws Exception
+     * @throws StopActionException
      */
     public function createAction($formName, $templatePath)
     {
@@ -102,7 +117,6 @@ class FormManagerController extends ActionController
         $form = Yaml::parse(file_get_contents($templatePath));
         $form['label'] = $formName;
         $formIdentifier = $this->convertFormNameToIdentifier($formName);
-        ;
         $form['identifier'] = $formIdentifier;
 
         $formPersistenceIdentifier = $this->findUniquePersistenceIdentifier($formIdentifier);
@@ -117,6 +131,8 @@ class FormManagerController extends ActionController
      * @param string $formName
      * @param string $formPersistenceIdentifier persistence identifier of the form to duplicate
      * @return void
+     * @throws Exception
+     * @throws StopActionException
      */
     public function duplicateAction($formName, $formPersistenceIdentifier)
     {
@@ -148,6 +164,7 @@ class FormManagerController extends ActionController
      *
      * @param string $formIdentifier lowerCamelCased form identifier
      * @return string unique form persistence identifier
+     * @throws Exception
      */
     protected function findUniquePersistenceIdentifier($formIdentifier)
     {

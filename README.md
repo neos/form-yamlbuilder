@@ -33,6 +33,7 @@ The Form YAML Builder is meant to be extensible, on the following points:
   by subclassing `Neos.Form.YamlBuilder.View.Editor.ValidatorEditor.DefaultValidatorEditor`
 - you can write **new finisher editors** which are displayed underneath the *finishers*, in a process
   similar to creating new validator editors.
+- you can configure your custom form factories for every preset individually
 
 **If you want to extend the form builder, EmberJS and JavaScript knowledge is required.**
 
@@ -228,7 +229,7 @@ formElementTypes:
       formBuilder:
         group: custom
         label: 'Programming Language Select'
-      
+
         # we now set some defaults which are applied once the form element is inserted to the form
         predefinedDefaults:
           properties:
@@ -574,3 +575,19 @@ Now, you only need to include the appropriate Handlebars template, which could l
 
 > **Tip:** Creating a custom *validator editor* works in the same way, just that they have to be registered
    underneath ``validatorPresets`` and the editor is called ``validators`` instead of ``finishers``.
+
+### Configuring a custom form factory
+
+If needed, you can implement your custom form factories und configure them to be used for diffrent presets indually.
+
+```yaml
+Neos:
+  Form:
+    YamlBuilder:
+      presets:
+        myPreset:
+          formFactories:
+            myFormPersitenceIdentifier: '\MyVendor\MyPackage\PathTo\MyFormFactory'
+```
+
+With this configurtion, your custom form factory will be used for generating your custom form when rendering the form for the preview or edit views of the form.

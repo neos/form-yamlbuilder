@@ -11,9 +11,11 @@ namespace Neos\Form\YamlBuilder\Controller;
  * source code.
  */
 
+use Neos\Flow\Configuration\ConfigurationManager;
 use Neos\Flow\Mvc\Controller\ActionController;
 use Neos\Form\Factory\ArrayFormFactory;
 use Neos\Flow\Annotations as Flow;
+use Neos\Form\Persistence\FormPersistenceManagerInterface;
 
 /**
  * Standard controller for the Neos.Form.YamlBuilder package
@@ -24,10 +26,32 @@ class EditorController extends ActionController
 {
     /**
      * @Flow\Inject
-     * @var \Neos\Form\Persistence\FormPersistenceManagerInterface
+     * @var FormPersistenceManagerInterface
      */
     protected $formPersistenceManager;
 
+    /**
+     * The settings of the Neos.Form package
+     *
+     * @var array
+     * @api
+     */
+    protected $formSettings;
+
+    /**
+     * @Flow\Inject
+     * @var ConfigurationManager
+     * @internal
+     */
+    protected $configurationManager;
+
+    /**
+     * @internal
+     */
+    public function initializeObject()
+    {
+        $this->formSettings = $this->configurationManager->getConfiguration(ConfigurationManager::CONFIGURATION_TYPE_SETTINGS, 'Neos.Form');
+    }
     /**
      * Displays the example form
      *
@@ -53,6 +77,10 @@ class EditorController extends ActionController
         $this->view->assign('presetName', $presetName);
     }
 
+    /**
+     * @param $input
+     * @return array
+     */
     protected function filterAndSortArray($input)
     {
         $input = array_filter($input, function ($element) {
@@ -67,7 +95,7 @@ class EditorController extends ActionController
 
     /**
      * @param string $formPersistenceIdentifier
-     * @return array
+     * @return false|string
      */
     public function loadformAction($formPersistenceIdentifier)
     {
@@ -97,7 +125,17 @@ class EditorController extends ActionController
         if ($presetName === null) {
             $presetName = $this->settings['defaultPreset'];
         }
-        $formFactory = new ArrayFormFactory();
+        $formIdentifier = $formDefinition['identifier'];
+
+        $factoryClass = ArrayFormFactory::class;
+
+        if (array_key_exists('formFactories', $this->formSettings['presets'][$presetName])
+            && array_key_exists($formIdentifier, $this->formSettings['presets'][$presetName]['formFactories'])
+        ) {
+            $factoryClass = $this->formSettings['presets'][$presetName]['formFactories'][$formIdentifier];
+        }
+
+        $formFactory = $this->objectManager->get($factoryClass);
         $formDefinition = $formFactory->build($formDefinition, $presetName);
         $formDefinition->setRenderingOption('previewMode', true);
         $form = $formDefinition->bind($this->request, $this->response);

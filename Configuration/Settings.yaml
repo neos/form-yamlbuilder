@@ -413,3 +413,6 @@ Neos:
                       label: 'Number of submitted values'
                       sorting: 100
                       viewName: 'Neos.Form.YamlBuilder.View.ElementOptionsPanel.Editor.ValidatorEditor.MinimumMaximumValidatorEditor'
+
+        #formFactories:
+          #myFormPersitenceIdentifier: '\MyVendor\MyPackage\PathTo\MyFormFactory'
